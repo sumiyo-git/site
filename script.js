@@ -8,6 +8,8 @@
 
 
 
+env.data.version.main = '1.0.21'
+
 // 通知列表
 env.data.list.notice = [
 	{
@@ -52,6 +54,8 @@ env.timer.t2 = null
 	env.timer.t1
 	env.timer.t2
 */
+
+
 
 // 剔除博客中被隐藏的文章
 env.f.filter = function(arr, key, value) {
@@ -147,22 +151,22 @@ env.f.getDate = function() {
 
 // iframe 通讯
 env.f.post = function(event) {
-	document.getElementById('iframe').contentWindow.postMessage(event, document.domain.length == 0 && '*' || '/')
+	document.querySelector('iframe').contentWindow.postMessage(event, document.domain.length == 0 && '*' || '/')
 }
 
 // iframe 重定向
 env.f.linkto = function(id) {
-	$('.iframe').fadeOut(300)
+	$('iframe').fadeOut(300)
 	env.f.page.loading()
 
 	setTimeout(function (){
 		env.data.change = 1
 		if (!env.data.isNetwork) {
-			env.f.url.change('id', id)
-			document.getElementById('iframe').src = 'blog/' + id + '/page.html'
+			env.f.url.set('id', id)
+			document.querySelector('iframe').src = 'blog/' + id + '/page.html'
 		} else {
 			history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/blog?id=' + id)
-			document.getElementById('iframe').src = window.location.href.split('link',1)[0] + 'link/blog/' + id + '/page'
+			document.querySelector('iframe').src = window.location.href.split('link',1)[0] + 'link/blog/' + id + '/page'
 		}
 	},400)
 }
@@ -179,7 +183,7 @@ env.f.url = {}
 	}
 
 	// 修改
-	env.f.url.change = function(name, value) {
+	env.f.url.set = function(name, value) {
 		let url = location.href
 		let url2
 
@@ -226,13 +230,25 @@ env.f.url = {}
 		history.replaceState(null, null, url2)
 	}
 
+	// 读取
+	env.f.url.get = function(name) {
+		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+		var r = window.location.search.substr(1).match(reg);
+		var context = "";
+		if (r != null)
+			context = decodeURIComponent(r[2]);
+			reg = null;
+			r = null;
+			return context == null || context == "" || context == undefined ? undefined : context;
+	}
+
 // 博客框架
 env.f.blog = {}
 	env.f.blog.open = function(id) {
 		// 打开博客界面
 		env.f.page.loading()
 
-		$('.iframe').css('display', 'none')
+		$('iframe').css('display', 'none')
 		$('.blog').fadeIn(300)
 		$('.blog').addClass('blog-active')
 
@@ -240,18 +256,13 @@ env.f.blog = {}
 			// 跳转指定文章
 			env.data.change = 1
 			if (!env.data.isNetwork) {
-				env.f.url.change('id', id)
-				document.getElementById('iframe').src = 'blog/' + id + '/page.html'
+				env.f.url.set('id', id)
+				document.querySelector('iframe').src = 'blog/' + id + '/page.html'
 			} else {
 				history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/blog?id=' + id)
-				document.getElementById('iframe').src = window.location.href.split('link',1)[0] + 'link/blog/' + id + '/page'
+				document.querySelector('iframe').src = window.location.href.split('link',1)[0] + 'link/blog/' + id + '/page'
 			}
-
-			$('.menu-btn-3').css('transition', '0.3s')
 		},400)
-
-		// 返回按钮
-		$('.menu-btn-3').fadeIn(400)
 	}
 
 	env.f.blog.close = function() {
@@ -259,9 +270,7 @@ env.f.blog = {}
 		env.f.page.loading.stop()
 
 		$('.blog').fadeOut(600)
-		$('.iframe').fadeOut(600)
-		$('.menu-btn-3').css('transition', 'none')
-		$('.menu-btn-3').fadeOut(400)
+		$('iframe').fadeOut(600)
 		$('.blog').removeClass('blog-active')
  
 		if (document.domain!='') {
@@ -269,15 +278,16 @@ env.f.blog = {}
 		} else {
 			env.f.url.clear()
 		}
-		if(player.data.subwin == 1) {
+		if(player.data.ask == 1) {
 			player.f.add.ask(0)
 		}
 
 		$('title').text('sumiyo.link')
+		if (!env.data.isLoad) {env.f.init()}
 
 		setTimeout(function (){
 			env.data.change = 1
-			document.getElementById('iframe').src = ''
+			document.querySelector('iframe').src = ''
 		},400)
 	}
 
@@ -339,10 +349,12 @@ env.f.initList = function() {
 
 
 	// 通知
-	var NoticeList = document.querySelectorAll(".news-box")
-	var notice = env.data.list.notice
+	var NoticeList = document.querySelector('.MenuCheck2-inner')
 	for (var i = 0; i < 5; i++) {
-		NoticeList[i].innerHTML = '<span class="news-date" >' + notice[i]['date'] + '</span><span title="' + notice[i]['content'] + '" >' + notice[i]['event'] + '</span>'
+		var div = document.createElement('div')
+			div.setAttribute('class', 'news-box')
+			div.innerHTML = '<span class="news-date" >' + env.data.list.notice[i]['date'] + '</span><span title="' + env.data.list.notice[i]['content'] + '" >' + env.data.list.notice[i]['event'] + '</span>'
+			NoticeList.appendChild(div)
 	}
 
 }
@@ -385,25 +397,23 @@ env.f.menu = {}
 .addClass('ok')
 			$('ul')
 .addClass('wait')
-			$('.menu-btn-1').css('cursor', 'progress')
 			env.f.initList()
 
 			setTimeout(function (){
 				$('ul')
 .removeClass('wait')
 				$('.menu').addClass('menu-active')
-				$('.menu-btn-2').fadeIn(300)
-				$('.menu-btn-1').css('cursor', '')
-			}, 1000)
+				$('btn2').fadeIn(300)
+			}, 600)
 		} else {
 			$('.menu').addClass('menu-active')
-			$('.menu-btn-2').fadeIn(300)
+			$('btn2').fadeIn(300)
 		}
 	}
 
 		env.f.menu.close = function() {
  			$('.menu').removeClass('menu-active')
-			$('.menu-btn-2').fadeOut(300)
+			$('btn2').fadeOut(300)
 		}
 
 	env.f.menu.c1 = function() {
@@ -473,7 +483,7 @@ env.f.page = {}
 
 		setTimeout(function (){
 			env.f.page.loading.stop()
-			$('.iframe').fadeIn(400)
+			$('iframe').fadeIn(400)
 		},1000)
 	}
 
@@ -482,8 +492,59 @@ env.f.typewriter1 = function() {
 		strings: ['私のサイト、^400私一人の^200世界です。'],
 		typeSpeed: 90,
 		showCursor: false,
-		contentType: 'html',
 	})
+}
+
+env.f.init = function() {
+	if (!env.data.isLoad) {
+		var id = env.f.url.get('id')
+		if (id) {
+			var list = env.data.list.Bloglist
+			var n = list.length
+
+			for (var i = 0; i < n; i++) {
+				if (list[i]['src'] == id + '/') {
+					env.f.blog.open(id)
+					break
+				} else {
+					if (i == n - 1) {
+						env.f.blog.open('page/oops')
+					}
+				}
+			}
+
+			$('body').removeAttr('style')
+		} else {
+			$('title').text('sumiyo.link')
+			env.f.url.clear()
+			history.pushState(null, null, location.href)
+			env.data.isLoad = 1
+
+			document.querySelector('.avatar').src = env.data.avatar
+		}
+
+		setTimeout(function (){player.f.loadPlayer()}, 2000)
+	} else {
+		env.timer.t1 = setInterval(() => {
+			if (!document.hidden) {
+				setTimeout(function (){
+					env.f.msg('Hello 🎉', 3000)
+				},2500);
+				setTimeout(function (){
+					$('.t-39').addClass('t-3-active')
+					env.f.typewriter1()
+				},1500);
+				setTimeout(function (){
+					document.querySelector('.box-1').querySelector('header').removeAttribute('style')
+					$('.avatar').removeAttr('style')
+					$('body').removeAttr('style')
+					$('.t-3').addClass('t-3-active')
+				},1000);
+
+				clearInterval(env.timer.t1)
+			}
+		},500)
+	}
 }
 
 
@@ -493,18 +554,11 @@ env.f.typewriter1 = function() {
 
 // 设置环境变量
 env.data.uptime = env.f.getDate()
-env.data.visitors = 0
 env.data.browser = env.f.getBrowser()
-env.data.lang = navigator.language
-env.data.isMobile = $(window).width() < 900 && true || false
-env.data.isNetwork = document.domain != '' && true || false
-env.data.isNew = null
 env.data.change = 0
 
-$('title').text('sumiyo.link')
-history.pushState(null, null, location.href)
+env.f.init()
 
-env.f.url.clear()
 
 
 // 设置全局监听器
@@ -556,7 +610,7 @@ window.addEventListener('load',function(){
 })
 
 // 检测到后退，前进时，直接关闭博客页面
-$('#iframe').on('load', function() {
+$('iframe').on('load', function() {
 	if (env.data.change != 1) {
 		env.f.blog.close()
 		env.data.change = 0
@@ -572,11 +626,13 @@ $('#iframe').on('load', function() {
 
 setTimeout(console.log.bind(
 	console, 
-	'\n%c THEME %c S E K A I %c		ver.1.0.21\n',
+	'\n%c THEME %c S E K A I %c		ver.' + env.data.version.main + '\n',
 	'background-color: rgba(57, 145, 216, 0.5); color: white; font-weight: bolder;',
 	'background-color: rgba(57, 145, 216, 0.3); color: white;',
 	'color: rgba(192, 194, 194, 1);',
 ));
+
+
 
 if (window.jQuery) {env.tmp.t2 = 'ok'}
 

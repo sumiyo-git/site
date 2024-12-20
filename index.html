@@ -23,64 +23,37 @@
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 	<link rel="preload" as="font" href="src/Poppins Regular.woff2" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="css/player.css"  />
-	<link rel="stylesheet" type="text/css" href="css/hint.css" />
 
 </head>
 
 
 
-<body style="pointer-events: none;" id="body" >
+<body style="pointer-events: none;" >
 <script>
 	// 定义核心变量
-	const env = {data: {}, f: {}, tmp: {}, timer: {}}
-	env.tmp.t1 = new Date()
-	env.data.list = {}
-
-	// 初始化界面
-	env.f.init = function() {
-		env.timer.t1 = setInterval(() => {
-			if (!document.hidden) {
-				setTimeout(function (){
-					$('.footer').fadeIn(300); 
-					player.f.loadPlayer();
-					env.f.msg('Hello 🎉', 3000);
-
-					// 显示菜单按钮
-					$('.menu-btn-1').addClass('fade-in-1');
-					$('.t-36').addClass('fade-in-1');
-
-					// 激活页面
-					$('#body').removeAttr('style');
-
-				},2500);
-				setTimeout(function (){
-					$('.t-39').addClass('t-3-active');
-					env.f.typewriter1();
-				},1500);
-				setTimeout(function (){
-					$('.Avatar').removeAttr('style');
-					$('.Avatar').css('opacity', '1');
-					$('.t-3').addClass('t-3-active');
-				},1000);
-
-				clearInterval(env.timer.t1)
-			}
-		},500)
+	const env = {
+		'data': {
+			'version': {},
+			'list': {},
+			'visitors': 0,
+			'lang': navigator.language,
+			'avatar': 'src/sumiyo.webp',
+			'isNew': null,
+			'isLoad': 0,
+			'isNetwork': (document.domain != '' && true || false),
+			'isMobile': (window.innerWidth < 900 && true || false),
+		},
+		'tmp': {
+			't1': new Date(),
+		},
+		'f': {},
+		'timer': {}
 	}
 
 	// 仅允许直接访问此页
-	ShowAlert = 1;
-	if (document.domain != '') {
-		// 重定向备用域名
-		if (document.domain == 'sumiyo.pages.dev') {
-			window.location.href = 'https://sumiyo.link/';
-		}
-		if (window.location.href != 'https://sumiyo.link/') {
-			ShowAlert = 0;
-			document.getElementById('body').style.display = 'none';
-
-			window.location.href = 'https://sumiyo.link/';
-		}
+	if (document.domain != '' && ((window.location.href != 'https://sumiyo.link/') || window.location.href.includes('https://sumiyo.link/blog'))) {
+		body.style.display = 'none';
+		window.location.href = 'https://sumiyo.link/';
 	}
 
 </script>
@@ -88,29 +61,28 @@
 
 
 
-<!-- Main Code -->
+<!-- 主页界面 -->
 
 <div class="box-1" >
-	<!-- Header -->
-	<div class="t-36" >
-		<span class="t-37" onclick="env.f.blog.open('page/square')" >Square</span>
-		|
-		<span class="t-37" onclick="env.f.blog.open('page/about')" >About</span>
-	</div>
+	<header style="opacity: 0;" >
+		<a onclick="env.f.blog.open('page/square')" >Square</a>|<a onclick="env.f.blog.open('page/about')" >About</a>
+		<btn1 onclick="env.f.menu.open()" ></btn1>
+		<btn2 onclick="env.f.menu.close()" ></btn2>
+	</header>
 
 	<div class="box-2" >
 		<span class="t-3" >sumiyo</span>
 		<div class="t-39" ></div>
 	</div>
 
-	<!-- 最大胆的设计，使我们摆脱了头像框的传统限制 -->
-	<img class="Avatar" style="transform: scale(1.02);" onload="env.f.init()" src="src/sumiyo.webp" />
+	<!-- 最大胆的设计，让我们摆脱了头像框的传统限制 -->
+	<img class="avatar" style="transform: scale(1.02); opacity: 0;" fetchpriority="high" onload="env.f.init()" />
 
-	<!-- Blog Iframe -->
+	<!-- 博客框架 -->
 	<div class="blog" >
-		<iframe name="frame" class="iframe" id="iframe" src ></iframe>
+		<btn1 onclick="env.f.blog.close()" ></btn1>
+		<iframe></iframe>
 	</div>
-
 </div>
 
 
@@ -118,14 +90,8 @@
 <div class="FixedBox" >
 
 	<!-- Menu  -->
-	<div class="menu-btn-1" onclick="env.f.menu.open()" ></div>
-	<div class="menu-btn-2" onclick="env.f.menu.close()" ></div>
-	<div class="menu-btn-3" onclick="env.f.blog.close()" ></div>
-
 	<div class="menu" >
-		<div class="menu-title" >
-			MENU.
-		</div>
+		<div class="menu-title" >MENU.</div>
 		<hr class="menu-line" />
 
 		<!-- 博客面板 -->
@@ -149,13 +115,7 @@
 				<div class="menu-check menu-check-active" id="menu-check-2" ></div>通知
 			</div>
 
-			<div class="MenuCheck2-inner" >
-				<div class="news-box" ></div>
-				<div class="news-box" ></div>
-				<div class="news-box" ></div>
-				<div class="news-box" ></div>
-				<div class="news-box" ></div>
-			</div>
+			<div class="MenuCheck2-inner" ></div>
 		</div>
 
 		<hr class="menu-line" style="margin-top: 80px;" />
@@ -179,71 +139,61 @@
 
 
 
-	<!-- Player   V. 1.21 -->
-	<div class="Player" >
-
-		<div class="MusicImgBox" onclick="player.f.menu()" >
-			<img class="MusicImg" onload="player.f.loadPlayer()" id="load-img" />
-		</div>
-		<div class="bar2" ><div class="bar0" ><div class="bar1" ></div></div></div>
-
-		<div class="Player-menu" >
-			<span class="list-head" ><a href="javascript:;" onclick="player.f.lrc.gui()" class="listBTN" >歌词</a> | <a href="javascript:;" onclick="player.f.reset()" class="listBTN" >重置</a></span>
-			<a href="javascript:;" onclick="player.f.mode()" id="Mod" title="列表循环" ></a>
-			<span href="javascript:;" class="Player-menu-sound0" >0</span>
-			<span href="javascript:;" class="Player-menu-sound1" title="音量" ><span href="javascript:;" class="Player-menu-sound2"></span></span>
-
-			<hr class="list-line" />
-			<div class="PlayerList" >
-				<div class="PlayerListInner" ></div>
+	<!-- player  -->
+	<div class="player" >
+		<audio preload="none" ></audio>
+		<div class="player-menu" >
+			<div class="player-header" >
+				<a onclick="player.f.lrc.gui()" >歌词</a> | <a onclick="player.f.reset()" >重置</a>
+				<div class="player-header-right" >
+					<span class="player-sound0" ></span><span class="player-sound1" title="音量" ><div></div></span>
+					<a onclick="player.f.mode()" title="列表循环" ></a>
+				</div>
 			</div>
+			<div class="player-list" ><div></div></div>
 		</div>
-		<div class="Player-menu-info" >
-			<div class="Player-menu-info-title" >
-				这篇文章附有 1 首音乐，<br />想要听听吗？<br />
-				<span style="float: right; user-select: none; color: rgba(var(--t-t1), 0.2)" >
-					<a class="Player-menu-info-button Player-menu-info-open" >Y</a> / <a class="Player-menu-info-button" onclick="player.f.add.ask(0)" >N</a>
-				</span>
-			</div>
+		<div class="player-ask" >
+			这篇文章附有 1 首音乐，<br />想要听听吗？<br />
+			<span><a>打开</a> | <a onclick="player.f.add.ask(0)" >取消</a></span>
 		</div>
-		<div class="PlayerButton PB-p1 PlayerButton-pause" onclick="player.f.play()" ></div>
-		<div class="MusicName" ></div>
-		<audio id="player" preload="none" ></audio>
-		<a href="javascript:;" onclick="player.f.show()" class="MusicShow0 f-3" ></a>
-		<a href="javascript:;" onclick="player.f.show()" class="MusicShow1 f-3" ></a>
+		<div class="player-ui" >
+			<div class="PlayerButton PB-p1 PlayerButton-pause" onclick="player.f.play()" ></div>
+			<div class="player-name" ></div>
+			<div class="player-bar0" ><div class="player-bar1" ><div></div></div></div>
+		</div>
+		<div class="player-cover" onclick="player.f.menu();" ><img onload="player.f.loadPlayer()" /></div>
+		<a onclick="player.f.show()" class="player-mobile0 f-3" ></a>
+		<a onclick="player.f.show()" class="player-mobile1 f-3" ></a>
+
 	</div>
-	<div class="lrcBox" >
-		<img class="lrcImg" id="load-img" onload="setTimeout(function (){$(player.e.lrcI).css('opacity', '1')}, 1000)" />
-		<div class="lrc-blur" ></div>
+	<div class="player-lrc" >
+		<img onload="setTimeout(function (){$(player.e.lrcI).css('opacity', '1')}, 1000)" />
+		<blur ></blur>
+
 		<!-- 这个 headerSide 模仿了 frieren-anime.jp/ 的设计 -->
-		<div class="lrc-title-box" ><span class="lrc-title" ><span></div>
-		<div class="lrc" ></div>
-		<div class="lrc-menu" >
-			<div class="lrcClose" onclick="player.f.lrc.gui()" ></div>
+		<div class="player-title" ><span></span></div>
+		<list></list>
+		<header>
+			<btn1 onclick="player.f.lrc.gui()" ></btn1>
 			<div class="PlayerButton PB-p2 PlayerButton-pause" onclick="player.f.play()" ></div>
-		</div>
+		</header>
 	</div>
 
 
 	<!-- Footer -->
-	<div class="footer">
-	<div class="footer-inner" >
-		<div class="footer-box-1" >
+	<footer class="f-2" >
+		<div>
 			<!-- 简短但真挚的感谢 -->
-			<span class="footer-t1 footer-t2" >项目支持:</span>
-			<a class="footer-t3" onclick="window.open('https://www.cloudflare.com/')" target="_blank" >
+			<txt>项目支持:</txt>
+			<a onclick="window.open('https://www.cloudflare.com/')" target="_blank" >
 				<img src="src/footer/cloudflare.png" style="opacity: 0; filter: saturate(90%);" onload="$(this).addClass('fade-in-1')" id="load-img" />
 			</a>
 		</div>
-		<div class="footer-box-2" >
+		<div>
 			<!-- 一点点小小的成就 -->
-			<span class="footer-t4 footer-t1" > | 
-				<span style="user-select: text;" ><span id="onlineDate" >0</span> 天<span style="display: none;" id="visit_counter_outer" > & <span id="visit_counter">0</span> 访客</span></span>
-			</span>
+			<txt> | <span id="onlineDate"></span> 天 & <span id="visit_counter">0 访客</txt>
 		</div>
-
-	</div>
-	</div>
+	</footer>
 
 
 
@@ -262,29 +212,16 @@
 
 
 <!-- Javascript -->
-	<script>
-		// 自检
-		env.tmp.t2 = ''
-		setTimeout(function (){
-			if(env.tmp.t2 == 'ok'){
-				setTimeout(console.log.bind(
-					console,
-					'%c[' + env.f.dateFormatter('HH:mm:ss', new Date()) + '] POINT: %cSUCCESS		%cat --root:/index.html --root:/script.js --remote:/../jquery.min.js',
-					'color: rgba(100, 102, 102, 0.8); font-weight: bolder;',
-					'color: rgba(0, 200, 100, 1); font-weight: bolder;',
-					'color: rgba(100, 102, 102, 0.6);'
-				));
-				setTimeout(console.groupEnd.bind());
-			} else {
-				setTimeout(console.log.bind(
-					console,
-					'%c[' + env.f.dateFormatter('HH:mm:ss', new Date()) + '] POINT: %cTIMEOUT		%cat --root:/index.html --root:/script.js --remote:/../jquery.min.js',
-					'color: rgba(100, 102, 102, 0.8); font-weight: bolder;',
-					'color: rgba(255, 0, 20, 1); font-weight: bolder;',
-					'color: rgba(100, 102, 102, 0.6);'
-				));
-				setTimeout(console.groupEnd.bind());
+	<script src="blog\staticDB.js" ></script>
+	<script src="js\search.js"></script>
+	<script src="js\typed.js"></script>
+	<script src="script.js" ></script>
+	<script src="js\player.js"></script>
 
+	<script>
+		// 检查页面加载情况
+		setTimeout(function (){
+			if (env.tmp.t2 != 'ok') {
 				$('.message-box').html('Failed to load "script. js" (TIMEOUT)　<a onclick="location.reload();" href="javascript:;" style="color: rgb(var(--t-b1));" ><ins>Refresh</ins></a>');
 				$('.message').addClass('message-active');
 			}
@@ -292,12 +229,6 @@
 			delete env.tmp.t2
 		}, 10000);
 	</script>
-	<script src="blog\staticDB.js" ></script>
-	<script src="js\search.js"></script>
-	<script src="js\typed.js"></script>
-	<script src="script.js" ></script>
-	<script src="js\player.js"></script>
-
 </body>
 
 

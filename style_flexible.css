@@ -2,6 +2,7 @@
 @media screen and (max-width: 1200px) and (min-width: 850px)  {
 	.box-2 {
 		left: 12%;
+		bottom: 100px;
 	}
 
 	.t-3 {
@@ -10,7 +11,7 @@
 
 	.t-39 {
 		font-size: 26px;
-		margin-top: 85px;
+		margin-top: 0px;
 	}
 
 }
@@ -32,8 +33,7 @@
 	.t-10,
 	.t-12,
 	.t-20,
-	.t-23,
-	.footer-box-1 {
+	.t-23 {
 		display: none;
 	}
 
@@ -45,84 +45,29 @@
 
 	.t-3 {
 		font-size: 40px;
+		line-height: 40px;
 	}
 
 	.t-39 {
 		font-size: 16px;
-		margin-top: 75px;
+		margin-top: 0px;
 		margin-left: 3px;
-	}
-
-	.t-16 {
-		margin-left: 5px;
-	}
-
-	.t-21 {
-		margin-top: 75px;
-		margin-left: 10px;
-	}
-
-	.t-24 {
-		margin: 65px 25px;
-		font-size: 17px;
-		line-height: 25px;
-	}
-
-	.t-26 {
-		font-size: 40px;
-	}
-
-	.t-30 {
-		font-size: 45px;
-		line-height: 45px;
-	}
-
-	.t-32 {
-		font-size: 35px;
-		line-height: 35px;
-		margin: 8px 10px;
-	}
-
-	.t-33 {
-		margin-left: 0px;
-	}
-
-	.t-35 {
-		width: 160px;
-	}
-
-	.t-36 {
-		font-size: 20px;
-		right: 15px;
-		left: unset;
-	}
-
-	.t-37 {
-		color: rgba(var(--t-t1), 0.6);
-	}
-
-	.menu-btn-1 {
-		position: absolute;
 	}
 
 	.box-2 {
 		position: fixed;
 		width: 260px;
 		height: 100px;
-		bottom: 80px;
+		bottom: 40px;
 		left: 40px;
 	}
 
-	.Avatar {
+	.avatar {
 		position: fixed;
 		width: 90%;
 		object-fit: cover;
 		object-position: -80px 0px;
 		transform: none !important;
-	}
-
-	.footer-inner {
-		width: 100%;
 	}
 
 	.menu {

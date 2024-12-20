@@ -8,7 +8,34 @@
 
 
 
-function loadMusicData() {
+const player = {
+	'f': {},
+	'data': {
+		'mode': 0,
+		'pause': 1,
+		'ask': 0,
+		'vol': 0.5,
+		'lrc': {
+			'data': null,
+			'leng': 0,
+			'now': 0,
+			'open': 0,
+		},
+		'timer': {
+			't1': null,
+			't2': null,
+			't3': null,
+		},
+		'now': {
+			'leng': 0,
+			'now': 0,
+			'id': 0,
+		},
+	},
+}
+
+// 加载音乐信息
+player.f.data = function(){
 	return [
 
 	{
@@ -132,67 +159,41 @@ function loadMusicData() {
 
 
 
-const player = {}
-
-player.list = loadMusicData()
-
-player.data = {}
+player.list = player.f.data()
 player.data.num = player.list.length
-player.data.mode = 0
-player.data.pause = 1
-player.data.subwin = 0
-player.data.lastScrollTop = 0
-player.data.lrc = {}
-player.data.lrc.data = ''
-player.data.lrc.leng = null
-player.data.lrc.now = null
-player.data.lrc.open = 0
-
-
-
-
-player.data.timer = {}
-player.data.timer.t1 = null
-player.data.timer.t2 = null
-player.data.timer.t3 = null
-
-player.data.nowplay = {}
-player.data.nowplay.id = 0
-player.data.nowplay.long = '03:09'
-player.data.nowplay.now = 0
+env.data.version.player = '1.0.22'
 
 player.e = {
-		body: document.getElementById('player'),
-		frame: document.querySelector('.Player'),
-		img: document.querySelector('.MusicImg'),
-		name: document.querySelector('.MusicName'),
-		bar0: document.querySelector('.bar2'),
-		bar1: document.querySelector('.bar1'),
-		mode: document.getElementById('Mod'),
-		menu: document.querySelector('.Player-menu'),
+		body: document.querySelector('.player').querySelector('audio'),
+		frame: document.querySelector('.player'),
+		img: document.querySelector('.player-cover').querySelector('img'),
+		name: document.querySelector('.player-name'),
+		bar0: document.querySelector('.player-bar0'),
+		bar1: document.querySelector('.player-bar1').querySelector('div'),
+		mode: document.querySelector('.player-header-right').querySelector('a'),
+		menu: document.querySelector('.player-menu'),
 		list: document.querySelectorAll('.list-item'),
-		list_body: document.querySelector('.PlayerListInner'),
+		list_body: document.querySelector('.player-list').children[0],
 		btn1: document.querySelectorAll('.PlayerButton')[0],
 		btn2: document.querySelectorAll('.PlayerButton')[1],
-		subwin: document.querySelector('.Player-menu-info'),
-		s1: document.querySelector('.Player-menu-sound1'),
-		s2: document.querySelector('.Player-menu-sound0'),
-		lrc: document.querySelector('.lrc'),
-		lrcI: document.querySelector('.lrcImg'),
-		lrcB: document.querySelector('.lrcBox'),
-		lrcT: document.querySelector('.lrc-title'),
+		ask: document.querySelector('.player-ask'),
+		s1: document.querySelector('.player-sound1'),
+		s2: document.querySelector('.player-sound0'),
+		lrc: document.querySelector('.player-lrc').querySelector('list'),
+		lrcI: document.querySelector('.player-lrc').querySelector('img'),
+		lrcB: document.querySelector('.player-lrc'),
+		lrcT: document.querySelector('.player-title').querySelector('span'),
+		line: [],
 
-		cover0: document.querySelector('.MusicShow0'),
-		cover1: document.querySelector('.MusicShow1'),
+		cover0: document.querySelector('.player-mobile0'),
+		cover1: document.querySelector('.player-mobile1'),
 	}
 
 
- 
-player.f = {}
 
 // 加载音乐信息
 player.f.load = function(){
-	var id = player.data.nowplay.id;
+	var id = player.data.now.id;
 
 	player.e.name.innerHTML = player.list[id]['name']
 	$(player.e.lrcT).fadeOut(160)
@@ -200,23 +201,23 @@ player.f.load = function(){
 	player.e.body.src = 'https://music.163.com/song/media/outer/url?id=' + player.list[id]['src'] + '.mp3'
 	player.e.img.src = player.list[id]['img'] + '?param=300y300'
 	player.e.bar1.style.width = '0px'
-	player.data.nowplay.now = 0
+	player.data.now.per = 0
 
 	$(player.e.lrcI).css('opacity', '0')
 	player.f.lrc.get()
 
 	setTimeout(function (){
 		$(player.e.lrcT).fadeIn(300)
-		player.e.lrcT.innerHTML = ('　' + player.list[id]['name'] + '　' + player.list[id]['name'] + '　' + player.list[id]['name'] + '　' + player.list[id]['name']).toUpperCase().replace(/[(]/g, '「').replace(/[)]/g, '」')
+		player.e.lrcT.innerHTML = ('　' + player.list[id]['name']).repeat(4).toUpperCase().replace(/[(]/g, '「').replace(/[)]/g, '」')
 		player.e.lrcT.setAttribute('style', 'animation: ' + player.list[id]['name'].length + 's wordsLoop linear infinite normal');
 
 		player.e.lrcI.src = player.list[id]['img'] + '?param=300y300'
 		if (!isNaN(player.e.body.duration)) {
-			player.data.nowplay.long = player.f.conversion0(player.e.body.duration)
+			player.data.now.leng = player.e.body.duration
 		}
 	}, 1000)
 	if (player.e.list[0]) {
-		$('.PlayerListInner').animate({scrollTop: player.e.list[0].offsetHeight * (player.data.nowplay.id - 1)}, 300)
+		$(player.e.list_body).animate({scrollTop: player.e.list[0].offsetHeight * (player.data.now.id - 1)}, 300)
 	}
 
 	// 为当前播放歌曲添加样式
@@ -255,7 +256,7 @@ player.f.mode = function(){
 
 // 播放器样式变化
 player.f.menu = function(){
-	if(player.e.body.classList.contains('PlayerWait') || player.data.subwin == 1) {
+	if(player.e.frame.classList.contains('PlayerWait') || player.data.ask == 1) {
 		return
 	}
 
@@ -273,29 +274,28 @@ player.f.menu = function(){
 	player.f.menu.set = function(mode){
 		if (mode=='1') {
 
-			player.e.body.classList.add('PlayerWait')
+			player.e.frame.classList.add('PlayerWait')
 			$(player.e.menu, 160).fadeIn(160)
 			if (env.data.isMobile) {$(player.e.cover1).fadeOut(160)}
 			player.f.list()
 
 			player.data.mode = 1
 			setTimeout(function (){
-				$(player.e.body).removeClass('PlayerWait')
+				$(player.e.frame).removeClass('PlayerWait')
 			},250)
 		}
 		if (mode=='0') {
-			$(player.e.body).addClass('PlayerWait')
-			$(player.e.body).addClass('Player-active')
+			$(player.e.frame).addClass('PlayerWait')
+			$(player.e.frame).addClass('player-active')
 			$(player.e.menu).fadeOut(160)
 			if (env.data.isMobile) {$(player.e.cover1).fadeIn(400)}
 			setTimeout(function (){
-				$(player.e.body).fadeIn(200)
 				$(player.e.frame).fadeIn(300)
 				$('.PlayerImgBox').fadeIn(200)
 			},500)
 			player.data.mode = 0;
 			setTimeout(function (){
-				$(player.e.body).removeClass('PlayerWait')
+				$(player.e.frame).removeClass('PlayerWait')
 			},250)
 		}
 	}
@@ -317,7 +317,7 @@ player.f.list = function(force){
 		}
 
 		player.e.list = document.querySelectorAll(".list-item")
-		player.e.list[player.data.nowplay.id].id = 'list-item-active'
+		player.e.list[player.data.now.id].id = 'list-item-active'
 		$(player.e.s1).animate({scrollTop: 600}, 0)
 	}
 
@@ -335,8 +335,8 @@ player.f.play = function(){
 		if (mode=='1') {
 			player.e.body.volume = 0
 			player.e.body.play()
-			player.e.body.currentTime = (player.e.body.duration || 0) * player.data.nowplay.now
-			player.e.body.volume = player.data.nowplay.vol
+			player.e.body.currentTime = (player.e.body.duration || 0) * player.data.now.per
+			player.e.body.volume = player.data.vol
 
 			player.data.pause = 0
 			$(player.e.btn1).addClass('PlayerButton-play')
@@ -356,7 +356,7 @@ player.f.play = function(){
 
 	// 函数调用播放器
 	player.f.play.start = function(id, autoplay){
-		player.data.nowplay.id = id;
+		player.data.now.id = id;
 		player.f.load();
 		$(player.e.btn1).addClass('PlayerButton-pause')
 		$(player.e.btn2).addClass('PlayerButton-pause')
@@ -378,7 +378,7 @@ player.f.add = function(name, src, img, lrc) {
 			'lrc': lrc,
 		}
 	]
-	player.data.nowplay.id = 0
+	player.data.now.id = 0
 	player.data.num = 1
 	player.f.menu.set(1)
 
@@ -395,7 +395,7 @@ player.f.add = function(name, src, img, lrc) {
 }
 	player.f.add.ask = function(mode, name, src, img, lrc) {
 		if (mode == 1) {
-			player.data.subwin = 1
+			player.data.ask = 1
 			clearInterval(player.data.timer.t1)
 			clearInterval(player.data.timer.t2)
 
@@ -407,7 +407,7 @@ player.f.add = function(name, src, img, lrc) {
 			player.data.timer.t2 = setInterval(() => {
 				if (env.data.isMobile) {$(player.e.cover1).fadeOut(200)}
 				player.data.timer.t1 = setInterval(() => {
-					if(player.data.subwin == 1) {
+					if(player.data.ask == 1) {
 						player.f.add.ask(0)
 						clearInterval(player.data.timer.t2)
 					}
@@ -415,11 +415,11 @@ player.f.add = function(name, src, img, lrc) {
 
 				if (env.data.isMobile) {
 					$(player.e.cove1).fadeOut(200)
-					$(player.e.frame).addClass('Player-phone')
+					$(player.e.frame).addClass('player-phone')
 					$(player.e.cover0).css('display',  'none')
 				}
-				$(player.e.subwin).fadeIn(200)
-				$('.Player-menu-info-open').attr('onclick', 'player.f.add("' + name + '", "' + src + '", "' + img + '", ' + lrc + ')')
+				$(player.e.ask).fadeIn(200)
+				$(player.e.ask.querySelectorAll('span')[0].querySelectorAll('a')[0]).attr('onclick', 'player.f.add("' + name + '", "' + src + '", "' + img + '", ' + lrc + ')')
 				clearInterval(player.data.timer.t2)
 
 			}, 3000)
@@ -427,9 +427,9 @@ player.f.add = function(name, src, img, lrc) {
 			return
 		}
 		if (mode == 0) {
-			player.data.subwin = 0
-			$(player.e.subwin).fadeOut(200)
-			if (player.data.subwin == 0) {if(player.data.mode == 0){ if (env.data.isMobile) {$(player.e.cover1).fadeIn(200)}}}
+			player.data.ask = 0
+			$(player.e.ask).fadeOut(200)
+			if (player.data.ask == 0) {if(player.data.mode == 0){ if (env.data.isMobile) {$(player.e.cover1).fadeIn(200)}}}
 			clearInterval(player.data.timer.t2);
 
 			return
@@ -438,11 +438,12 @@ player.f.add = function(name, src, img, lrc) {
 
 // 重置歌单
 player.f.reset = function() {
-	player.list = loadMusicData()
+	player.list = player.f.data()
 	player.data.num = player.list.length
-	player.data.nowplay.id = 0
+	player.data.now.id = 0
 	player.f.list(1)
 	player.f.load()
+	player.f.mode.set(1)
 
 	if (player.data.pause == 0) {
 		player.f.play()
@@ -477,11 +478,11 @@ player.f.vol = function(n) {
 
 // 显示、隐藏播放器
 player.f.show = function() {
-	if($(player.e.frame).hasClass('Player-phone')) {
-		$(player.e.frame).removeClass('Player-phone')
+	if($(player.e.frame).hasClass('player-phone') && !player.data.mode) {
+		$(player.e.frame).removeClass('player-phone')
 		$(player.e.cover0).css('display',  'block')
 	} else {
-		$(player.e.frame).addClass('Player-phone')
+		$(player.e.frame).addClass('player-phone')
 		$(player.e.cover0).css('display',  'none')
 	}
 }
@@ -495,7 +496,7 @@ player.f.loadPlayer = function() {
 
 	env.tmp.t3 = null
 	delete env.tmp.t3
-	$('.Player').addClass('Player-active')
+	$(player.e.frame).addClass('player-active')
 }
 
 player.f.lrc = {}
@@ -503,8 +504,8 @@ player.f.lrc = {}
 	player.f.lrc.get = function() {
 		$(player.e.lrc).fadeOut(160)
 
-		if (player.list[player.data.nowplay.id]['lrc']) {
-			fetch('https://sumiyo.link/src/lrc/' + player.list[player.data.nowplay.id]['src'] + '.lrc')
+		if (player.list[player.data.now.id]['lrc']) {
+			fetch('https://sumiyo.link/src/lrc/' + player.list[player.data.now.id]['src'] + '.lrc')
 			.then(response => {
 				if (response.ok) {
 					return response.text();
@@ -515,12 +516,13 @@ player.f.lrc = {}
 				player.f.lrc.load(text)
 			})
 			.catch(error => {
+				console.error(error)
 				setTimeout(function (){$(player.e.lrc).fadeIn(160)}, 1000)
-				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.nowplay.id]['name'] + '<br /><br /><span>加载歌词失败 ...</span></div><br /><br /><br /><br /><br /><br />'
+				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.now.id]['name'] + '<br /><br /><span>加载歌词失败 ...</span></div><br /><br /><br /><br /><br /><br />'
 			})
 		} else {
 			setTimeout(function (){
-				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.nowplay.id]['name'] + '<br /><br /><span>没有填词的纯音乐哦 ...</span></div><br /><br /><br /><br /><br /><br />'
+				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.now.id]['name'] + '<br /><br /><span>没有填词的纯音乐哦 ...</span></div><br /><br /><br /><br /><br /><br />'
 				$(player.e.lrc).fadeIn(160)
 			}, 1000)
 		}
@@ -533,10 +535,9 @@ player.f.lrc = {}
 		player.e.lrc.innerHTML = ''
 		for (var i = 0; i < player.data.lrc.leng; i++) {
 
-			var div = document.createElement('div')
-				div.setAttribute('onclick', 'player.f.lrc.to("' + str.split('\n')[i].substring(1, 10) + '")')
-				div.setAttribute('class', 'lrc-' + (i + 1))
-				player.e.lrc.appendChild(div)
+			var line = document.createElement('line')
+				line.setAttribute('onclick', 'player.f.lrc.to("' + str.split('\n')[i].substring(1, 10) + '")')
+				player.e.lrc.appendChild(line)
 
 			var lrc = document.createElement('lrc')
 				if (str.split('\n')[i].split('#')[1] != undefined) {
@@ -544,16 +545,16 @@ player.f.lrc = {}
 				} else {
 					lrc.innerHTML = (str.split('\n')[i].slice(12) || '<br /><br />').split('#')[0]
 				}
-				div.appendChild(lrc)
+				line.appendChild(lrc)
 
-			var span = document.createElement('span')
-				span.innerHTML = str.split('\n')[i].substring(1, 6)
-				span.setAttribute('class', 'lrcT')
-				div.appendChild(span)
+			var time = document.createElement('time')
+				time.innerHTML = str.split('\n')[i].substring(1, 6)
+				line.appendChild(time)
 
 		}
 		setTimeout(function (){
-			player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.nowplay.id]['name'] + '</div><br />' +  player.e.lrc.innerHTML + '<br /><br /><br /><br /><br /><br />'
+			player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.now.id]['name'] + '</div><br />' +  player.e.lrc.innerHTML + '<br /><br /><br /><br /><br /><br />'
+			player.e.line = document.querySelectorAll('line')
 			player.f.lrc.find(player.e.body.currentTime)
 
 			$(player.e.lrc).css('opacity', '0')
@@ -591,14 +592,15 @@ player.f.lrc = {}
 
 	player.f.lrc.find = function(n) {
 
-		for (var i = 0; i < player.data.lrc.leng - 1; i++) {
-			if (Number(player.f.lrc.conversion((player.f.lrc.read(i) || '[00:00.000]').substring(1, 10))) <= n) {
-				player.data.lrc.now = i
-			} else {
-				$('.highlight').removeClass('highlight')
+		if (player.data.lrc.leng != 0) {
+			for (var i = 0; i < player.data.lrc.leng - 1; i++) {
+				if (Number(player.f.lrc.conversion((player.f.lrc.read(i) || '[00:00.000]').substring(1, 10))) <= n) {
+					player.data.lrc.now = i - 1
+				} else {
+					$('.line-now').removeAttr('class')
+				}
 			}
 		}
-		$('.lrc-' + player.data.lrc.now).addClass('highlight')
 	}
 
 	player.f.lrc.to = function(n) {
@@ -622,35 +624,37 @@ player.f.lrc = {}
 
 player.f.load()
 player.e.body.volume = 0.5
-player.data.nowplay.vol = 0.5
 
 // 进度条
 setInterval(() => {
 	if(player.data.pause == 0){
-		player.data.nowplay.now = (player.e.body.currentTime / player.e.body.duration).toFixed(8) || player.data.nowplay.now
-		$(player.e.bar1).css('width', player.data.nowplay.now * 100 + '%')
+		player.data.now.per = (player.e.body.currentTime / player.e.body.duration).toFixed(8) || player.data.now.per
+		$(player.e.bar1).css('width', player.data.now.per * 100 + '%')
 	}
 }, 1000)
 
 // 进度调整
 player.e.bar0.addEventListener('click', function(event) {
 	var percent = ((event.clientX - player.e.bar0.getBoundingClientRect().left) / player.e.bar0.offsetWidth).toFixed(8)
+	var now = Math.floor(player.e.body.duration || player.data.now.leng) * percent
 
 	$(player.e.bar1).css('width', percent * 100 + '%')
-	player.data.nowplay.now = percent
+	player.data.now.per = percent
+
+	player.f.lrc.find(now)
 	if (player.data.pause == 0) {
-		player.e.body.currentTime = Math.floor(player.e.body.duration || player.f.conversion1(player.data.nowplay.long)) * percent
+		player.e.body.currentTime = now
 	}
 })
 
 // 歌词显示
 player.e.body.addEventListener('timeupdate', function () {
-	if (!player.data.pause && player.data.lrc.open && player.list[player.data.nowplay.id]['lrc'] && document.querySelector('.lrc-' + player.data.lrc.now) != null) {
-		if (Number(player.f.lrc.conversion((player.f.lrc.read(player.data.lrc.now) || '[00:00.000]').substring(1, 10))) <= player.e.body.currentTime) {
-			$('.highlight').removeClass('highlight')
-			$('.lrc-' + player.data.lrc.now).addClass('highlight')
-			$(player.e.lrc).animate({scrollTop: $(player.e.lrc).scrollTop() + $('.lrc-' + player.data.lrc.now).offset().top - 200}, 500)
+	if (!player.data.pause && player.data.lrc.open && player.list[player.data.now.id]['lrc'] && player.e.line[0]) {
+		if (Number(player.f.lrc.conversion((player.f.lrc.read(player.data.lrc.now + 1) || '[00:00.000]').substring(1, 10))) <= player.e.body.currentTime) {
+			$('.line-now').removeAttr('class')
 
+			$(player.e.lrc).animate({scrollTop: $(player.e.lrc).scrollTop() + $(player.e.line[player.data.lrc.now]).offset().top - 220}, 500)
+			player.e.line[player.data.lrc.now].classList.add('line-now')
 			player.data.lrc.now ++
 		}
 	}
@@ -658,10 +662,10 @@ player.e.body.addEventListener('timeupdate', function () {
 
 // 列表播放
 player.e.body.addEventListener('ended', function () {
-	if (player.data.nowplay.id == player.data.num - 1) {
-		player.data.nowplay.id = -1
+	if (player.data.now.id == player.data.num - 1) {
+		player.data.now.id = -1
 	}
-	player.data.nowplay.id ++
+	player.data.now.id ++
 	player.f.load()
 	player.f.play.set(1)
 })
@@ -674,7 +678,7 @@ player.e.s1.addEventListener('scroll', () => {
 
 	player.e.s2.innerHTML = size + '%'
 	player.e.body.volume = size / 100
-	player.data.nowplay.vol = size / 100
+	player.data.vol = size / 100
 })
 
 // 手机样式

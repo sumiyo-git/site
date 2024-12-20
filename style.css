@@ -186,6 +186,8 @@ footer div {
 
 footer a {
 	display: inline-block;
+	height: 32px;
+	width: 32px;
 	margin-top: 6px;
 	cursor: help;
 }

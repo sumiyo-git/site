@@ -51,8 +51,8 @@
 	}
 
 	// 仅允许直接访问此页
-	if (document.domain != '' && ((window.location.href != 'https://sumiyo.link/') || window.location.href.includes('https://sumiyo.link/blog'))) {
-		body.style.display = 'none';
+	if ((document.domain != '') && (window.location.href != 'https://sumiyo.link/') && !window.location.href.includes('https://sumiyo.link/blog')) {
+		document.querySelector('body').style.display = 'none';
 		window.location.href = 'https://sumiyo.link/';
 	}
 
@@ -191,7 +191,7 @@
 		</div>
 		<div>
 			<!-- 一点点小小的成就 -->
-			<txt> | <span id="onlineDate"></span> 天 & <span id="visit_counter">0 访客</txt>
+			<txt> | <span id="onlineDate"></span> 天 & <span id="visit_counter">0</span> 访客</txt>
 		</div>
 	</footer>
 

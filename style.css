@@ -182,12 +182,11 @@ footer div {
 	display: inline-block;
 	height: 40px;
 	margin-left: 20px;
+	transition: 0.3s
 }
 
 footer a {
 	display: inline-block;
-	height: 32px;
-	width: 32px;
 	margin-top: 6px;
 	cursor: help;
 }

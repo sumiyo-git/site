@@ -598,13 +598,13 @@ window.addEventListener('load',function(){
 		.then(json => {
 			env.data.visitors = parseFloat(json.results[0].content)
 			$('#visit_counter').html(env.data.visitors)
-			$('#visit_counter_outer').fadeIn(300)
+			document.querySelector('footer').querySelectorAll('div')[1].removeAttribute('style')
 
 			env.f.setCookie('Cookie !')
 		})
 	} else {
 		$('#visit_counter').html = env.data.visitors
-		$('#visit_counter_outer').fadeIn(300)
+		document.querySelector('footer').querySelectorAll('div')[1].removeAttribute('style')
 	}
 
 })

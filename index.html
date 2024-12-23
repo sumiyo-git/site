@@ -37,7 +37,6 @@
 			'list': {},
 			'visitors': 0,
 			'lang': navigator.language,
-			'avatar': 'src/sumiyo.webp',
 			'isNew': null,
 			'isLoad': 0,
 			'isNetwork': (document.domain != '' && true || false),
@@ -49,6 +48,31 @@
 		'f': {},
 		'timer': {}
 	}
+
+	env.timer.t1 = setInterval(() => {
+		if (!document.hidden && env.data.isLoad) {
+			setTimeout(function (){
+				if (typeof env.tmp.t4 != 'undefined') {
+					env.f.msg('Hello 🎉', 3000)
+					env.tmp.t4 = null
+					delete env.tmp.t4
+				}
+			},2500);
+			setTimeout(function (){
+				$('.t-39').addClass('t-3-active')
+				env.f.typewriter1()
+				player.f.loadPlayer()
+			},1500);
+			setTimeout(function (){
+				document.querySelector('.box-1').querySelector('header').removeAttribute('style')
+				$('.avatar').removeAttr('style')
+				$('body').removeAttr('style')
+				$('.t-3').addClass('t-3-active')
+			},1000);
+
+			clearInterval(env.timer.t1)
+		}
+	},500)
 
 	// 仅允许直接访问此页
 	if ((document.domain != '') && (window.location.href != 'https://sumiyo.link/') && !window.location.href.includes('https://sumiyo.link/blog')) {
@@ -76,7 +100,7 @@
 	</div>
 
 	<!-- 最大胆的设计，让我们摆脱了头像框的传统限制 -->
-	<img class="avatar" style="transform: scale(1.02); opacity: 0;" fetchpriority="high" onload="env.f.init()" />
+	<img class="avatar" src="src/sumiyo.webp" style="transform: scale(1.02); opacity: 0;" onload="env.data.isLoad = 1" />
 
 	<!-- 博客框架 -->
 	<div class="blog" >
@@ -203,8 +227,9 @@
 		<div class="message-box" >content</div>
 	</div>
 	<div class="pageloading" >
-		<div class="pageloading0 shining-1" >page.loading(): ...</div>
-		<div class="pageloading1" >Err: page loading timeoout 「over 20000ms」</div>
+		<div class="pageloading0" >ロード中ですよ...</div>
+		<div class="pageloading1" >Err: Failed to load all files within 30s.</div>
+		<div class="pageloading2" ></div>
 	</div>
 
 

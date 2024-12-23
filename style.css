@@ -218,7 +218,7 @@ footer txt {
 	display: none;
 }
 
-iframe {
+.blog iframe {
 	position: absolute;
 	top: -2px;
 	left: -2px;
@@ -226,7 +226,6 @@ iframe {
 	bottom: -2px;
 	height: 100%;
 	width: 100%;
-	display: none;
 	user-select: none;
 }
 
@@ -577,6 +576,17 @@ btn2 {
 	white-space: nowrap;
 }
 
+.pageloading2 {
+	font-family: 'Microsoft YaHei';
+	position: fixed;
+	bottom: 20px;
+	left: 10px;
+	font-size: 120px;
+	line-height: 120px;
+	color: rgba(var(--t-t1), 0.1);
+	white-space: nowrap;
+	writing-mode: vertical-rl;
+}
 
 
 /* Animation */

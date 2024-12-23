@@ -16,12 +16,9 @@
 <body>
 <script>
 	window.parent.postMessage('env.f.page.ok("- ' + document.title + '")', document.domain.length == 0 && '*' || '/');
-	history.pushState(null, null, location.href);
-
+//	history.pushState(null, null, location.href);
 	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://tatsuno.top')) {
-			eval(event.data);
-		}
+		if (event.origin == 'null' || event.origin.includes('https://tatsuno.top')) {eval(event.data)}
 	});
 
 	var music = {

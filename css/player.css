@@ -473,7 +473,7 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYA
 
 
 @media screen and (max-width: 850px)  {
-	.lrc {
+	.player-lrc list {
 		width: calc(100% - 40px);
 		left: 20px;
 	}
@@ -483,21 +483,15 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYA
 		width: unset;
 		height: calc(100% + 150px);
 	}
-	.lrcT {
+	.player-lrc line time {
 		display: none;
 	}
-	lrc {
+	.player-lrc line lrc,
+	.player-lrc line {
 		width: 100%;
 	}
-	.lrc div {
-		width: 100%;
-		padding: 0px 0px 10px 0px;
-		background-color: rgba(var(--t-b1), 0) !important;
-	}
-	.lrc-title {
-		font-size: 60px;
-		line-height: 100px;
-	}
+
+
 }
 
 

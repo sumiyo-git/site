@@ -46,10 +46,12 @@ env.data.list.notice = [
 env.timer.t2 = null
 
 /* --------------------------------------
-	已占用的关键变量
+	已占用的变量
 	env.tmp.t1
 	env.tmp.t2
 	env.tmp.t3
+	env.tmp.t4
+	env.tmp.t5
 
 	env.timer.t1
 	env.timer.t2
@@ -171,7 +173,7 @@ env.f.linkto = function(id) {
 	},400)
 }
 
-// url 参数
+// 操作 url 中的参数
 env.f.url = {}
 	// 清除
 	env.f.url.clear = function() {
@@ -242,15 +244,37 @@ env.f.url = {}
 			return context == null || context == "" || context == undefined ? undefined : context;
 	}
 
+	// 打开指定位置
+	env.f.url.read = function() {
+		var id = env.f.url.get('id')
+		if (id) {
+			var list = env.data.list.Bloglist
+			var n = list.length
+
+			for (var i = 0; i < n; i++) {
+				if (list[i]['src'] == id + '/') {
+					env.f.blog.open(id)
+					break
+				} else {
+					if (i == n - 1) {
+						env.f.blog.open('page/oops')
+					}
+				}
+			}
+		} else {
+			env.f.url.clear()
+			history.pushState(null, null, location.href)
+			$('title').text('sumiyo.link')
+			env.tmp.t4 = 1
+		}
+	}
+
 // 博客框架
 env.f.blog = {}
 	env.f.blog.open = function(id) {
 		// 打开博客界面
 		env.f.page.loading()
-
-		$('iframe').css('display', 'none')
 		$('.blog').fadeIn(300)
-		$('.blog').addClass('blog-active')
 
 		setTimeout(function (){
 			// 跳转指定文章
@@ -268,10 +292,7 @@ env.f.blog = {}
 	env.f.blog.close = function() {
 		// 关闭博客页面
 		env.f.page.loading.stop()
-
-		$('.blog').fadeOut(600)
-		$('iframe').fadeOut(600)
-		$('.blog').removeClass('blog-active')
+		$('.blog').fadeOut(300)
  
 		if (document.domain!='') {
 			history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/')
@@ -462,13 +483,23 @@ env.f.page = {}
 		$('.pageloading').fadeIn(150)
 		$('.pageloading1').css('display', 'none')
 
+		env.tmp.t5 = new Date()
 		env.timer.t2 = setInterval(() => {
-			$('.pageloading1').fadeIn(150)
-			clearInterval(env.timer.t2)
-		},20000)
+			var t = new Date() - env.tmp.t5
+			$('.pageloading2').html((t / 1000).toFixed(2) + ' S')
+			if (t >= 30000) {
+				$('.pageloading1').fadeIn(150)
+				env.tmp.t5 = null
+				delete env.tmp.t5
+				clearInterval(env.timer.t2)
+			}
+		},100)
 	}
 		env.f.page.loading.stop = function() {
 			clearInterval(env.timer.t2)
+			env.tmp.t5 = null
+			delete env.tmp.t5
+			$('.pageloading2').html()
 			$('.pageloading1').css('display', 'none')
 			$('.pageloading').fadeOut(300)
 		}
@@ -481,10 +512,7 @@ env.f.page = {}
 			$('title').text(title)
 		}
 
-		setTimeout(function (){
-			env.f.page.loading.stop()
-			$('iframe').fadeIn(400)
-		},1000)
+		env.f.page.loading.stop()
 	}
 
 env.f.typewriter1 = function() {
@@ -493,58 +521,6 @@ env.f.typewriter1 = function() {
 		typeSpeed: 90,
 		showCursor: false,
 	})
-}
-
-env.f.init = function() {
-	if (!env.data.isLoad) {
-		var id = env.f.url.get('id')
-		if (id) {
-			var list = env.data.list.Bloglist
-			var n = list.length
-
-			for (var i = 0; i < n; i++) {
-				if (list[i]['src'] == id + '/') {
-					env.f.blog.open(id)
-					break
-				} else {
-					if (i == n - 1) {
-						env.f.blog.open('page/oops')
-					}
-				}
-			}
-
-			$('body').removeAttr('style')
-		} else {
-			$('title').text('sumiyo.link')
-			env.f.url.clear()
-			history.pushState(null, null, location.href)
-			env.data.isLoad = 1
-
-			document.querySelector('.avatar').src = env.data.avatar
-		}
-
-		setTimeout(function (){player.f.loadPlayer()}, 2000)
-	} else {
-		env.timer.t1 = setInterval(() => {
-			if (!document.hidden) {
-				setTimeout(function (){
-					env.f.msg('Hello 🎉', 3000)
-				},2500);
-				setTimeout(function (){
-					$('.t-39').addClass('t-3-active')
-					env.f.typewriter1()
-				},1500);
-				setTimeout(function (){
-					document.querySelector('.box-1').querySelector('header').removeAttribute('style')
-					$('.avatar').removeAttr('style')
-					$('body').removeAttr('style')
-					$('.t-3').addClass('t-3-active')
-				},1000);
-
-				clearInterval(env.timer.t1)
-			}
-		},500)
-	}
 }
 
 
@@ -557,7 +533,7 @@ env.data.uptime = env.f.getDate()
 env.data.browser = env.f.getBrowser()
 env.data.change = 0
 
-env.f.init()
+env.f.url.read()
 
 
 

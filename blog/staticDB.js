@@ -35,15 +35,6 @@ env.data.list.Bloglist = [
 		type: '',
 	},
 
-
-
-	{
-		name: '雨中一日',
-		src: '20241123/',
-		details: '下雨的一天 ...',
-		type: '',
-	},
-
 ];
 
 

@@ -159,7 +159,7 @@ env.f.post = function(event) {
 // iframe 重定向
 env.f.linkto = function(id) {
 	$('iframe').fadeOut(300)
-	env.f.page.loading()
+	env.f.page.load()
 
 	setTimeout(function (){
 		env.data.change = 1
@@ -273,7 +273,7 @@ env.f.url = {}
 env.f.blog = {}
 	env.f.blog.open = function(id) {
 		// 打开博客界面
-		env.f.page.loading()
+		env.f.page.load()
 		$('.blog').fadeIn(300)
 
 		setTimeout(function (){
@@ -291,8 +291,9 @@ env.f.blog = {}
 
 	env.f.blog.close = function() {
 		// 关闭博客页面
-		env.f.page.loading.stop()
+		env.f.page.load.stop()
 		$('.blog').fadeOut(300)
+		$('title').text('sumiyo.link')
  
 		if (document.domain!='') {
 			history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/')
@@ -302,9 +303,6 @@ env.f.blog = {}
 		if(player.data.ask == 1) {
 			player.f.add.ask(0)
 		}
-
-		$('title').text('sumiyo.link')
-		if (!env.data.isLoad) {env.f.init()}
 
 		setTimeout(function (){
 			env.data.change = 1
@@ -478,41 +476,43 @@ env.f.menu = {}
 
 env.f.page = {}
 	// 博客页面加载动画
-	env.f.page.loading = function() {
+	env.f.page.load = function() {
 		clearInterval(env.timer.t2)
-		$('.pageloading').fadeIn(150)
+		$('.loading').fadeIn(150)
 		$('.pageloading1').css('display', 'none')
 
 		env.tmp.t5 = new Date()
 		env.timer.t2 = setInterval(() => {
 			var t = new Date() - env.tmp.t5
-			$('.pageloading2').html((t / 1000).toFixed(2) + ' S')
+			$('.loading span').html((t / 1000).toFixed(2))
 			if (t >= 30000) {
-				$('.pageloading1').fadeIn(150)
-				env.tmp.t5 = null
-				delete env.tmp.t5
-				clearInterval(env.timer.t2)
+				$('.loading err').fadeIn(150)
 			}
 		},100)
 	}
-		env.f.page.loading.stop = function() {
+		env.f.page.load.stop = function() {
 			clearInterval(env.timer.t2)
 			env.tmp.t5 = null
 			delete env.tmp.t5
-			$('.pageloading2').html()
-			$('.pageloading1').css('display', 'none')
-			$('.pageloading').fadeOut(300)
+
+			setTimeout(function (){
+				$('.loading').fadeOut(300)
+			}, 1000)
+			setTimeout(function (){
+				$('.loading span').html()
+				$('.loading err').css('display', 'none')
+			}, 1500)
 		}
 
 	// 博客页面加载完成后调用
 	env.f.page.ok = function(title) {
 		if (title.slice(0, 1) == '-') {
-			$('title').text('sumiyo.link/ ' + title)
+			$('title').text('sumiyo.link ' + title)
 		} else {
 			$('title').text(title)
 		}
 
-		env.f.page.loading.stop()
+		env.f.page.load.stop()
 	}
 
 env.f.typewriter1 = function() {
@@ -602,9 +602,9 @@ $('iframe').on('load', function() {
 
 setTimeout(console.log.bind(
 	console, 
-	'\n%c THEME %c S E K A I %c		ver.' + env.data.version.main + '\n',
-	'background-color: rgba(57, 145, 216, 0.5); color: white; font-weight: bolder;',
-	'background-color: rgba(57, 145, 216, 0.3); color: white;',
+	'\n%c THEME %c 白いうた %c		ver.' + env.data.version.main + '\n',
+	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
+	'background-color: rgba(186, 138, 219, 0.5); color: white;',
 	'color: rgba(192, 194, 194, 1);',
 ));
 

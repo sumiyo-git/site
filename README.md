@@ -1,6 +1,6 @@
 
 ## 介绍
->SEKAI「せかい」是一款使用 Cloudflare Pages 部署的响应式博客主题。<br /><br />UI 设计受到了 [kotobank.jp/](https://kotobank.jp/) 的启发，主体代码由 `sumiyo` 编写。目前仅通过 PC 端 `Chrome` 浏览器测试，移动端、Firefox、IE 上的兼容性不能保证。此主题 **暂不授权任何形式的使用** 。
+>白いうた「Shiroiuta」 是一款使用 Cloudflare Pages 部署的响应式博客主题。<br /><br />UI 设计受到了 [kotobank.jp/](https://kotobank.jp/) 的启发，主体代码由 `sumiyo` 编写。目前仅通过 PC 端 `Chrome` 浏览器测试，移动端、Firefox、IE 上的兼容性不能保证。此主题 **暂不授权任何形式的使用** 。
 
 <br />
 

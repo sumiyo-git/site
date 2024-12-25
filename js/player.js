@@ -63,12 +63,6 @@ player.f.data = function(){
 		lrc: true,
 	},
 	{
-		name: 'アシタカとサン - 久石譲',
-		src: '444805',
-		img: 'https://p1.music.126.net/ssLtfKomzOOqn_e26E802w==/109951164728014642.jpg',
-		lrc: false,
-	},
-	{
 		name: 'Saudade (Original Mix) - Kupla',
 		src: '518904157',
 		img: 'https://p2.music.126.net/c04kf5BCGexeunM4MfAkHw==/109951165069828217.jpg',
@@ -87,21 +81,9 @@ player.f.data = function(){
 		lrc: false,
 	},
 	{
-		name: 'Shelter (Piano version) - Porter Robinson & Madeon',
-		src: '461347460',
-		img: 'https://p2.music.126.net/nEaSbkg_Cn8gN9vLoSz0gQ==/18494885092595843.jpg',
-		lrc: false,
-	},
-	{
-		name: 'If I Am With You',
-		src: '2071032138',
-		img: 'https://p2.music.126.net/ZoGeQ6in2oB0Oop5q0yG7g==/109951169009601894.jpg',
-		lrc: false,
-	},
-	{
-		name: '阔野 - Lcz Sv',
-		src: '2049254735',
-		img: 'https://p1.music.126.net/Pfyb7uA1nOI1rVhcWOJt9w==/109951168628232296.jpg',
+		name: 'Goodbye for Now, Eisen - Evan Call',
+		src: '2146700515',
+		img: 'https://p2.music.126.net/n21kvn_4tw2AFdVHJX4bjg==/109951169594833348.jpg',
 		lrc: false,
 	},
 	{

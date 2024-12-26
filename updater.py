@@ -114,7 +114,7 @@ def code(content, tag):
 
 def check():
     global getinbox
-    code("updater ver.1.10\n\n", "null")
+    code("updater.py ver.1.0.01\n\n", "null")
 
     code("$ git --version\n", "cmd")
     git = "git --version"
@@ -385,7 +385,7 @@ def task1():
 
 root = Tk()
 
-root.title('updater')
+root.title('updater.py - 1.0.01')
 root.geometry("600x380")
 root.resizable(False, True)
 root.configure(bg="#2E2E2E")

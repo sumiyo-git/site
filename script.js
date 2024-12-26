@@ -478,7 +478,7 @@ env.f.page = {}
 	// 博客页面加载动画
 	env.f.page.load = function() {
 		clearInterval(env.timer.t2)
-		$('.loading').fadeIn(150)
+		$('.loading').fadeIn(300)
 		$('.pageloading1').css('display', 'none')
 
 		env.tmp.t5 = new Date()
@@ -491,17 +491,17 @@ env.f.page = {}
 		},100)
 	}
 		env.f.page.load.stop = function() {
-			clearInterval(env.timer.t2)
-			env.tmp.t5 = null
-			delete env.tmp.t5
-
 			setTimeout(function (){
+				clearInterval(env.timer.t2)
+				env.tmp.t5 = null
+				delete env.tmp.t5
+
 				$('.loading').fadeOut(300)
-			}, 1000)
+			}, 1500)
 			setTimeout(function (){
 				$('.loading span').html()
 				$('.loading err').css('display', 'none')
-			}, 1500)
+			}, 2000)
 		}
 
 	// 博客页面加载完成后调用
@@ -602,7 +602,7 @@ $('iframe').on('load', function() {
 
 setTimeout(console.log.bind(
 	console, 
-	'\n%c THEME %c 白いうた %c		ver.' + env.data.version.main + '\n',
+	'\n%c THEME %c しろい花 %c		ver.' + env.data.version.main + '\n',
 	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
 	'background-color: rgba(186, 138, 219, 0.5); color: white;',
 	'color: rgba(192, 194, 194, 1);',

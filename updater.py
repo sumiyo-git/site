@@ -304,8 +304,8 @@ def onReturn(event):
 
     code("$ " + cmd + "\n", "cmd")
 
-    if (cmd == "help"):
-        code('''help\t\t显示帮助信息
+    if (cmd == "?"):
+        code('''?\t\t显示帮助信息
 cls\t\t清空控制台
 exit\t\t关闭控制台
 restart\t\t重新开始上传
@@ -385,7 +385,7 @@ def task1():
 
 root = Tk()
 
-root.title('updater.py - 1.0.01')
+root.title('updater.py')
 root.geometry("600x380")
 root.resizable(False, True)
 root.configure(bg="#2E2E2E")

@@ -180,20 +180,16 @@ footer {
 
 footer div {
 	display: inline-block;
-	height: 40px;
-	margin-left: 20px;
-	transition: 0.3s
+	height: 20px;
+	padding: 10px 0px 10px 20px;
+	user-select: text;
+	transition: 0.3s;
 }
 
 footer a {
-	display: inline-block;
-	margin-top: 6px;
-	cursor: help;
+	color: rgba(var(--t-c1), 0.8);
 }
 
-footer txt {
-	vertical-align: 10px;
-}
 
 
 
@@ -245,15 +241,6 @@ footer txt {
 
 
 /* 菜单 */
-.menu-btn {
-	user-select: none;
-	cursor: pointer;
-	color: rgba(var(--t-t1), 0.8);
-	font-size: 20px;
-	display: inline-block;
-}
-
-
 
 btn1 {
 	position: fixed;
@@ -297,9 +284,9 @@ btn2 {
 
 .menu {
 	background-color: rgba(var(--t-b3), 1);
-	width: 290px;
+	width: 250px;
 	height: 100%;
-	padding: 0px 20px;
+	padding: 0px 40px;
 	position: fixed;
 	left: -330px;
 	z-index: 10;
@@ -316,22 +303,31 @@ btn2 {
 	left: 0px;
 }
 
-.menu-title {
+.menu h1 {
 	height: 40px;
-	margin: 30px 0px 0px 24px;
+	margin: 0;
+	margin-top: 30px;
 	font-size: 35px;
-	line-height: 35px;
+	font-weight: normal;
 	color: rgba(var(--t-t1), 0.8);
 }
 
-.menu-line {
+.menu hr {
 	border: none;
 	border-top: 1px solid rgba(var(--t-t1), 0.3);
-	width: 260px;
-	margin-left: 0px;
+	width: 100%;
 }
 
-.menu-check {
+.menu btn {
+	display: inline-block;
+	margin-left: -25px;
+	font-size: 20px;
+	color: rgba(var(--t-t1), 0.8);
+	user-select: none;
+	cursor: pointer;
+}
+
+.menu btn div {
 	display: inline-block;
 	height: 14px;
 	width: 16px;
@@ -342,11 +338,12 @@ btn2 {
 	transition: 0.3s;
 }
 
-.menu-check-active {
+.btn-active {
 	transform: rotate(90deg);
 }
 
-.news-box {
+.menu news {
+	display: block;
 	height: 24px;
 	font-family: 'Microsoft YaHei';
 	font-size: 16px;
@@ -354,19 +351,18 @@ btn2 {
 	color: rgba(var(--t-t1), 0.4);
 }
 
-.news-date {
+.menu news time {
 	width: 50px;
 	display: inline-block;
-	margin-left: 25px;
 	color: rgba(var(--t-t1), 0.6);
 }
 
-.MenuCheck2-inner {
+.menu-c2 {
 	height: 120px;
 	transition: all 0.3s ease-out 0s;
 }
 
-.MenuCheck3-inner {
+.menu-c3 {
 	display: block;
 	height: 80px;
 	margin-top: 2px;
@@ -374,11 +370,11 @@ btn2 {
 	transition: all 0.3s ease-out 0s;
 }
 
-.contact {
+.menu-c3 a {
 	display: block;
 	height: 20px;
 	width: 160px;
-	margin-left: 20px;
+	margin-left: 5px;
 	padding: 5px 10px 5px 10px;
 	font-size: 16px;
 	line-height: 20px;
@@ -391,20 +387,42 @@ btn2 {
 	transition: 0.3s;
 }
 
-.contact:hover {
+.menu-c3 a:hover {
 	background-color: rgba(var(--t-b4), 0.08);
 }
 
-.menu-policy {
+.menu-c3 a span {
+	margin-right: -5px;
+	float: right;
+	line-height: 22px;
+	font-size: 20px;
+	color: rgba(var(--t-t1), 0.6);
+}
+
+.menu-footer {
 	position: sticky;
-	display: block;
-	width: 100%;
+	margin-left: -40px;
+	width: 330px;
 	height: 40px;
 	bottom: 0px;
 	top: calc(100% - 40px);
 	background-color: rgba(var(--t-b3), 0.8);
 	backdrop-filter: blur(5px);
 	text-align: center;
+}
+
+.menu-footer a {
+	font-size: 12px;
+	line-height: 12px;
+	vertical-align: -4px;
+	color: rgba(var(--t-t1), 0.4);
+	user-select: none;
+	cursor: pointer;
+	transition: 0.3s ease;
+}
+
+.menu-footer a:hover {
+	color: rgba(var(--t-t1), 0.8);
 }
 
 
@@ -428,7 +446,6 @@ btn2 {
 
 .search-list {
 	color: rgba(var(--t-t1), 0.6);
-	margin-left: 25px;
 	height: 22px;
 	line-height: 22px;
 }
@@ -448,7 +465,6 @@ btn2 {
 }
 
 #searchInput {
-	margin: 0px 25px;
 	width: 210px;
 	height: 15px;
 	padding: 5px 5px;
@@ -491,7 +507,7 @@ btn2 {
 	display: inline-block;
 	font-size: 14px;
 	float: right;
-	margin-right: 6px;
+	margin-right: 30px;
 	user-select: none;
 }
 
@@ -515,13 +531,6 @@ btn2 {
 
 
 
-.Typewriter-1 {
-	cursor: pointer;
-	display: inline-table;
-}
-
-
-
 .message {
 	position: fixed;
 	z-index: 25;
@@ -536,19 +545,17 @@ btn2 {
 	margin-top: 50px;
 }
 
-.message-box {
+.message div {
 	display: inline-block;
 	padding: 10px 10px;
 	font-size: 16px;
 	line-height: 15px;
 	border-radius: 10px;
-	pointer-events: all;
-	user-select: none;
-	text-align: left;
-
 	background-color: rgba(var(--t-b2), 0.6);
 	color: rgba(var(--t-b1), 1);
 	backdrop-filter: blur(3px);
+	pointer-events: all;
+	user-select: none;
 }
 
 .loading {
@@ -643,11 +650,6 @@ btn2 {
 	pointer-events: none;
 }
 
-.f-2 {
-	/* 仅在 PC 端显示 */
-	display: unset;
-}
-
 .f-3 {
 	/* 仅在移动端显示 */
 	display: none;
@@ -676,14 +678,6 @@ btn2 {
 
 .t-3-active {
 	opacity: 1 !important;
-}
-
-.t-4 {
-	margin-right: -5px;
-	float: right;
-	line-height: 24px;
-	font-size: 20px;
-	color: rgba(var(--t-t1), 0.6);
 }
 
 .t-38 {
@@ -717,19 +711,7 @@ btn2 {
 			-2px 0 0 rgba(var(--t-b1), 1);
 }
 
-.t-41 {
-	font-size: 12px;
-	line-height: 12px;
-	vertical-align: -4px;
-	color: rgba(var(--t-t1), 0.4);
-	user-select: none;
-	cursor: pointer;
-	transition: 0.3s ease;
-}
 
-.t-41:hover {
-	color: rgba(var(--t-t1), 0.8);
-}
 
 
 
@@ -761,10 +743,6 @@ btn2 {
 		/* 仅在 PC 端显示 */
 		display: none;
 	}
-	.f-3 {
-		/* 仅在移动端显示 */
-		display: unset;
-	}
 	.t-3 {
 		font-size: 46px;
 		line-height: 46px;
@@ -778,7 +756,7 @@ btn2 {
 		position: fixed;
 		width: 260px;
 		height: 100px;
-		bottom: 24px;
+		bottom: 64px;
 		left: 40px;
 	}
 	.avatar {
@@ -789,7 +767,7 @@ btn2 {
 		transform: none !important;
 	}
 	.menu {
-		padding-right: 0px;
+		padding-right: 30px;
 	}
 	.loading box2 {
 		font-size: 100px;

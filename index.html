@@ -35,7 +35,6 @@
 			'version': {},
 			'list': {},
 			'visitors': 0,
-			'lang': navigator.language,
 			'isNew': null,
 			'isLoad': 0,
 			'isNetwork': (document.domain != '' && true || false),
@@ -83,7 +82,6 @@
 
 
 
-
 <!-- 主页界面 -->
 
 <div class="box-1" >
@@ -110,125 +108,118 @@
 
 
 
-<div class="FixedBox" >
+<!-- 菜单  -->
 
-	<!-- Menu  -->
-	<div class="menu" >
-		<div class="menu-title" >MENU.</div>
-		<hr class="menu-line" />
+<div class="menu" >
+	<h1>MENU.</h1>
+	<hr />
 
-		<!-- 博客面板 -->
-		<div class="menu-box" style="margin-top: 10px;" >
-			<div class="menu-btn" onclick="env.f.menu.c1()" >
-				<div class="menu-check menu-check-active" id="menu-check-1" ></div>检索:
+	<!-- 博客 -->
+	<div style="margin-top: 10px;" >
+		<btn onclick="env.f.menu.c1()" >
+			<div class="btn-active" id="menu-c1" ></div>检索:<span style="font-size: 18px; margin-left: 8px; color: rgba(var(--t-t1), 0.3);" ><span class="blog-num" >0</span> items</span>
+		</btn>
+		<div class="menu-c1" >
+			<div id="search" >
+				<textarea type="text" id="searchInput" onfocus="this.select();" maxlength="14" placeholder="" autocomplete="off" ></textarea><span class="t-38" ></span>
+				<ul class="search-result" ></ul>
 			</div>
-			<span style="line-height: 18px; font-size: 18px; margin-left: 8px; color: rgba(var(--t-t1), 0.3); user-select: none;" ><span class="blog-num" >0</span> items</span>
-
-			<div class="MenuCheck1-inner" >
-				<div id="search" >
-					<textarea type="text" id="searchInput" onfocus="this.select();" maxlength="14" placeholder="" autocomplete="off" ></textarea><span class="t-38" ></span>
-					<ul class="search-result" ></ul>
-				</div>
-			</div>
-		</div>
-
-		<!-- 通知 -->
-		<div class="menu-box" style="margin-top: 0px;" >
-			<div class="menu-btn" onclick="env.f.menu.c2()" >
-				<div class="menu-check menu-check-active" id="menu-check-2" ></div>通知
-			</div>
-
-			<div class="MenuCheck2-inner" ></div>
-		</div>
-
-		<hr class="menu-line" style="margin-top: 80px;" />
-
-		<!-- 联系 -->
-		<div class="menu-box" style="margin-top: 10px;" >
-			<div class="menu-btn" onclick="env.f.menu.c3()" >
-				<div class="menu-check menu-check-active" id="menu-check-3" ></div>联系
-			</div>
-
-			<div class="MenuCheck3-inner" >
-				<a href="mailto:me@sumiyo.link" target="_blank" class="contact" >me@sumiyo.link<span class="t-4" ></span></a>
-			</div>
-		</div>
-
-		<!-- 协议 -->
-		<div class="menu-policy" >
-			<span class="t-41" onclick="env.f.blog.open('page/policy')" >「 Privacy & Copyright 」</span>
 		</div>
 	</div>
 
+	<!-- 通知 -->
+	<div>
+		<btn onclick="env.f.menu.c2()" >
+			<div class="btn-active" id="menu-c2" ></div>通知
+		</btn>
+		<div class="menu-c2" ></div>
+	</div>
+
+	<hr style="margin-top: 80px;" />
+
+	<!-- 联系 -->
+	<div style="margin-top: 10px;" >
+		<btn onclick="env.f.menu.c3()" >
+			<div class="btn-active" id="menu-c3" ></div>联系
+		</btn>
+		<div class="menu-c3" >
+			<a href="mailto:me@sumiyo.link" target="_blank" >me@sumiyo.link<span></span></a>
+		</div>
+	</div>
+
+	<!-- 协议 -->
+	<div class="menu-footer" >
+		<a onclick="env.f.blog.open('page/policy')" >「 Privacy & Copyright 」</a>
+	</div>
+</div>
 
 
-	<!-- player  -->
-	<div class="player" >
-		<audio preload="none" ></audio>
-		<div class="player-menu" >
-			<div class="player-header" >
-				<a onclick="player.f.lrc.gui()" >歌词</a> | <a onclick="player.f.reset()" >重置</a>
-				<div class="player-header-right" >
-					<span class="player-sound0" ></span><span class="player-sound1" title="音量" ><div></div></span>
-					<a onclick="player.f.mode()" title="列表循环" ></a>
-				</div>
+
+<!-- 播放器  -->
+
+<div class="player" >
+	<audio preload="none" ></audio>
+	<div class="player-menu" >
+		<div class="player-header" >
+			<a onclick="player.f.lrc.gui()" >歌词</a> | <a onclick="player.f.reset()" >重置</a>
+			<div class="player-header-right" >
+				<span class="player-sound0" ></span><span class="player-sound1" title="音量" ><div></div></span>
+				<a onclick="player.f.mode()" title="列表循环" ></a>
 			</div>
-			<div class="player-list" ><div></div></div>
 		</div>
-		<div class="player-ask" >
-			这篇文章附有 1 首音乐，<br />想要听听吗？<br />
-			<span><a>打开</a> | <a onclick="player.f.add.ask(0)" >取消</a></span>
-		</div>
-		<div class="player-ui" >
-			<div class="PlayerButton PB-p1 PlayerButton-pause" onclick="player.f.play()" ></div>
-			<div class="player-name" ></div>
-			<div class="player-bar0" ><div class="player-bar1" ><div></div></div></div>
-		</div>
-		<div class="player-cover" onclick="player.f.menu();" ><img onload="player.f.loadPlayer()" /></div>
-		<a onclick="player.f.show()" class="player-mobile0 f-3" ></a>
-		<a onclick="player.f.show()" class="player-mobile1 f-3" ></a>
-
+		<div class="player-list" ><div></div></div>
 	</div>
-	<div class="player-lrc" >
-		<img onload="setTimeout(function (){$(player.e.lrcI).css('opacity', '1')}, 1000)" />
-		<blur ></blur>
-
-		<!-- 这个 headerSide 模仿了 frieren-anime.jp/ 的设计 -->
-		<div class="player-title" ><span></span></div>
-		<list></list>
-		<header>
-			<btn1 onclick="player.f.lrc.gui()" ></btn1>
-			<div class="PlayerButton PB-p2 PlayerButton-pause" onclick="player.f.play()" ></div>
-		</header>
+	<div class="player-ask" >
+		这篇文章附有 1 首音乐，<br />想要听听吗？<br />
+		<span><a>打开</a> | <a onclick="player.f.add.ask(0)" >取消</a></span>
 	</div>
-
-
-
-	<!-- Footer -->
-	<footer class="f-2" >
-		<div>
-			<!-- 简短但真挚的感谢 -->
-			<txt>项目支持:</txt>
-			<a onclick="window.open('https://www.cloudflare.com/')" target="_blank" >
-				<img src="src/footer/cloudflare.png" style="opacity: 0; filter: saturate(90%); height: 32px; width: 32px;" onload="$(this).addClass('fade-in-1')" />
-			</a>
-		</div>
-		<div style="opacity: 0;">
-			<!-- 一点点小小的成就 -->
-			<txt> | <span id="onlineDate"></span> 天 & <span id="visit_counter">0</span> 访客</txt>
-		</div>
-	</footer>
-
-
-
-	<!-- MESSAGE   V. 1.0.0 -->
-	<div class="message" >
-		<div class="message-box" >content</div>
+	<div class="player-ui" >
+		<div class="PlayerButton PB-p1 PlayerButton-pause" onclick="player.f.play()" ></div>
+		<div class="player-name" ></div>
+		<div class="player-bar0" ><div class="player-bar1" ><div></div></div></div>
 	</div>
-	<div class="loading" >
-		<box1><div>ロード中ですよ...</div><err>Err: Failed to load all files within 30s.</err></box1>
-		<box2>LOAD: <span></span></box2>
+	<div class="player-cover" onclick="player.f.menu();" ><img onload="player.f.loadPlayer()" /></div>
+	<a onclick="player.f.show()" class="player-mobile0 f-3" ></a>
+	<a onclick="player.f.show()" class="player-mobile1 f-3" ></a>
+
+</div>
+<div class="player-lrc" >
+	<img onload="setTimeout(function (){$(player.e.lrcI).css('opacity', '1')}, 1000)" />
+	<cover></cover>
+
+	<!-- 这个 headerSide 模仿了 frieren-anime.jp/ 的设计 -->
+	<div class="player-title" ><span></span></div>
+	<list></list>
+	<header>
+		<btn1 onclick="player.f.lrc.gui()" ></btn1>
+		<div class="PlayerButton PB-p2 PlayerButton-pause" onclick="player.f.play()" ></div>
+	</header>
+</div>
+
+
+
+<!-- 页脚 -->
+
+<footer>
+	<div class="f-2" >
+		<!-- 简短但真挚的感谢 -->
+		项目支持: <a onclick="window.open('https://www.cloudflare.com/')" target="_blank" style="cursor: help;" >Cloudflare</a>
 	</div>
+	<div style="opacity: 0;">
+		<!-- 小小的成就 -->
+		<span style="user-select: none;"> | </span><span id="onlineDate">0</span> 天 & <span id="visit_counter">0</span> 访客
+	</div>
+</footer>
+
+
+
+<!-- 弹窗 -->
+
+<div class="message" ><div></div></div>
+<div class="loading" >
+	<box1><div>ロード中ですよ...</div><err>Err: Failed to load all files within 30s.</err></box1>
+	<box2>LOAD: <span></span></box2>
+</div>
 
 
 
@@ -245,13 +236,13 @@
 	<script>
 		// 检查页面加载情况
 		setTimeout(function (){
-			if (env.tmp.t2 != 'ok') {
-				$('.message-box').html('Failed to load "script. js" (TIMEOUT)　<a onclick="location.reload();" href="javascript:;" style="color: rgb(var(--t-b1));" ><ins>Refresh</ins></a>');
-				$('.message').addClass('message-active');
+			if (env.tmp.t2 != 'ok' || document.querySelector('.avatar').style.opacity == '0') {
+				document.querySelector('.message').children[0].innerHTML = '页面加载失败　<a onclick="location.reload();" href="javascript:;" style="color: rgba(var(--t-b1), 0.8);" ><ins>刷新</ins></a> / <a onclick="env.data.isLoad = 1" href="javascript:;" style="color: rgba(var(--t-b1), 0.8);" ><ins>强制加载</ins></a>'
+				document.querySelector('.message').classList.add('message-active')
 			}
 			env.tmp.t2 = null
 			delete env.tmp.t2
-		}, 10000);
+		}, 30000);
 	</script>
 </body>
 

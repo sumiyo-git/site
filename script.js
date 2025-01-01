@@ -59,13 +59,13 @@ env.timer.t2 = null
 
 
 
-// 剔除博客中被隐藏的文章
 env.f.filter = function(arr, key, value) {
+	/* 剔除博客中被隐藏的文章 */
 	return arr.filter(obj => obj[key] != value)
 }
 
-// 设置 Cookie
 env.f.setCookie = function(value) {
+	/* 设置 Cookie */
 	var now = new Date()
 	var oneWeekLater = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000) 
 	var expires = oneWeekLater.toUTCString()
@@ -73,8 +73,8 @@ env.f.setCookie = function(value) {
 	return expires
 }
 
-// 读取 Cookie
 env.f.getCookie = function(name) {
+	/* 获取 Cookie */
 	var pattern = new RegExp('(?:^|; )' + name + '=([^;]*)')
 	var matches = document.cookie.match(pattern)
 	if (matches) {
@@ -83,13 +83,13 @@ env.f.getCookie = function(name) {
 	return undefined
 }
 
-// 生成[min, max]范围内的随机整数
 env.f.getRandom = function(min, max) {
+	/* 生成随机整数 */
 	return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
-// 获取浏览器类型
 env.f.getBrowser = function() {
+	/* 获取浏览器类型 */
 	var userAgent = window.navigator.userAgent;
 	if (userAgent.indexOf("Chrome") !== -1) {
 		return "Chrome"
@@ -106,8 +106,8 @@ env.f.getBrowser = function() {
 	}
 }
 
-// 日期格式化
 env.f.dateFormatter = function(formatter, date) {
+	/* 日期格式化 */
 	date = (date ? new Date(date) : new Date)
 	const Y = date.getFullYear() + '',
 		M = date.getMonth() + 1,
@@ -124,16 +124,16 @@ env.f.dateFormatter = function(formatter, date) {
 		.replace(/ss/g, (s < 10 ? '0' : '') + s)
 }
 
-// 大小格式化
 env.f.sizeFormatter = function(bytes) {
+	/* 文件大小转换 */
 	var sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB']
 	if (bytes === 0) return '0 Bytes'
 	var i = parseInt(Math.floor(Math.log(bytes) / Math.log(1024)), 10)
 	return (bytes / Math.pow(1024, i)).toFixed(2) + ' ' + sizes[i]
 }
 
-// 计算网站上线时间
 env.f.getDate = function() {
+	/* 获取网站上线时间 */
 	var seconds = 1000
 	var minutes = seconds * 60
 	var hours = minutes * 60
@@ -151,13 +151,13 @@ env.f.getDate = function() {
 	return diffYears*365+diffDays
 }
 
-// iframe 通讯
 env.f.post = function(event) {
+	/* 页面通信 */
 	document.querySelector('iframe').contentWindow.postMessage(event, document.domain.length == 0 && '*' || '/')
 }
 
-// iframe 重定向
 env.f.linkto = function(id) {
+	/* 博客文章重定向 */
 	$('iframe').fadeOut(300)
 	env.f.page.load()
 
@@ -173,10 +173,9 @@ env.f.linkto = function(id) {
 	},400)
 }
 
-// 操作 url 中的参数
 env.f.url = {}
-	// 清除
 	env.f.url.clear = function() {
+		/* 清除参数 */
 		var url = window.location.href
 		if (url.indexOf('?') !== -1) {
 			var url = url.replace(/(\?|#)[^'"]*/, '')
@@ -184,8 +183,8 @@ env.f.url = {}
 		}
 	}
 
-	// 修改
 	env.f.url.set = function(name, value) {
+		/* 修改参数 */
 		let url = location.href
 		let url2
 
@@ -211,10 +210,8 @@ env.f.url = {}
 		} else {
 			let reg = eval('/([\?|&]' + name + '=)[^&]*/i')
 			if (url.match(reg)) {
-				// 编辑
 				url2 = url.replace(reg, '$1' + value)
 			} else {
-				// 添加
 				let reg = /([?](\w+=?)?)[^&]*/i
 				let res = url.match(reg)
 				url2 = url
@@ -232,8 +229,8 @@ env.f.url = {}
 		history.replaceState(null, null, url2)
 	}
 
-	// 读取
 	env.f.url.get = function(name) {
+		/* 读取参数 */
 		var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
 		var r = window.location.search.substr(1).match(reg);
 		var context = "";
@@ -244,8 +241,8 @@ env.f.url = {}
 			return context == null || context == "" || context == undefined ? undefined : context;
 	}
 
-	// 打开指定位置
 	env.f.url.read = function() {
+		/* 读取参数并打开 */
 		var id = env.f.url.get('id')
 		if (id) {
 			var list = env.data.list.Bloglist
@@ -272,12 +269,11 @@ env.f.url = {}
 // 博客框架
 env.f.blog = {}
 	env.f.blog.open = function(id) {
-		// 打开博客界面
+		/* 打开博客 */
 		env.f.page.load()
 		$('.blog').fadeIn(300)
 
 		setTimeout(function (){
-			// 跳转指定文章
 			env.data.change = 1
 			if (!env.data.isNetwork) {
 				env.f.url.set('id', id)
@@ -290,7 +286,7 @@ env.f.blog = {}
 	}
 
 	env.f.blog.close = function() {
-		// 关闭博客页面
+		/* 关闭博客 */
 		env.f.page.load.stop()
 		$('.blog').fadeOut(300)
 		$('title').text('sumiyo.link')
@@ -310,10 +306,9 @@ env.f.blog = {}
 		},400)
 	}
 
-// 初始化博客、通知面板
-env.f.initList = function() {
 
-	// 博客
+env.f.initList = function() {
+	/* 初始化菜单 */
 	env.data.list.Bloglist = env.f.filter(env.data.list.Bloglist, 'type', 'hide')
 	var BlogTEMP = env.data.list.Bloglist
 
@@ -365,48 +360,35 @@ env.f.initList = function() {
 		document.getElementById('searchInput').name = BlogTEMP.length
 	}
 
-
-
 	// 通知
-	var NoticeList = document.querySelector('.MenuCheck2-inner')
+	var e = document.querySelector('.menu-c2')
+	var l = env.data.list.notice
 	for (var i = 0; i < 5; i++) {
-		var div = document.createElement('div')
-			div.setAttribute('class', 'news-box')
-			div.innerHTML = '<span class="news-date" >' + env.data.list.notice[i]['date'] + '</span><span title="' + env.data.list.notice[i]['content'] + '" >' + env.data.list.notice[i]['event'] + '</span>'
-			NoticeList.appendChild(div)
+		var div = document.createElement('news')
+			div.innerHTML = '<time>' + l[i]['date'] + '</time><span title="' + l[i]['content'] + '" >' + l[i]['event'] + '</span>'
+			e.appendChild(div)
 	}
 
 }
 
-// 变量快照
-env.f.snapshot = function() {
-	var result = []
-	for (let key in window) {
-		result.push({name: key, value: window[key]})
-	}
-
-	return result
-}
-
-// 弹窗
 env.f.msg = function(content, time) {
-	$('.message-box').html(content)
+	/* 弹窗 */
 	$('.message').addClass('message-active')
-
+	$('.message div').html(content)
 	if (time != -1) {
 		setTimeout(function (){
 			$('.message').removeClass('message-active')
 		}, time)
 	}
 }
-	// 关闭消息框
 	env.f.msg.close = function() {
+		/* 关闭弹窗 */
 		$('.message').removeClass('message-active')
 	}
 
-// 菜单
 env.f.menu = {}
 	env.f.menu.open = function() {
+		/* 打开菜单 */
 		if ($('ul').hasClass('wait') == true) {
 			return
 		}
@@ -437,46 +419,50 @@ env.f.menu = {}
 
 	env.f.menu.c1 = function() {
 		$('#search').css('transition', 'all 0.3s ease-out 0s')
-		if($('#menu-check-1').hasClass('menu-check-active')!=true) {
-			$('#menu-check-1').addClass('menu-check-active')
-			$('#search').css('opacity', '1')
-			$('#search').css('height', document.getElementById('searchInput').name * 22 +55 + 'px')
+		if($('#menu-c1').hasClass('btn-active') != true) {
+			$('#menu-c1').addClass('btn-active')
+			$('#search').css({
+				'opacity': '1',
+				'height': document.getElementById('searchInput').name * 22 +55 + 'px'
+			})
 		} else {
-			$('#menu-check-1').removeClass('menu-check-active')
+			$('#menu-c1').removeClass('btn-active')
 			$('#search').css('height', '0px')
 			$('#search').css('opacity', '0')
 		}
 	}
 
 	env.f.menu.c2 = function() {
-		if($('#menu-check-2').hasClass('menu-check-active')!=true) {
-			$('#menu-check-2').addClass('menu-check-active')
-			$('.MenuCheck2-inner').css('height', '120px')
-			$('.MenuCheck2-inner').css('opacity', '1')
-			$('.MenuCheck2-inner').css('overflow', 'visible')
+		if($('#menu-c2').hasClass('btn-active') != true) {
+			$('#menu-c2').addClass('btn-active')
+			$('.menu-c2').css({
+				'opacity': '1',
+				'height': '120px',
+			})
 		} else {
-			$('#menu-check-2').removeClass('menu-check-active')
-			$('.MenuCheck2-inner').css('height', '0px')
-			$('.MenuCheck2-inner').css('opacity', '0')
-			$('.MenuCheck2-inner').css('overflow', 'hidden')
+			$('#menu-c2').removeClass('btn-active')
+			$('.menu-c2').css({
+				'opacity': '0',
+				'height': '0px',
+			})
 		}
 	}
 
 	env.f.menu.c3 = function() {
-		if($('#menu-check-3').hasClass('menu-check-active')!=true) {
-			$('#menu-check-3').addClass('menu-check-active')
-			$('.MenuCheck3-inner').css('height', '80px')
-			$('.MenuCheck3-inner').css('opacity', '1')
+		if($('#menu-c3').hasClass('btn-active') != true) {
+			$('#menu-c3').addClass('btn-active')
+			$('.menu-c3').css('height', '80px')
+			$('.menu-c3').css('opacity', '1')
 		} else {
-			$('#menu-check-3').removeClass('menu-check-active')
-			$('.MenuCheck3-inner').css('height', '0px')
-			$('.MenuCheck3-inner').css('opacity', '0')
+			$('#menu-c3').removeClass('btn-active')
+			$('.menu-c3').css('height', '0px')
+			$('.menu-c3').css('opacity', '0')
 		}
 	}
 
 env.f.page = {}
-	// 博客页面加载动画
 	env.f.page.load = function() {
+		/* 博客加载动画 */
 		clearInterval(env.timer.t2)
 		$('.loading').fadeIn(300)
 		$('.pageloading1').css('display', 'none')
@@ -488,9 +474,10 @@ env.f.page = {}
 			if (t >= 30000) {
 				$('.loading err').fadeIn(150)
 			}
-		},100)
+		},80)
 	}
 		env.f.page.load.stop = function() {
+			/* 停止博客加载动画 */
 			setTimeout(function (){
 				clearInterval(env.timer.t2)
 				env.tmp.t5 = null
@@ -504,8 +491,8 @@ env.f.page = {}
 			}, 2000)
 		}
 
-	// 博客页面加载完成后调用
 	env.f.page.ok = function(title) {
+		/* 博客加载完成 */
 		if (title.slice(0, 1) == '-') {
 			$('title').text('sumiyo.link ' + title)
 		} else {
@@ -573,16 +560,12 @@ window.addEventListener('load',function(){
 		.then(response => {return response.json()})
 		.then(json => {
 			env.data.visitors = parseFloat(json.results[0].content)
-			$('#visit_counter').html(env.data.visitors)
-			document.querySelector('footer').querySelectorAll('div')[1].removeAttribute('style')
-
 			env.f.setCookie('Cookie !')
-		})
-	} else {
-		$('#visit_counter').html = env.data.visitors
-		document.querySelector('footer').querySelectorAll('div')[1].removeAttribute('style')
-	}
 
+			$('#visit_counter').html = env.data.visitors
+			document.querySelector('footer').querySelectorAll('div')[1].removeAttribute('style')
+		})
+	}
 })
 
 // 检测到后退，前进时，直接关闭博客页面
@@ -610,6 +593,6 @@ setTimeout(console.log.bind(
 
 
 
-if (window.jQuery) {env.tmp.t2 = 'ok'}
+setTimeout(function (){if (window.jQuery) {env.tmp.t2 = 'ok'}}, 1000)
 
 

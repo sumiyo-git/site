@@ -57,15 +57,14 @@
 				}
 			},2500);
 			setTimeout(function (){
-				$('.t-39').addClass('t-3-active')
-				env.f.typewriter1()
+				env.f.typewriter()
 				player.f.loadPlayer()
 			},1500);
 			setTimeout(function (){
 				document.querySelector('.box-1').querySelector('header').removeAttribute('style')
 				$('.avatar').removeAttr('style')
+				$('.box-2 span').css('opacity', '1')
 				$('body').removeAttr('style')
-				$('.t-3').addClass('t-3-active')
 			},1000);
 
 			clearInterval(env.timer.t1)
@@ -92,8 +91,8 @@
 	</header>
 
 	<div class="box-2" >
-		<span class="t-3" >sumiyo</span>
-		<div class="t-39" ></div>
+		<span>sumiyo</span>
+		<type></type>
 	</div>
 
 	<!-- 最大胆的设计，让我们摆脱了头像框的传统限制 -->
@@ -121,7 +120,7 @@
 		</btn>
 		<div class="menu-c1" >
 			<div id="search" >
-				<textarea type="text" id="searchInput" onfocus="this.select();" maxlength="14" placeholder="" autocomplete="off" ></textarea><span class="t-38" ></span>
+				<textarea type="text" id="searchInput" onfocus="this.select();" maxlength="14" placeholder="" autocomplete="off" ></textarea><span></span>
 				<ul class="search-result" ></ul>
 			</div>
 		</div>
@@ -229,7 +228,6 @@
 <!-- Javascript -->
 	<script src="blog\staticDB.js" ></script>
 	<script src="js\search.js"></script>
-	<script src="js\typed.js"></script>
 	<script src="script.js" ></script>
 	<script src="js\player.js"></script>
 

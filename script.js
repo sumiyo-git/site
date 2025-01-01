@@ -13,29 +13,29 @@ env.data.version.main = '1.0.21'
 // 通知列表
 env.data.list.notice = [
 	{
+		date: '1.01',
+		event: '主题优化',
+		content: '不优雅的东西，删掉！\n2025 新年快乐',
+	},
+	{
 		date: '11.21',
 		event: '注册 <ins>sumiyo.link/</ins>',
 		content: '新的域名，新的开始！',
 	},
 	{
 		date: '10.02',
-		event: '网站设计优化',
-		content: '最新的样式设计！',
+		event: '网站界面优化',
+		content: '一点点小调整',
 	},
 	{
 		date: '8.31',
 		event: '第 4 次重构',
-		content: '重写了主页 & 播放器的函数结构\n优化了网站的部分 api',
-	},
-	{
-		date: '8.12',
-		event: '调整网站的样式',
-		content: '调整了网站的样式\n更换了头像',
+		content: '重写了函数结构',
 	},
 	{
 		date: '6.08',
 		event: '留言板上线',
-		content: '网站新增留言板功能！',
+		content: '终于可以留言啦',
 	},
 
 ]
@@ -55,6 +55,7 @@ env.timer.t2 = null
 
 	env.timer.t1
 	env.timer.t2
+	env.timer.t3
 */
 
 
@@ -474,7 +475,7 @@ env.f.page = {}
 			if (t >= 30000) {
 				$('.loading err').fadeIn(150)
 			}
-		},80)
+		}, 80)
 	}
 		env.f.page.load.stop = function() {
 			/* 停止博客加载动画 */
@@ -502,16 +503,20 @@ env.f.page = {}
 		env.f.page.load.stop()
 	}
 
-env.f.typewriter1 = function() {
-	$('.t-39').typed({
-		strings: ['私のサイト、^400私一人の^200世界です。'],
-		typeSpeed: 90,
-		showCursor: false,
-	})
+env.f.typewriter = function() {
+	/* 打字机动画 */
+	var s = '私のサイト、###私##一##人#の##世界です。'
+	var i = 0
+	env.timer.t3 = setInterval(() => {
+		i ++
+		if (s.substring(i - 1, i) != '#') {
+			document.querySelector('type').innerHTML = document.querySelector('type').innerHTML + s.substring(i - 1, i)
+		}
+		if (i == s.length) {
+			clearInterval(env.timer.t3)
+		}
+	}, 140)
 }
-
-
-
 
 
 
@@ -562,7 +567,7 @@ window.addEventListener('load',function(){
 			env.data.visitors = parseFloat(json.results[0].content)
 			env.f.setCookie('Cookie !')
 
-			$('#visit_counter').html = env.data.visitors
+			$('#visit_counter').html(env.data.visitors)
 			document.querySelector('footer').querySelectorAll('div')[1].removeAttribute('style')
 		})
 	}

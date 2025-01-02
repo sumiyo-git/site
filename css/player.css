@@ -340,6 +340,23 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYA
 }
 
 
+.player-lrc list h1 {
+	margin: 0px 0px 0px 8px;
+	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.4);
+	color: rgba(var(--t-b1), 0.4);
+	font-size: 24px;
+	font-weight: normal;
+	background-color: rgba(var(--t-b1), 0) !important;
+	cursor: auto !important;
+}
+
+.player-lrc list h1 span {
+	color: rgba(var(--t-b1), 0.4);
+	font-size: 18px;
+}
+
+
+
 .player-lrc line {
 	display: block;
 	width: calc(100% - 20px);
@@ -432,21 +449,6 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYA
 }
 
 
-
-
-
-.mTitle {
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.4);
-	color: rgba(var(--t-b1), 0.4);
-	font-size: 24px;
-	background-color: rgba(var(--t-b1), 0) !important;
-	cursor: auto !important;
-}
-
-.mTitle span {
-	color: rgba(var(--t-b1), 0.4);
-	font-size: 18px;
-}
 
 .player-title {
 	position: fixed;

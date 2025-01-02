@@ -500,11 +500,11 @@ player.f.lrc = {}
 			.catch(error => {
 				console.error(error)
 				setTimeout(function (){$(player.e.lrc).fadeIn(160)}, 1000)
-				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.now.id]['name'] + '<br /><br /><span>加载歌词失败 ...</span></div><br /><br /><br /><br /><br /><br />'
+				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><h1>' + player.list[player.data.now.id]['name'] + '<br /><br /><span>加载歌词失败 ...</span></h1><br /><br /><br /><br /><br /><br />'
 			})
 		} else {
 			setTimeout(function (){
-				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.now.id]['name'] + '<br /><br /><span>没有填词的纯音乐哦 ...</span></div><br /><br /><br /><br /><br /><br />'
+				player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><h1>' + player.list[player.data.now.id]['name'] + '<br /><br /><span>没有填词的纯音乐哦 ...</span></h1><br /><br /><br /><br /><br /><br />'
 				$(player.e.lrc).fadeIn(160)
 			}, 1000)
 		}
@@ -535,7 +535,7 @@ player.f.lrc = {}
 
 		}
 		setTimeout(function (){
-			player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><div class="mTitle" >' + player.list[player.data.now.id]['name'] + '</div><br />' +  player.e.lrc.innerHTML + '<br /><br /><br /><br /><br /><br />'
+			player.e.lrc.innerHTML = '<br /><br /><br /><br /><br /><br /><h1>' + player.list[player.data.now.id]['name'] + '</h1><br />' +  player.e.lrc.innerHTML + '<br /><br /><br /><br /><br /><br />'
 			player.e.line = document.querySelectorAll('line')
 			player.f.lrc.find(player.e.body.currentTime)
 
@@ -631,8 +631,8 @@ player.e.bar0.addEventListener('click', function(event) {
 
 // 歌词显示
 player.e.body.addEventListener('timeupdate', function () {
-	if (!player.data.pause && player.data.lrc.open && player.list[player.data.now.id]['lrc'] && player.e.line[0]) {
-		if (Number(player.f.lrc.conversion((player.f.lrc.read(player.data.lrc.now + 1) || '[00:00.000]').substring(1, 10))) <= player.e.body.currentTime) {
+	if (!player.data.pause && player.data.lrc.open && player.list[player.data.now.id].act.lrc && player.e.line[0]) {
+		if ((Number(player.f.lrc.conversion((player.f.lrc.read(player.data.lrc.now + 1) || '[00:00.000]').substring(1, 10))) <= player.e.body.currentTime) && player.data.lrc.now < player.data.lrc.leng) {
 			$('.line-now').removeAttr('class')
 
 			$(player.e.lrc).animate({scrollTop: $(player.e.lrc).scrollTop() + $(player.e.line[player.data.lrc.now]).offset().top - 220}, 500)

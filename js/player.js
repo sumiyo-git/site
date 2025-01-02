@@ -193,6 +193,7 @@ player.f.load = function(){
 	player.data.now.per = 0
 
 	$(player.e.lrcI).css('opacity', '0')
+	$('.player-kana').fadeOut(300)
 	player.f.lrc.get()
 
 	setTimeout(function (){
@@ -216,12 +217,6 @@ player.f.load = function(){
 	}
 	if (player.list[id].act.js) {
 		eval(player.list[id].act.js)
-	}
-	if (($('player-lrc rt').length > 0)) {
-		$('player-kana').fadeIn(300)
-		$('rt').css('display', 'none')
-	} else {
-		$('player-kana').fadeOut(300)
 	}
 }
 
@@ -554,6 +549,13 @@ player.f.lrc = {}
 				$(player.e.lrc).fadeIn(160)
 			}, 100)
 		}, 500)
+
+		if (str.includes('<rt>')) {
+			$('.player-kana').fadeIn(300)
+			$('rt').css('display', 'none')
+		} else {
+			$('.player-kana').fadeOut(300)
+		}
 	}
 
 	player.f.lrc.conversion = function(str) {

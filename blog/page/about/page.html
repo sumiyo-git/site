@@ -16,19 +16,18 @@
 <body>
 <script>
 	window.parent.postMessage('env.f.page.ok("- ' + document.title + '")', document.domain.length == 0 && '*' || '/');
-//	history.pushState(null, null, location.href);
 	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://tatsuno.top')) {eval(event.data)}
+		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	});
 
 	var music = {
-			name: 'The Precious Moments We Share - Evan Call',
-			src: '2146702250',
-			img: 'https://p1.music.126.net/n21kvn_4tw2AFdVHJX4bjg==/109951169594833348.jpg',
-			lrc: false,
+		name: 'The Precious Moments We Share - Evan Call',
+		src: '2146702250',
+		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+		act: {lrc: false, js: null}
 	}
 
-	window.parent.postMessage('player.f.add.ask(1, "' + music['name'] + '", "' + music['src'] + '", "' + music['img'] + '", ' + music['lrc'] + ' )', document.domain.length == 0 && '*' || '/');
+	window.parent.postMessage('player.f.add.ask(1, "' + music.name + '", "' + music.src + '", "' + music.img + '", ' + music.act.lrc + ', "' + music.act.js + '" )', document.domain.length == 0 && '*' || '/');
 
 </script>
 <style>

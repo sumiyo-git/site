@@ -39,100 +39,106 @@ player.f.data = function(){
 	return [
 
 	{
+		name: 'この空であなたを待ってる - KOKIA',
+		src: '1830163710',
+		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
+		act: {lrc: true, js: "$(player.e.img).css('margin', '-60px -20px')"},
+	},
+	{
 		name: 'One Last Adventure - Evan Call',
 		src: '2116382384',
-		img: 'https://p1.music.126.net/8RdmkeoexrTxI7PdasUkhA==/109951169761664617.jpg',
-		lrc: false,
+		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Calling - MAROK & mamomo',
 		src: '1944649836',
-		img: 'https://p2.music.126.net/vrXsouN6rhgah68sHv4Akg==/109951169530454564.jpg',
-		lrc: false,
+		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: "原風景 - mamomo & 丘咲アンナ",
 		src: '33469247',
-		img: 'https://p1.music.126.net/ct9bs4VXR1mrbVRsX9iboA==/3372202162443903.jpg',
-		lrc: true,
+		img: 'ct9bs4VXR1mrbVRsX9iboA==/3372202162443903',
+		act: {lrc: true, js: null},
 	},
 	{
 		name: 'ワタリドリ - KOKIA',
 		src: '2101452199',
-		img: 'https://p1.music.126.net/rLHKvau26Wt2KA5DJc_u6A==/109951169067925149.jpg',
-		lrc: true,
+		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
+		act: {lrc: true, js: null},
 	},
 	{
 		name: 'Saudade (Original Mix) - Kupla',
 		src: '518904157',
-		img: 'https://p2.music.126.net/c04kf5BCGexeunM4MfAkHw==/109951165069828217.jpg',
-		lrc: false,
+		img: 'c04kf5BCGexeunM4MfAkHw==/109951165069828217',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Friend - Kozoro',
 		src: '33004707',
-		img: 'https://p2.music.126.net/FR7zKYB8ujNRoWQuGCHbGg==/109951163288692527.jpg',
-		lrc: false,
+		img: 'FR7zKYB8ujNRoWQuGCHbGg==/109951163288692527',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Together - Bcalm & Purrple Cat',
 		src: '1916742663',
-		img: 'https://p2.music.126.net/zJBR2s3mTC06Z-v4npw2Jw==/109951168736565471.jpg',
-		lrc: false,
+		img: 'zJBR2s3mTC06Z-v4npw2Jw==/109951168736565471',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Goodbye for Now, Eisen - Evan Call',
 		src: '2146700515',
-		img: 'https://p2.music.126.net/n21kvn_4tw2AFdVHJX4bjg==/109951169594833348.jpg',
-		lrc: false,
+		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Disappear in Light - Equal Stones & Endless Melancholy',
 		src: '29406314',
-		img: 'https://p2.music.126.net/JIeHyV-yad8BDq_4GmsVuA==/2572857209028564.jpg',
-		lrc: false,
+		img: 'JIeHyV-yad8BDq_4GmsVuA==/2572857209028564',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Gusts of Wind Blowing in Different Directions - The Last Dinosaur',
 		src: '19498811',
-		img: 'https://p1.music.126.net/f3exPjEKfsnrQbsUqUlb2w==/109951169557730207.jpg',
-		lrc: false,
+		img: 'f3exPjEKfsnrQbsUqUlb2w==/109951169557730207',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'There Is Still Wonder Left To Behold - reche',
 		src: '2017419119',
-		img: 'https://p1.music.126.net/b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978.jpg',
-		lrc: true,
+		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
+		act: {lrc: true, js: null},
 	},
 	{
 		name: 'One Day - KISNOU',
 		src: '448316625',
-		img: 'https://p2.music.126.net/9QkYHkN8UCiybMg-qHempw==/109951168047707020.jpg',
-		lrc: false,
+		img: '9QkYHkN8UCiybMg-qHempw==/109951168047707020',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'like water - Park Bird & Chance Thrash',
 		src: '1847674461',
-		img: 'https://p2.music.126.net/FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375.jpg',
-		lrc: false,
-	},
-	{
-		name: 'この空であなたを待ってる - KOKIA',
-		src: '1830163710',
-		img: 'https://p2.music.126.net/resCPZ3quIJPxdn1HDt3ww==/109951165811423814.jpg',
-		lrc: true,
+		img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: '変わり行く世界のために - 茶太',
 		src: '697291',
-		img: 'https://p2.music.126.net/eiR5oFPitGtu1hzka4Vm5g==/814738116182197.jpg',
-		lrc: true,
+		img: 'eiR5oFPitGtu1hzka4Vm5g==/814738116182197',
+		act: {lrc: true, js: null},
 	},
 	{
 		name: 'bliss - milet',
 		src: '2122535814',
-		img: 'https://p1.music.126.net/b66bKUxVNZlC_S_3u7UCaA==/109951169268030489.jpg',
-		lrc: true,
+		img: 'b66bKUxVNZlC_S_3u7UCaA==/109951169268030489',
+		act: {lrc: true, js: null},
+	},
+	{
+		name: 'この空であなたを待ってる inst. - KOKIA',
+		src: '1830163712',
+		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
+		act: {lrc: true, js: "$(player.e.img).css('margin', '-60px -20px')"},
 	},
 
 	]
@@ -143,7 +149,7 @@ player.f.data = function(){
 
 player.list = player.f.data()
 player.data.num = player.list.length
-env.data.version.player = '1.0.22'
+env.data.version.player = '1.0.23'
 
 player.e = {
 		body: document.querySelector('.player').querySelector('audio'),
@@ -181,7 +187,8 @@ player.f.load = function(){
 	$(player.e.lrcT).fadeOut(160)
 
 	player.e.body.src = 'https://music.163.com/song/media/outer/url?id=' + player.list[id]['src'] + '.mp3'
-	player.e.img.src = player.list[id]['img'] + '?param=300y300'
+	player.e.img.src = 'https://p1.music.126.net/' + player.list[id]['img'] + '.jpg?param=300y300'
+	$(player.e.img).css('margin', '-124px -40px')
 	player.e.bar1.style.width = '0px'
 	player.data.now.per = 0
 
@@ -193,7 +200,7 @@ player.f.load = function(){
 		player.e.lrcT.innerHTML = ('　' + player.list[id]['name']).repeat(4).toUpperCase().replace(/[(]/g, '「').replace(/[)]/g, '」')
 		player.e.lrcT.setAttribute('style', 'animation: ' + player.list[id]['name'].length + 's wordsLoop linear infinite normal');
 
-		player.e.lrcI.src = player.list[id]['img'] + '?param=300y300'
+		player.e.lrcI.src = 'https://p1.music.126.net/' + player.list[id]['img'] + '.jpg?param=300y300'
 		if (!isNaN(player.e.body.duration)) {
 			player.data.now.leng = player.e.body.duration
 		}
@@ -204,10 +211,11 @@ player.f.load = function(){
 
 	// 为当前播放歌曲添加样式
 	if (player.e.list[id] != undefined) {
-		if ($('#list-item-active').length > 0) {
-			$('#list-item-active').removeAttr('id');
-		}
+		$('#list-item-active').removeAttr('id');
 		player.e.list[id].id = 'list-item-active'
+	}
+	if (player.list[id].act.js) {
+		eval(player.list[id].act.js)
 	}
 }
 
@@ -215,10 +223,8 @@ player.f.load = function(){
 player.f.mode = function(){
 	if (player.e.mode.innerHTML=='') {
 		player.f.mode.set(1)
-		return
 	} else {
 		player.f.mode.set(0)
-		return
 	}
 }
 	player.f.mode.set = function(mode){
@@ -238,9 +244,7 @@ player.f.mode = function(){
 
 // 播放器样式变化
 player.f.menu = function(){
-	if(player.e.frame.classList.contains('PlayerWait') || player.data.ask == 1) {
-		return
-	}
+	if(player.e.frame.classList.contains('PlayerWait') || player.data.ask == 1) {return}
 
 	// 展开
 	if(player.data.mode == 0){
@@ -351,13 +355,13 @@ player.f.play = function(){
 	}
 
 // 更新播放器列表
-player.f.add = function(name, src, img, lrc) {
+player.f.add = function(name, src, img, lrc, act) {
 	player.list = [
 		{
 			'name': name,
 			'src': src,
 			'img': img,
-			'lrc': lrc,
+			'act': {'lrc': lrc, 'js': act}
 		}
 	]
 	player.data.now.id = 0
@@ -375,7 +379,7 @@ player.f.add = function(name, src, img, lrc) {
 		player.f.menu.set(1)
 	}, 500)
 }
-	player.f.add.ask = function(mode, name, src, img, lrc) {
+	player.f.add.ask = function(mode, name, src, img, lrc, act) {
 		if (mode == 1) {
 			player.data.ask = 1
 			clearInterval(player.data.timer.t1)
@@ -401,20 +405,16 @@ player.f.add = function(name, src, img, lrc) {
 					$(player.e.cover0).css('display',  'none')
 				}
 				$(player.e.ask).fadeIn(200)
-				$(player.e.ask.querySelectorAll('span')[0].querySelectorAll('a')[0]).attr('onclick', 'player.f.add("' + name + '", "' + src + '", "' + img + '", ' + lrc + ')')
+				$(player.e.ask.querySelectorAll('span')[0].querySelectorAll('a')[0]).attr('onclick', 'player.f.add("' + name + '", "' + src + '", "' + img + '", ' + lrc + ', "' + act + '")')
 				clearInterval(player.data.timer.t2)
 
 			}, 3000)
-
-			return
 		}
 		if (mode == 0) {
 			player.data.ask = 0
 			$(player.e.ask).fadeOut(200)
 			if (player.data.ask == 0) {if(player.data.mode == 0){ if (env.data.isMobile) {$(player.e.cover1).fadeIn(200)}}}
 			clearInterval(player.data.timer.t2);
-
-			return
 		}
 	}
 
@@ -486,7 +486,7 @@ player.f.lrc = {}
 	player.f.lrc.get = function() {
 		$(player.e.lrc).fadeOut(160)
 
-		if (player.list[player.data.now.id]['lrc']) {
+		if (player.list[player.data.now.id].act.lrc) {
 			fetch('https://sumiyo.link/src/lrc/' + player.list[player.data.now.id]['src'] + '.lrc')
 			.then(response => {
 				if (response.ok) {

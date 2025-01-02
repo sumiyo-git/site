@@ -234,7 +234,7 @@
 	<script>
 		// 检查页面加载情况
 		setTimeout(function (){
-			if (env.tmp.t2 != 'ok' || document.querySelector('.avatar').style.opacity == '0') {
+			if (env.tmp.t2 != 'ok') {
 				document.querySelector('.message').children[0].innerHTML = '页面加载失败　<a onclick="location.reload();" href="javascript:;" style="color: rgba(var(--t-b1), 0.8);" ><ins>刷新</ins></a> / <a onclick="env.data.isLoad = 1" href="javascript:;" style="color: rgba(var(--t-b1), 0.8);" ><ins>强制加载</ins></a>'
 				document.querySelector('.message').classList.add('message-active')
 			}

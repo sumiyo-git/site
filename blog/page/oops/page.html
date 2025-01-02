@@ -15,9 +15,8 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 <body>
 <script>
 	window.parent.postMessage('env.f.page.ok("- ' + document.title + '"); env.f.post("document.getElementById(`url`).innerHTML = `" + document.location.href + "`")', document.domain.length == 0 && '*' || '/');
-
 	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://tatsuno.top')) {
+		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {
 			eval(event.data);
 		}
 	});

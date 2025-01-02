@@ -119,9 +119,9 @@
 			<div class="btn-active" id="menu-c1" ></div>检索:<span style="font-size: 18px; margin-left: 8px; color: rgba(var(--t-t1), 0.3);" ><span class="blog-num" >0</span> items</span>
 		</btn>
 		<div class="menu-c1" >
-			<div id="search" >
-				<textarea type="text" id="searchInput" onfocus="this.select();" maxlength="14" placeholder="" autocomplete="off" ></textarea><span></span>
-				<ul class="search-result" ></ul>
+			<div class="search" >
+				<textarea type="text" onfocus="this.select();" maxlength="16" autocomplete="off" ></textarea><span></span>
+				<list></list>
 			</div>
 		</div>
 	</div>
@@ -170,10 +170,10 @@
 	</div>
 	<div class="player-ask" >
 		这篇文章附有 1 首音乐，<br />想要听听吗？<br />
-		<span><a>打开</a> | <a onclick="player.f.add.ask(0)" >取消</a></span>
+		<span><a>加载</a> | <a onclick="player.f.add.ask(0)" >取消</a></span>
 	</div>
 	<div class="player-ui" >
-		<div class="PlayerButton PB-p1 PlayerButton-pause" onclick="player.f.play()" ></div>
+		<div class="player-btn player-btn0" onclick="player.f.play()" ></div>
 		<div class="player-name" ></div>
 		<div class="player-bar0" ><div class="player-bar1" ><div></div></div></div>
 	</div>
@@ -191,7 +191,8 @@
 	<list></list>
 	<header>
 		<btn1 onclick="player.f.lrc.gui()" ></btn1>
-		<div class="PlayerButton PB-p2 PlayerButton-pause" onclick="player.f.play()" ></div>
+		<div class="player-btn player-btn0" onclick="player.f.play()" ></div>
+		<div class="player-kana" onclick="player.f.kana()" >あ</div>
 	</header>
 </div>
 
@@ -227,7 +228,6 @@
 
 <!-- Javascript -->
 	<script src="blog\staticDB.js" ></script>
-	<script src="js\search.js"></script>
 	<script src="script.js" ></script>
 	<script src="js\player.js"></script>
 

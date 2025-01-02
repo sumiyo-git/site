@@ -183,21 +183,13 @@ footer div {
 	height: 20px;
 	padding: 10px 0px 10px 20px;
 	user-select: text;
+	color: rgba(var(--t-t1), 0.6);
 	transition: 0.3s;
 }
 
 footer a {
 	color: rgba(var(--t-c1), 0.8);
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -427,44 +419,12 @@ btn2 {
 
 
 
-.search-result {
-	margin: -3px 0px;
-	height: 110px;
-	width: 250px;
-	padding: 0px;
-	overflow: scroll;
+.search {
+	overflow: hidden;
+	transition: all 0.3s ease-out 0s;
 }
 
-.search-result::-webkit-scrollbar {
-	width: 2px !important;
-	height: 0px !important;
-}
-
-.search-result::-webkit-scrollbar-thumb {
-	background-clip: unset !important;
-}
-
-.search-list {
-	color: rgba(var(--t-t1), 0.6);
-	height: 22px;
-	line-height: 22px;
-}
-
-.search-list a {
-	color: rgba(var(--t-t1), 0.6);
-	font-size: 16px;
-	line-height: 22px;
-	font-family: 'Poppins Regular', 'Microsoft YaHei';
-	cursor: pointer;
-	user-select: none;
-	transition: 0.3s ease;
-}
-
-.search-list a:hover {
-	color: rgba(var(--t-c1), 1);
-}
-
-#searchInput {
+.search textarea {
 	width: 210px;
 	height: 15px;
 	padding: 5px 5px;
@@ -481,44 +441,69 @@ btn2 {
 	overflow: hidden;
 }
 
-#searchInput::placeholder {
-	font-family: 'Microsoft YaHei';
-	color: rgba(var(--t-t1), 0.6);
-	user-select: none;
-}
-
-#searchInput:hover,
-#searchInput:focus {
+.search textarea:hover,
+.search textarea:focus {
 	border: 1px solid rgba(var(--t-t1), 0.8);
 }
 
-#search {
-	overflow: hidden;
-	transition: all 0.3s ease-out 0s;
-}
-
-#search span {
+.search span {
 	color: rgba(var(--t-t1), 0.8);
 	display: inline-block;
 	vertical-align: top;
 	margin-left: -24px;
 	line-height: 30px;
+	font-size: 16px;
 	user-select: none;
 	pointer-events: none;
 }
 
-.search-key {
+.search list {
+	display: block;
+	margin: -3px 0px;
+	height: 110px;
+	width: 224px;
+	padding: 0px;
+	overflow: scroll;
+}
+
+.search list div {
+	color: rgba(var(--t-t1), 0.6);
+	height: 22px;
+	line-height: 22px;
+}
+
+.search list div a {
+	color: rgba(var(--t-t1), 0.6);
+	font-size: 16px;
+	cursor: pointer;
+	user-select: none;
+	transition: 0.3s ease;
+}
+
+.search list div a:hover {
+	color: rgba(var(--t-c1), 1);
+}
+
+.search list .pinned::after {
+	float: right;
+	margin-right: 5px;
+	content: '';
+	color: rgba(var(--t-t1), 0.3);
+	font-size: 14px;
+}
+
+.search list key {
 	text-decoration: underline; 
 	color: rgba(var(--t-c1), 1);
 }
 
-.pin {
-	color: rgba(var(--t-t1), 0.3);
-	display: inline-block;
-	font-size: 14px;
-	float: right;
-	margin-right: 30px;
-	user-select: none;
+.search list::-webkit-scrollbar {
+	width: 2px !important;
+	height: 0px !important;
+}
+
+.search list::-webkit-scrollbar-thumb {
+	background-clip: unset !important;
 }
 
 
@@ -670,8 +655,6 @@ btn2 {
 	animation-fill-mode:forwards;
 }
 
-
-
 @keyframes wordsLoop {
 	0% {	transform: translateY(0%);
 		-webkit-transform: translateY(0%);
@@ -683,27 +666,24 @@ btn2 {
 
 
 
-
-
-
-/* 功能样式 */
-
 .f-1 {
-	/* 无效元素 */
 	-webkit-user-select: none;
 	pointer-events: none;
 }
 
-.f-3 {
-	/* 仅在移动端显示 */
-	display: none;
+
+
+/* 设备兼容 */
+@media screen and (min-width: 1200px)  {
+	.f-3 {
+		display: none;
+	}
 }
 
-
-
-/* 移动端样式 */
-
 @media screen and (max-width: 1200px) and (min-width: 850px)  {
+	.f-3 {
+		display: none;
+	}
 	.box-2 {
 		left: 12%;
 		bottom: 100px;
@@ -715,14 +695,10 @@ btn2 {
 		font-size: 26px;
 		margin-top: 0px;
 	}
-
 }
-
-
 
 @media screen and (max-width: 850px)  {
 	.f-2 {
-		/* 仅在 PC 端显示 */
 		display: none;
 	}
 	.box-2 span {
@@ -755,7 +731,6 @@ btn2 {
 		font-size: 100px;
 		line-height: 100px;
 	}
-
 }
 
 

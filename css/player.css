@@ -76,7 +76,7 @@
 	width: 143px;
 	height: 23px;
 	color: rgba(var(--t-b3), 1);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.6);
+	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.8);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -178,7 +178,11 @@
 
 
 
-.PlayerButton {
+.player-btn {
+	display: inline-block;
+	margin: 10px 8px 6px 10px;
+	vertical-align: middle;
+
 	width: 36px;
 	height: 36px;
 	z-index: 10;
@@ -191,22 +195,16 @@
 	user-select: none;
 }
 
-.PB-p1 {
-	display: inline-block;
-	margin: 10px 8px 6px 10px;
-	vertical-align: middle;
-}
-
-.PlayerButton:hover {
+.player-btn:hover {
 	background-color: rgba(var(--t-b2), 0.3);
 	opacity: 1;
 }
 
-.PlayerButton-pause {
+.player-btn0 {
 background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsMAAA7DAcdvqGQAAADHSURBVFhH7ZexDcJAEAQfRBGUARmJcyKqgKqgCSQKQHJCRguEFIH07Frv7CW8vrMccCON3iYa31/CIuec5mRZztmIgAiIADVgB5/wClf8wYoasIcbeIAtXEMTlivop8FzNNYd4AQ4iWP3NgKPJeQunIvyXngE9HAK8l54BhB5L7wDiLQXUwRITBHwhg28dG8/8A54wG05B+EZwC/ml3MCg/EI+MBTkc8S1gDpvmtYAuT7rqEG3OEL3qB83zXif0EERMC/B6T0BY/uIA9OJ2IOAAAAAElFTkSuQmCC);
 }
 
-.PlayerButton-play {
+.player-btn1 {
 background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAADsIAAA7CARUoSoAAAACFSURBVFhH7ZdBCoAwDAQTX+DRg4/yGf7Ui3+qCQ3YlCrxYinswJKiC51TRE4p0d8ws52IJpvdgAAEhhKYJZvNJyIdj+6BYA6JorP1XhPp2M2ZL4uoLN6bxBPpYBE5IAABCEAAAkMJnNVsEel46m/1S1bJLlmKZ3UiHbs5gx8TCECgswDRBSCAwu78Wt3rAAAAAElFTkSuQmCC);
 }
 
@@ -435,16 +433,34 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYA
 	backdrop-filter: blur(3px);
 }
 
+.player-kana {
+	display: inline-block;
+	margin-left: 5px;
+	padding: 11px 11px;
+	height: 15px;
+	width: 15px;
+	border-radius: 100%;
+	font-size: 16px;
+	line-height: 16px;
+	vertical-align: 7px;
+	color: rgba(var(--t-b1), 0.5);
+	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.2);
+	background-color: rgba(var(--t-b2), 0.1);
+	backdrop-filter: blur(3px);
+	cursor: pointer;
+	user-select: none;
+}
+
 .player-lrc btn1:hover {
 	color: rgba(var(--t-b1), 0.3);
 	background-color: rgba(var(--t-b2), 0.2);
 }
 
-.PB-p2 {
-	display: inline-block;
-	vertical-align: -5px;
-	margin-left: 8px;
-	backdrop-filter: blur(3px);
+.player-lrc .player-btn {
+	vertical-align: -5px !important;
+	margin: 0 !important;
+	margin-left: 8px !important;
+	backdrop-filter: blur(3px) !important;
 	opacity: 0.5 !important;
 }
 

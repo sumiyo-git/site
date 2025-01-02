@@ -8,34 +8,34 @@
 
 
 
-env.data.version.main = '1.0.21'
+env.data.version.main = '1.0.22'
 
 // 通知列表
-env.data.list.notice = [
+env.data.list.info = [
 	{
 		date: '1.01',
-		event: '主题优化',
-		content: '不优雅的东西，删掉！\n2025 新年快乐',
+		name: '主题优化',
+		des: '不优雅的东西，删掉！\n2025 新年快乐',
 	},
 	{
 		date: '11.21',
-		event: '注册 <ins>sumiyo.link/</ins>',
-		content: '新的域名，新的开始！',
+		name: '注册 <ins>sumiyo.link/</ins>',
+		des: '新的域名，新的开始！',
 	},
 	{
 		date: '10.02',
-		event: '网站界面优化',
-		content: '一点点小调整',
+		name: '网站界面优化',
+		des: '一点点小调整',
 	},
 	{
 		date: '8.31',
-		event: '第 4 次重构',
-		content: '重写了函数结构',
+		name: '第 4 次重构',
+		des: '重写了函数结构',
 	},
 	{
 		date: '6.08',
-		event: '留言板上线',
-		content: '终于可以留言啦',
+		name: '留言板上线',
+		des: '终于可以留言啦',
 	},
 
 ]
@@ -189,21 +189,13 @@ env.f.url = {}
 		let url = location.href
 		let url2
 
-		if (typeof value === 'string') {
-			value = value.toString().replace(/(^\s*)|(\s*$)/, "")
-		}
+		if (typeof value === 'string') {value = value.toString().replace(/(^\s*)|(\s*$)/, "")}
 		if (!value) {
-			// 移除
 			let reg = eval('/(([\?|&])' + name + '=[^&]*)(&)?/i')
 			let res = url.match(reg)
 			if (res) {
 				if (res[2] && res[2] === '?') { // before has ?
-					if (res[3]) {
-						// 追加 &
-						url2 = url.replace(reg, '?')
-					} else {
-						url2 = url.replace(reg, '')
-					}
+					if (res[3]) {url2 = url.replace(reg, '?')} else {url2 = url.replace(reg, '')}
 				} else {
 					url2 = url.replace(reg, '$3')
 				}
@@ -226,7 +218,6 @@ env.f.url = {}
 				url2 += name + '=' + value
 			}
 		}
-
 		history.replaceState(null, null, url2)
 	}
 
@@ -246,7 +237,7 @@ env.f.url = {}
 		/* 读取参数并打开 */
 		var id = env.f.url.get('id')
 		if (id) {
-			var list = env.data.list.Bloglist
+			var list = env.data.list.blog
 			var n = list.length
 
 			for (var i = 0; i < n; i++) {
@@ -254,9 +245,7 @@ env.f.url = {}
 					env.f.blog.open(id)
 					break
 				} else {
-					if (i == n - 1) {
-						env.f.blog.open('page/oops')
-					}
+					if (i == n - 1) {env.f.blog.open('page/oops')}
 				}
 			}
 		} else {
@@ -277,10 +266,10 @@ env.f.blog = {}
 		setTimeout(function (){
 			env.data.change = 1
 			if (!env.data.isNetwork) {
-				env.f.url.set('id', id)
+				if (id != 'page/oops') {env.f.url.set('id', id)}
 				document.querySelector('iframe').src = 'blog/' + id + '/page.html'
 			} else {
-				history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/blog?id=' + id)
+				if (id != 'page/oops') {history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/blog?id=' + id)}
 				document.querySelector('iframe').src = window.location.href.split('link',1)[0] + 'link/blog/' + id + '/page'
 			}
 		},400)
@@ -292,7 +281,7 @@ env.f.blog = {}
 		$('.blog').fadeOut(300)
 		$('title').text('sumiyo.link')
  
-		if (document.domain!='') {
+		if (env.data.isNetwork) {
 			history.replaceState(null, null, window.location.href.split('link',1)[0] + 'link/')
 		} else {
 			env.f.url.clear()
@@ -310,38 +299,33 @@ env.f.blog = {}
 
 env.f.initList = function() {
 	/* 初始化菜单 */
-	env.data.list.Bloglist = env.f.filter(env.data.list.Bloglist, 'type', 'hide')
-	var BlogTEMP = env.data.list.Bloglist
+	env.data.list.blog = env.f.filter(env.data.list.blog, 'type', 'hide')
+	var d = env.data.list.blog
 
-	var ul = document.querySelector('ul')
-	for (var i = 0; i < BlogTEMP.length; i++) {
-		if (BlogTEMP[i]['type'] != 'hide') {
+	var e = document.querySelector('.search').querySelector('list')
+	for (var i = 0; i < d.length; i++) {
+		if (d[i].type != 'hide') {
 			var div = document.createElement('div')
-				div.setAttribute('class', 'search-list')
 				div.setAttribute('style', 'display: block')
-				div.setAttribute('id', BlogTEMP[i]['type'] + ' ' + BlogTEMP[i]['name'])
-				ul.appendChild(div)
+				e.appendChild(div)
 
 			var a = document.createElement('a')
-				a.setAttribute('onclick', `env.f.blog.open('` + BlogTEMP[i]['src'].slice(0, -1) + `')`)
-				a.setAttribute('title', BlogTEMP[i]['details'])
+				a.setAttribute('onclick', `env.f.blog.open('` + d[i].src.slice(0, -1) + `')`)
+				a.setAttribute('title', d[i].des)
+				a.innerHTML = d[i].name
 				div.appendChild(a)
 
-			if (BlogTEMP[i]['name'].slice(-1) == '') {
-				a.innerHTML = BlogTEMP[i]['type'] + ' ' + BlogTEMP[i]['name'].substring(0, BlogTEMP[i]['name'].length - 1)
-				var div1 = document.createElement('div')
-					div1.setAttribute('class', 'pin')
-					div1.setAttribute('title', 'Pinned')
-					div1.innerHTML = ''
-					div.appendChild(div1)
-			} else {
-				a.innerHTML = BlogTEMP[i]['type'] + ' ' + BlogTEMP[i]['name']
-			}
+			if (d[i].type == 'pinned') {div.setAttribute('class', 'pinned')}
 		}
 	}
+	var div = document.createElement('div')
+		div.setAttribute('class', 'search-null')
+		div.setAttribute('style', 'display: none; cursor: text; user-select: auto;')
+		div.innerHTML = '没有找到指定内容...'
+		e.appendChild(div)
 
 	// 显示博客文章数量
-	document.querySelector('.blog-num').innerHTML = BlogTEMP.length
+	$('.blog-num').html(d.length)
 	// 初始化搜索引擎
 	document.onkeydown = function(e) {
 		var ev = (typeof event!= 'undefined') ? window.event : e
@@ -349,27 +333,22 @@ env.f.initList = function() {
 				return false
 			}
 	}
-	$('#searchInput').on('keyup', function () {
-		new env.f.search('.search-list', $('#searchInput'))
+	$('.search textarea').on('keyup', function () {
+		new env.f.search()
 	})
 	// 初始化列表高度
-	if (BlogTEMP.length > 5) {
-		$('#search').css('height', '165px')
-		document.getElementById('searchInput').name = 5
-	} else {
-		$('#search').css('height', BlogTEMP.length * 22 +55 + 'px')
-		document.getElementById('searchInput').name = BlogTEMP.length
-	}
+	$('.search').css('height', Math.min(5, d.length) * 22 +55 + 'px')
 
 	// 通知
 	var e = document.querySelector('.menu-c2')
-	var l = env.data.list.notice
+	var l = env.data.list.info
 	for (var i = 0; i < 5; i++) {
 		var div = document.createElement('news')
-			div.innerHTML = '<time>' + l[i]['date'] + '</time><span title="' + l[i]['content'] + '" >' + l[i]['event'] + '</span>'
+			div.innerHTML = '<time>' + l[i].date + '</time><span title="' + l[i].des + '" >' + l[i].name + '</span>'
 			e.appendChild(div)
 	}
 
+	setTimeout(function (){$('btn1').removeAttr('style'); env.f.menu.open()}, 1000)
 }
 
 env.f.msg = function(content, time) {
@@ -390,46 +369,32 @@ env.f.msg = function(content, time) {
 env.f.menu = {}
 	env.f.menu.open = function() {
 		/* 打开菜单 */
-		if ($('ul').hasClass('wait') == true) {
-			return
-		}
-		if ($('ul')
-.hasClass('ok') != true) {
-			$('ul')
-.addClass('ok')
-			$('ul')
-.addClass('wait')
+		if ($('.menu-c2 news').length == 0) {
+			$('btn1').css('pointer-events', 'none')
 			env.f.initList()
-
-			setTimeout(function (){
-				$('ul')
-.removeClass('wait')
-				$('.menu').addClass('menu-active')
-				$('btn2').fadeIn(300)
-			}, 600)
 		} else {
 			$('.menu').addClass('menu-active')
 			$('btn2').fadeIn(300)
 		}
 	}
 
-		env.f.menu.close = function() {
- 			$('.menu').removeClass('menu-active')
-			$('btn2').fadeOut(300)
-		}
+	env.f.menu.close = function() {
+ 		$('.menu').removeClass('menu-active')
+		$('btn2').fadeOut(300)
+	}
 
 	env.f.menu.c1 = function() {
-		$('#search').css('transition', 'all 0.3s ease-out 0s')
+		$('.search').css('transition', 'all 0.3s ease-out 0s')
 		if($('#menu-c1').hasClass('btn-active') != true) {
 			$('#menu-c1').addClass('btn-active')
-			$('#search').css({
+			$('.search').css({
 				'opacity': '1',
-				'height': document.getElementById('searchInput').name * 22 +55 + 'px'
+				'height': Math.min(5, (Number(document.querySelector('.blog-num').innerHTML) || 1)) * 22 +55 + 'px'
 			})
 		} else {
 			$('#menu-c1').removeClass('btn-active')
-			$('#search').css('height', '0px')
-			$('#search').css('opacity', '0')
+			$('.search').css('height', '0px')
+			$('.search').css('opacity', '0')
 		}
 	}
 
@@ -466,7 +431,6 @@ env.f.page = {}
 		/* 博客加载动画 */
 		clearInterval(env.timer.t2)
 		$('.loading').fadeIn(300)
-		$('.pageloading1').css('display', 'none')
 
 		env.tmp.t5 = new Date()
 		env.timer.t2 = setInterval(() => {
@@ -475,21 +439,19 @@ env.f.page = {}
 			if (t >= 30000) {
 				$('.loading err').fadeIn(150)
 			}
-		}, 80)
+		}, 100)
 	}
 		env.f.page.load.stop = function() {
 			/* 停止博客加载动画 */
-			setTimeout(function (){
-				clearInterval(env.timer.t2)
-				env.tmp.t5 = null
-				delete env.tmp.t5
+			clearInterval(env.timer.t2)
+			env.tmp.t5 = null
+			delete env.tmp.t5
+			$('.loading').fadeOut(500)
 
-				$('.loading').fadeOut(300)
-			}, 1500)
 			setTimeout(function (){
 				$('.loading span').html()
 				$('.loading err').css('display', 'none')
-			}, 2000)
+			}, 500)
 		}
 
 	env.f.page.ok = function(title) {
@@ -500,7 +462,7 @@ env.f.page = {}
 			$('title').text(title)
 		}
 
-		env.f.page.load.stop()
+		setTimeout(function (){env.f.page.load.stop()}, 2000)
 	}
 
 env.f.typewriter = function() {
@@ -516,6 +478,52 @@ env.f.typewriter = function() {
 			clearInterval(env.timer.t3)
 		}
 	}, 140)
+}
+
+env.data.version.search = '1.0.10'
+env.f.search = function() {
+
+	/*	站内搜索引擎
+	*	created by sumiyo, 2025/1/02	with the help of ChatGPT
+
+		*/
+
+	var d = env.data.list.blog
+	var k = $('.search textarea').val()
+	var o = $('.search list div')
+	var f = $('.search')
+	var ban = ['']
+
+	//  排除违禁词
+	if (ban.some(item => k.includes(item))) {return}
+
+	o.css('display', 'none')
+	f.css('transition', 'none');
+
+	// 创建新数组，格式为 {'name': 符合条件的 name 值, 'index': 项数}
+	const r = d
+		.map((item, index) => ({ name: item.name, index }))
+		.filter(item => item.name.toLowerCase().includes(k.toLowerCase()))
+
+	//  渲染结果
+	if (k == '') {
+		for (var i = 0; i < r.length; i++) {
+			o[r[i].index].children[0].innerHTML = r[i].name
+			$(o[r[i].index]).css('display', 'block')
+		}
+	} else {
+		for (var i = 0; i < r.length; i++) {
+			o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(k, 'gi'), (match) => `<key>${match}</key>`)
+			$(o[r[i].index]).css('display', 'block')
+		}
+	}
+
+	// 没有找到结果
+	if (r.length == 0) {$('.search-null').css('display', 'block')}
+
+	f.css('height', Math.max(Math.min(5, r.length), 1) * 22 + 55 + 'px')
+	f.css('transition', 'transition: all 0.3s ease-out 0s;')
+	$('.blog-num').html(r.length)
 }
 
 

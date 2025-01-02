@@ -51,9 +51,9 @@ player.f.data = function(){
 		act: {lrc: false, js: null},
 	},
 	{
-		name: 'Calling - MAROK & mamomo',
-		src: '1944649836',
-		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
+		name: 'Goodbye for Now, Eisen - Evan Call',
+		src: '2146700515',
+		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
 		act: {lrc: false, js: null},
 	},
 	{
@@ -67,6 +67,12 @@ player.f.data = function(){
 		src: '2101452199',
 		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
 		act: {lrc: true, js: null},
+	},
+	{
+		name: 'Calling - MAROK & mamomo',
+		src: '1944649836',
+		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
+		act: {lrc: false, js: null},
 	},
 	{
 		name: 'Saudade (Original Mix) - Kupla',
@@ -84,12 +90,6 @@ player.f.data = function(){
 		name: 'Together - Bcalm & Purrple Cat',
 		src: '1916742663',
 		img: 'zJBR2s3mTC06Z-v4npw2Jw==/109951168736565471',
-		act: {lrc: false, js: null},
-	},
-	{
-		name: 'Goodbye for Now, Eisen - Evan Call',
-		src: '2146700515',
-		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
 		act: {lrc: false, js: null},
 	},
 	{
@@ -162,8 +162,8 @@ player.e = {
 		menu: document.querySelector('.player-menu'),
 		list: document.querySelectorAll('.list-item'),
 		list_body: document.querySelector('.player-list').children[0],
-		btn1: document.querySelectorAll('.PlayerButton')[0],
-		btn2: document.querySelectorAll('.PlayerButton')[1],
+		btn1: document.querySelectorAll('.player-btn')[0],
+		btn2: document.querySelectorAll('.player-btn')[1],
 		ask: document.querySelector('.player-ask'),
 		s1: document.querySelector('.player-sound1'),
 		s2: document.querySelector('.player-sound0'),
@@ -217,6 +217,12 @@ player.f.load = function(){
 	if (player.list[id].act.js) {
 		eval(player.list[id].act.js)
 	}
+	if (($('player-lrc rt').length > 0)) {
+		$('player-kana').fadeIn(300)
+		$('rt').css('display', 'none')
+	} else {
+		$('player-kana').fadeOut(300)
+	}
 }
 
 // 切换播放模式
@@ -258,8 +264,7 @@ player.f.menu = function(){
 	}
 }
 	player.f.menu.set = function(mode){
-		if (mode=='1') {
-
+		if (mode == '1') {
 			player.e.frame.classList.add('PlayerWait')
 			$(player.e.menu, 160).fadeIn(160)
 			if (env.data.isMobile) {$(player.e.cover1).fadeOut(160)}
@@ -269,8 +274,7 @@ player.f.menu = function(){
 			setTimeout(function (){
 				$(player.e.frame).removeClass('PlayerWait')
 			},250)
-		}
-		if (mode=='0') {
+		} else {
 			$(player.e.frame).addClass('PlayerWait')
 			$(player.e.frame).addClass('player-active')
 			$(player.e.menu).fadeOut(160)
@@ -325,33 +329,34 @@ player.f.play = function(){
 			player.e.body.volume = player.data.vol
 
 			player.data.pause = 0
-			$(player.e.btn1).addClass('PlayerButton-play')
-			$(player.e.btn2).addClass('PlayerButton-play')
-			$(player.e.btn1).removeClass('PlayerButton-pause')
-			$(player.e.btn2).removeClass('PlayerButton-pause')
+			$(player.e.btn1).addClass('player-btn1')
+			$(player.e.btn2).addClass('player-btn1')
+			$(player.e.btn1).removeClass('player-btn0')
+			$(player.e.btn2).removeClass('player-btn0')
 		}
 		if (mode=='0') {
 			player.e.body.pause();
-			$(player.e.btn1).addClass('PlayerButton-pause')
-			$(player.e.btn2).addClass('PlayerButton-pause')
-			$(player.e.btn1).removeClass('PlayerButton-play')
-			$(player.e.btn2).removeClass('PlayerButton-play')
+			$(player.e.btn1).addClass('player-btn0')
+			$(player.e.btn2).addClass('player-btn0')
+			$(player.e.btn1).removeClass('player-btn1')
+			$(player.e.btn2).removeClass('player-btn1')
 			player.data.pause = 1
 		}
 	}
 
 	// 函数调用播放器
 	player.f.play.start = function(id, autoplay){
-		player.data.now.id = id;
-		player.f.load();
-		$(player.e.btn1).addClass('PlayerButton-pause')
-		$(player.e.btn2).addClass('PlayerButton-pause')
-		$(player.e.btn1).removeClass('PlayerButton-play')
-		$(player.e.btn2).removeClass('PlayerButton-play')
-		if (autoplay == 1) {
-			player.f.play.set(1)
-		}
-		return player.list[id]['name'];
+		player.data.now.id = id
+		player.f.load()
+
+		setTimeout(function (){
+			if (autoplay) {
+				player.f.play.set(1)
+			} else {
+				player.f.play.set(0)
+			}
+		}, 500)
+		return player.list[id].name
 	}
 
 // 更新播放器列表
@@ -602,6 +607,14 @@ player.f.lrc = {}
 		});
 	}
 
+player.f.kana = function() {
+
+	if (document.querySelector('.player-lrc').querySelector('rt').style.display == 'none') {
+		$('rt').css('display', 'block')
+	} else {
+		$('rt').css('display', 'none')
+	}
+}
 
 
 player.f.load()
@@ -613,7 +626,7 @@ setInterval(() => {
 		player.data.now.per = (player.e.body.currentTime / player.e.body.duration).toFixed(8) || player.data.now.per
 		$(player.e.bar1).css('width', player.data.now.per * 100 + '%')
 	}
-}, 1000)
+}, 2000)
 
 // 进度调整
 player.e.bar0.addEventListener('click', function(event) {
@@ -638,6 +651,12 @@ player.e.body.addEventListener('timeupdate', function () {
 			$(player.e.lrc).animate({scrollTop: $(player.e.lrc).scrollTop() + $(player.e.line[player.data.lrc.now]).offset().top - 220}, 500)
 			player.e.line[player.data.lrc.now].classList.add('line-now')
 			player.data.lrc.now ++
+		} else {
+			// 单曲循环时重置歌词
+			if (player.e.mode.innerHTML == '' && ((player.e.body.duration - player.e.body.currentTime) <= 1)) {
+				player.data.lrc.now = 0
+				$(player.e.lrc).animate({scrollTop: $(player.e.lrc).scrollTop() + $(player.e.line[0]).offset().top - 220}, 500)
+			}
 		}
 	}
 })

@@ -48,13 +48,13 @@ player.f.data = function(){
 		name: 'One Last Adventure - Evan Call',
 		src: '2116382384',
 		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
-		act: {lrc: false, js: null},
+		act: {lrc: false, js: "setTimeout(function (){player.e.lrcT.innerHTML = `　FRIEREN: BEYOND JOURNEY'S END`.repeat(4); player.e.lrcT.setAttribute('style', 'animation: 31s wordsLoop linear infinite normal');}, 1100)"},
 	},
 	{
 		name: 'Goodbye for Now, Eisen - Evan Call',
 		src: '2146700515',
 		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
-		act: {lrc: false, js: null},
+		act: {lrc: false, js: "setTimeout(function (){player.e.lrcT.innerHTML = `　FRIEREN: BEYOND JOURNEY'S END`.repeat(4); player.e.lrcT.setAttribute('style', 'animation: 31s wordsLoop linear infinite normal');}, 1100)"},
 	},
 	{
 		name: "原風景 - mamomo & 丘咲アンナ",
@@ -493,10 +493,7 @@ player.f.lrc = {}
 					return response.text();
 				}
 			})
-			.then(text => {
-				player.data.lrc.data = text
-				player.f.lrc.load(text)
-			})
+			.then(text => {player.f.lrc.load(text)})
 			.catch(error => {
 				console.error(error)
 				setTimeout(function (){$(player.e.lrc).fadeIn(160)}, 1000)
@@ -512,6 +509,7 @@ player.f.lrc = {}
 
 	player.f.lrc.load = function(str) {
 		player.data.lrc.leng = str.split('\n').length
+		player.data.lrc.data = str
 		player.data.lrc.now = 0
 
 		player.e.lrc.innerHTML = ''
@@ -607,12 +605,22 @@ player.f.lrc = {}
 				console.log(player.f.conversion2(player.e.body.currentTime))
 			}
 		});
+
+		var div = document.createElement('div')
+			div.setAttribute('style', 'position: fixed; z-index: 50; bottom: 0;')
+			div.innerHTML = `
+				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
+				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
+					<button onclick="$('.player-lrc pre').html(document.querySelector('.player-lrc').querySelector('textarea').value)" >preview</button>
+					<button onclick="player.f.lrc.load(document.querySelector('.player-lrc').querySelector('textarea').value)" >load</button>
+			`
+			document.querySelector('.player-lrc').appendChild(div)
 	}
 
 player.f.kana = function() {
 
 	if (document.querySelector('.player-lrc').querySelector('rt').style.display == 'none') {
-		$('rt').css('display', 'block')
+		$('rt').removeAttr('style')
 	} else {
 		$('rt').css('display', 'none')
 	}

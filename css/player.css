@@ -76,7 +76,7 @@
 	width: 143px;
 	height: 23px;
 	color: rgba(var(--t-b3), 1);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.8);
+	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.6);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
@@ -503,8 +503,7 @@ background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYA
 	.player-lrc line time {
 		display: none;
 	}
-	.player-lrc line lrc,
-	.player-lrc line {
+	.player-lrc line lrc {
 		width: 100%;
 	}
 

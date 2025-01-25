@@ -76,12 +76,6 @@ player.f.data = function(){
 		act: {lrc: false, js: null},
 	},
 	{
-		name: 'Saudade (Original Mix) - Kupla',
-		src: '518904157',
-		img: 'c04kf5BCGexeunM4MfAkHw==/109951165069828217',
-		act: {lrc: false, js: null},
-	},
-	{
 		name: 'Friend - Kozoro',
 		src: '33004707',
 		img: 'FR7zKYB8ujNRoWQuGCHbGg==/109951163288692527',
@@ -97,12 +91,6 @@ player.f.data = function(){
 		name: 'Have You Ever - Darsena & eugenio izzi',
 		src: '1980987766',
 		img: 'rrUDhlEJKRBdz-1JcsUAFw==/109951169990022823',
-		act: {lrc: false, js: null},
-	},
-	{
-		name: 'Disappear in Light - Equal Stones & Endless Melancholy',
-		src: '29406314',
-		img: 'JIeHyV-yad8BDq_4GmsVuA==/2572857209028564',
 		act: {lrc: false, js: null},
 	},
 	{

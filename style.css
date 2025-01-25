@@ -53,13 +53,10 @@ body {
 	min-width: 380px;
 }
 
+img,
 a {
-	text-decoration: none;
-	-webkit-user-drag: none;
-}
-
-img {
 	user-select: none;
+	text-decoration: none;
 	-webkit-user-drag: none;
 }
 
@@ -586,7 +583,7 @@ btn2 {
 	height: 120px;
 	width: 300px;
 	white-space: nowrap;
-	font-size: 28px;
+	font-size: 24px;
 	text-align: center;
 }
 

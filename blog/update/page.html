@@ -9,7 +9,6 @@
 
 	<link rel="preload" as="font" href="../../src/Poppins Regular.woff2" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="../default.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 
@@ -32,13 +31,13 @@
 </script>
 <style>
 
-	.imgBox1 {
+	.img1 {
 		aspect-ratio: 1 / 1;
 		width: 50%;
 		display: inline-block;
 	}
 
-	.imgBox1 img {
+	.img1 img {
 		vertical-align: text-top;
 		width: 100%;
 		height: 100%;
@@ -49,7 +48,7 @@
 	}
 
 	@media screen and (max-width: 900px) {
-		.imgBox1 {
+		.img1 {
 			width: 100%;
 		}
 	}
@@ -59,10 +58,11 @@
 	<!-- Mian -->
 	<div class="main" >
 
-		<h1>标题</h1>
-		<i>—— 介绍</i>
-		<br />
-		<br class="f-1" />
+		<para>
+			<h1>标题</h1>
+			<i>介绍</i>
+		</para>
+
 		<para>
 			<span>内容</span>
 		</para>
@@ -115,12 +115,6 @@
 		<br />
 		<br />
 
-		<li class="list1" >这是列表内容</li>
-		<li class="list2" >这是子项</li>
-		<li class="list3" >这是子项的子项</li>
-		<br />
-		<br />
-
 <code><attention>js/script.js</attention>
 
 <note># 注释</note>
@@ -129,13 +123,11 @@ Hello world!
 </code>
 		<br />
 		<br />
+		<hr />
 
-		<hr1></hr1>
-		<hr2></hr2>
-		<hr3></hr3>
 		<br />
 		<br />
-		<a class="imgBox1"  target="_blank" href="../../src/sumiyo.png" >
+		<a class="img1"  target="_blank" href="../../src/sumiyo.png" >
 			<img src="../../src/sumiyo.png" onload="this.setAttribute('class', 'fade')" />
 		</a>
 

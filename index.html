@@ -33,7 +33,9 @@
 	const env = {
 		'data': {
 			'version': {},
-			'list': {},
+			'list': {
+				'blog': [],
+			},
 			'visitors': 0,
 			'domain': 'sumiyo.link',
 			'isNew': null,
@@ -109,7 +111,7 @@
 <!-- 菜单  -->
 
 <div class="menu" >
-	<h1>MENU.</h1>
+	<h1>MENU</h1>
 	<hr />
 
 	<!-- 博客 -->
@@ -216,7 +218,7 @@
 
 <div class="message" ><div></div></div>
 <div class="loading" style="display: none;" >
-	<box1><div>ロード中ですよ...</div></box1>
+	<box1><div>页面加载中 ...</div></box1>
 	<box2></box2>
 </div>
 
@@ -226,7 +228,7 @@
 
 
 <!-- Javascript -->
-	<script src="blog\staticDB.js" ></script>
+	<script src="blog\registry.db.js" ></script>
 	<script src="script.js" ></script>
 	<script src="js\player.js"></script>
 

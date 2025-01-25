@@ -71,7 +71,7 @@
 	width: 143px;
 	height: 23px;
 	color: rgba(var(--t-b3), 1);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.6);
+	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.8);
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;

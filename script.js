@@ -125,11 +125,6 @@ env.f.scroll = function(e, y, t = 300, abs = true) {
 	requestAnimationFrame(animation)
 }
 
-env.f.filter = function(arr, key, value) {
-	// 剔除被隐藏的文章
-	return arr.filter(obj => obj[key] != value)
-}
-
 env.f.setCookie = function(value) {
 	// 设置 Cookie
 	document.cookie = "Cookie=" + value + "; expires=" + new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()
@@ -302,7 +297,6 @@ env.f.init = function() {
 	// 初始化菜单
 
 	// 文章
-	env.data.list.blog = env.f.filter(env.data.list.blog, 'type', 'hide')
 	var d = env.data.list.blog
 	var e = document.querySelector('.search list')
 	document.getElementById('_1').innerHTML = d.length

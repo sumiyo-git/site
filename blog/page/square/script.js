@@ -47,7 +47,7 @@ env.f.wait = function() {
 	env.timer.t1 = setInterval(() => {
 		for (var i = 0; i < env.e.length; i++) {env.e[i].classList.remove('wait')}
 		clearInterval(env.timer.t1)
-	}, 3000)
+	}, 5000)
 }
 
 env.f.err = function(str) {

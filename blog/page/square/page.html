@@ -29,7 +29,7 @@
 		margin-right: 10px;
 		height: 24px;
 		min-height: 24px;
-		width: calc(25% - 50px);
+		width: calc(25% - 70px);
 		resize: none;
 		outline: none;
 		background-color: rgba(var(--t-b1), 0.6);
@@ -46,7 +46,7 @@
 		user-select: none;
 	}
 	.tbox {
-		width: calc(70% - 50px);
+		width: calc(70% - 30px);
 		resize: vertical;
 	}
 	.post {
@@ -153,39 +153,41 @@
 
 	<!-- Mian -->
 	<div class="main" >
-
-		<h1>广场</h1>
-		<i>—— 钟声响起，寒风穿过街道。空空的，广场上一个人都没有 ...</i>
-		<br />
-		<br class="f-1" />
 		<para>
-			<span>欢迎来到网站广场。这里是市中心一个不起眼的角落。</span>
+			<h1>广场</h1>
+			<i>寒风穿过空荡荡的街道。广场上，还是一个人也没有 ...</i>
+		</para>
+
+		<para>
+			<span>已经很久没有人来过这里了。</span>
 			<br />
-			<span>漫步走过一排排锈迹斑斑的长椅，你四处寻找。夕阳穿过冬天的薄雾，朦朦胧胧地照着。依旧什么也看不清。</span>
 			<br class="f-1" />
+			<span>漫步走过一排排锈迹斑斑的长椅，昔日的光芒早已不再。</span>
 			<br />
-			<span>前方似乎立着什么。</span>
+			<span>透过冬天的薄雾，夕阳依旧朦朦胧胧地照着。</span>
 			<br />
-			<span>你走上前去，是一块古老的「留言板」。</span>
+			<br class="f-1" />
+			<span>绿藤缠绕，野花装点着古老的「留言板」</span>
 			<br />
-			<span>凑近仔细观察。木质的表皮从板面上脱落，昔日的字迹仍旧清晰可见。</span>
+			<span>伟大的时代已经逝去，
 			<br />
-			<span>“<i>该写点什么呢？ </i>”</span>
+			<span>前人的字迹继续存在。</span>
 			<br />
-			<span>你从上衣的口袋中拿出了笔 ......</span>
+			<br class="f-1" />
+			<span>时间无情，但生命仍然在绽放 ......</span>
 		</para>
 
 		<div class="post" >
-			<textarea oninput="this.value = this.value.replace(/\n/g, '')" placeholder="名字" autocomplete="off" maxlength="20" ></textarea>
-			<textarea placeholder="留下些什么吧 ..." autocomplete="off" maxlength="200" class="tbox" ></textarea>
+			<textarea oninput="this.value = this.value.replace(/\n/g, '')" placeholder="" autocomplete="off" maxlength="20" ></textarea>
+			<textarea placeholder="" autocomplete="off" maxlength="200" class="tbox" ></textarea>
 
-			<a onclick="env.f.submit()" >SUBMIT</a>
+			<a onclick="env.f.submit()" >留言</a>
 		</div>
 
 		<div class="list" ><span>加载中 ...</span><br /><br class="f-1" /></div>
 		<footer>
 			<a onclick="env.f.page(-1)" class="disabled" >上一页</a><a onclick="env.f.page(1)" class="disabled" >下一页</a><a onclick="env.f.init()" >刷新</a>
-			<span>第 <span id="_1" >0</span> 页 | 共 <span id="_2" >0</span> 条留言 「<span class="policy" onclick="window.parent.postMessage(`env.f.linkto('page/policy')`, document.domain ? '/' : '*')" >使用协议</span>」</span>
+			<span>第 <span id="_1" >0</span> 页 | 共 <span id="_2" >0</span> 条留言
 		</footer>
 	</div>
 

@@ -112,6 +112,18 @@ player.f.data = function(){
 		act: {lrc: false, js: null},
 	},
 	{
+		name: 'Figlia del cielo III - Roberto Cacciapaglia & Royal Philharmonic Orchestra',
+		src: '18495513',
+		img: '174ug-Xg_-IJ4aRxWs8SxQ==/109951167699550669',
+		act: {lrc: false, js: null},
+	},
+	{
+		name: 'Flight of the Inner Bird - Sivan Talmor & Yehezkel Raz',
+		src: '1807891944',
+		img: 'fvX-PBuiZthCkZi6yZ6WnQ==/109951167146867364',
+		act: {lrc: false, js: null},
+	},
+	{
 		name: 'There Is Still Wonder Left To Behold - reche',
 		src: '2017419119',
 		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
@@ -191,7 +203,7 @@ player.f.load = function(){
 	// 加载音乐信息
 	var id = player.data.now.id
 
-	player.e.name.innerHTML = player.list[id].name
+	player.e.name.innerHTML = player.list[id].name.split('-')[0].split('(')[0]
 	player.e.img.src = 'https://p1.music.126.net/' + player.list[id].img + '.jpg?param=300y300'
 	player.e.body.src = 'https://music.163.com/song/media/outer/url?id=' + player.list[id].src + '.mp3'
 

@@ -349,7 +349,6 @@ player.f.lrc = {}
 		player.data.lrc.data = str.split('\n')
 		player.data.lrc.data.push("[59:59.999]")
 		player.data.lrc.now = 0
-		player.e.lrc.innerHTML = ''
 	}
 
 	player.f.lrc.read = function(n) {

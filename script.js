@@ -58,6 +58,7 @@ env.timer.t2 = null
 	env.timer.t3
 	env.timer.t4
 	env.timer.t5
+	env.timer.t6
 
 	_1
 	_2
@@ -190,7 +191,7 @@ env.f.linkto = function(id) {
 	document.querySelector('.blog').appendChild(document.createElement('iframe'))
 
 	env.f.page.load()
-	if (player.data.ask) {player.f.add.ask(0)}
+	if (env.data.notification) env.f.notification.close()
 
 	setTimeout(function (){
 		env.f.url.set('id', id)
@@ -287,7 +288,7 @@ env.f.blog = {}
 		env.data.isNetwork ? (history.replaceState(null, null, window.location.origin)) : (env.f.url.clear())
 
 		setTimeout(function (){
-			if (player.data.ask) {player.f.add.ask(0)}
+			if (env.data.notification) env.f.notification.close()
 			document.querySelector('.blog iframe').remove()
 		}, 600)
 	}
@@ -448,6 +449,38 @@ env.f.type = function() {
 		if (i == s.length) {clearInterval(env.timer.t3)}
 	}, 140)
 }
+
+env.f.notification = {}
+	env.f.notification.open = function(str, t = 3000) {
+		// 弹出信息窗口
+		var e = document.querySelector('.notification')
+		if (env.data.notification) {
+			env.f.fade(e, -200)
+			clearInterval(env.timer.t6)
+		}
+
+		setTimeout(function (){
+			env.data.notification = 1
+			e.innerHTML = str
+			env.f.fade(e, 200)
+			env.timer.t6 = setInterval(() => {
+				if (env.data.notification) {
+					env.f.notification.close()
+				}
+			}, t)
+		}, 500)
+	}
+	env.f.notification.close = function() {
+		// 关闭信息窗口
+		var e = document.querySelector('.notification')
+		clearInterval(env.timer.t6)
+		env.data.notification = 0
+		env.f.fade(e, -200)
+
+		setTimeout(function (){
+			e.innerHTML = ''
+		}, 500)
+	}
 
 env.data.version.search = '1.0.10'
 env.f.search = function() {

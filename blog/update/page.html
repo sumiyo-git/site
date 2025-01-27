@@ -19,14 +19,14 @@
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
 
-	var music = {
+	var music = JSON.stringify({
 		name: 'Moon Child - 西原健一郎 & Nina Vidal',
 		src: '456041',
 		img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
-		act: {lrc: true, js: null}
-	}
+		lrc: true,
+	})
 
-	window.parent.postMessage('player.f.add.ask(1, "' + music.name + '", "' + music.src + '", "' + music.img + '", ' + music.act.lrc + ', "' + music.act.js + '" )', document.domain ? '/' : '*')
+	window.parent.postMessage('player.f.add.ask(' + music + ')', document.domain ? '/' : '*')
 
 </script>
 <style>

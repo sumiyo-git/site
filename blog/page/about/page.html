@@ -19,14 +19,14 @@
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
 
-	var music = {
+	var music = JSON.stringify({
 		name: 'The Precious Moments We Share - Evan Call',
 		src: '2146702250',
 		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
-		act: {lrc: false, js: null}
-	}
+		lrc: false,
+	})
 
-	window.parent.postMessage('player.f.add.ask(1, "' + music.name + '", "' + music.src + '", "' + music.img + '", ' + music.act.lrc + ', "' + music.act.js + '" )', document.domain ? '/' : '*')
+	window.parent.postMessage('player.f.add.ask(' + music + ')', document.domain ? '/' : '*')
 
 </script>
 <style>

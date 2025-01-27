@@ -124,7 +124,7 @@ header {
 	user-select: none;
 }
 
-header a {
+:not(.player-ui) > header a {
 	padding: 0px 10px;
 	cursor: pointer;
 	transition: 0.3s;
@@ -139,7 +139,7 @@ header a {
 			-2px 0 0 rgba(var(--t-b1), 1);
 }
 
-header a:hover {
+:not(.player-ui) > header a:hover {
 	color: rgba(var(--t-c1), 1);
 }
 
@@ -171,10 +171,6 @@ footer div {
 	user-select: text;
 	color: rgba(var(--t-t1), 0.6);
 	transition: 0.3s;
-}
-
-footer a {
-	color: rgba(var(--t-c1), 0.8);
 }
 
 
@@ -366,7 +362,6 @@ btn2 {
 .menu-footer {
 	position: sticky;
 	margin-left: -40px;
-	width: 330px;
 	height: 40px;
 	bottom: 0;
 	top: calc(100% - 40px);
@@ -375,18 +370,22 @@ btn2 {
 	text-align: center;
 }
 
-.menu-footer a {
-	font-size: 12px;
-	line-height: 12px;
+.menu-footer span {
+	font-size: 14px;
+	line-height: 14px;
 	vertical-align: -6px;
+	margin-left: 20px;
 	color: rgba(var(--t-t1), 0.4);
-	user-select: none;
+}
+
+.menu-footer a {
+	color: rgba(var(--t-t1), 0.6);
 	cursor: pointer;
 	transition: 0.3s;
 }
 
 .menu-footer a:hover {
-	color: rgba(var(--t-t1), 0.8);
+	color: rgba(var(--t-c1), 0.8);
 }
 
 
@@ -610,6 +609,41 @@ btn2 {
 
 
 
+.notification {
+	position: fixed;
+	top: 22px;
+	right: 22px;
+	padding: 10px 15px;
+	z-index: 15;
+	font-size: 16px;
+	line-height: 20px;
+	white-space: nowrap;
+	color: rgba(var(--t-t1), 0.6);
+	background-color: rgba(var(--t-b1), 0.1);
+	border-radius: 5px;
+	backdrop-filter: blur(10px);
+	border: 1px solid rgba(var(--t-t1), 0.1);
+	box-sizing: border-box;
+	white-space: nowrap;
+}
+
+.notification div {
+	float: right;
+	font-size: 12px;
+	margin-top: 10px;
+	color: rgba(var(--t-t1), 0.2);
+}
+
+.notification div a {
+	color: rgba(var(--t-c1), 0.6);
+	cursor: pointer;
+}
+
+
+
+
+
+
 /* 动画 */
 
 @keyframes loop {
@@ -680,6 +714,10 @@ btn2 {
 	.loading box2 {
 		font-size: 100px;
 		line-height: 100px;
+	}
+	.notification {
+		max-width: 285px;
+		white-space: unset;
 	}
 }
 

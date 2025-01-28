@@ -179,7 +179,7 @@ player.f.load = function(){
 	// 加载音乐信息
 	var id = player.data.now.id
 
-	player.e.name.innerHTML = player.list[id].name
+	player.e.name.innerHTML = player.list[id].name.split(' - ')[0].split('(')[0]
 	player.e.audio.src = 'https://music.163.com/song/media/outer/url?id=' + player.list[id].src + '.mp3'
 	player.e.bar1.style.width = '0px'
 	player.data.now.per = 0

@@ -57,7 +57,7 @@
 				document.querySelectorAll('.avatar')[1].removeAttribute('style')
 				document.querySelectorAll('.avatar')[0].removeAttribute('style')
 				document.querySelector('.box-2 span').removeAttribute('style')
-			},5000)
+			},4000)
 			setTimeout(function (){
 				if (typeof env.tmp.t4 != 'undefined') {
 					env.f.msg('Hello 🎉', 3000)
@@ -66,14 +66,12 @@
 				}
 
 				document.querySelectorAll('.avatar')[1].style.opacity = '0.5'
-			},1500)
-			setTimeout(function (){
-				env.f.type()
-				document.querySelectorAll('.avatar')[0].style.opacity = '0.5'
-			},500)
+			},1000)
 
+			env.f.type()
 			document.querySelector('.box-1 header').removeAttribute('style')
 			document.querySelector('.box-2 span').style.opacity = '1'
+			document.querySelectorAll('.avatar')[0].style.opacity = '0.5'
 			document.body.removeAttribute('style')
 
 			env.data.isLoad = true

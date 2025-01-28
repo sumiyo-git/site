@@ -210,7 +210,7 @@ footer a {
 }
 
 .avatar:nth-of-type(2) {
-	filter: saturate(1.4);
+	filter: saturate(1.6);
 }
 
 btn1 {

@@ -278,12 +278,6 @@
 
 
 @media screen and (max-width: 850px)  {
-	.player-ui img {
-		left: -20%;
-		top: -50px;
-		width: unset;
-		height: calc(100% + 150px);
-	}
 	.player-ui .lrc {
 		max-width: 300px;
 		padding: 5px 10px 5px 10px;
@@ -297,5 +291,13 @@
 
 }
 
+@media screen and (max-width: 850px) and (min-height: 600px)  {
+	.player-ui img {
+		left: -33%;
+		top: -50px;
+		width: unset;
+		height: calc(100% + 150px);
+	}
+}
 
 

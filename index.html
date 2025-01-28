@@ -52,23 +52,31 @@
 	}
 
 	env.timer.t1 = setInterval(() => {
-		if (!document.hidden && env.data.isLoad && env.tmp.t2) {
+		if (!document.hidden && env.tmp.t2 && env.data.isLoad == 2) {
+			setTimeout(function (){
+				document.querySelectorAll('.avatar')[1].removeAttribute('style')
+				document.querySelectorAll('.avatar')[0].removeAttribute('style')
+				document.querySelector('.box-2 span').removeAttribute('style')
+			},5000)
 			setTimeout(function (){
 				if (typeof env.tmp.t4 != 'undefined') {
 					env.f.msg('Hello 🎉', 3000)
 					env.tmp.t4 = null
 					delete env.tmp.t4
 				}
+
+				document.querySelectorAll('.avatar')[1].style.opacity = '0.5'
 			},1500)
 			setTimeout(function (){
 				env.f.type()
+				document.querySelectorAll('.avatar')[0].style.opacity = '0.5'
 			},500)
 
 			document.querySelector('.box-1 header').removeAttribute('style')
-			document.querySelector('.box-2 span').removeAttribute('style')
-			document.querySelector('.avatar').removeAttribute('style')
+			document.querySelector('.box-2 span').style.opacity = '1'
 			document.body.removeAttribute('style')
 
+			env.data.isLoad = true
 			clearInterval(env.timer.t1)
 		}
 	},500)
@@ -93,12 +101,13 @@
 	</header>
 
 	<div class="box-2" >
-		<span style="opacity: 0;" >sumiyo</span>
+		<span style="opacity: 0; transition: 1s ease-out 0.3s;" >sumiyo</span>
 		<type></type>
 	</div>
 
 	<!-- 大胆的设计，让我们摆脱了头像框的传统限制 -->
-	<img class="avatar" src="src/sumiyo.webp" style="transform: scale(1.02); opacity: 0;" onload="env.data.isLoad = true" />
+	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.data.isLoad ++" src="src/draft.webp" />
+	<img class="avatar" style="opacity: 0; transition: 3.0s;" onload="env.data.isLoad ++" src="src/sumiyo.webp" />
 
 	<!-- 博客框架 -->
 	<div class="blog" style="display: none;" >
@@ -107,14 +116,13 @@
 
 	<!-- 页脚 -->
 	<footer>
-		<div class="player f-2">
-			<a onclick="player.f.play()" >播放</a> | <span onclick="player.f.lrc.ui()" ></span>
-			<audio preload="none" ></audio>
+		<div class="f-2" >
+			<!-- 简短但真挚的感谢 -->
+			项目支持: <a onclick="window.open('https://www.cloudflare.com/')" target="_blank" style="cursor: help;" >Cloudflare</a>
 		</div>
-		<div style="opacity: 0;" >
+		<div style="opacity: 0;">
 			<!-- 小小的成就 -->
-			<span class="f-1 f-2" ></span><a class="f-3" onclick="player.f.lrc.ui()" ></a><span style="color: rgba(var(--t-t1), 0.3)"> | </span>
-			<span id="_3">0</span> 天 & <span id="_2">0</span> 访客
+			<span style="user-select: none;"> | </span><span id="_3">0</span> 天 & <span id="_2">0</span> 访客
 		</div>
 
 	</footer>
@@ -164,30 +172,16 @@
 
 	<!-- 页脚 -->
 	<div class="menu-footer" >
-		<span>
-			<!-- 简短但真挚的感谢 -->
-			<a onclick="window.open('https://www.cloudflare.com/')" target="_blank" >Cloudflare</a> & <a onclick="env.f.blog.open('page/policy')" >Policy</a>
-		</span>
+		<div class="player">
+			<a onclick="player.f.play()" >播放</a> | <span onclick="player.f.lrc.ui()" ></span>
+			<audio preload="none" ></audio>
+		</div>
 	</div>
 </div>
 
 
 
 <!-- 播放器  -->
-
-<div class="player1" style="display: none;" >
-
-	<div class="player-menu" style="display: none" >
-
-	</div>
-
-	<div class="player-cover" onclick="player.f.menu();" ><img onload="player.f.loadPlayer()" /></div>
-	<a onclick="player.f.show()" class="player-mobile0 f-3" ></a>
-	<a onclick="player.f.show()" class="player-mobile1 f-3" ></a>
-
-</div>
-
-
 
 <div class="player-ui" style="display: none;" tabindex="0" >
 	<img onload="env.f.fade(player.e.img, 500)" />

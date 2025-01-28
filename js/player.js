@@ -282,7 +282,7 @@ player.f.add = function(str) {
 
 	if (player.e.list.length) player.f.list()
 	player.f.load()
-	player.f.play()
+	player.f.play.set(1)
 }
 	player.f.add.ask = function(str) {
 		setTimeout(function (){
@@ -351,11 +351,6 @@ player.f.lrc = {}
 		player.data.lrc.now = 0
 	}
 
-	player.f.lrc.read = function(n) {
-		// 读取歌词指定行
-		return player.data.lrc.data ? (player.data.lrc.data.split('\n')[n] || null) : null
-	}
-
 	player.f.lrc.ui = function() {
 		// 打开歌词页面
 		if (player.data.lrc.open) {
@@ -372,20 +367,13 @@ player.f.lrc = {}
 	player.f.lrc.find = function(n) {
 		// 找到当前正在播放的歌词行数
 		if (player.data.lrc.leng) {
-			for (var i = 0; i < player.data.lrc.leng; i++) {
+			for (var i = 0; i < player.data.lrc.leng + 1; i++) {
 				if (player.e.audio.currentTime <= player.f.conv1((player.data.lrc.data[i]).substring(1, 10))) {
 					player.data.lrc.now = i
 					break
 				}
 			}
 		}
-	}
-
-	player.f.lrc.to = function(n) {
-		// 跳转到指定位置
-		player.f.lrc.find(player.f.conv1(n))
-		player.f.play.set(1)
-		player.e.audio.currentTime = player.f.conv1(n)
 	}
 
 	player.f.lrc.debug = function() {
@@ -435,7 +423,7 @@ setInterval(() => {
 
 // 进度调整
 player.e.bar0.addEventListener('click', function(event) {
-	var p = ((event.clientX - player.e.bar0.getBoundingClientRect().left) / player.e.bar0.offsetWidth).toFixed(8)
+	var p = ((event.clientX - player.e.bar0.getBoundingClientRect().left) / player.e.bar0.offsetWidth).toFixed(4)
 	var now = Math.floor(player.e.audio.duration || player.data.now.leng) * p
 	player.e.bar1.setAttribute('style', 'width: ' + p * 100 + '%')
 	player.data.now.per = p
@@ -449,22 +437,25 @@ player.e.bar0.addEventListener('click', function(event) {
 
 // 歌词显示
 player.e.audio.addEventListener('timeupdate', function () {
-	if (player.data.lrc.open && player.data.lrc.leng && player.f.conv1((player.data.lrc.data[player.data.lrc.now]).substring(1, 10)) - 1 <= player.e.audio.currentTime) {
-		player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
-		player.data.lrc.now ++
-		setTimeout(function (){
-			var lrc = (player.data.lrc.data[player.data.lrc.now - 1] || '').slice(12)
-			if (lrc.split('#')[0]) {
-				player.e.lrc.innerHTML = lrc.split('#')[0] || ' '
-				player.e.trans.innerHTML = lrc.split('#')[1] || ' '
+	if (player.data.lrc.open && player.data.lrc.leng) {
+		if (player.f.conv1((player.data.lrc.data[player.data.lrc.now]).substring(1, 10)) - 1 <= player.e.audio.currentTime) {
+			player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
+			player.data.lrc.now ++
+			setTimeout(function (){
+				var lrc = (player.data.lrc.data[player.data.lrc.now - 1] || '').slice(12)
+				if (lrc.split('#')[0]) {
+					player.e.lrc.innerHTML = lrc.split('#')[0] || ' '
+					player.e.trans.innerHTML = lrc.split('#')[1] || ' '
 
-				player.e.lrc.parentNode.setAttribute('style', 'opacity: 1')
-			}
-		}, 300)
+					player.e.lrc.parentNode.setAttribute('style', 'opacity: 1')
+				}
+			}, 300)
 
-	} else if (player.data.loop && ((player.e.audio.duration - player.e.audio.currentTime) <= 1)) {
-		// 单曲循环时重置歌词
-		player.data.lrc.now = 0
+		} else if (player.data.loop && ((player.e.audio.duration - player.e.audio.currentTime) <= 1)) {
+			// 单曲循环时重置歌词
+			player.data.lrc.now = 0
+			player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
+		}
 	}
 
 })

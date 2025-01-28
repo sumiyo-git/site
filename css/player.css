@@ -1,5 +1,9 @@
 ﻿.player {
-	padding-right: 15px;
+	margin-left: 20px;
+	width: 280px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
 	color: rgba(var(--t-t1), 0.3);
 }
 
@@ -19,6 +23,7 @@
 
 .player span {
 	color: rgba(var(--t-t1), 0.6);
+	user-select: none;
 }
 
 .player-ui {

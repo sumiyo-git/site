@@ -173,6 +173,10 @@ footer div {
 	transition: 0.3s;
 }
 
+footer a {
+	color: rgba(var(--t-c1), 0.8);
+}
+
 
 
 .blog {
@@ -200,15 +204,14 @@ footer div {
 	top: 0;
 	right: 0;
 	height: 100%;
-	user-select: none;
-	transform: scale(1);
+	opacity: 0.5;
 
-	z-index: 0;
-	transition: 1s;
 	pointer-events: none;
 }
 
-
+.avatar:nth-of-type(2) {
+	filter: saturate(1.4);
+}
 
 btn1 {
 	position: fixed;
@@ -361,16 +364,18 @@ btn2 {
 
 .menu-footer {
 	position: sticky;
-	margin-left: -40px;
-	height: 40px;
 	bottom: 0;
 	top: calc(100% - 40px);
-	background-color: rgba(var(--t-b3), 0.8);
+	margin-left: -40px;
+	height: 20px;
+	padding: 10px 0 10px 0;
+	line-height: 24px;
+	font-size: 16px;
+	background-color: rgba(var(--t-b3), 0.6);
 	backdrop-filter: blur(5px);
-	text-align: center;
 }
 
-.menu-footer span {
+.menu-footer .span {
 	font-size: 14px;
 	line-height: 14px;
 	vertical-align: -6px;
@@ -378,15 +383,6 @@ btn2 {
 	color: rgba(var(--t-t1), 0.4);
 }
 
-.menu-footer a {
-	color: rgba(var(--t-t1), 0.6);
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-.menu-footer a:hover {
-	color: rgba(var(--t-c1), 0.8);
-}
 
 
 
@@ -527,11 +523,9 @@ btn2 {
 	font-size: 80px;
 	line-height: 100px;
 	font-weight: bold;
-	background-image: linear-gradient(62deg, rgba(var(--t-c2), 1), rgba(var(--t-c3), 1));
+	background-image: linear-gradient(62deg, rgba(var(--t-c2), 0.9), rgba(var(--t-c3), 0.8));
 	color: transparent;
 	-webkit-background-clip: text;
-
-	transition: 1s ease-out 0.3s;
 }
 
 
@@ -659,12 +653,14 @@ btn2 {
 
 /* 设备兼容 */
 @media screen and (min-width: 1200px)  {
+	/* PC */
 	.f-3 {
 		display: none;
 	}
 }
 
 @media screen and (max-width: 1200px) and (min-width: 850px)  {
+	/* tablet */
 	.f-3 {
 		display: none;
 	}
@@ -682,6 +678,7 @@ btn2 {
 }
 
 @media screen and (max-width: 850px)  {
+	/* phone or PC min */
 	.f-2 {
 		display: none;
 	}
@@ -701,13 +698,6 @@ btn2 {
 		bottom: 64px;
 		left: 40px;
 	}
-	.avatar {
-		position: fixed;
-		width: 90%;
-		object-fit: cover;
-		object-position: -90px 0px;
-		transform: none !important;
-	}
 	.menu {
 		padding-right: 30px;
 	}
@@ -718,6 +708,17 @@ btn2 {
 	.notification {
 		max-width: 285px;
 		white-space: unset;
+	}
+}
+
+@media screen and (max-width: 850px) and (min-height: 600px)  {
+	/* phone */
+	.avatar {
+		position: fixed;
+		width: 90%;
+		object-fit: cover;
+		object-position: -90px 0px;
+		transform: none !important;
 	}
 }
 

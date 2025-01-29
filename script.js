@@ -482,7 +482,7 @@ env.f.notification = {}
 		}, 500)
 	}
 
-env.data.version.search = '1.0.10'
+env.data.version.search = '1.0.24'
 env.f.search = function() {
 
 	/*	站内检索引擎
@@ -509,6 +509,7 @@ env.f.search = function() {
 		.filter(item => item.name.slice(2).toLowerCase().includes(k.toLowerCase()))
 
 	//  渲染结果
+	var k = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 	if (k != '') {
 		for (var i = 0; i < r.length; i++) {
 			o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(k, 'gi'), (match) => `<key>${match}</key>`)

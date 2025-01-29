@@ -14,6 +14,12 @@ env.data.list.blog = [
 		type: 'pinned',
 	},
 
+	{
+		name: ' player 1.0.24',
+		src: '20250129/',
+		des: '旧版本的音乐播放器',
+		type: 'normal',
+	},
 ];
 
 

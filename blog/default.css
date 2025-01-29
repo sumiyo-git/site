@@ -287,11 +287,11 @@ tr:nth-child(odd) {
 	pointer-events: none;
 }
 
-.f-3 {
-	display: none;
+@media screen and (min-width: 900px)  {
+	.f-3 {
+		display: none;
+	}
 }
-
-
 
 @media screen and (max-width: 900px) {
 	::-webkit-scrollbar {

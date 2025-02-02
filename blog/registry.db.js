@@ -15,6 +15,12 @@ env.data.list.blog = [
 	},
 
 	{
+		name: ' 奇怪实验记录 1',
+		src: '20250202/',
+		des: '用这个实验来考验 GPT 3.5',
+		type: 'normal',
+	},
+	{
 		name: ' player 1.0.24',
 		src: '20250129/',
 		des: '旧版本的音乐播放器',

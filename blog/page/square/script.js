@@ -126,7 +126,7 @@ env.f.load = function() {
 			span.appendChild(name)
 
 		var cont = document.createElement('span')
-			cont.innerHTML = d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')
+			cont.innerHTML = d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br />").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')
 			span.appendChild(cont)
 
 		if (cont.offsetHeight>150) {

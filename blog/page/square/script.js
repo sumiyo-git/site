@@ -126,7 +126,7 @@ env.f.load = function() {
 			span.appendChild(name)
 
 		var cont = document.createElement('span')
-			cont.innerText = d[i].content
+			cont.innerHTML = d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')
 			span.appendChild(cont)
 
 		if (cont.offsetHeight>150) {
@@ -164,11 +164,12 @@ env.f.submit = function() {
 	var e2 = document.querySelectorAll('textarea')[1]
 	var n = e1.value.replace(/\n/g, '')
 	var c = e2.value
-	var ban = [' ']
+	var ban = []
 
 	//  排除违禁词
 	if (ban.some(item => n.includes(item))) {return}
-	if (n.length == 0 || n.length > 20 || c.length == 0 || c.length > 200) {return	}
+	if (n.length == 0 || n.length > 20 || c.length == 0 || c.length > 200) {return}
+	if (/^[ \t]+$/.test(n)) {return}
 
 	env.f.wait()
 	fetch('https://sumiyo.link/remark.api', {

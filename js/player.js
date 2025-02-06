@@ -180,7 +180,8 @@ player.f.load = function(){
 	var id = player.data.now.id
 
 	player.e.name.innerHTML = player.list[id].name.split(' - ')[0].split('(')[0]
-	player.e.audio.src = 'https://music.163.com/song/media/outer/url?id=' + player.list[id].src + '.mp3'
+	player.e.audio.src = `https://music.163.com/song/media/outer/url?id=${player.list[id].src}.mp3`
+
 	player.e.bar1.style.width = '0px'
 	player.data.now.per = 0
 
@@ -201,7 +202,7 @@ player.f.load = function(){
 		player.e.lrc.innerHTML = player.list[id].name.split(' - ')[0]
 		player.e.trans.innerHTML = player.list[id].name.split(' - ')[1]
 		player.e.lrc.parentNode.setAttribute('style', 'opacity: 1')
-		player.e.img.src = 'https://p1.music.126.net/' + player.list[id].img + '.jpg?param=600y600'
+		player.e.img.src = `https://p1.music.126.net/${player.list[id].img}.jpg?param=600y600`
 
 		if (!isNaN(player.e.audio.duration)) {
 			player.data.now.leng = player.e.audio.duration
@@ -328,7 +329,7 @@ player.f.lrc = {}
 		player.data.lrc.leng = 0
 
 		if (player.list[player.data.now.id].lrc) {
-			fetch('https://' + env.data.domain + '/src/lrc/' + player.list[player.data.now.id].src + '.lrc')
+			fetch(`https://${env.data.domain}/src/lrc/${player.list[player.data.now.id].src}.lrc`)
 			.then(response => {
 				if (response.ok) {
 					return response.text();
@@ -416,7 +417,7 @@ player.e.audio.volume = 0.5
 setInterval(() => {
 	if(!player.data.pause){
 		player.data.now.per = (player.e.audio.currentTime / player.e.audio.duration).toFixed(8) || player.data.now.per
-		player.e.bar1.setAttribute('style', 'width: ' + player.data.now.per * 100 + '%')
+		player.e.bar1.setAttribute('style', `width: ${player.data.now.per * 100}%`)
 		player.e.time.innerHTML = player.f.conv0(player.e.audio.currentTime * 1000).substring(0, 5)
 	}
 }, 1000)
@@ -425,7 +426,7 @@ setInterval(() => {
 player.e.bar0.addEventListener('click', function(event) {
 	var p = ((event.clientX - player.e.bar0.getBoundingClientRect().left) / player.e.bar0.offsetWidth).toFixed(4)
 	var now = Math.floor(player.e.audio.duration || player.data.now.leng) * p
-	player.e.bar1.setAttribute('style', 'width: ' + p * 100 + '%')
+	player.e.bar1.setAttribute('style', `width: ${p * 100}%`)
 	player.data.now.per = p
 
 	if (!player.data.pause) player.e.audio.currentTime = now

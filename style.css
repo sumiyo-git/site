@@ -455,7 +455,12 @@ btn2 {
 	color: rgba(var(--t-c1), 1);
 }
 
-.search list .pinned::after {
+.search list div::before {
+	content:attr(type);
+	margin-right: 5px;
+}
+
+.search list .pin::after {
 	float: right;
 	margin-right: 5px;
 	content: '';

@@ -72,7 +72,7 @@ env.f.fade = function(e, t, style = '') {
 	// 淡入淡出动画
 	var s = null
 	var t0 = Math.abs(t)
-	e.setAttribute('style', 'transition: 0s; opacity: ' + ((t > 0) ? 1 : 0))
+	e.setAttribute('style', `transition: 0s; opacity: ${(t > 0) ? 1 : 0}`)
 
 	function animation(t1) {
 		if (!s) {s = t1}
@@ -128,7 +128,7 @@ env.f.scroll = function(e, y, t = 300, abs = true) {
 
 env.f.setCookie = function(value) {
 	// 设置 Cookie
-	document.cookie = "Cookie=" + value + "; expires=" + new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()
+	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`
 }
 
 env.f.getCookie = function(name) {
@@ -195,7 +195,7 @@ env.f.linkto = function(id) {
 
 	setTimeout(function (){
 		env.f.url.set('id', id)
-		document.querySelector('iframe').src = env.data.isNetwork ? (window.location.origin + '/blog/' + id + '/page') : ('blog/' + id + '/page.html')
+		document.querySelector('iframe').src = env.data.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
 	}, 500)
 }
 
@@ -277,7 +277,7 @@ env.f.blog = {}
 
 		setTimeout(function (){
 			if (id != 'page/oops') {env.data.isNetwork ? (history.replaceState(null, null, window.location.origin + '/blog?id=' + id)) : ( env.f.url.set('id', id))}
-			document.querySelector('iframe').src = env.data.isNetwork ? (window.location.origin + '/blog/' + id + '/page') : ('blog/' + id + '/page.html')
+			document.querySelector('iframe').src = env.data.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
 		}, 500)
 	}
 
@@ -306,20 +306,21 @@ env.f.init = function() {
 		if (d[i].type != 'hide') {
 			var div = document.createElement('div')
 				div.setAttribute('style', 'display: block')
+				div.setAttribute('type', d[i].type[0])
 				e.appendChild(div)
 
 			var a = document.createElement('a')
-				a.setAttribute('onclick', `env.f.blog.open('` + d[i].src.slice(0, -1) + `')`)
+				a.setAttribute('onclick', `env.f.blog.open('${d[i].src}')`)
 				a.setAttribute('title', d[i].des)
 				a.innerHTML = d[i].name
 				div.appendChild(a)
 
-			if (d[i].type == 'pinned') {div.setAttribute('class', 'pinned')}
+			if (d[i].type[1] == 'pin') {div.setAttribute('class', 'pin')}
 		}
 	}
 
 	// 搜索引擎
-	document.querySelector('.search').setAttribute('style', 'height: ' + (Math.min(5, d.length) * 22 +55) + 'px')
+	document.querySelector('.search').setAttribute('style', `height: ${Math.min(5, d.length) * 22 +55}px`)
 	document.querySelector('.search textarea').addEventListener('keyup', function(e) {
 		env.f.search()
 	})
@@ -329,7 +330,7 @@ env.f.init = function() {
 	var l = env.data.list.news
 	for (var i = 0; i < 5; i++) {
 		var div = document.createElement('news')
-			div.innerHTML = '<time>' + l[i].date + '</time><span title="' + l[i].des + '" >' + l[i].name + '</span>'
+			div.innerHTML = `<time>${l[i].date}</time><span title="${l[i].des}" >${l[i].name}</span>`
 			e.appendChild(div)
 	}
 
@@ -373,7 +374,7 @@ env.f.menu = {}
 			document.querySelector('.search').setAttribute('style', 'opacity: 0; height: 0;')
 		} else {
 			document.getElementById('menu-c1').classList.add('btn-active')
-			document.querySelector('.search').setAttribute('style', 'opacity: 1; height: ' + (Math.min(5, (Number(document.getElementById('_1').innerHTML) || 1)) * 22 +55) + 'px;')
+			document.querySelector('.search').setAttribute('style', `opacity: 1; height: ${Math.min(5, (Number(document.getElementById('_1').innerHTML) || 1)) * 22 +55}px;`)
 		}
 	}
 
@@ -506,7 +507,7 @@ env.f.search = function() {
 	// 创建新数组，格式为 {'name': 符合条件的 name 值, 'index': 项数}
 	const r = d
 		.map((item, index) => ({ name: item.name, index }))
-		.filter(item => item.name.slice(2).toLowerCase().includes(k.toLowerCase()))
+		.filter(item => item.name.toLowerCase().includes(k.toLowerCase()))
 
 	//  渲染结果
 	var k = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
@@ -523,9 +524,8 @@ env.f.search = function() {
 	}
 
 	document.getElementById('_1').innerHTML = r.length
-	f.setAttribute('style', 'transition: none; height: ' + (Math.max(Math.min(5, r.length), 1) * 22 + 55) + 'px')
-	document.querySelector('.search .null').setAttribute('style', 'display: ' + (r.length ? 'none' : 'block'))
-
+	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(5, r.length), 1) * 22 + 55}px`)
+	document.querySelector('.search .null').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
 }
 
 
@@ -563,7 +563,7 @@ window.addEventListener('load',function(){
 			env.data.isNew = false
 		}
 
-		fetch('https://' + env.data.domain + '/counter.api', {
+		fetch(`https://${env.data.domain}/counter.api`, {
 			method: "POST",
 			headers: {
 				"Token": m

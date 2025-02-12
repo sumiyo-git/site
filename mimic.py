@@ -1,18 +1,21 @@
 ﻿'''
-    this program is used to update the website quickly.
+    this program is used to manage the website locally.
     by sumiyo
 
 '''
 
 
 
-from tkinter import *
-from configparser import ConfigParser
 import requests
 import os
 import subprocess
 import threading
-import tkinter as tk
+import pytz
+import json
+
+from tkinter import *
+from configparser import ConfigParser
+from datetime import datetime, timezone, timedelta
 
 
 
@@ -30,30 +33,27 @@ stopwait = 0
 # 实时调整元素大小
 def resize(event):
     inbox.focus_set()
-    height = root.winfo_height()
-    text.place(anchor='nw', x=2, y=0, w=596, h=height - 20)
-    canvas.place(anchor='nw', x=0, y=height - 20, w=600, h=20)
+    h = root.winfo_height()
+    w = root.winfo_width()
+
+    text.place(anchor='nw', x=2, y=0, w=w - 4, h=h - 20)
+    canvas.place(anchor='nw', x=0, y=h - 20, w=w, h=20)
     if (wait != 1):
-        inbox.place(anchor='nw', x=0, y=height - 20, w=600, h=20)
+        inbox.place(anchor='nw', x=0, y=h - 20, w=w, h=20)
     else:
-        inbox.place(anchor='nw', x=0, y=-20, w=600, h=20)
-
-
-
-# 检查文件是否存在
-def exist(path):
-    return os.path.exists(path)
+        inbox.place(anchor='nw', x=0, y=-20, w=w, h=20)
 
 
 
 # 读取配置文件
 def iniRead():
-    if (exist(path + "config.ini")):
-        global token, aid, pj, cm, cmt, font, fontsize
+    if (os.path.exists(path + "config.ini")):
+        global token, aid, zid, pj, cm, cmt, font, fontsize
         config.read(path + "config.ini")
 
         token = config.get("API token", "api_token")
         aid = config.get("API token", "account_id")
+        zid = config.get("API token", "zone_id")
         pj = config.get("API token", "project")
         cm = config.get("Git settings", "description")
         cmt = config.get("Git settings", "commit")
@@ -64,6 +64,7 @@ def iniRead():
         config.add_section("API token")
         config.set("API token", "API_token", "")
         config.set("API token", "account_id", "")
+        config.set("API token", "zone_id", "")
         config.set("API token", "project", "")
         
         config.add_section("Git settings")
@@ -75,7 +76,7 @@ def iniRead():
         config.set("Console", "fontsize", "10")
 
         # 写入文件
-        with open('config.ini', 'w') as configfile:
+        with open(path + "config.ini", "w") as configfile:
            config.write(configfile)
 
         iniRead()
@@ -114,7 +115,7 @@ def code(content, tag):
 
 def check():
     global getinbox
-    code("updater.py ver.1.0.01\n\n", "null")
+    code("mimic.py   1.0.12\n\n", "null")
 
     code("$ git --version\n", "cmd")
     git = "git --version"
@@ -130,12 +131,12 @@ def check():
     code("all settings data are as follows:" + "\n", "info")
     code('''[API token]\t\t{}
 [account ID]\t\t{}
+[zone ID]\t\t{}
 [project]\t\t{}
 [commit]\t\t{}
 [description]\t\t{}
-[font]\t\t{}
-[fontsize]\t\t{}
-'''.format(token, aid, pj, cmt, cm, font, fontsize), "null")
+
+'''.format(token, aid, zid, pj, cmt, cm), "null")
 
     temp = token != "" and aid != "" and pj != "" and cm != "" and cmt != "" and font != "" and fontsize != ""
     if (temp == False):
@@ -243,11 +244,11 @@ def timer():
 
     if (wait == 1 or stopwait == 1):
         stopwait = 1
-        inbox.place(anchor='nw', x=0, y=-20, w=600, h=20)
+        inbox.place(anchor='nw', x=0, y=-20, w=root.winfo_width(), h=20)
         process = process + 1
         canvas.delete("all")
         canvas.create_image(process * 4, 0, anchor='nw', image=img1)
-        if (process == 200):
+        if (process == root.winfo_width() / 3):
             process = -50
 
             if (wait == 0):
@@ -258,7 +259,7 @@ def timer():
 
 
 def onReturn(event):
-    global getinbox, cmt, cmt1
+    global getinbox, cmt, cmt1, wait
     cmd = inbox.get('1.0', 'end-1c').replace("\n", "")
     inbox.delete("1.0", "end")
 
@@ -305,12 +306,15 @@ def onReturn(event):
     code("$ " + cmd + "\n", "cmd")
 
     if (cmd == "?"):
-        code('''?\t\t显示帮助信息
+        code('''----------------------------------------------
+?\t\t显示帮助信息
 cls\t\t清空控制台
 exit\t\t关闭控制台
 restart\t\t重新开始上传
 reduction\t\t减少当前 commit 次数
 get\t\t获取所有部署信息
+log\t\t查询日志
+log -d\t\t下载日志
 py\t\t执行原生 python 命令
 git\t\t执行原生 git 命令
 git-clear\t\t压缩 .git 文件夹
@@ -344,7 +348,6 @@ git-clear\t\t压缩 .git 文件夹
         return
 
     if (cmd == "get"):
-        global wait
         wait = 1
         
         threads = []
@@ -366,7 +369,27 @@ git-clear\t\t压缩 .git 文件夹
         code("the commit ( " + cmt + " ) is too hight, need to reset it ? [Y/N]\n", "null")
         return
 
-    code("SyntaxError: invalid syntax.\n", "err")
+    if (cmd == "log"):
+        wait = 1
+        
+        threads = []
+        t = threading.Thread(target=task3, args=(0,))
+        threads.append(t)
+        t.start()
+
+        return
+
+    if (cmd == "log -d"):
+        wait = 1
+        
+        threads = []
+        t = threading.Thread(target=task3, args=(1,))
+        threads.append(t)
+        t.start()
+
+        return
+
+    code("SyntaxError.\n", "err")
 
 
 
@@ -376,18 +399,95 @@ def task1():
     response = requests.get("https://api.cloudflare.com/client/v4/accounts/{}/pages/projects/{}/deployments".format(aid, pj), headers=headers)
     data = response.json()
 
-    code("id\t\tdate\n", "null")
+    code("id\t\tdate\n----------------------------------------------\n", "null")
     for i in range(0, len(data["result"])):
         code(data["result"][i]["short_id"] + "\t\t" + data["result"][i]["created_on"][0:19] + "\n", "null")
     wait = 0
+
+def task3(d):
+    global wait
+
+    body = {
+        "operationName": "GetSecuritySampledLogs",
+        "variables": {
+            "zoneTag": zid,
+            "accountTag": aid,
+            "filter": {
+                "AND": [
+                    {
+                        "datetime_geq": (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "datetime_leq": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "requestSource": "eyeball"
+                    }
+                ]
+            }
+        },
+        "query": '''query GetSecuritySampledLogs {
+            viewer {
+                scope: zones(filter: {zoneTag: $zoneTag}) {
+                    logs: httpRequestsAdaptive(filter: $filter, limit: 100, orderBy: [\"datetime_DESC\"]) {
+                        leakedCredentialCheckResult
+                        cacheStatus
+                        clientASNDescription
+                        clientAsn
+                        clientCountryName
+                        clientIP
+                        clientRequestHTTPHost
+                        clientRequestHTTPMethodName
+                        clientRequestHTTPProtocol
+                        clientRequestPath
+                        clientRequestScheme
+                        userAgent
+                        securityAction
+                        securitySource
+                        datetime
+                        __typename
+                        }
+                        __typename
+                    }
+                    __typename
+            }
+        }'''
+    }
+    
+    headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(token)}
+    response = requests.post("https://api.cloudflare.com/client/v4/graphql", headers=headers, data=json.dumps(body))
+    result = response.json()
+
+    r1 = result["data"]["viewer"]["scope"][0]["logs"]
+    for i in range(0, len(r1)):
+        r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S")
+    result["data"]["viewer"]["scope"][0]["logs"] = r1
+
+    if (d == 1):
+        f = path + "log\\" + datetime.now(timezone.utc).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H-%M-%S") + ".log"
+        with open(f, "w") as file:
+            json.dump(result, file, indent=4, ensure_ascii=False)
+    
+        code("save as: " + f + "\n", "null")
+        os.startfile(path + "log\\")
+
+    else:
+        r1 = result["data"]["viewer"]["scope"][0]["logs"]
+        code("----------------------------------------------------------------------------------------------------------------------------------------------------------------------\ntime\t\tCountry\t\tIP\t\t\tUA\t\t\t\t\t\t\tRequestPath\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", "null")
+        for i in range(0, len(r1)):
+            if (r1[i]["clientRequestPath"] == "/counter.api" ):
+                code(r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + r1[i]["clientRequestPath"]+ "\n", "info")
+            else:
+                code(r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + r1[i]["clientRequestPath"]+ "\n", "null")
+
+    wait = 0
+
+
+
 
 
 
 root = Tk()
 
-root.title('updater.py')
+root.title('mimic.py')
 root.geometry("600x380")
-root.resizable(False, True)
+root.resizable(True, True)
 root.configure(bg="#2E2E2E")
 
 
@@ -405,11 +505,6 @@ canvas.place(anchor='nw', x=0, y=360, w=600, h=20)
 canvas.configure(bg="#262626")
 
 img1 = PhotoImage(file= path + "assets\processbar.png")
-
-'''
-assets\processbar.png:
-data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAAAUBAMAAAA6im/5AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAwUExURSYmJicnJysrK2ZmZmpqapOTk5mZmQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACnbBaAAAAAJcEhZcwAADsIAAA7CARUoSoAAAABHSURBVEjHY2BgYDRNoyEIFmAAAeY0mgIDsCWstLUkAGwJG20tSRi1ZNSSUUtGLRm1BJ8ldCnqWWhriQPYEiZXWtoRosDAAACHUfOg9D4QtgAAAABJRU5ErkJggg==
-'''
 
 inbox = Text(root, font=(font, fontsize, "bold"), fg="#97DBFE", bg="#262626", borderwidth=0, highlightthickness=0)
 inbox.place(anchor='nw', x=2, y=360, w=600, h=20)

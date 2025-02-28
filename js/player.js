@@ -137,6 +137,12 @@ player.f.data = function(){
 		lrc: true,
 	},
 	{
+		name: 'Hanezeve Caradhina (ft.Takeshi Saito) - Kevin Penkin',
+		src: '509098792',
+		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+		lrc: true,
+	},
+	{
 		name: 'この空であなたを待ってる inst. - KOKIA',
 		src: '1830163712',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',

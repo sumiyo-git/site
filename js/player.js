@@ -143,6 +143,12 @@ player.f.data = function(){
 		lrc: true,
 	},
 	{
+		name: 'The Return of Made in Abyss - Kevin Penkin',
+		src: '1417631425',
+		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+		lrc: false,
+	},
+	{
 		name: 'この空であなたを待ってる inst. - KOKIA',
 		src: '1830163712',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
@@ -499,16 +505,6 @@ player.e.ui.addEventListener('keydown', function(event) {
 		env.f.scroll(player.e.s1, -100, 10, false)
 	} else if (k == 'ArrowDown') {
 		env.f.scroll(player.e.s1, 100, 10, false)
-	} else if (k == 'ArrowRight') {
-		if (player.data.now.id == player.data.num - 1) player.data.now.id = -1
-		player.data.now.id ++
-		player.f.load()
-		player.f.play.set(1)
-	} else if (k == 'ArrowLeft') {
-		if (player.data.now.id == 0) player.data.now.id = player.list.length
-		player.data.now.id --
-		player.f.load()
-		player.f.play.set(1)
 	}
 })
 

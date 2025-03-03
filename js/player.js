@@ -9,7 +9,6 @@
 
 
 const player = {
-	'f': {},
 	'data': {
 		'mode': 0,
 		'pause': 1,
@@ -28,6 +27,7 @@ const player = {
 			'id': 0,
 		},
 	},
+	'f': {},
 }
 
 // 加载音乐信息

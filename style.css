@@ -354,11 +354,11 @@ btn2 {
 	background-color: rgba(var(--t-b4), 0.08);
 }
 
-.menu-c3 a span {
-	margin-right: -5px;
-	float: right;
-	line-height: 22px;
+.menu-c3 a:after {
+	content: '';
 	font-size: 20px;
+	vertical-align: -2px;
+	margin-left: 13px;
 	color: rgba(var(--t-t1), 0.6);
 }
 

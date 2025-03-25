@@ -303,7 +303,7 @@ btn2 {
 	transition: 0.3s;
 }
 
-.btn-active {
+.btn-active div {
 	transform: rotate(90deg);
 }
 

@@ -1,5 +1,5 @@
 ﻿// 博客列表
-env.data.list.blog = [
+env.d.list.blog = [
 	{
 		name: '画室',
 		src: '20231002',

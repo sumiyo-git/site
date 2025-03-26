@@ -48,7 +48,7 @@ def resize(event):
 # 读取配置文件
 def iniRead():
     if (os.path.exists(path + "config.ini")):
-        global token, aid, zid, pj, cm, cmt, font, fontsize
+        global token, aid, zid, pj, cm, cmt, font, fontsize, offsetDay
         config.read(path + "config.ini")
 
         token = config.get("API token", "api_token")
@@ -59,6 +59,7 @@ def iniRead():
         cmt = config.get("Git settings", "commit")
         font = config.get("Console", "font")
         fontsize = config.get("Console", "fontsize")
+        offsetDay = int(config.get("Log", "offset"))
     else:
         # 添加节并设置键值对
         config.add_section("API token")
@@ -74,6 +75,9 @@ def iniRead():
         config.add_section("Console")
         config.set("Console", "font", "Microsoft YaHei")
         config.set("Console", "fontsize", "10")
+
+        config.add_section("Log")
+        config.set("Log", "offset", "1")
 
         # 写入文件
         with open(path + "config.ini", "w") as configfile:
@@ -415,8 +419,8 @@ def task3(d):
             "filter": {
                 "AND": [
                     {
-                        "datetime_geq": (datetime.now(timezone.utc) - timedelta(days=1)).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                        "datetime_leq": datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "datetime_geq": (datetime.now(timezone.utc) - timedelta(days=offsetDay)).strftime("%Y-%m-%dT%H:%M:%SZ"),
+                        "datetime_leq": (datetime.now(timezone.utc) - timedelta(days=offsetDay - 1)).strftime("%Y-%m-%dT%H:%M:%SZ"),
                         "requestSource": "eyeball"
                     }
                 ]
@@ -425,7 +429,7 @@ def task3(d):
         "query": '''query GetSecuritySampledLogs {
             viewer {
                 scope: zones(filter: {zoneTag: $zoneTag}) {
-                    logs: httpRequestsAdaptive(filter: $filter, limit: 100, orderBy: [\"datetime_DESC\"]) {
+                    logs: httpRequestsAdaptive(filter: $filter, limit: 200, orderBy: [\"datetime_DESC\"]) {
                         leakedCredentialCheckResult
                         cacheStatus
                         clientASNDescription

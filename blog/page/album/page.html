@@ -1,0 +1,135 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+
+<head>
+	<title>-ablum</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="preload" as="font" href="../../../src/Poppins Regular.woff2" crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="../../default.css">
+
+</head>
+
+<body>
+<script>
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+	})
+
+
+
+	function addmusic(n) {
+	var list = [
+		{0: true, 1: [
+			{
+				name: 'Rafters - Kevin Penkin',
+				src: '509098781',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Underground River (opening version ft.Raj Ramayya) - Kevin Penkin',
+				src: '509098783',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Hanezeve Caradhina (ft.Takeshi Saito) - Kevin Penkin',
+				src: '509098792',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: true,
+			},
+			{
+				name: 'Welcome to my World - Kevin Penkin',
+				src: '509098790',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Forest of the Abyss - Kevin Penkin',
+				src: '509098791',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'The First Layer - Kevin Penkin',
+				src: '509106635',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'The Return of Made in Abyss - Kevin Penkin',
+				src: '1417631425',
+				img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+				lrc: false,
+			},
+			{
+				name: 'You talk too much - Kevin Penkin',
+				src: '1417637296',
+				img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+				lrc: false,
+			},
+			{
+				name: 'Reg & his Interference Unit - Kevin Penkin',
+				src: '1993070341',
+				img: 'bt3xlEuCuWEFTSagldyJ-A==/109951168005661915',
+				lrc: false,
+			},
+			{
+				name: 'ベラフの子守歌 - Kevin Penkin',
+				src: '1993075046',
+				img: 'bt3xlEuCuWEFTSagldyJ-A==/109951168005661915',
+				lrc: false,
+			},
+		]},
+
+	]
+	window.parent.postMessage('env.f.player.add(' + JSON.stringify(list[n]) + ')', document.domain ? '/' : '*')
+	}
+
+</script>
+<style>
+
+	.img1 {
+		aspect-ratio: 1 / 1;
+		width: 50%;
+		display: inline-block;
+	}
+
+	.img1 img {
+		vertical-align: text-top;
+		width: 100%;
+		height: 100%;
+		border-radius: 10px;
+		opacity: 0;
+		border: 1px rgba(151, 153, 153, 0.3) solid;
+		box-sizing: border-box;
+	}
+
+	@media screen and (max-width: 900px) {
+		.img1 {
+			width: 100%;
+		}
+	}
+
+</style>
+
+	<!-- Mian -->
+	<div class="main" >
+
+		<para>
+			<h1>内置播放列表</h1>
+			<i>no description...</i>
+		</para>
+
+		<para>
+			<a class="link" href="javascript:;" onclick="addmusic(0)" >TVアニメ「メイドインアビス」オリジナルサウンドトラック</a>
+		</para>
+
+	</div>
+
+</body>
+</html>

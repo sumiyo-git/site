@@ -18,64 +18,253 @@
 
 -->
 
-<p>
-	hello,
-	<br />
-	i'm sumiy, the owner of this website. nice to meet you here.
-</p>
+<!DOCTYPE HTML>
+<html lang="zh">
 
-<p>
-	this site is currently under attack.
-	<br />
-	from March 26th to 29th, someone has been scanning our backend. (to be honest, it's not fun at all)
-	<br />
-	details are as follows:
-</p>
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<table border="1">
-	<thead>
-		<tr>
-			<th>Date</th>
-			<th>Country</th>
-			<th>IP</th>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>2025-3-29 02:04:31</td>
-			<td>US</td>
-			<td>172.17*.***.**</td>
-		</tr>
-		<tr>
-			<td>2025-3-26 21:32:08</td>
-			<td>US</td>
-			<td>128.**.**.**</td>
-		</tr>
-		<tr>
-			<td>no data</td>
-			<td>AU</td>
-			<td>no data</td>
-		</tr>
-		<tr>
-			<td>no data</td>
-			<td>IN</td>
-			<td>13.127.***.***</td>
-		</tr>
-	</tbody>
-</table>
+	<title>sumiyo.link</title>
+	<link rel="shortcut icon" href="src/icon.png?ver=7" />
 
-<br />
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="preload" as="font" href="src/Poppins Regular.woff2" crossorigin="anonymous" />
+	<link rel="stylesheet" type="text/css" href="css/player.css"  />
 
-<p>
-	to solve this problem, i improved the firewall. now, the website is only open in a few regions. you'll receive a js verification in most countries. (I don't want to do this either
-
-)
-	<br />
-	If the situation worsens, I may consider blocking access from all suspicious areas.
+</head>
 
 
-</p>
 
-<p>
-	that's it. have a good night!
-</p>
+<body style="pointer-events: none;" >
+<script>
+	// 定义核心变量
+	const env = {
+		'd': {
+			'version': {},
+			'list': {
+				'blog': [],
+			},
+			'visitors': 0,
+			'domain': 'sumiyo.link',
+			'isNew': null,
+			'isLoad': 0,
+			'isNetwork': (document.domain ? true :false),
+			'isMobile': (window.innerWidth < 900 ? true :false),
+		},
+		'f': {},
+		'e': {},
+		'tmp': {
+			root: {
+				'd1': new Date(),
+				'd2': null,
+				'd3': null,
+				'd4': 0,
+				'd5': null,
+
+				't1': null,
+				't2': null,
+				't3': null,
+				't4': null,
+				't5': null,
+			}
+		}
+	}
+
+	env.tmp.root.t1 = setInterval(() => {
+		if (!document.hidden && env.tmp.root.d2 && env.d.isLoad == 2) {
+			setTimeout(function (){
+				document.querySelectorAll('.avatar')[1].removeAttribute('style')
+				document.querySelectorAll('.avatar')[0].removeAttribute('style')
+				document.querySelector('.box-2 span').removeAttribute('style')
+			},4000)
+			setTimeout(function (){
+				document.querySelectorAll('.avatar')[1].style.opacity = '0.5'
+
+				if (env.tmp.root.d4) {
+					env.f.root.prompt('欢迎来到我的网站<br />🎉🎉🎉', 6000)
+
+					env.f.root.prompt('网站正在调整中，部分功能可能无法使用...', 16000)
+					env.f.root.prompt('近日，网站受到了后台爆破的侵扰<br />已暂时屏蔽指定地区的流量', 16000)
+
+
+					env.tmp.root.d4 = null
+					delete env.tmp.root.d4
+				}
+			},1000)
+
+			env.f.root.type()
+			document.querySelector('.box-1 header').removeAttribute('style')
+			document.querySelector('.box-2 span').style.opacity = '1'
+			document.querySelectorAll('.avatar')[0].style.opacity = '0.5'
+			document.body.removeAttribute('style')
+
+			env.d.isLoad = true
+			clearInterval(env.tmp.root.t1)
+		}
+	},500)
+
+	// 仅允许直接访问此页
+	if (env.d.isNetwork && (window.location.href != ('https://' + env.d.domain + '/')) && !window.location.href.includes('https://' + env.d.domain + '/blog')) {
+		document.querySelector('body').style.display = 'none'
+		window.location.href = 'https://' + env.d.domain + '/'
+	}
+
+</script>
+
+
+
+<!-- 主页 -->
+
+<div class="box-1" >
+	<header style="opacity: 0;" >
+		<btn onclick="env.f.root.menu.open()" ></btn>
+		<a onclick="env.f.root.blog.open('page/square')" >Square</a>|<a onclick="env.f.root.blog.open('page/about')" >About</a>
+		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
+	</header>
+
+	<div class="box-2" >
+		<span style="opacity: 0; transition: 1s ease-out 0.3s;" >sumiyo</span>
+		<type></type>
+	</div>
+
+	<!-- 大胆的设计，让我们摆脱了传统的头像框限制 -->
+	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.isLoad ++" src="src/draft.webp" />
+	<img class="avatar" style="opacity: 0; transition: 3.0s;" onload="env.d.isLoad ++" src="src/sumiyo.webp" />
+
+	<!-- 博客框架 -->
+	<div class="blog" style="display: none;" >
+		<header><btn onclick="env.f.root.blog.close()" ></btn></header>
+		<div class="player-2" onclick="env.f.player.lrc.ui()" style="display: none;" ><div></div></div>
+		<div class="loading" style="display: none;" >
+			<box1><div>页面加载中 ...</div></box1>
+			<box2></box2>
+		</div>
+	</div>
+
+	<!-- 页脚 -->
+	<footer>
+		<div class="f-2" >
+			<!-- 简短但真挚的感谢 -->
+			项目支持: <a onclick="window.open('https://www.cloudflare.com/')" target="_blank" style="cursor: help;" >Cloudflare</a>
+		</div>
+		<div style="opacity: 0;">
+			<!-- 小小的成就 -->
+			 | <span>0</span> 天 & <span>0</span> 访客
+		</div>
+
+	</footer>
+
+</div>
+
+
+
+<!-- 菜单  -->
+
+<div class="menu" >
+	<h1>MENU</h1>
+	<hr />
+
+	<!-- 博客 -->
+	<div style="margin-top: 10px;" >
+		<btn onclick="env.f.root.menu.folder(this, 1)" class="btn-active" >
+			<div id="menu-c1" ></div>检索:<span class="search-title" ><span>0</span> items</span>
+		</btn>
+		<div class="search" >
+			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="16" autocomplete="off" ></textarea><span></span>
+			<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
+		</div>
+	</div>
+
+	<!-- 通知 -->
+	<div>
+		<btn onclick="env.f.root.menu.folder(this)" class="btn-active" >
+			<div id="menu-c2" ></div>通知
+		</btn>
+		<div class="menu-c2" ></div>
+	</div>
+
+	<hr style="margin-top: 80px;" />
+
+	<!-- 联系 -->
+	<div style="margin-top: 10px;" >
+		<btn onclick="env.f.root.menu.folder(this)" class="btn-active" >
+			<div id="menu-c3" ></div>联系
+		</btn>
+		<div class="menu-c3" >
+			<a href="mailto:me@sumiyo.link" target="_blank" >me@sumiyo.link</a>
+		</div>
+	</div>
+
+	<!-- 页脚 -->
+	<div class="menu-footer" >
+		<div class="player-0">
+			<a onclick="env.f.player.play()" >播放</a> | <span onclick="env.f.player.lrc.ui()" ></span>
+			<audio preload="none" ></audio>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- 播放器  -->
+
+<div class="player-1" style="display: none;" tabindex="0" >
+	<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
+	<backdrop></backdrop>
+
+	<header><btn onclick="env.f.player.lrc.ui()" ></btn1></header>
+	<div class="frame" >
+		<aside>
+			<div class="cover" ><img /></div>
+			<div class="ctrl" >
+				<bar><div><div></div></div></bar>
+				<div style="margin-top: 10px; user-select: none;" >
+					<a onclick="env.f.player.play()" >00:00</a>
+					<a onclick="env.f.player.list()" >歌单</a>
+					<a onclick="env.f.player.reset()" >重置</a>｜ 
+					<a onclick="env.f.player.mode()" title="列表循环" ></a>
+					<a><div title="音量" ></div></a>
+				</div>
+			</div>			
+		</aside>
+		<aside>
+			<list class="no-kana" onclick="env.f.player.kana()" ></list>
+			<list style="display: none" ></list>
+		</aside>
+	</div>
+</div>
+
+
+
+<!-- 弹窗 -->
+<div class="prompt" ></div>
+
+
+<!-- Javascript -->
+	<script src="blog\registry.db.js" ></script>
+	<script src="script.js" ></script>
+	<script src="js\player.js"></script>
+
+	<script>
+		// 检查页面加载情况
+		setTimeout(function (){
+			if (!env.tmp.root.d2) {
+				var e = document.querySelector('.prompt')
+				var prompt = document.createElement('prompt')
+					prompt.innerHTML = `文件加载失败？！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.isLoad = 2; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
+
+					prompt.setAttribute('onclick', `this.removeAttribute('class'); setTimeout(function (){this.remove()}, 500)`)
+					e.appendChild(prompt)
+
+				setTimeout(function (){
+					prompt.setAttribute('class', 'active')
+				}, 100)
+			}
+		}, 30000)
+	</script>
+</body>
+
+
+</html>

@@ -8,7 +8,7 @@
 
 
 
-env.d.version.root = '1.0.25.250329'
+env.d.version.root = '1.0.241'
 env.f.root = {}
 
 // 通知列表
@@ -169,13 +169,13 @@ env.f.root.getUptime = function() {
 
 env.f.root.post = function(event) {
 	// 页面通信
-	env.e.root.blog.children[1].contentWindow.postMessage(event, env.d.isNetwork ? '/' : '*')
+	env.e.root.blog.children[3].contentWindow.postMessage(event, env.d.isNetwork ? '/' : '*')
 }
 
 env.f.root.linkto = function(id) {
 	// 博客文章重定向
-	env.e.root.blog.children[1].remove()
-	env.e.root.blog.appendChild(document.createElement('env.e.root.blog.children[1]'))
+	env.e.root.blog.children[3].remove()
+	env.e.root.blog.appendChild(document.createElement('env.e.root.blog.children[3]'))
 
 	env.f.root.page.load()
 	env.f.root.prompt.close()
@@ -294,7 +294,7 @@ env.f.root.init = function() {
 		if (d[i].type != 'hide') {
 			var div = document.createElement('div')
 				div.setAttribute('style', 'display: block')
-				div.setAttribute('type', d[i].type[0])
+				div.setAttribute('data-type', d[i].type[0])
 				e.appendChild(div)
 
 			var a = document.createElement('a')
@@ -343,11 +343,11 @@ env.f.root.menu = {}
 	}
 
 	env.f.root.menu.folder = function(e, h = 0) {
-		if (e.classList.contains('btn-active')) {
+		if (e.classList.contains('active')) {
 			e.removeAttribute('class')
 			e.nextElementSibling.setAttribute('style', 'opacity: 0; height: 0; overflow: hidden;')
 		} else {
-			e.classList.add('btn-active')
+			e.classList.add('active')
 			h ? e.nextElementSibling.setAttribute('style', `opacity: 1; height: ${Math.min(5, (Number(env.e.root.e1.innerHTML) || 1)) * 22 +55}px;`) : e.nextElementSibling.removeAttribute('style')
 		}
 	}
@@ -365,11 +365,11 @@ env.f.root.page = {}
 		}, 100)
 
 		env.tmp.root.t5 = setInterval(() => {
-			if (env.e.root.blog.children[1]) {
-				env.e.root.blog.children[1].remove()
+			if (env.e.root.blog.children[3]) {
+				env.e.root.blog.children[3].remove()
 			}
 			env.e.root.blog.appendChild(document.createElement('iframe'))
-			env.e.root.blog.children[1].src = env.d.isNetwork ? (window.location.origin + '/blog/page/oops/page') : ('blog/page/oops/page.html')
+			env.e.root.blog.children[3].src = env.d.isNetwork ? (window.location.origin + '/blog/page/oops/page') : ('blog/page/oops/page.html')
 			env.e.root.blog.removeAttribute('style')
 		}, 60000)
 

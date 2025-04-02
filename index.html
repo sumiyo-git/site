@@ -168,9 +168,7 @@
 
 	<!-- 博客 -->
 	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this, 1)" class="btn-active" >
-			<div id="menu-c1" ></div>检索:<span class="search-title" ><span>0</span> items</span>
-		</btn>
+		<btn onclick="env.f.root.menu.folder(this, 1)" class="active" >检索:<span class="search-title" ><span>0</span> items</span></btn>
 		<div class="search" >
 			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="16" autocomplete="off" ></textarea><span></span>
 			<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
@@ -179,9 +177,7 @@
 
 	<!-- 通知 -->
 	<div>
-		<btn onclick="env.f.root.menu.folder(this)" class="btn-active" >
-			<div id="menu-c2" ></div>通知
-		</btn>
+		<btn onclick="env.f.root.menu.folder(this)" class="active" >通知</btn>
 		<div class="menu-c2" ></div>
 	</div>
 
@@ -189,9 +185,7 @@
 
 	<!-- 联系 -->
 	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this)" class="btn-active" >
-			<div id="menu-c3" ></div>联系
-		</btn>
+		<btn onclick="env.f.root.menu.folder(this)" class="active" >联系</btn>
 		<div class="menu-c3" >
 			<a href="mailto:me@sumiyo.link" target="_blank" >me@sumiyo.link</a>
 		</div>

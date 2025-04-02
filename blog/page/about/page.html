@@ -19,14 +19,16 @@
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
 
-	var music = JSON.stringify({
-		name: 'The Precious Moments We Share - Evan Call',
-		src: '2146702250',
-		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
-		lrc: false,
-	})
+	var music = JSON.stringify({0: false, 1: [
+		{
+			name: 'Welcome to my World - Kevin Penkin',
+			src: '509098790',
+			img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+			lrc: false,
+		},
+	]})
 
-	window.parent.postMessage('player.f.add.ask(' + music + ')', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.player.add.ask(' + music + ')', document.domain ? '/' : '*')
 
 </script>
 <style>
@@ -108,8 +110,6 @@
 			<h2>我的故事</h2>
 			<h3>名字</h3>
 			<span>千辛万苦才在某个意想不到的地方找到的名字。ローマ<ruby>字<rt>じ</rt></ruby>、发音、寓意和 <ins>sumiyo.link</ins> 这个域名都很中意。</span>
-			<br class="f-2" />
-			<span>真的真的好喜欢这个名字！</span>
 			<br />
 			<mat></mat>
 			<mat></mat>
@@ -129,7 +129,7 @@
 			<br class="f-1" />
 
 			<h3>看过的动漫</h3>
-			<span>很喜欢动漫的呢！只是没有时间去追番罢了。这里是仅有的几部我观看过的作品。</span>
+			<span>没时间去追番罢，这里是我看过的一些作品。</span>
 			<br />
 			<mat></mat>
 			<mat></mat>
@@ -182,7 +182,7 @@
 
 			<h3>回忆</h3>
 			<mat></mat>
-			<span>我一直想拥有一个属于自己的网站。2023 年 2 月的一天，在 Cloudflare 的帮助下，我成功部署了网站的第一个版本。</span>
+			<span>一直想有个自己的网站。2023 年 2 月的一天，在 Cloudflare 的帮助下，我成功部署了网站的第一个版本。</span>
 			<br />
 			<br class="f-1" />
 			<span>网上的博客主题千篇一律，我决定自己重头开发一款自己的网站主题。翻遍了各类网站，从它们身上获取灵感。通过漫长的借鉴与调整，我完成了这款网站主题：しろい花 「<a class="link" href="https://github.com/sumiyo-git/site" target="_blank">github.com/</a>」，灵感源自 <a class="link" href="https://kotobank.jp/" target="_blank"> kotobank.jp/</a>。和最初的设想一样，简洁，但不失优雅。虽然它不是最好的，但一定是最独一无二的。</span>

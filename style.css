@@ -285,7 +285,8 @@ header btn {
 	cursor: pointer;
 }
 
-.menu btn div {
+.menu btn::before {
+	content: '';
 	display: inline-block;
 	height: 14px;
 	width: 16px;
@@ -296,7 +297,7 @@ header btn {
 	transition: 0.3s;
 }
 
-.btn-active div {
+.menu .active::before {
 	transform: rotate(90deg);
 }
 
@@ -449,7 +450,7 @@ header btn {
 }
 
 .search list div::before {
-	content:attr(type);
+	content:attr(data-type);
 	margin-right: 5px;
 }
 

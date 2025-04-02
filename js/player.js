@@ -7,7 +7,7 @@
 	*/
 
 
-env.d.version.player = '1.0.25.250329'
+env.d.version.player = '1.0.241'
 env.d.player = {
 	'mode': 0,
 	'pause': 1,
@@ -32,9 +32,8 @@ env.d.player = {
 
 env.e = { ...env.e, ...{
 	player: {
-		ui: document.querySelector('.player-1'),
+		ui0: document.querySelector('.player-1'),
 		ui1: document.querySelector('.blog .player-2'),
-
 		btn: document.querySelector('.player-0 a'),
 		audio: document.querySelector('.player-0 audio'),
 		name: document.querySelector('.player-0 span'),
@@ -291,9 +290,9 @@ env.f.player.add = function(str) {
 		// 弹出询问框
 		setTimeout(function (){
 			if (str['0']) {
-				env.f.prompt(`发现一个隐藏的播放列表！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+				env.f.root.prompt(`发现一个隐藏的播放列表！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
 			} else {
-				env.f.prompt(`发现 ` + str['1'].length + ` 只隐藏的歌曲！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+				env.f.root.prompt(`发现 ` + str['1'].length + ` 只隐藏的歌曲！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
 			}
 		}, 3000)
 	}
@@ -301,7 +300,7 @@ env.f.player.add = function(str) {
 env.f.player.reset = function() {
 	// 重置歌单
 	env.f.player.playlist(env.f.player.album(), true)
-	env.f.player.player.load(env.e.player.list[1].children[0])
+	env.f.player.load(env.e.player.list[1].children[0])
 	env.f.root.scroll(env.e.player.ctrl[4], 500, 1)
 	env.d.player.id = 0
 	env.f.player.mode.set(0)
@@ -343,7 +342,6 @@ env.f.player.lrc = {}
 			})
 			.catch(error => {
 				console.error(error)
-//				setTimeout(function (){env.f.root.fade(env.e.player.list[0], 200)}, 1000)
 
 				var line = document.createElement('line')
 					env.e.player.list[0].appendChild(line)
@@ -366,11 +364,11 @@ env.f.player.lrc = {}
 		// 打开歌词页面
 		if (env.d.player.lrc.open) {
 			env.d.player.lrc.open = 0
-			env.f.root.fade(env.e.player.ui, -160)
+			env.f.root.fade(env.e.player.ui0, -160)
 		} else {
 			env.d.player.lrc.open = 1
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
-			env.f.root.fade(env.e.player.ui, 160)
+			env.f.root.fade(env.e.player.ui0, 160)
 
 			if (!env.d.player.init) {
 				env.d.player.init = true
@@ -490,7 +488,7 @@ env.e.player.audio.addEventListener('ended', function () {
 	} else {
 		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
 		env.d.player.id ++
-		env.f.player.player.load(env.e.player.list[1].children[env.d.player.id])
+		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
 	}
 })
 
@@ -507,7 +505,7 @@ env.e.player.ctrl[4].addEventListener('scroll', () => {
 })
 
 // 键盘监听
-env.e.player.ui.addEventListener('keydown', function(event) {
+env.e.player.ui0.addEventListener('keydown', function(event) {
 	var k = event.key
 
 	if (k == ' ') {

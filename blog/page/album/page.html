@@ -31,6 +31,24 @@
 				lrc: false,
 			},
 			{
+				name: 'To the Abyss! - Kevin Penkin',
+				src: '509106626',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Those Everyday Feels - Kevin Penkin',
+				src: '509106627',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: '2 Months - Kevin Penkin',
+				src: '509098787',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
 				name: 'Underground River (opening version ft.Raj Ramayya) - Kevin Penkin',
 				src: '509098783',
 				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
@@ -93,25 +111,34 @@
 </script>
 <style>
 
-	.img1 {
-		aspect-ratio: 1 / 1;
-		width: 50%;
-		display: inline-block;
+	img {
+		vertical-align: middle;
+		margin-right: 10px;
+		border-radius: 10px;
 	}
 
-	.img1 img {
-		vertical-align: text-top;
-		width: 100%;
-		height: 100%;
+	album {
+		display: block;
+		width: 60%;
+		background-color: rgba(var(--t-b3), 0.4);
+		padding: 10px 20px 10px 10px;
 		border-radius: 10px;
-		opacity: 0;
-		border: 1px rgba(151, 153, 153, 0.3) solid;
-		box-sizing: border-box;
+		color: rgba(var(--t-t1), 0.8);
+		font-size: 20px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+
+	album:hover {
+		background-color: rgba(var(--t-b3), 0.8);
 	}
 
 	@media screen and (max-width: 900px) {
-		.img1 {
-			width: 100%;
+		album {
+			width: 90%;
 		}
 	}
 
@@ -126,7 +153,10 @@
 		</para>
 
 		<para>
-			<a class="link" href="javascript:;" onclick="addmusic(0)" >TVアニメ「メイドインアビス」オリジナルサウンドトラック</a>
+			<album onclick="addmusic(0)" >
+				<img src="img/メイドインアビス.webp" onload="this.setAttribute('class', 'fade')" />
+				TVアニメ「メイドインアビス」オリジナルサウンドトラック
+			</album>
 		</para>
 
 	</div>

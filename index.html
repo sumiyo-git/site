@@ -26,9 +26,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<title>sumiyo.link</title>
 	<link rel="shortcut icon" href="src/icon.png?ver=7" />
-
 	<link rel="stylesheet" type="text/css" href="style.css" />
 	<link rel="preload" as="font" href="src/Poppins Regular.woff2" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="css/player.css"  />
@@ -37,7 +35,7 @@
 
 
 
-<body style="pointer-events: none;" >
+<body>
 <script>
 	// 定义核心变量
 	const env = {
@@ -48,10 +46,11 @@
 			},
 			'visitors': 0,
 			'domain': 'sumiyo.link',
+			'title': 'sumiyo ~',
 			'isNew': null,
 			'isLoad': 0,
-			'isNetwork': (document.domain ? true :false),
-			'isMobile': (window.innerWidth < 900 ? true :false),
+			'isNetwork': (document.domain ? true : false),
+			'isMobile': (window.innerWidth < 800 ? true : false),
 		},
 		'f': {},
 		'e': {},
@@ -77,38 +76,29 @@
 			setTimeout(function (){
 				document.querySelectorAll('.avatar')[1].removeAttribute('style')
 				document.querySelectorAll('.avatar')[0].removeAttribute('style')
-				document.querySelector('.box-2 span').removeAttribute('style')
-			},4000)
+			}, 4000)
 			setTimeout(function (){
 				document.querySelectorAll('.avatar')[1].style.opacity = '0.5'
-
+				document.querySelector('.main .loading').remove()
 				if (env.tmp.root.d4) {
-					env.f.root.prompt('欢迎来到我的网站<br />🎉🎉🎉', 6000)
-
-					env.f.root.prompt('网站正在调整中，部分功能可能无法使用...', 16000)
-					env.f.root.prompt('近日，网站受到了后台爆破的侵扰<br />已暂时屏蔽指定地区的流量', 16000)
-
-
+					env.f.root.prompt('欢迎来到我的世界<br />🎉🎉🎉', 8000)
 					env.tmp.root.d4 = null
 					delete env.tmp.root.d4
 				}
-			},1000)
+			}, 1000)
 
-			env.f.root.type()
-			document.querySelector('.box-1 header').removeAttribute('style')
-			document.querySelector('.box-2 span').style.opacity = '1'
 			document.querySelectorAll('.avatar')[0].style.opacity = '0.5'
-			document.body.removeAttribute('style')
+			document.querySelector('.main .loading').removeAttribute('style');
 
 			env.d.isLoad = true
 			clearInterval(env.tmp.root.t1)
 		}
-	},500)
+	}, 1000)
 
 	// 仅允许直接访问此页
-	if (env.d.isNetwork && (window.location.href != ('https://' + env.d.domain + '/')) && !window.location.href.includes('https://' + env.d.domain + '/blog')) {
+	if (env.d.isNetwork && (window.location.href != (`https://${env.d.domain}/`)) && !window.location.href.includes(`https://${env.d.domain}/blog`)) {
 		document.querySelector('body').style.display = 'none'
-		window.location.href = 'https://' + env.d.domain + '/'
+		window.location.href = `https://${env.d.domain}/`
 	}
 
 </script>
@@ -116,31 +106,26 @@
 
 
 <!-- 主页 -->
-
-<div class="box-1" >
-	<header style="opacity: 0;" >
+<div class="main" >
+	<backdrop class="loading" style="opacity: 1" data-text="sia natum, mee hin omkiu." ></backdrop>
+	<header>
 		<btn onclick="env.f.root.menu.open()" ></btn>
 		<a onclick="env.f.root.blog.open('page/square')" >Square</a>|<a onclick="env.f.root.blog.open('page/about')" >About</a>
 		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
 	</header>
-
-	<div class="box-2" >
-		<span style="opacity: 0; transition: 1s ease-out 0.3s;" >sumiyo</span>
-		<type></type>
+	<div class="description" >
+		<span>sumiyo</span>
+		<span>私のサイト、私一人の世界です。</span>
 	</div>
 
-	<!-- 大胆的设计，让我们摆脱了传统的头像框限制 -->
 	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.isLoad ++" src="src/draft.webp" />
 	<img class="avatar" style="opacity: 0; transition: 3.0s;" onload="env.d.isLoad ++" src="src/sumiyo.webp" />
 
-	<!-- 博客框架 -->
+	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
 		<header><btn onclick="env.f.root.blog.close()" ></btn></header>
 		<div class="player-2" onclick="env.f.player.lrc.ui()" style="display: none;" ><div></div></div>
-		<div class="loading" style="display: none;" >
-			<box1><div>页面加载中 ...</div></box1>
-			<box2></box2>
-		</div>
+		<backdrop style="display: none;" ></backdrop>
 	</div>
 
 	<!-- 页脚 -->
@@ -160,15 +145,14 @@
 
 
 
-<!-- 菜单  -->
-
+<!-- 菜单 -->
 <div class="menu" >
 	<h1>MENU</h1>
 	<hr />
 
 	<!-- 博客 -->
 	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this, 1)" class="active" >检索:<span class="search-title" ><span>0</span> items</span></btn>
+		<btn onclick="env.f.root.menu.folder(this, true)" class="active" >检索:<span data-num="0" ></span></btn>
 		<div class="search" >
 			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="16" autocomplete="off" ></textarea><span></span>
 			<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
@@ -203,7 +187,6 @@
 
 
 <!-- 播放器  -->
-
 <div class="player-1" style="display: none;" tabindex="0" >
 	<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
 	<backdrop></backdrop>
@@ -234,6 +217,7 @@
 
 <!-- 弹窗 -->
 <div class="prompt" ></div>
+
 
 
 <!-- Javascript -->

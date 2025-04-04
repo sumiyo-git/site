@@ -9,28 +9,21 @@
 
 env.d.version.player = '1.0.241'
 env.d.player = {
+	'id': 0,
 	'mode': 0,
-	'pause': 1,
 	'vol': 0.5,
-	'loop': false,
 	'offsetTop': 0,
+	'pause': true,
+	'loop': false,
 	'init': false,
+	'ui': false,
 	'lrc': {
 		'data': [],
 		'now': 0,
-		'open': 0,
 	},
-	'now': {
-		'leng': 0,
-		'now': 0,
-		'id': 0,
-		'per': 0,
-	},
-
-	'id': 0,
 }
 
-env.e = { ...env.e, ...{
+env.e = {...env.e, ...{
 	player: {
 		ui0: document.querySelector('.player-1'),
 		ui1: document.querySelector('.blog .player-2'),
@@ -183,7 +176,6 @@ env.f.player.load = function(e){
 	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 
 	env.e.player.bar[1].style.width = '0px'
-	env.d.player.now.per = 0
 	env.e.player.ctrl[0].innerHTML = '00:00'
 
 	env.e.player.img[0].setAttribute('style', 'opacity: 0;')
@@ -262,17 +254,13 @@ env.f.player.play = function(){
 }
 	env.f.player.play.set = function(bool){
 		if (bool) {
-			env.e.player.audio.volume = 0
-			env.d.player.pause = 0
 			env.e.player.audio.play()
-
-			env.e.player.audio.currentTime = (env.e.player.audio.duration * env.d.player.now.per) || 0
-			env.e.player.audio.volume = env.d.player.vol
+			env.d.player.pause = false
 			env.e.player.btn.innerHTML = '暂停'
 			env.f.root.fade(env.e.player.ui1, 300)
 		} else {
 			env.e.player.audio.pause()
-			env.d.player.pause = 1
+			env.d.player.pause = true
 			env.e.player.btn.innerHTML = '播放'
 			env.f.root.fade(env.e.player.ui1, -300)
 		}
@@ -284,7 +272,7 @@ env.f.player.add = function(str) {
 	env.d.player.id = str['0'] ? 0 : env.e.player.list[1].children.length
 	env.f.player.playlist(a, str['0'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
-	env.d.player.pause = 0
+	env.d.player.pause = false
 }
 	env.f.player.add.ask = function(str) {
 		// 弹出询问框
@@ -310,7 +298,6 @@ env.f.player.lrc = {}
 	env.f.player.lrc.get = function(id) {
 		// 下载歌词
 		env.d.player.lrc.data = []
-		env.d.player.lrc.leng = 0
 
 		if (id) {
 			fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
@@ -362,11 +349,11 @@ env.f.player.lrc = {}
 
 	env.f.player.lrc.ui = function() {
 		// 打开歌词页面
-		if (env.d.player.lrc.open) {
-			env.d.player.lrc.open = 0
+		if (env.d.player.ui) {
+			env.d.player.ui = false
 			env.f.root.fade(env.e.player.ui0, -160)
 		} else {
-			env.d.player.lrc.open = 1
+			env.d.player.ui = true
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
 			env.f.root.fade(env.e.player.ui0, 160)
 
@@ -383,7 +370,7 @@ env.f.player.lrc = {}
 		// 找到当前正在播放的歌词行数
 		if (env.d.player.lrc.data[0]) {
 			for (var i = 0; i < 100; i++) {
-				if (env.e.player.audio.currentTime <= env.f.root.conv1((env.d.player.lrc.data[i]).substring(1, 10))) {
+				if (env.e.player.audio.currentTime <= env.f.root.conv.c1((env.d.player.lrc.data[i]).substring(1, 10))) {
 					env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 					env.d.player.lrc.now = i
 					env.e.player.list[0].children[i].setAttribute('class', 'highlight')
@@ -398,7 +385,7 @@ env.f.player.lrc = {}
 		// 调试模式
 		document.addEventListener('keydown', function(event) {
 			if (event.key === 'Enter' || event.keyCode === 13) {
-				console.log(env.f.root.conv0(env.e.player.audio.currentTime))
+				console.log(env.f.root.conv.c0(env.e.player.audio.currentTime))
 			}
 		});
 
@@ -451,9 +438,8 @@ env.e.player.audio.volume = 0.5
 // 进度条
 setInterval(() => {
 	if(!env.d.player.pause){
-		env.d.player.now.per = (env.e.player.audio.currentTime / env.e.player.audio.duration).toFixed(8) || env.d.player.now.per
-		env.e.player.bar[1].setAttribute('style', `width: ${env.d.player.now.per * 100}%`)
-		env.e.player.ctrl[0].innerHTML = env.f.root.conv0(env.e.player.audio.currentTime * 1000).substring(0, 5)
+		env.e.player.bar[1].setAttribute('style', `width: ${(env.e.player.audio.currentTime * 100 / env.e.player.audio.duration).toFixed(3) || 0}%`)
+		env.e.player.ctrl[0].innerHTML = env.f.root.conv.c0(env.e.player.audio.currentTime * 1000).substring(0, 5)
 	}
 }, 1000)
 
@@ -462,7 +448,6 @@ env.e.player.bar[0].addEventListener('click', function(event) {
 	var p = ((event.clientX - env.e.player.bar[0].getBoundingClientRect().left) / env.e.player.bar[0].offsetWidth).toFixed(4)
 	var now = Math.floor(env.e.player.audio.duration || env.d.player.now.leng) * p
 	env.e.player.bar[1].setAttribute('style', `width: ${p * 100}%`)
-	env.d.player.now.per = p
 
 	env.e.player.audio.currentTime = now
 	env.f.player.lrc.find(now)
@@ -471,7 +456,7 @@ env.e.player.bar[0].addEventListener('click', function(event) {
 // 歌词显示
 env.e.player.audio.addEventListener('timeupdate', function () {
 	if (env.d.player.lrc.data[0]) {
-		if (env.f.root.conv1((env.d.player.lrc.data[env.d.player.lrc.now]).substring(1, 10)) - 1 <= env.e.player.audio.currentTime) {
+		if (env.f.root.conv.c1((env.d.player.lrc.data[env.d.player.lrc.now]).substring(1, 10)) - 1 <= env.e.player.audio.currentTime) {
 			env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 			env.d.player.lrc.now ++
 			env.e.player.list[0].children[env.d.player.lrc.now].setAttribute('class', 'highlight')

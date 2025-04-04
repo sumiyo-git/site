@@ -288,10 +288,6 @@
 
 
 @media screen and (max-width: 850px)  {
-//	.player-1 aside:nth-child(1) {
-
-//		display: none;
-//	}
 	.player-1 .lrc {
 		max-width: 300px;
 		padding: 5px 10px 5px 10px;
@@ -302,8 +298,6 @@
 	.player-1 .time {
 		width: 260px;
 	}
-
-
 	.player-1 list::-webkit-scrollbar,
 	.player-1 .cover {
 		display: none;
@@ -332,7 +326,7 @@
 	.player-1 list line:nth-child(1) {
 		margin-top: 70px !important;
 	}
-	.player-1 .bk {
+	.player-1 .wallpaper {
 		width: unset;
 		height: calc(100% + 200px);
 	}

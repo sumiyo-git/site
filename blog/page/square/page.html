@@ -14,7 +14,7 @@
 
 <body>
 <script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
@@ -173,7 +173,7 @@
 			<br class="f-1" />
 			<span>绿藤缠绕，野花装点着古老的「留言板」</span>
 			<br />
-			<span>伟大的时代已经逝去，
+			<span>伟大的时代已经过去，
 			<br />
 			<span>前人的字迹继续存在。</span>
 			<br />

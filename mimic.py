@@ -324,7 +324,7 @@ git "string"\t\t\t执行原生 git 命令
                 else:
                     a = git("git push -u origin main --force").stdout
 
-                if (a == "branch 'main' set up to track 'origin/main'."):
+                if ("set up to track" in a):
                     wprint("更新已部署\n", 2)
 
                     env['cmt'] += 1
@@ -348,7 +348,7 @@ git "string"\t\t\t执行原生 git 命令
             wprint(git("git commit -m " + env["des"]).stdout, 0)
             a = git("git push -u origin main --force").stdout
 
-            if (a == "branch 'main' set up to track 'origin/main'."):
+            if ("set up to track" in a):
                 wprint("更新已部署\n", 2)
 
                 root.title("uploader.py (commit: {})".format(str(env['cmt'])))

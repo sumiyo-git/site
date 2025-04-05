@@ -207,7 +207,7 @@ backdrop {
 	content: attr(data-text);
 	font-family: 'Microsoft YaHei';
 	font-size: 24px;
-	color: rgba(var(--t-b2), 0.8);
+	color: rgba(var(--t-b2), 0.6);
 }
 
 
@@ -696,6 +696,7 @@ backdrop {
 
 @media screen and (max-width: 850px)  {
 	/* phone or PC min */
+	.main .loading,
 	.f-2 {
 		display: none;
 	}

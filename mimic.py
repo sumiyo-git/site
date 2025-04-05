@@ -1,530 +1,476 @@
-﻿'''
-    this program is used to manage the website locally.
-    by sumiyo
-
-'''
-
-
-
+﻿
 import requests
-import os
-import subprocess
-import threading
-import pytz
 import json
+import os
+import tkinter as tk
+import pytz
+import subprocess
 
-from tkinter import *
 from configparser import ConfigParser
 from datetime import datetime, timezone, timedelta
 
 
 
-path = os.getcwd()
-path = os.path.dirname(path) + "\\config\\"
+# 初始化
+env = {}
 
-config = ConfigParser()
-wait = 0
-process = -50
-getinbox = 0
-stopwait = 0
-
-
-
-# 实时调整元素大小
-def resize(event):
-    inbox.focus_set()
-    h = root.winfo_height()
-    w = root.winfo_width()
-
-    text.place(anchor='nw', x=2, y=0, w=w - 4, h=h - 20)
-    canvas.place(anchor='nw', x=0, y=h - 20, w=w, h=20)
-    if (wait != 1):
-        inbox.place(anchor='nw', x=0, y=h - 20, w=w, h=20)
-    else:
-        inbox.place(anchor='nw', x=0, y=-20, w=w, h=20)
+env["path"] = os.path.dirname(os.getcwd()) + "\\config\\"
+env["line"] = 0
 
 
 
 # 读取配置文件
-def iniRead():
-    if (os.path.exists(path + "config.ini")):
-        global token, aid, zid, pj, cm, cmt, font, fontsize, offsetDay
-        config.read(path + "config.ini")
+def config():
+    global env
+    f = env["path"] + "config.ini"
+    c = ConfigParser()
 
-        token = config.get("API token", "api_token")
-        aid = config.get("API token", "account_id")
-        zid = config.get("API token", "zone_id")
-        pj = config.get("API token", "project")
-        cm = config.get("Git settings", "description")
-        cmt = config.get("Git settings", "commit")
-        font = config.get("Console", "font")
-        fontsize = config.get("Console", "fontsize")
-        offsetDay = int(config.get("Log", "offset"))
+    if (os.path.exists(f)):
+        c.read(f)
+
+        env["project"] = c.get("TOKEN", "project")
+        env["token"] = c.get("TOKEN", "api_token")
+        env["aid"] = c.get("TOKEN", "account_id")
+        env["zid"] = c.get("TOKEN", "zone_id")
+        env["bid"] = c.get("TOKEN", "database_id")
+        env["des"] = c.get("GIT", "description")
+        env["cmt"] = int(c.get("GIT", "commit"))
+        env["offset"] = int(c.get("LOG", "offset"))
+        env["lmt"] = c.get("LOG", "limit")
     else:
         # 添加节并设置键值对
-        config.add_section("API token")
-        config.set("API token", "API_token", "")
-        config.set("API token", "account_id", "")
-        config.set("API token", "zone_id", "")
-        config.set("API token", "project", "")
+        c.add_section("TOKEN")
+        c.set("TOKEN", "project", "null")
+        c.set("TOKEN", "api_token", "null")
+        c.set("TOKEN", "account_id", "null")
+        c.set("TOKEN", "zone_id", "null")
+        c.set("TOKEN", "database_id", "null")
         
-        config.add_section("Git settings")
-        config.set("Git settings", "commit", "0")
-        config.set("Git settings", "description", "UPDATE")
+        c.add_section("GIT")
+        c.set("GIT", "commit", "0")
+        c.set("GIT", "description", "UPDATE")
 
-        config.add_section("Console")
-        config.set("Console", "font", "Microsoft YaHei")
-        config.set("Console", "fontsize", "10")
-
-        config.add_section("Log")
-        config.set("Log", "offset", "1")
+        c.add_section("LOG")
+        c.set("LOG", "offset", "1")
+        c.set("LOG", "limit", "100")
 
         # 写入文件
-        with open(path + "config.ini", "w") as configfile:
-           config.write(configfile)
+        with open(f, "w") as file:
+           c.write(file)
 
-        iniRead()
+        config()
 
-iniRead()
+config()
 
 
 
-def code(content, tag):
-    text.config(state="normal")
+# 分析命令
+def analysis(string):
+    parts = []
+    current_part = []
+    in_quotes = False
 
-    text.insert(END, content)
-    text.config(state="disable")
+    for char in string:
+        if char == '"':
+            in_quotes = not in_quotes
+            if not in_quotes:
+                continue
+        elif char == ' ' and not in_quotes:
+            if current_part:
+                parts.append(''.join(current_part))
+                current_part = []
+        else:
+            current_part.append(char)
 
-    text.see(END)
+    if current_part:
+        parts.append(''.join(current_part))
+
+    for i in range(len(parts)):
+        parts[i] = parts[i].strip('"')
+    for i in range(0, 10):
+        parts.append("null")
+
+    return parts
+
+
+
+# 打印文本
+def wprint(string, tag):
+    text.insert(tk.END, string)
+    text.see(tk.END)
     text.update()
     text.yview_moveto(1.0)
 
-    if (tag == "cmd"):
-        line = str(int(text.index('end-1c').split('.')[0]) - 1)
-        text.tag_add("tag1", line + ".0", line + ".end")
-
-    if (tag == "err"):
-        line = str(int(text.index('end-1c').split('.')[0]) - 1)
-        text.tag_add("tag2", line + ".0", line + ".end")
-
-    if (tag == "info"):
-        line = str(int(text.index('end-1c').split('.')[0]) - 1)
-        text.tag_add("tag3", line + ".0", line + ".end")
-
-    if (tag == "su"):
-        line = str(int(text.index('end-1c').split('.')[0]) - 1)
-        text.tag_add("tag4", line + ".0", line + ".end")
+    env['line'] = line = int(text.index('end-1c').split('.')[0]) - 1
+    text.tag_add("tag" + str(tag), str(line) + ".0", str(line) + ".end")
 
 
 
-def check():
-    global getinbox
-    code("mimic.py   1.0.12\n\n", "null")
+# 限制编辑
+def onpress(event):
+    if not ((event.state & 0x0004) and (event.keysym == 'c')):
+        index = text.index(tk.INSERT)
+        line_number = int(index.split(".")[0])
 
-    code("$ git --version\n", "cmd")
-    git = "git --version"
-    temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-    if (temp.stderr == ""):
-        code(temp.stdout, "null")
+        if line_number == env["line"]:
+            text.insert(tk.END, "\n")
+        if line_number <= env["line"]:
+            return "break"
+
+
+
+# 限制全选
+def onall(event):
+    return "break"
+
+
+
+# 打印日志表格
+def table1(a):
+    r1 = a["data"]["viewer"]["scope"][0]["logs"]
+    wprint("正在生成数据表格\n", 1)
+    wprint("lines:\t" + str(len(r1)) + "\n", 0)
+    for i in range(0, len(r1)):
+        r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S").replace("T", " ").replace("Z", " ")
+
+    wprint("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\ntime\t\tCountry\t\tAction\t\tIP\t\t\tUA\t\t\t\t\t\t\tRequestPath\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
+    r = ""
+    for i in range(0, len(r1)):
+        r = r + r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + r1[i]["securityAction"].replace("unknown", "") + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + r1[i]["clientRequestPath"]+ "\n"
+
+    wprint(r + "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
+
+
+
+# 执行 git 命令
+def git(string):
+    return subprocess.run(string, capture_output=True, text=True, shell=True)
+
+
+
+# 执行命令
+def command(event):
+    global env
+    line = text.index("end-1c linestart")
+    cmd0 = text.get(line, line + " lineend")
+    cmd1 = analysis(cmd0)
+    text.delete(line, line + " lineend + 1c")
+
+    if cmd0 != "":
+        wprint("\n" + cmd0 + "\n", 0)
     else:
-        code("fatal: fatal: git failed." + "\n", "err")
-        code("ensure that you have added git to the system environment variables." + "\n", "err")
-        return
-
-    code("$ read --path: " + path + "config.ini" + "\n", "cmd")
-    code("all settings data are as follows:" + "\n", "info")
-    code('''[API token]\t\t{}
-[account ID]\t\t{}
-[zone ID]\t\t{}
-[project]\t\t{}
-[commit]\t\t{}
-[description]\t\t{}
-
-'''.format(token, aid, zid, pj, cmt, cm), "null")
-
-    temp = token != "" and aid != "" and pj != "" and cm != "" and cmt != "" and font != "" and fontsize != ""
-    if (temp == False):
-        code("fatal: unable to get all env." + "\n", "err")
-        code("ensure that the " + path + "config.ini is working properly." + "\n", "err")
-        return
-
-    else:
-
-        code("$ git status\n", "cmd")
-        git = "git status"
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-
-        if ("nothing to commit" in temp.stdout):
-            code("nothing to commit, working tree clean." + "\n", "null")
-        else:
-            code("discover changes.\n", "null")
-            code("preparing to connect to the remote repository.\n", "su")
-
-            getinbox = 3
-            code("upload the website right now ? [Y/N]\n", "null")
-
-def keep():
-    if (int(cmt) > 100):
-        global getinbox
-        getinbox = 1
-        code("the commit ( " + cmt + " ) is too hight, need to reset it ? [Y/N]\n", "null")
-        return
-
-    upload(1)
+        wprint("\n", 0)
+        env["line"] -= 1
 
 
 
-def upload(mode):
-    global wait
-    wait = 1
-    code("start upload.\n", "null")
+    # 帮助
+    if (cmd1[0] == "?") or (cmd1[0].lower() == "help"):
+        wprint('''--------------------------------------------------------------------
+? \ help\t\t\t显示帮助信息
+cls\t\t\t清空控制台
+exit\t\t\t关闭控制台
+config\t\t\t打开配置文件
+data -develop\t\t\t获取所有部署信息
+data -save\t\t\t备份当前数据库
+data -sql\t\t\t查看 SQL 命令帮助
+data -sql "string"\t\t\t执行原生 SQL 命令
+log\t\t\t查询日志
+log -t date0 date1\t\t\t查询指定时间段的日志
+log -ts\t\t\t生成当前时间戳
+log -save\t\t\t下载日志
+log -read "string"\t\t\t打开指定日志
+log -list\t\t\t读取本地日志列表
+git -push\t\t\t上传并部署更新
+git -reduce 0\t\t\t减少当前 commit 次数
+git -clear\t\t\t压缩 .git 文件夹
+git "string"\t\t\t执行原生 git 命令
+--------------------------------------------------------------------
+''', 0)
+        return "break"
 
-    threads = []
-    t = threading.Thread(target=task2, args=(str(mode)))
-    threads.append(t)
-    t.start()
+    # 清屏
+    if (cmd1[0].lower() == "cls"):
+        text.delete("1.0", tk.END)
+        wprint("已清空控制台记录\n", 1)
+        env["line"] = 0
+        return "break"
 
-
-
-def task2(mode):
-    global wait
-
-    if (mode == "1"):
-        code("$ git add .\n", "cmd")
-        git = "git add ."
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        code('$ git commit -m "' + cm +' "\n', "cmd")
-        git = "git commit -m " + cm
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        code("$ git push -u origin main\n", "cmd")
-        git = "git push -u origin main"
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-    if (mode == "2"):
-        global cmt
-        cmt = str(int(cmt) - int(cmt1))
-
-        code("$ git reset --soft HEAD~" + cmt + "\n", "cmd")
-        git = "git reset --soft HEAD~" + cmt
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        code("$ git add .\n", "cmd")
-        git = "git add ."
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        code('$ git commit -m "' + cm +' "\n', "cmd")
-        git = "git commit -m " + cm
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        code("$ git push -u origin main --force\n", "cmd")
-        git = "git push -u origin main --force"
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        cmt = cmt1
-
-    config.read(path + "config.ini")
-    config.set("Git settings", "commit", str(int(cmt) + 1))
-
-    with open(path + "config.ini", "w") as configfile:
-        config.write(configfile)
-
-    code("upload succssful.\n", "su")
-    code("you can directly close this window.\n", "null")
-    wait = 0
-
-
-
-def timer():
-    global process, stopwait
-
-    if (wait == 1 or stopwait == 1):
-        stopwait = 1
-        inbox.place(anchor='nw', x=0, y=-20, w=root.winfo_width(), h=20)
-        process = process + 1
-        canvas.delete("all")
-        canvas.create_image(process * 4, 0, anchor='nw', image=img1)
-        if (process == root.winfo_width() / 3):
-            process = -50
-
-            if (wait == 0):
-                stopwait = 0
-
-    canvas.after(15, timer)
-
-
-
-def onReturn(event):
-    global getinbox, cmt, cmt1, wait
-    cmd = inbox.get('1.0', 'end-1c').replace("\n", "")
-    inbox.delete("1.0", "end")
-
-    if (getinbox == 1):
-        temp = cmd == "y" or cmd == "Y"
-        if (temp):
-            getinbox = 2
-            code("set commit to: ", "null")
-
-        temp = cmd == "n" or cmd == "N"
-        if (temp):
-            getinbox = 0
-            upload(1)
-            
-        return
-
-    if (getinbox == 2):
-        code(cmd + "\n", "null")
-        if (cmd.isdigit()):
-            if (int(cmd) != 0):
-                getinbox = 0
-                cmt1 = cmd
-                if (int(cmt) - int(cmt1) > 0):
-                    upload(2)
-                return
-
-        code("set commit to: ", "null")
-        return
-
-    if (getinbox == 3):
-        temp = cmd == "y" or cmd == "Y"
-        if (temp):
-            getinbox = 0
-            keep()
-
-        temp = cmd == "n" or cmd == "N"
-        if (temp):
-            getinbox = 0
-            code("upload is cancelled.\n", "err")
-            
-        return
-
-
-    code("$ " + cmd + "\n", "cmd")
-
-    if (cmd == "?"):
-        code('''----------------------------------------------
-?\t\t显示帮助信息
-cls\t\t清空控制台
-exit\t\t关闭控制台
-restart\t\t重新开始上传
-reduction\t\t减少当前 commit 次数
-get\t\t获取所有部署信息
-log\t\t查询日志
-log -d\t\t下载日志
-py\t\t执行原生 python 命令
-git\t\t执行原生 git 命令
-git-clear\t\t压缩 .git 文件夹
-''', "null")
-        return
-
-    if (cmd == "exit"):
+    # 关闭
+    if (cmd1[0].lower() == "exit"):
         root.destroy()
-        return
+        return "break"
 
-    if (cmd[0:2] == "py"):
-        temp = exec(cmd.replace("py ", ""))
-        code("traceback: " + str(temp) + "\n", "null")
-        return
-    
-    if (cmd == "cls"):
-        text.config(state="normal")
-        text.delete("1.0", "end")
-        code("console cleared.\n", "null")
-        text.config(state="disable")
-        return
+    # 打开配置文件
+    if (cmd1[0].lower() == "config"):
+        os.startfile(env['path'] + "config.ini")
+        return "break"
 
-    if (cmd == "restart"):
-        keep()
-        return
+    # 获取日志
+    if (cmd1[0].lower() == "log"):
+        if (cmd1[1].lower() == "-t") or (cmd1[1].lower() == "null") or (cmd1[1].lower() == "-save"):
+            if (cmd1[3] != "null"):
+                geq = cmd1[2]
+                leq = cmd1[3]
+            else:
+                geq = (datetime.now(timezone.utc) - timedelta(days=env['offset'])).strftime("%Y-%m-%dT%H:%M:%SZ")
+                leq = (datetime.now(timezone.utc) - timedelta(days=env['offset'] - 1)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
-    if (cmd == "git-clear"):
-        temp = subprocess.run('git gc --prune=now', capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-        code("done.\n", "null")
-        return
+            wprint("正在下载日志数据\n", 1)
+            wprint("from:\t{}\nto:\t{}\n".format(leq, geq), 0)
 
-    if (cmd == "get"):
-        wait = 1
-        
-        threads = []
-        t = threading.Thread(target=task1)
-        threads.append(t)
-        t.start()
-
-        return
-
-    if (cmd[0:3] == "git"):
-        git = cmd
-        temp = subprocess.run(git, capture_output=True, text=True, shell=True)
-        code(temp.stdout, "null")
-
-        return
-
-    if (cmd == "reduction"):
-        getinbox = 1
-        code("the commit ( " + cmt + " ) is too hight, need to reset it ? [Y/N]\n", "null")
-        return
-
-    if (cmd == "log"):
-        wait = 1
-        
-        threads = []
-        t = threading.Thread(target=task3, args=(0,))
-        threads.append(t)
-        t.start()
-
-        return
-
-    if (cmd == "log -d"):
-        wait = 1
-        
-        threads = []
-        t = threading.Thread(target=task3, args=(1,))
-        threads.append(t)
-        t.start()
-
-        return
-
-    code("SyntaxError.\n", "err")
-
-
-
-def task1():
-    global wait
-    headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(token)}
-    response = requests.get("https://api.cloudflare.com/client/v4/accounts/{}/pages/projects/{}/deployments".format(aid, pj), headers=headers)
-    data = response.json()
-
-    code("id\t\tdate\n----------------------------------------------\n", "null")
-    for i in range(0, len(data["result"])):
-        code(data["result"][i]["short_id"] + "\t\t" + data["result"][i]["created_on"][0:19] + "\n", "null")
-    wait = 0
-
-def task3(d):
-    global wait
-
-    body = {
-        "operationName": "GetSecuritySampledLogs",
-        "variables": {
-            "zoneTag": zid,
-            "accountTag": aid,
-            "filter": {
-                "AND": [
-                    {
-                        "datetime_geq": (datetime.now(timezone.utc) - timedelta(days=offsetDay)).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                        "datetime_leq": (datetime.now(timezone.utc) - timedelta(days=offsetDay - 1)).strftime("%Y-%m-%dT%H:%M:%SZ"),
-                        "requestSource": "eyeball"
+            body = {
+                "operationName": "GetSecuritySampledLogs",
+                "variables": {
+                    "zoneTag": env["zid"],
+                    "accountTag": env["aid"],
+                    "filter": {
+                        "AND": [
+                            {
+                                "datetime_geq": geq,
+                                "datetime_leq": leq,
+                                "requestSource": "eyeball"
+                            }
+                        ]
                     }
-                ]
-            }
-        },
-        "query": '''query GetSecuritySampledLogs {
-            viewer {
-                scope: zones(filter: {zoneTag: $zoneTag}) {
-                    logs: httpRequestsAdaptive(filter: $filter, limit: 200, orderBy: [\"datetime_DESC\"]) {
-                        leakedCredentialCheckResult
-                        cacheStatus
-                        clientASNDescription
-                        clientAsn
-                        clientCountryName
-                        clientIP
-                        clientRequestHTTPHost
-                        clientRequestHTTPMethodName
-                        clientRequestHTTPProtocol
-                        clientRequestPath
-                        clientRequestScheme
-                        userAgent
-                        securityAction
-                        securitySource
-                        datetime
-                        __typename
+                },
+                "query": '''query GetSecuritySampledLogs {
+                    viewer {
+                        scope: zones(filter: {zoneTag: $zoneTag}) {
+                            logs: httpRequestsAdaptive(filter: $filter, limit: ''' + env["lmt"] + ''', orderBy: [\"datetime_DESC\"]) {
+                                leakedCredentialCheckResult
+                                clientASNDescription
+                                clientAsn
+                                clientCountryName
+                                clientIP
+                                clientRequestHTTPHost
+                                clientRequestHTTPProtocol
+                                clientRequestPath
+                                clientRequestScheme
+                                userAgent
+                                securityAction
+                                securitySource
+                                datetime
+                                __typename
+                            }
+                            __typename
                         }
                         __typename
                     }
-                    __typename
+                }'''
             }
-        }'''
-    }
     
-    headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(token)}
-    response = requests.post("https://api.cloudflare.com/client/v4/graphql", headers=headers, data=json.dumps(body))
-    result = response.json()
+            headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(env['token'])}
+            response = requests.post("https://api.cloudflare.com/client/v4/graphql", headers=headers, data=json.dumps(body))
+            result = response.json()
 
-    r1 = result["data"]["viewer"]["scope"][0]["logs"]
-    for i in range(0, len(r1)):
-        r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S")
-    result["data"]["viewer"]["scope"][0]["logs"] = r1
-
-    if (d == 1):
-        f = path + "log\\" + datetime.now(timezone.utc).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H-%M-%S") + ".log"
-        with open(f, "w") as file:
-            json.dump(result, file, indent=4, ensure_ascii=False)
+            if ("-save" in cmd0):
+                f = env["path"] + "logs\\" + datetime.now(timezone.utc).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H-%M-%S") + ".log"
+                with open(f, "w") as file:
+                    json.dump(result, file, indent=4, ensure_ascii=False)
     
-        code("save as: " + f + "\n", "null")
-        os.startfile(path + "log\\")
-
-    else:
-        r1 = result["data"]["viewer"]["scope"][0]["logs"]
-        code("----------------------------------------------------------------------------------------------------------------------------------------------------------------------\ntime\t\tCountry\t\tIP\t\t\tUA\t\t\t\t\t\t\tRequestPath\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", "null")
-        for i in range(0, len(r1)):
-            if (r1[i]["clientRequestPath"] == "/counter.api" ):
-                code(r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + r1[i]["clientRequestPath"]+ "\n", "info")
+                wprint("日志已保存: " + f + "\n", 2)
+                os.startfile(env["path"] + "logs\\")
+                return "break"
             else:
-                code(r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + r1[i]["clientRequestPath"]+ "\n", "null")
+                table1(result)
+                return "break"
 
-    wait = 0
+        # 读取日志
+        if (cmd1[2] != "null") and (cmd1[1].lower() == "-read"):
+            f = env["path"] + "\\logs\\" + cmd1[2]
+
+            if (os.path.exists(f)):
+                with open(f, 'r') as file:
+                    table1(json.loads(file.read()))
+                return "break"
+            else:
+                wprint("无法读取指定文件\n", 3)
+                return "break"
+
+        # 生成时间戳
+        if (cmd1[1].lower() == "-ts"):
+            wprint(datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ") + "\n", 0)
+            return "break"
+
+        # 获取本地日志列表
+        if (cmd1[1].lower() == "-list"):
+            p = env["path"] + "\\logs"
+            e = os.listdir(p)
+            files = [f for f in e if not os.path.isdir(os.path.join(p, f))]
+            r = ""
+            for i in range(0, len(files)):
+                r = r + files[i] + "\n"
+
+            wprint("--------------------------------------------------------------------\n" + r + "--------------------------------------------------------------------\n", 0)
+            return "break"
+
+    # git
+    if (cmd1[0].lower() == "git"):
+
+        # 上传
+        if (cmd1[1].lower() == "-push"):
+            if ("nothing to commit" in git("git status").stdout):
+                wprint("无需提交任何内容，你的本地代码与最新提交的版本完全一致\n", 4)
+                wprint('或键入 "git -push -force" 以强制提交更新\n', 0)
+                return "break"
+            else:
+                wprint("准备连接到远程仓库\n", 1)
+
+                wprint(git("git add .").stdout, 0)
+                wprint(git("git commit -m " + env["des"]).stdout, 0)
+                if (cmd1[2].lower() == "-force"):
+                    a = git("git push -u origin main").stdout
+                else:
+                    a = git("git push -u origin main --force").stdout
+
+                wprint(a, 0)
+                wprint("更新已提交", 3)
+                env['cmt'] += 1
+                root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+                return "break"
+
+        # 减少 commit 值
+        if (cmd1[1].lower() == "-reduce") and (cmd1[2].lower() != "null"):
+            cmt = abs(env['cmt'] - int(cmd1[2])) or 1
+
+            wprint(git("git reset --soft HEAD~" + str(cmt)).stdout, 0)
+            wprint(git("git add .").stdout, 0)
+            wprint(git("git commit -m " + env["des"]).stdout, 0)
+            a = git("git push -u origin main --force").stdout
+
+            wprint(a, 0)
+            wprint("更新已提交", 3)
+            env['cmt'] += 1
+            root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+            return "break"
+
+        # 压缩仓库
+        if (cmd1[1].lower() == "-clear"):
+            wprint(git("git gc --prune=now").stdout, 0)
+            return "break"
+
+        # 执行 git 命令
+        if (cmd1[1].lower() != "null") and (cmd1[2].lower() == "null"):
+            wprint("执行结果:\n", 4)
+            wprint(git(cmd1[1]).stdout, 0)
+            return "break"
+
+
+    # 数据互交
+    if (cmd1[0].lower() == "data"):
+        # 获取部署信息
+        if (cmd1[2] == "null") and (cmd1[1].lower() == "-develop"):
+            headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(env["token"])}
+            response = requests.get("https://api.cloudflare.com/client/v4/accounts/{}/pages/projects/{}/deployments".format(env["aid"], env["project"]), headers=headers)
+            data = response.json()["result"]
+            r = ""
+            for i in range(0, len(data)):
+                r = r + data[i]["created_on"][0:19] + "\t\t\t" + data[i]["short_id"] + "\t\t" + data[0]["stages"][1]["status"] + "\n"
+
+            wprint("--------------------------------------------------------------------\n时间\t\t\tID\t\t状态\n--------------------------------------------------------------------\n", 0)
+            wprint(r + "--------------------------------------------------------------------\n", 0)
+            return "break"
+
+        # 备份数据库
+        if (cmd1[2] == "null") and (cmd1[1].lower() == "-save"):
+            wprint("开始备份当前数据库\n", 1)
+
+            url0 = "https://api.cloudflare.com/client/v4/accounts/{}/d1/database/{}/export".format(env["aid"], env["bid"])
+            body = { "output_format": "polling" }
+            headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
+
+            response = requests.post(url0, headers=headers, data=json.dumps(body))
+            r1 = response.json()
+
+            if (len(r1["errors"]) == 0):
+                wprint("bookmark: " + r1["result"]["at_bookmark"] + "\n", 0)
+
+                body =  { "current_bookmark": r1["result"]["at_bookmark"] }
+                response = requests.post(url0, headers=headers, data=json.dumps(body))
+                r2 = response.json()
+
+                if (len(r2["errors"]) == 0):
+                    wprint("signed_url: " + r2["result"]["signed_url"] + "\n", 0)
+                    url2 = r2["result"]["signed_url"]
+                    f = env["path"] + "database\\" + datetime.now(timezone.utc).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H-%M-%S") + ".sql"
+                    response = requests.get(url2)
+                    with open(f, 'wb') as file:
+                        file.write(response.content)
+                        
+                    wprint("数据库备份成功: " + f + "\n", 2)
+                    os.startfile(env["path"] + "database\\")
+                else:
+                    wprint("备份过程中抛出异常\n", 2)
+
+                return "break"
+            else:
+                wprint("备份过程中抛出异常\n", 2)
+                return "break"
+
+        # 执行 sql 命令
+        if (cmd1[2] != "null") and (cmd1[1].lower() == "-sql"):
+            headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
+            body = {
+                "sql": cmd1[2]
+            }
+            response = requests.post("https://api.cloudflare.com/client/v4/accounts/{}/d1/database/{}/query".format(env["aid"], env["bid"]), headers=headers, data=json.dumps(body))
+            wprint("查询结果:\n", 4)
+            wprint(str(response.json()) + "\n", 0)
+            return "break"
+
+        # 显示 sql 命令帮助
+        if (cmd1[2] == "null") and (cmd1[1].lower() == "-sql"):
+            wprint('''------------------------------------------------------------------------------------------------
+查询所有表名\t\t\tselect name from sqlite_schema where type='table' and name != '_cf_KV' ORDER BY name
+查询指定表的全部数据\t\t\tselect * from 表名
+查询指定表指定行的数据\t\t\tselect * from 表名 where 列名='数据'
+修改指定位置的数据\t\t\tupdate 表名 set 列名='新数据' where 列名='数据'
+重命名表\t\t\talter table 旧表名 rename to 新表名
+重命名列\t\t\talter table 表名 rename column 旧列名 to 新列名
+写入新数据\t\t\tinsert into 表名 (列名1, 列名2) VALUES (数据1, 数据2)
+删除指定行\t\t\tdelete from 表名 where 列名='数据'
+------------------------------------------------------------------------------------------------
+''', 0)
+            return "break"
+
+
+    wprint("无效的命令语句 (" + line.replace(".", ", ") + ")\n", 3)
+    return "break"
 
 
 
+root = tk.Tk()
 
-
-
-root = Tk()
-
-root.title('mimic.py')
+root.title("uploader.py (commit: {})".format(str(env['cmt'])))
 root.geometry("600x380")
 root.resizable(True, True)
-root.configure(bg="#2E2E2E")
+root.configure(bg="#000000")
+
+scrollbar = tk.Scrollbar(root, orient="vertical")
+scrollbar.pack(side=tk.RIGHT, fill="both")
+
+text = tk.Text(root, font=("Microsoft YaHei", 10, "bold"), fg="#D5D5D5", bg="#000000", yscrollcommand=scrollbar.set, borderwidth=0, highlightthickness=0)
+text.pack(expand=True, fill="both")
+text.focus_set()
+
+scrollbar.config(command=text.yview)
+
+text.tag_config("tag0", foreground="#D5D5D5") # 白
+text.tag_config("tag1", foreground="#97DBFE") # 蓝
+text.tag_config("tag2", foreground="#55B155") # 绿
+text.tag_config("tag3", foreground="#F55B65") # 红
+text.tag_config("tag4", foreground="#D69D85") # 橙
+
+text.bind("<Key>", onpress)
+text.bind('<Control-a>', onall)
+text.bind("<Return>", command)
 
 
 
-text = Text(root, font=(font, fontsize, "bold"), fg="#D5D5D5", bg="#2E2E2E", borderwidth=0, highlightthickness=0)
-text.place(anchor='nw', x=2, y=0, w=600, h=360)
-
-text.tag_config("tag1", foreground="#97DBFE")
-text.tag_config("tag2", foreground="#F55B65")
-text.tag_config("tag3", foreground="#D69D85")
-text.tag_config("tag4", foreground="#55B155")
-
-canvas = Canvas(root, borderwidth=0, highlightthickness=0)
-canvas.place(anchor='nw', x=0, y=360, w=600, h=20)
-canvas.configure(bg="#262626")
-
-img1 = PhotoImage(file= path + "assets\processbar.png")
-
-inbox = Text(root, font=(font, fontsize, "bold"), fg="#97DBFE", bg="#262626", borderwidth=0, highlightthickness=0)
-inbox.place(anchor='nw', x=2, y=360, w=600, h=20)
-inbox.focus_set()
-
-
-
-check()
-timer()
-
-
- 
-# 检测窗口大小改变
-root.bind("<Configure>", resize)
-root.bind("<Return>", onReturn)
-
+# 初始化
+wprint("uploader.py 1.0.241\n", 1)
+wprint('键入 "?" 或 "help" 以查看帮助信息\n', 0)
 
 
 root.mainloop()

@@ -43,12 +43,7 @@ env.f.player = {}
 
 // 加载默认音乐数据
 env.f.player.album = function(){
-	return [{
-		name: 'The Return of Made in Abyss - Kevin Penkin',
-		src: '1417631425',
-		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
-		lrc: false,
-	},
+	return [
 	{
 		name: 'この空であなたを待ってる - KOKIA',
 		src: '1830163710',
@@ -56,9 +51,15 @@ env.f.player.album = function(){
 		lrc: true,
 	},
 	{
+		name: 'ワタリドリ - KOKIA',
+		src: '2101452199',
+		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
+		lrc: true,
+	},
+	{
 		name: 'One Last Adventure - Evan Call',
 		src: '2116382384',
-		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
 		lrc: false,
 	},
 	{
@@ -73,12 +74,6 @@ env.f.player.album = function(){
 		img: 'ct9bs4VXR1mrbVRsX9iboA==/3372202162443903',
 		lrc: true,
 	},
-	{
-		name: 'ワタリドリ - KOKIA',
-		src: '2101452199',
-		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
-		lrc: true,
-		},
 	{
 		name: 'Calling - MAROK & mamomo',
 		src: '1944649836',
@@ -122,6 +117,12 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
+		name: 'Dóchas - Aaron Dolan & Florian Bur',
+		src: '2165170302',
+		img: 'sMtYDaEmC2VGAsjGPaKZdg==/109951169674040753',
+		lrc: false,
+	},
+	{
 		name: 'There Is Still Wonder Left To Behold - reche',
 		src: '2017419119',
 		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
@@ -156,6 +157,12 @@ env.f.player.album = function(){
 		src: '509098792',
 		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
 		lrc: true,
+	},
+	{
+		name: 'The Return of Made in Abyss - Kevin Penkin',
+		src: '1417631425',
+		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+		lrc: false,
 	},
 	{
 		name: 'この空であなたを待ってる inst. - KOKIA',
@@ -307,25 +314,7 @@ env.f.player.lrc = {}
 				}
 			})
 			.then(lrc => {
-				lrc = lrc.split('\n')
-				lrc.push("[59:59.999]")
-
-				// 渲染歌词
-				env.d.player.lrc.data = lrc
-				env.d.player.lrc.now = 0
-
-				for (var i = 0; i < lrc.length; i++) {
-					var line = document.createElement('line')
-						env.e.player.list[0].appendChild(line)
-
-					var s1 = document.createElement('lrc')
-						s1.innerHTML = lrc[i].split('#')[0].slice(12) || ''
-						line.appendChild(s1)
-
-					var s2 = document.createElement('trans')
-						s2.innerHTML = lrc[i].split('#')[1] || ''
-						line.appendChild(s2)
-				}
+				env.f.player.lrc.load(lrc)
 			})
 			.catch(error => {
 				console.error(error)
@@ -344,6 +333,28 @@ env.f.player.lrc = {}
 			var s1 = document.createElement('trans')
 				s1.innerHTML = '没有歌词的纯音乐哦'
 				line.appendChild(s1)
+		}
+	}
+
+	env.f.player.lrc.load = function(str) {
+		// 渲染歌词
+		lrc = str.split('\n')
+		lrc.push("[59:59.999]")
+
+		env.d.player.lrc.data = lrc
+		env.d.player.lrc.now = 0
+
+		for (var i = 0; i < lrc.length; i++) {
+			var line = document.createElement('line')
+				env.e.player.list[0].appendChild(line)
+
+			var s1 = document.createElement('lrc')
+				s1.innerHTML = lrc[i].split('#')[0].slice(12) || ''
+				line.appendChild(s1)
+
+			var s2 = document.createElement('trans')
+				s2.innerHTML = lrc[i].split('#')[1] || ''
+				line.appendChild(s2)
 		}
 	}
 
@@ -395,7 +406,7 @@ env.f.player.lrc = {}
 				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
 					<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
-					<button onclick="env.f.player.lrc.load(document.querySelector('.player-1 textarea').value)" >load</button>
+					<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value)" >load</button>
 			`
 			document.querySelector('.player-1').appendChild(div)
 	}
@@ -418,6 +429,7 @@ env.f.player.list = function(){
 			env.e.player.list[1].style.display = 'none'
 			env.e.player.list[0].removeAttribute('style')
 			env.e.player.ctrl[1].innerHTML = '歌单'
+			env.f.player.lrc.find(env.e.player.audio.currentTime)
 		} else {
 			env.e.player.list[0].style.display = 'none'
 			env.e.player.list[1].removeAttribute('style')
@@ -446,7 +458,7 @@ setInterval(() => {
 // 进度调整
 env.e.player.bar[0].addEventListener('click', function(event) {
 	var p = ((event.clientX - env.e.player.bar[0].getBoundingClientRect().left) / env.e.player.bar[0].offsetWidth).toFixed(4)
-	var now = Math.floor(env.e.player.audio.duration || env.d.player.now.leng) * p
+	var now = Math.floor(env.e.player.audio.duration || 0) * p
 	env.e.player.bar[1].setAttribute('style', `width: ${p * 100}%`)
 
 	env.e.player.audio.currentTime = now

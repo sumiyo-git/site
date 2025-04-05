@@ -1,0 +1,73 @@
+﻿<!DOCTYPE HTML>
+<html lang="zh">
+
+<head>
+	<title>Oops !</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';overflow:overlay;margin:0;line-height:30px;min-width:380px}::selection{background: rgba(255, 184, 237, 0.3) !important;}a{text-decoration:none;-webkit-user-drag:none;color:rgba(186, 138, 219,1);cursor:pointer;user-select:none;}img{-webkit-user-select:none;-webkit-user-drag:none}span{color:rgba(151,153,153,1)}i{color:rgba(151,153,153,0.6)}h1{color:rgba(127, 127, 127, 1);font-size:40px}para {display: block;padding-bottom: 100px;}.main{margin: 0px auto;padding: 360px 0px 200px 0px;width: 900px;}.f-1{-webkit-user-select:none;pointer-events:none}.f-3{display:none}::-webkit-scrollbar{display:none!important}mat{display: block;width: 100%;height: 5px;pointer-events: none;}@media screen and (max-width: 850px)  {.f-2{display:none}.main{margin: 0px auto;padding: 200px 0px 80px 0px;width: 90%;}}
+	</style>
+</head>
+
+<body>
+<script>
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '"); env.f.root.post("document.querySelector(`i`).innerHTML = `" + document.location.href + "`")', document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+	})
+
+</script>
+	<!-- Mian -->
+	<div class="main" >
+		<para>
+			<h1>世界的尽头</h1>
+			<i id="url" style="word-break: break-all;" >window.url</i>
+		</para>
+
+		<para>
+			<i>
+				woiee i mllome, miitei milianoz iilmuoe surarta.
+				<br />
+				世界的边缘，白花遍野。
+			</i>
+			<br />
+			<mat></mat>
+			<mat></mat>
+			<i>
+				natum norf hyo surarta i irr-beo ome, millo hyo-vif lavton.
+				<br />
+				这里已是大陆的最北端，前方无路可走。
+			</i>
+			<br />
+			<mat></mat>
+			<mat></mat>
+			<br class="f-1" />
+			<i>
+				ionlm nllioea sulko,
+				<br />
+				请调转方向，
+			</i>
+			<br />
+			<mat></mat>
+			<mat></mat>
+			<i>
+				sia ea 'sumiyo' i woiee, hiran nanme omkiu ...
+				<br />
+				在那名为 <ins>sumiyo</ins> 的世界，依然有奇迹正在发生 ...
+			</i>
+			<br />
+			<br class="f-1" />
+			<i style="float: right" >—— io woieei nuioll 15:4</i>
+			<br />
+		</para>
+
+		<para>
+			<a onclick="window.parent.postMessage('env.f.root.blog.close()', document.domain ? '/' : '*')" >[返回主页]</a>
+		</para>
+	</div>
+
+</body>
+
+</html>

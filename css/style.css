@@ -34,7 +34,7 @@
 
 @font-face{
 	font-family: Poppins Regular;
-	src: url('src/Poppins Regular.woff2');
+	src: url('../src/Poppins Regular.woff2');
 }
 
 html {

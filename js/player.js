@@ -44,6 +44,12 @@ env.f.player = {}
 // 加载默认音乐数据
 env.f.player.album = function(){
 	return [{
+		name: 'The Return of Made in Abyss - Kevin Penkin',
+		src: '1417631425',
+		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+		lrc: false,
+	},
+	{
 		name: 'この空であなたを待ってる - KOKIA',
 		src: '1830163710',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
@@ -150,12 +156,6 @@ env.f.player.album = function(){
 		src: '509098792',
 		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
 		lrc: true,
-	},
-	{
-		name: 'The Return of Made in Abyss - Kevin Penkin',
-		src: '1417631425',
-		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
-		lrc: false,
 	},
 	{
 		name: 'この空であなたを待ってる inst. - KOKIA',

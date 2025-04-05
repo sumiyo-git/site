@@ -324,25 +324,42 @@ git "string"\t\t\t执行原生 git 命令
                 else:
                     a = git("git push -u origin main --force").stdout
 
-                wprint(a, 0)
-                wprint("更新已提交", 3)
-                env['cmt'] += 1
-                root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+                if (a == "branch 'main' set up to track 'origin/main'."):
+                    wprint("更新已部署\n", 2)
+
+                    env['cmt'] += 1
+                    root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+
+                    f = env["path"] + "config.ini"
+                    config.read(f)
+                    config.set("GIT", env['cmt'])
+                    with open(f) as configfile:
+                        config.write(configfile)
+                else:
+                    wprint("更新部署失败\n", 3)
                 return "break"
 
         # 减少 commit 值
         if (cmd1[1].lower() == "-reduce") and (cmd1[2].lower() != "null"):
-            cmt = abs(env['cmt'] - int(cmd1[2])) or 1
+            env['cmt'] = abs(env['cmt'] - int(cmd1[2])) or 1
 
-            wprint(git("git reset --soft HEAD~" + str(cmt)).stdout, 0)
+            wprint(git("git reset --soft HEAD~" + str(env['cmt'])).stdout, 0)
             wprint(git("git add .").stdout, 0)
             wprint(git("git commit -m " + env["des"]).stdout, 0)
             a = git("git push -u origin main --force").stdout
 
-            wprint(a, 0)
-            wprint("更新已提交", 3)
-            env['cmt'] += 1
-            root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+            if (a == "branch 'main' set up to track 'origin/main'."):
+                wprint("更新已部署\n", 2)
+
+                root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+
+                f = env["path"] + "config.ini"
+                config.read(f)
+                config.set("GIT", env['cmt'])
+                with open(f) as configfile:
+                    config.write(configfile)
+            else:
+                wprint("更新部署失败\n", 3)
             return "break"
 
         # 压缩仓库

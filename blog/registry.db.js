@@ -6,12 +6,12 @@ env.d.list.blog = [
 		des: '以前的作品',
 		type: ['', 'pin'],
 	},
-//	{
-//		name: 'sumiyo',
-//		src: '20241122',
-//		des: '介绍',
-//		type: ['', 'pin'],
-//	},
+	{
+		name: 'mio',
+		src: '20241122',
+		des: '简单介绍一下她 ...',
+		type: ['', null],
+	},
 
 	{
 		name: 'player 1.0.24',

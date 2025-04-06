@@ -14,11 +14,10 @@ env.f.root = {}
 // 初始化元素列表
 env.e = {...env.e, ...{
 	root: {
-		'footer': document.querySelectorAll('footer span'),
-		'menu': document.querySelectorAll('.menu btn'),
-		'blog': document.querySelector('.blog'),
 		'prompt': document.querySelector('.prompt'),
-
+		'menu': document.querySelectorAll('.menu btn'),
+		'footer': document.querySelectorAll('.main footer span'),
+		'blog': document.querySelector('.main .blog'),
 		'btn1': document.querySelector('.main header btn'),
 		'btn2': document.querySelector('.main header backdrop'),
 	}
@@ -278,7 +277,7 @@ env.f.root.blog = {}
 		env.f.root.fade(env.e.root.blog, 300)
 
 		setTimeout(function (){
-			if (id != 'page/oops') {env.d.isNetwork ? (history.replaceState(null, null, `${window.location.origin}/blog?id=${id}`)) : ( env.f.root.url.set('id', id))}
+			env.d.isNetwork ? (history.replaceState(null, null, `${window.location.origin}/blog?id=${id}`)) : ( env.f.root.url.set('id', id))
 			env.e.root.blog.querySelector('iframe').src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
 		}, 500)
 	}
@@ -377,21 +376,10 @@ env.f.root.page = {}
 			var t = new Date() - env.tmp.root.d5
 			env.e.root.blog.children[2].setAttribute('data-timer', (t / 1000).toFixed(2))
 		}, 100)
-
-		env.tmp.root.t5 = setInterval(() => {
-			if (env.e.root.blog.children[3]) {
-				env.e.root.blog.children[3].remove()
-			}
-			env.e.root.blog.appendChild(document.createElement('iframe'))
-			env.e.root.blog.children[3].src = env.d.isNetwork ? (`${window.location.origin}/blog/page/oops/page`) : ('blog/page/oops/page.html')
-			env.e.root.blog.removeAttribute('style')
-		}, 60000)
-
 	}
 		env.f.root.page.load.stop = function() {
 			// 停止加载动画
 			clearInterval(env.tmp.root.t2)
-			clearInterval(env.tmp.root.t5)
 			env.tmp.root.d5 = null
 			delete env.tmp.root.d5
 			env.f.root.fade(env.e.root.blog.children[2], -500)

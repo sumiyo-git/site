@@ -297,13 +297,13 @@ backdrop {
 	top: 0;
 	right: 0;
 	height: 100%;
-	opacity: 0.5;
+	opacity: 0.4;
 
 	pointer-events: none;
 }
 
 .main .avatar:nth-of-type(2) {
-	filter: saturate(1.6);
+	opacity: 0.8;
 }
 
 
@@ -465,7 +465,7 @@ backdrop {
 	color: rgba(var(--t-t1), 0.6);
 }
 
-.menu .menu-footer {
+.menu footer {
 	position: sticky;
 	bottom: 0;
 	top: calc(100% - 40px);

@@ -26,7 +26,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="shortcut icon" href="src/icon.png?ver=7" />
+	<link rel="shortcut icon" href="src/icon.png?ver=8" />
 	<link rel="stylesheet" type="text/css" href="css/style.css" />
 	<link rel="preload" as="font" href="src/Poppins Regular.woff2" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="css/player.css"  />
@@ -66,7 +66,6 @@
 				't2': null,
 				't3': null,
 				't4': null,
-				't5': null,
 			}
 		}
 	}
@@ -78,7 +77,7 @@
 				document.querySelectorAll('.avatar')[0].removeAttribute('style')
 			}, 4000)
 			setTimeout(function (){
-				document.querySelectorAll('.avatar')[1].style.opacity = '0.5'
+				document.querySelectorAll('.avatar')[1].style.opacity = '0.8'
 				document.querySelector('.main .loading').remove()
 				if (env.tmp.root.d4) {
 					env.f.root.prompt('欢迎来到我的世界<br />🎉🎉🎉', 8000)
@@ -87,7 +86,7 @@
 				}
 			}, 1000)
 
-			document.querySelectorAll('.avatar')[0].style.opacity = '0.5'
+			document.querySelectorAll('.avatar')[0].style.opacity = '0.4'
 			document.querySelector('.main .loading').removeAttribute('style');
 
 			env.d.isLoad = true
@@ -96,8 +95,8 @@
 	}, 1000)
 
 	// 仅允许直接访问此页
-	if (env.d.isNetwork && (window.location.href != (`https://${env.d.domain}/`)) && !window.location.href.includes(`https://${env.d.domain}/blog`)) {
-		document.querySelector('body').style.display = 'none'
+	if (env.d.isNetwork && ((window.location.href != (`https://${env.d.domain}/`)) && !window.location.href.includes(`https://${env.d.domain}/blog`) || window.location.href.includes(`.html`))) {
+		document.body.innerHTML = ''
 		window.location.href = `https://${env.d.domain}/`
 	}
 
@@ -118,8 +117,8 @@
 		<span>私のサイト、私一人の世界です。</span>
 	</div>
 
-	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.isLoad ++" src="src/draft.webp" />
-	<img class="avatar" style="opacity: 0; transition: 3.0s;" onload="env.d.isLoad ++" src="src/sumiyo.webp" />
+	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.isLoad ++" src="src/mio-draft.webp" />
+	<img class="avatar" style="opacity: 0; transition: 3.5s;" onload="env.d.isLoad ++" src="src/mio.webp" />
 
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
@@ -176,12 +175,12 @@
 	</div>
 
 	<!-- 页脚 -->
-	<div class="menu-footer" >
+	<footer>
 		<div class="player-0">
 			<a onclick="env.f.player.play()" >播放</a> | <span onclick="env.f.player.lrc.ui()" ></span>
 			<audio preload="none" ></audio>
 		</div>
-	</div>
+	</footer>
 </div>
 
 

@@ -26,7 +26,7 @@ env.d.player = {
 env.e = {...env.e, ...{
 	player: {
 		ui0: document.querySelector('.player-1'),
-		ui1: document.querySelector('.blog .player-2'),
+		ui1: document.querySelector('.player-2'),
 		btn: document.querySelector('.player-0 a'),
 		audio: document.querySelector('.player-0 audio'),
 		name: document.querySelector('.player-0 span'),

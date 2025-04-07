@@ -310,7 +310,7 @@ git "string"\t\t\t执行原生 git 命令
 
         # 上传
         if (cmd1[1].lower() == "-push"):
-            if ("nothing to commit" in git("git status").stdout):
+            if ("nothing to commit" in git("git status").stdout) and (cmd1[2].lower() != "-force"):
                 wprint("无需提交任何内容，你的本地代码与最新提交的版本完全一致\n", 4)
                 wprint('或键入 "git -push -force" 以强制提交更新\n', 0)
                 return "break"

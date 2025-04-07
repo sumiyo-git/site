@@ -334,9 +334,9 @@ git "string"\t\t\t执行原生 git 命令
                     f = env["path"] + "config.ini"
                     c = ConfigParser()
                     c.read(f)
-                    c.set("GIT", "commit", env["cmt"])
-                    with open(f) as configfile:
-                        c.write(configfile)
+                    c.set("GIT", "commit", str(env["cmt"]))
+                    with open(f, "w") as file:
+                        c.write(file)
                 else:
                     wprint("更新部署失败\n", 3)
                 return "break"
@@ -359,9 +359,9 @@ git "string"\t\t\t执行原生 git 命令
                 f = env["path"] + "config.ini"
                 c = ConfigParser()
                 c.read(f)
-                c.set("GIT", "commit", env["cmt"])
-                with open(f) as configfile:
-                    c.write(configfile)
+                c.set("GIT", "commit", str(env["cmt"]))
+                with open(f, "w") as file:
+                    c.write(file)
             else:
                 wprint("更新部署失败\n", 3)
             return "break"

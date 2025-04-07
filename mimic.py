@@ -325,14 +325,15 @@ git "string"\t\t\t执行原生 git 命令
                     a = git("git push -u origin main --force").stdout
 
                 if ("set up to track" in a):
-                    wprint("更新已部署\n", 2)
+                    wprint("操作成功，文件已上传至 github 仓库\n", 0)
+                    wprint("开始部署更新\n", 2)
 
                     env['cmt'] += 1
-                    root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+                    root.title("uploader.py (commit: {})".format(str(env["cmt"])))
 
                     f = env["path"] + "config.ini"
                     config.read(f)
-                    config.set("GIT", env['cmt'])
+                    config.set("GIT", "commit", env["cmt"])
                     with open(f) as configfile:
                         config.write(configfile)
                 else:
@@ -343,19 +344,20 @@ git "string"\t\t\t执行原生 git 命令
         if (cmd1[1].lower() == "-reduce") and (cmd1[2].lower() != "null"):
             env['cmt'] = abs(env['cmt'] - int(cmd1[2])) or 1
 
-            wprint(git("git reset --soft HEAD~" + str(env['cmt'])).stdout, 0)
+            wprint(git("git reset --soft HEAD~" + str(env["cmt"])).stdout, 0)
             wprint(git("git add .").stdout, 0)
             wprint(git("git commit -m " + env["des"]).stdout, 0)
             a = git("git push -u origin main --force").stdout
 
             if ("set up to track" in a):
-                wprint("更新已部署\n", 2)
+                wprint("操作成功，文件已上传至 github 仓库\n", 0)
+                wprint("开始部署更新\n", 2)
 
                 root.title("uploader.py (commit: {})".format(str(env['cmt'])))
 
                 f = env["path"] + "config.ini"
                 config.read(f)
-                config.set("GIT", env['cmt'])
+                config.set("GIT", "commit", env["cmt"])
                 with open(f) as configfile:
                     config.write(configfile)
             else:

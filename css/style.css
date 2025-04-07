@@ -672,14 +672,14 @@ backdrop {
 @media screen and (min-width: 1200px)  {
 	/* PC */
 	.f-3 {
-		display: none;
+		display: none !important;
 	}
 }
 
 @media screen and (max-width: 1200px) and (min-width: 850px)  {
 	/* tablet */
 	.f-3 {
-		display: none;
+		display: none !important;
 	}
 	.main .description {
 		left: 12%;
@@ -698,7 +698,7 @@ backdrop {
 	/* phone or PC min */
 	.main .loading,
 	.f-2 {
-		display: none;
+		display: none !important;
 	}
 	.main .description {
 		position: fixed;

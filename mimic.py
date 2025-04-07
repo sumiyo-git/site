@@ -101,14 +101,14 @@ def wprint(string, tag):
     text.update()
     text.yview_moveto(1.0)
 
-    env['line'] = line = int(text.index('end-1c').split('.')[0]) - 1
+    env["line"] = line = int(text.index("end-1c").split(".")[0]) - 1
     text.tag_add("tag" + str(tag), str(line) + ".0", str(line) + ".end")
 
 
 
 # 限制编辑
 def onpress(event):
-    if not ((event.state & 0x0004) and (event.keysym == 'c')):
+    if not ((event.state & 0x0004) and (event.keysym == "c")):
         index = text.index(tk.INSERT)
         line_number = int(index.split(".")[0])
 
@@ -131,7 +131,7 @@ def table1(a):
     wprint("正在生成数据表格\n", 1)
     wprint("lines:\t" + str(len(r1)) + "\n", 0)
     for i in range(0, len(r1)):
-        r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H:%M:%S").replace("T", " ").replace("Z", " ")
+        r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S").replace("T", " ").replace("Z", " ")
 
     wprint("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\ntime\t\tCountry\t\tAction\t\tIP\t\t\tUA\t\t\t\t\t\t\tRequestPath\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
     r = ""
@@ -203,7 +203,7 @@ git "string"\t\t\t执行原生 git 命令
 
     # 打开配置文件
     if (cmd1[0].lower() == "config"):
-        os.startfile(env['path'] + "config.ini")
+        os.startfile(env["path"] + "config.ini")
         return "break"
 
     # 获取日志
@@ -213,8 +213,8 @@ git "string"\t\t\t执行原生 git 命令
                 geq = cmd1[2]
                 leq = cmd1[3]
             else:
-                geq = (datetime.now(timezone.utc) - timedelta(days=env['offset'])).strftime("%Y-%m-%dT%H:%M:%SZ")
-                leq = (datetime.now(timezone.utc) - timedelta(days=env['offset'] - 1)).strftime("%Y-%m-%dT%H:%M:%SZ")
+                geq = (datetime.now(timezone.utc) - timedelta(days=env["offset"])).strftime("%Y-%m-%dT%H:%M:%SZ")
+                leq = (datetime.now(timezone.utc) - timedelta(days=env["offset"] - 1)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
             wprint("正在下载日志数据\n", 1)
             wprint("from:\t{}\nto:\t{}\n".format(leq, geq), 0)
@@ -260,12 +260,12 @@ git "string"\t\t\t执行原生 git 命令
                 }'''
             }
     
-            headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(env['token'])}
+            headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(env["token"])}
             response = requests.post("https://api.cloudflare.com/client/v4/graphql", headers=headers, data=json.dumps(body))
             result = response.json()
 
             if ("-save" in cmd0):
-                f = env["path"] + "logs\\" + datetime.now(timezone.utc).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H-%M-%S") + ".log"
+                f = env["path"] + "logs\\" + datetime.now(timezone.utc).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H-%M-%S") + ".log"
                 with open(f, "w") as file:
                     json.dump(result, file, indent=4, ensure_ascii=False)
     
@@ -281,7 +281,7 @@ git "string"\t\t\t执行原生 git 命令
             f = env["path"] + "\\logs\\" + cmd1[2]
 
             if (os.path.exists(f)):
-                with open(f, 'r') as file:
+                with open(f, "r") as file:
                     table1(json.loads(file.read()))
                 return "break"
             else:
@@ -328,21 +328,22 @@ git "string"\t\t\t执行原生 git 命令
                     wprint("操作成功，文件已上传至 github 仓库\n", 0)
                     wprint("开始部署更新\n", 2)
 
-                    env['cmt'] += 1
+                    env["cmt"] += 1
                     root.title("uploader.py (commit: {})".format(str(env["cmt"])))
 
                     f = env["path"] + "config.ini"
-                    config.read(f)
-                    config.set("GIT", "commit", env["cmt"])
+                    c = ConfigParser()
+                    c.read(f)
+                    c.set("GIT", "commit", env["cmt"])
                     with open(f) as configfile:
-                        config.write(configfile)
+                        c.write(configfile)
                 else:
                     wprint("更新部署失败\n", 3)
                 return "break"
 
         # 减少 commit 值
         if (cmd1[1].lower() == "-reduce") and (cmd1[2].lower() != "null"):
-            env['cmt'] = abs(env['cmt'] - int(cmd1[2])) or 1
+            env["cmt"] = abs(env["cmt"] - int(cmd1[2])) or 1
 
             wprint(git("git reset --soft HEAD~" + str(env["cmt"])).stdout, 0)
             wprint(git("git add .").stdout, 0)
@@ -353,13 +354,14 @@ git "string"\t\t\t执行原生 git 命令
                 wprint("操作成功，文件已上传至 github 仓库\n", 0)
                 wprint("开始部署更新\n", 2)
 
-                root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+                root.title("uploader.py (commit: {})".format(str(env["cmt"])))
 
                 f = env["path"] + "config.ini"
-                config.read(f)
-                config.set("GIT", "commit", env["cmt"])
+                c = ConfigParser()
+                c.read(f)
+                c.set("GIT", "commit", env["cmt"])
                 with open(f) as configfile:
-                    config.write(configfile)
+                    c.write(configfile)
             else:
                 wprint("更新部署失败\n", 3)
             return "break"
@@ -412,9 +414,9 @@ git "string"\t\t\t执行原生 git 命令
                 if (len(r2["errors"]) == 0):
                     wprint("signed_url: " + r2["result"]["signed_url"] + "\n", 0)
                     url2 = r2["result"]["signed_url"]
-                    f = env["path"] + "database\\" + datetime.now(timezone.utc).astimezone(pytz.timezone('Asia/Shanghai')).strftime("%Y-%m-%d %H-%M-%S") + ".sql"
+                    f = env["path"] + "database\\" + datetime.now(timezone.utc).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H-%M-%S") + ".sql"
                     response = requests.get(url2)
-                    with open(f, 'wb') as file:
+                    with open(f, "wb") as file:
                         file.write(response.content)
                         
                     wprint("数据库备份成功: " + f + "\n", 2)
@@ -461,7 +463,7 @@ git "string"\t\t\t执行原生 git 命令
 
 root = tk.Tk()
 
-root.title("uploader.py (commit: {})".format(str(env['cmt'])))
+root.title("uploader.py (commit: {})".format(str(env["cmt"])))
 root.geometry("600x380")
 root.resizable(True, True)
 root.configure(bg="#000000")
@@ -482,7 +484,7 @@ text.tag_config("tag3", foreground="#F55B65") # 红
 text.tag_config("tag4", foreground="#D69D85") # 橙
 
 text.bind("<Key>", onpress)
-text.bind('<Control-a>', onall)
+text.bind("<Control-a>", onall)
 text.bind("<Return>", command)
 
 

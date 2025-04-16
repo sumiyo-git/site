@@ -224,7 +224,6 @@ table {
 	border: 1px rgba(var(--t-t1), 0.1) solid;
 	border-radius: 8px;
 	overflow: hidden;
-	box-shadow: 1px 1px 1px 0px rgb(var(--t-b2), 0.1);
 }
 
 

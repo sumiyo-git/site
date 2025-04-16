@@ -482,6 +482,8 @@ env.e.player.audio.addEventListener('ended', function () {
 	if (env.d.player.loop) {
 		env.e.player.audio.currentTime = 0
 		env.d.player.lrc.now = 0
+		env.f.player.lrc.find(0)
+		env.f.player.play.set(1)
 	} else {
 		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
 		env.d.player.id ++

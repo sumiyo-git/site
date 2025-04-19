@@ -293,6 +293,11 @@
 
 
 @media screen and (max-width: 850px)  {
+	.player-1 .footer,
+	.player-1 list::-webkit-scrollbar,
+	.player-1 .cover {
+		display: none;
+	}
 	.player-1 .lrc {
 		max-width: 300px;
 		padding: 5px 10px 5px 10px;
@@ -302,10 +307,6 @@
 	}
 	.player-1 .time {
 		width: 260px;
-	}
-	.player-1 list::-webkit-scrollbar,
-	.player-1 .cover {
-		display: none;
 	}
 	.player-1 aside {
 		width: calc(100% - 40px);
@@ -335,10 +336,6 @@
 		width: unset;
 		height: calc(100% + 200px);
 	}
-}
-
-@media screen and (max-width: 850px) and (min-height: 600px)  {
-
 }
 
 

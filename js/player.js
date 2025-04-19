@@ -34,6 +34,7 @@ env.e = {...env.e, ...{
 		list: document.querySelectorAll('.player-1 list'),
 		bar: [document.querySelector('.player-1 bar'), document.querySelector('.player-1 bar div div')],
 		ctrl: document.querySelectorAll('.player-1 .ctrl a'),
+		footer: document.querySelector('.player-1 .footer'),
 	}
 }}
 
@@ -444,13 +445,14 @@ env.f.player.list = function(){
 
 env.f.player.playlist(env.f.player.album(), true)
 env.f.player.load(env.e.player.list[1].children[0])
+env.e.player.footer.innerHTML = env.e.player.footer.innerHTML + env.d.version.player
 
 env.e.player.audio.volume = 0.5
 
 // 进度条
 setInterval(() => {
 	if(!env.d.player.pause){
-		env.e.player.bar[1].setAttribute('style', `width: ${(env.e.player.audio.currentTime * 100 / env.e.player.audio.duration).toFixed(3) || 0}%`)
+		env.e.player.bar[1].setAttribute('style', `width: ${(env.e.player.audio.currentTime * 100 / env.e.player.audio.duration || 1).toFixed(3) || 0}%`)
 		env.e.player.ctrl[0].innerHTML = env.f.root.conv.c0(env.e.player.audio.currentTime * 1000).substring(0, 5)
 	}
 }, 1000)

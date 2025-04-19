@@ -140,6 +140,12 @@
 	width: 30px;
 }
 
+.player-1 .footer {
+	padding: 15px;
+	font-size: 16px;
+	color: rgba(var(--t-b1), 0.6);
+}
+
 .player-1 header btn {
 	color: rgba(var(--t-b1), 0.2);
 }
@@ -179,7 +185,6 @@
 	background-color: rgba(var(--t-b1), 0);
 	border-radius: 5px;
 	font-size: 22px;
-	font-family: 'Microsoft YaHei';
 	color: rgba(var(--t-b1), 0.6);
 	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.2);
 	white-space: break-spaces;

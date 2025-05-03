@@ -2,7 +2,7 @@
 <html lang="zh">
 
 <head>
-	<title>Oops !</title>
+	<title>-404</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,7 +13,7 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 
 <body>
 <script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '"); env.f.post("document.querySelector(`i`).innerHTML = `" + document.location.href + "`")', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '"); env.f.root.post("document.querySelector(`i`).innerHTML = `" + document.location.href + "`")', document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
@@ -28,15 +28,15 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 
 		<para>
 			<i>
-				eramutui soria, ventrazoi uynkz iilmuoe surar.
+				haze i milecaze, miite mirano i suzerala.
 				<br />
-				天空阴沉，荒草遍野。
+				世界的边缘，白花遍野。
 			</i>
 			<br />
 			<mat></mat>
 			<mat></mat>
 			<i>
-				natum norf hyo surarta i irr-beo ome, millo hyo-vif lavton.
+				natomi nofu he suzerala i beo milecaze, milele he seoru-na.
 				<br />
 				这里已是大陆的最北端，前方无路可走。
 			</i>
@@ -45,7 +45,7 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 			<mat></mat>
 			<br class="f-1" />
 			<i>
-				ionlm nllioea sulko,
+				hemiyo zesawa,
 				<br />
 				请调转方向，
 			</i>
@@ -53,18 +53,18 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 			<mat></mat>
 			<mat></mat>
 			<i>
-				sia ea 'sumiyo' i woiee, hiran nanme omkiu ...
+				sia ea "sumiyo" i haze, semiru nanme semila omaku ...
 				<br />
 				在那名为 <ins>sumiyo</ins> 的世界，依然有奇迹正在发生 ...
 			</i>
 			<br />
 			<br class="f-1" />
-			<i style="float: right" >—— io woieei nuioll 15:4</i>
+			<i style="float: right" >—— oi haze i agademusu 15:4</i>
 			<br />
 		</para>
 
 		<para>
-			<a onclick="window.parent.postMessage('env.f.blog.close()', document.domain ? '/' : '*')" >返回主页</a>
+			<a onclick="window.parent.postMessage('env.f.root.blog.close()', document.domain ? '/' : '*')">[返回主页]</a>
 		</para>
 	</div>
 

@@ -10,7 +10,7 @@
 
 chunk = []
 const env = {
-	'data': {
+	'd': {
 		'domain': 'sumiyo.link',
 		'isNetwork': (document.domain ? true :false),
 		'isMobile': (window.innerWidth < 900 ? true :false),
@@ -18,18 +18,15 @@ const env = {
 		'ask': 0,
 		'p': 0,
 	},
+	'f': {},
 	'e': {
 		'input': document.querySelector('textarea'),
 		'output': document.querySelector('.console div'),
-
 	},
-
-	'tmp': {},
-	'f': {},
-	'timer': {
-		't0': null,
+	'tmp': {
+		't1': null,
 		't2': null,
-	}
+	},
 }
 
 
@@ -41,23 +38,23 @@ env.f.analysis = function(str) {
 
 
 
-	if (env.data.ask) {
+	if (env.d.ask) {
 		if (cmd[0].toLowerCase() == 'y' || cmd[0].toLowerCase() == 'n') {
 			if (cmd[0].toLowerCase() == 'n') {
 				env.f.write('<span class="a1" >operation cancelled</span>')
-				env.data.ask = 0
+				env.d.ask = 0
 				return
 			}
-			if (env.data.ask == 1) {
-				env.data.ask = 0
+			if (env.d.ask == 1) {
+				env.d.ask = 0
 				env.f.write('start to upload file.\n	--header: ', false)
-				fetch('https://' + env.data.domain + '/admin.api', {
+				fetch(`https://${env.d.domain}/api/admin`, {
 					method: "POST",
 					headers: {
 						"Token": 1,
 					},
 					body: JSON.stringify({
-						"key": env.data.key,
+						"key": env.d.key,
 						"sql": "UPDATE file set data='" + chunk.slice(-1)[0].name + '###' + chunk.slice(-1)[0].chunk + "' where name='header'",
 					})
 				})
@@ -69,14 +66,14 @@ env.f.analysis = function(str) {
 				.then(json => {
 					env.f.write('success')
 					var i = 0
-					env.data.p = 0
-					clearInterval(env.timer.t1)
+					env.d.p = 0
+					clearInterval(env.tmp.t2)
 
-					env.timer.t1 = setInterval(() => {
+					env.tmp.t2 = setInterval(() => {
 						env.f.write('	--chunk: ' + i)
-						if (!env.data.p) {
-							env.data.p = 1
-							fetch('https://' + env.data.domain + '/admin.api', {
+						if (!env.d.p) {
+							env.d.p = 1
+							fetch(`https://${env.d.domain}/api/admin`, {
 								method: "POST",
 								headers: {
 									"Authorization": i,
@@ -93,15 +90,15 @@ env.f.analysis = function(str) {
 								if (i == chunk.slice(-1)[0].chunk) {
 									env.f.write('<span class="a1" >operation successful, the file has been uploaded.</span>')
 									chunk = []
-									clearInterval(env.timer.t1)
+									clearInterval(env.tmp.t2)
 									return
 								} else {
 									i ++
-									env.data.p = 0
+									env.d.p = 0
 								}
 							})
 							.catch(err => {
-								env.data.p = 0
+								env.d.p = 0
 								env.f.write('<span class="a1" >fetch failed, try again automatically.</span>')
 							})
 						}
@@ -151,11 +148,11 @@ delete from 表名 where 列名='数据'													删除指定行
 		if (cmd.length == 2) {
 			if (cmd[1] == 'out') {	
 				env.f.write('<span class="a1" >the system has logged out, advanced functions are currently unavailable.</span>')
-				env.data.key = null
+				env.d.key = null
 				return
 			}
 
-			fetch('https://' + env.data.domain + '/admin.api', {
+			fetch(`https://${env.d.domain}/api/admin`, {
 				method: "POST",
 				headers: {
 					"Token": 0,
@@ -172,7 +169,7 @@ delete from 表名 where 列名='数据'													删除指定行
 			.then(json => {
 				if (json.results[0].login) {
 					env.f.write('<span class="a1" >your key is correct, you have successfully logged in now.</span>')
-					env.data.key = cmd[1]
+					env.d.key = cmd[1]
 				} else {
 					env.f.write('<span class="a1" >your key is incorrect, please try again.</span>')
 				}
@@ -182,9 +179,9 @@ delete from 表名 where 列名='数据'													删除指定行
 			return
 		}
 
-		if (cmd.length == 3 && env.data.key) {
-			if (cmd[1] == env.data.key) {
-				fetch('https://' + env.data.domain + '/admin.api', {
+		if (cmd.length == 3 && env.d.key) {
+			if (cmd[1] == env.d.key) {
+				fetch(`https://${env.d.domain}/api/admin`, {
 					method: "POST",
 					headers: {
 						"Token": 1,
@@ -201,7 +198,7 @@ delete from 表名 where 列名='数据'													删除指定行
 				})
 				.then(json => {
 						env.f.write('<span class="a1" >key changed: "' + cmd[1] + '" => "' + cmd[2] + '"</span>')
-						env.data.key = cmd[2]
+						env.d.key = cmd[2]
 						return
 				})
 				.catch(err => {env.f.write(('<span class="a1" >' + err + '</span>').toLowerCase())})
@@ -214,7 +211,7 @@ delete from 表名 where 列名='数据'													删除指定行
 
 
 
-	if (!env.data.key) {
+	if (!env.d.key) {
 		env.f.write('<span class="a1" >unkown command, or you do not have sufficient permissions to execute this command</span>')
 		return
 	}
@@ -236,13 +233,13 @@ delete from 表名 where 列名='数据'													删除指定行
 
 		if (cmd[1] == 'download') {
 			env.f.write('start to collect data.\n	--header: ', false)
-			fetch('https://' + env.data.domain + '/admin.api', {
+			fetch(`https://${env.d.domain}/api/admin`, {
 				method: "POST",
 				headers: {
 					"Token": 1,
 				},
 				body: JSON.stringify({
-					"key": env.data.key,
+					"key": env.d.key,
 					"sql": "SELECT * from file where name='header'",
 				})
 			})
@@ -258,20 +255,20 @@ delete from 表名 where 列名='数据'													删除指定行
 
 				env.f.write('success\nstart to collect chunks')
 				var i = 0
-				env.data.p = 0
-				clearInterval(env.timer.t1)
+				env.d.p = 0
+				clearInterval(env.tmp.t2)
 
-				env.timer.t1 = setInterval(() => {
+				env.tmp.t2 = setInterval(() => {
 					env.f.write('	--chunk: ' + i)
-					if (!env.data.p) {
-						env.data.p = 1
-						fetch('https://' + env.data.domain + '/admin.api', {
+					if (!env.d.p) {
+						env.d.p = 1
+						fetch(`https://${env.d.domain}/api/admin`, {
 							method: "POST",
 							headers: {
 								"Token": 1
 							},
 							body: JSON.stringify({
-								"key": env.data.key,
+								"key": env.d.key,
 								"sql": "SELECT * from file where name='c" + i + "'",
 							})
 						})
@@ -283,7 +280,7 @@ delete from 表名 where 列名='数据'													删除指定行
 						.then(json => {
 							chunk[i] = new Uint8Array(json.results[0].data).buffer
 							if (i == n - 1) {
-								env.data.p = 1
+								env.d.p = 1
 								env.f.write('<span class="a1" >operation successful, the file has been downloaded.</span><a class="download" >download</a>')
 								var e = document.querySelector('.download')
 
@@ -297,16 +294,16 @@ delete from 表名 where 列名='数据'													删除指定行
 								chunk = []
 								e.remove()
 
-								clearInterval(env.timer.t1)
+								clearInterval(env.tmp.t2)
 								return
 
 							} else {
 								i ++
-								env.data.p = 0
+								env.d.p = 0
 							}
 						})
 						.catch(err => {
-							env.data.p = 0
+							env.d.p = 0
 							env.f.write('fetch failed, try again')
 						})
 					}
@@ -319,20 +316,20 @@ delete from 表名 where 列名='数据'													删除指定行
 		if (cmd[1] == 'delete') {
 			env.f.write('start to delete data.')
 			var i = 0
-			env.data.p = 0
-			clearInterval(env.timer.t1)
+			env.d.p = 0
+			clearInterval(env.tmp.t2)
 
-			env.timer.t1 = setInterval(() => {
+			env.tmp.t2 = setInterval(() => {
 				env.f.write('	--chunk: ' + i)
-				if (!env.data.p) {
-					env.data.p = 1
-					fetch('https://' + env.data.domain + '/admin.api', {
+				if (!env.d.p) {
+					env.d.p = 1
+					fetch(`https://${env.d.domain}/api/admin`, {
 						method: "POST",
 						headers: {
 							"Token": 1
 						},
 						body: JSON.stringify({
-							"key": env.data.key,
+							"key": env.d.key,
 							"sql": "UPDATE file set data = '' where name='c" + i + "'"
 						})
 					})
@@ -345,13 +342,13 @@ delete from 表名 where 列名='数据'													删除指定行
 					.then(json => {
 						if (i == 9) {
 							env.f.write('reset header')
-							fetch('https://' + env.data.domain + '/admin.api', {
+							fetch(`https://${env.d.domain}/api/admin`, {
 								method: "POST",
 								headers: {
 									"Token": 1
 								},
 								body: JSON.stringify({
-									"key": env.data.key,
+									"key": env.d.key,
 									"sql": "UPDATE file set data='0###0' where name='header'"
 								})
 							})
@@ -365,15 +362,15 @@ delete from 表名 where 列名='数据'													删除指定行
 							})
 							.catch(err => {env.f.write('<span class="a1" >fetch failed, try again automatically.</span>')})
 
-							clearInterval(env.timer.t1)
+							clearInterval(env.tmp.t2)
 							return
 						} else {
 							i ++
-							env.data.p = 0
+							env.d.p = 0
 						}
 					})
 					.catch(err => {
-						env.data.p = 0
+						env.d.p = 0
 						.catch(err => {env.f.write('<span class="a1" >fetch failed, try again automatically.</span>')})
 					})
 				}
@@ -383,13 +380,13 @@ delete from 表名 where 列名='数据'													删除指定行
 	}
 
 	if (['update', 'select', 'create', 'drop', 'alter', 'insert', 'delete'].includes(cmd[0])) {
-		fetch('https://' + env.data.domain + '/admin.api', {
+		fetch(`https://${env.d.domain}/api/admin`, {
 			method: "POST",
 			headers: {
 				"Token": 1,
 			},
 			body: JSON.stringify({
-				"key": env.data.key,
+				"key": env.d.key,
 				"sql": str,
 			})
 		})
@@ -431,13 +428,13 @@ delete from 表名 where 列名='数据'													删除指定行
 			var sql = "SELECT * FROM pool ORDER BY id DESC LIMIT " + cmd[2] + ", 5"
 		}
 
-		fetch('https://' + env.data.domain + '/admin.api', {
+		fetch(`https://${env.d.domain}/api/admin`, {
 			method: "POST",
 			headers: {
 				"Token": 1,
 			},
 			body: JSON.stringify({
-				"key": env.data.key,
+				"key": env.d.key,
 				"sql": sql,
 			})
 		})
@@ -513,23 +510,23 @@ env.f.chunk = function(file) {
 		// 将片转为二进制流
 		env.f.write('convert: Blob => ArrayBuffer')
 		var i = 0
-		clearInterval(env.timer.t0)
+		clearInterval(env.tmp.t1)
 
 		// 创建 FileReader 对象
 		var reader = new FileReader()
 		reader.onload = function(e) {chunk[i - 1] = e.target.result}
 
-		env.timer.t0 = setInterval(() => {
+		env.tmp.t1 = setInterval(() => {
 			i ++
 			reader.readAsArrayBuffer(chunk[i - 1])
 			env.f.write('	--chunk: ' + (i - 1))
 
 			if (i == n) {
 				chunk.push({name: file.name, chunk: n})
-				env.data.ask = 1
+				env.d.ask = 1
 				env.f.write('all the preparation work has been done')
 				env.f.write('next step ? [Y/N]')
-				clearInterval(env.timer.t0)
+				clearInterval(env.tmp.t1)
 			}
 
 		},1000)

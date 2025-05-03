@@ -14,19 +14,21 @@
 
 <body>
 <script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
 
-	var music = JSON.stringify({
-		name: 'Moon Child - 西原健一郎 & Nina Vidal',
-		src: '456041',
-		img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
-		lrc: true,
-	})
+	var music = JSON.stringify({0: false, 1: [
+		{
+			name: 'Moon Child - 西原健一郎 & Nina Vidal',
+			src: '456041',
+			img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
+			lrc: true,
+		}
+	]})
 
-	window.parent.postMessage('player.f.add.ask(' + music + ')', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.player.add.ask(' + music + ')', document.domain ? '/' : '*')
 
 </script>
 <style>
@@ -41,7 +43,7 @@
 		vertical-align: text-top;
 		width: 100%;
 		height: 100%;
-		border-radius: 10px;
+		border-radius: 5px;
 		opacity: 0;
 		border: 1px rgba(151, 153, 153, 0.3) solid;
 		box-sizing: border-box;
@@ -64,7 +66,7 @@
 		</para>
 
 		<para>
-			<span>内容</span>
+			内容
 		</para>
 
 		<quote>
@@ -82,7 +84,7 @@
 		<br />
 		<br />
 
-		<span class="link" onclick="window.parent.postMessage(`env.f.linkto('20240917')`, document.domain ? '/' : '*')" >id=20240917/</span>
+		<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/about')`, document.domain ? '/' : '*')" >id=20240917/</span>
 		<br />
 		<br />
 
@@ -127,8 +129,8 @@ Hello world!
 
 		<br />
 		<br />
-		<a class="img1"  target="_blank" href="../../src/sumiyo.png" >
-			<img src="../../src/sumiyo.png" onload="this.setAttribute('class', 'fade')" />
+		<a class="img1"  target="_blank" href="../../src/mio.png" >
+			<img src="../../src/mio.png" onload="this.setAttribute('class', 'fade')" />
 		</a>
 
 <br />

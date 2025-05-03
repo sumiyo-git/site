@@ -2,7 +2,7 @@
 <html lang="zh">
 
 <head>
-	<title>-純世</title>
+	<title>-Mio</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +14,7 @@
 
 <body>
 <script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
@@ -50,43 +50,36 @@
 	<div class="main" >
 
 		<para>
-			<h1>sumiyo.</h1>
+			<h1>Mio.</h1>
 			<i>简单介绍一下她 ...</i>
 		</para>
 
 		<para>
-			<span>尝试了几种不同的主页风格后，最终的决定是整一个「沉浸式」的头像。</span>
+			试遍了各种主页风格。最终的决定是做一个「沉浸式」的头像。
 			<br />
 			<br class="f-1" />
-			<span>问题又来了，该把什么图片放在那里？在贫穷和画师版权的双重打击下，可怜的博主只好向 AI 作图寻求帮助。虽说多数人都很鄙视 AI 出图，但那玩意儿既然能够出现在这个世界上，那就一定有它存在的理由。</span>
-			<br />
-			<br class="f-1" />
-
-			<span>
-				<strong>名字:　</strong>純世「すみよ」
-				<br />
-				<strong>种族:　</strong>精灵
-				<br />
-				<strong>喜好:　</strong><attention>草药学</attention> <attention>解析魔法</attention> <attention>林中漫步</attention> <attention>唱歌</attention> <attention>甜食</attention>
-			</span>
-
-			<br />
-			<br class="f-1" />
-			<span>不论如何，这便是最终的结果。</span>
-			<br />
-			<mat></mat>
-			<mat></mat>
-			<a class="img1"  target="_blank" href="img/raw/sumiyo.png" >
-				<img src="img/sumiyo.webp" onload="this.setAttribute('class', 'fade')" />
-			</a>
-			<mat></mat>
-			<i>个人稿件，请勿商用。</i>
+			目前囊中羞涩，请不起真正的画师。我不得不用 AI 生成了这张图片（瑕疵还是蛮多的，只能拖到未来去解决了 ...）不论如何，这就是最终的成果。
 		</para>
 
 		<para>
-			<span>尽管经过了博主的全力修复，这张图片仍留有许多瑕疵。只能拖到将来去解决了。</span>
+			<h2>人物设定</h2>
+
+			<strong>名字:　</strong>Mio
 			<br />
-			<span>以后一定要请一位真正的画师 ...</span>
+			<strong>种族:　</strong>elf
+			<br />
+			<strong>特长:　</strong><attention>草药学</attention> <attention>唱歌</attention>
+
+			<br />
+			<br class="f-1" />
+			<br class="f-1" />
+			<mat></mat>
+			<mat></mat>
+			<a class="img1"  target="_blank" href="img/raw/mio.png" >
+				<img src="img/mio.webp" onload="this.setAttribute('class', 'fade')" />
+			</a>
+			<mat></mat>
+			<i>个人稿件，请勿商用。</i>
 		</para>
 
 	</div>

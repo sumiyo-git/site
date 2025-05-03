@@ -7,14 +7,14 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="preload" as="font" href="../../src/Poppins Regular.woff2" crossorigin="anonymous" />
+	<link rel="preload" as="font" href="../../../src/Poppins Regular.woff2" crossorigin="anonymous" />
 	<link rel="stylesheet" type="text/css" href="../../default.css">
 
 </head>
 
 <body>
 <script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
@@ -112,7 +112,11 @@
 
 	comment span {
 		display: block;
+		white-space: pre-wrap;
 		overflow: hidden;
+	}
+	comment span a {
+		user-select: auto !important;
 	}
 	comment .zoltraak {
 		margin-left: 5px;
@@ -159,36 +163,37 @@
 		</para>
 
 		<para>
-			<span>已经很久没有人来过这里了。</span>
+			已经很久没有人来过这里了。
 			<br />
 			<br class="f-1" />
-			<span>漫步走过一排排锈迹斑斑的长椅，昔日的光芒早已不再。</span>
+			漫步走过一排排锈迹斑斑的长椅，昔日的光芒早已不再。
 			<br />
-			<span>透过冬天的薄雾，夕阳依旧朦朦胧胧地照着。</span>
-			<br />
-			<br class="f-1" />
-			<span>绿藤缠绕，野花装点着古老的「留言板」</span>
-			<br />
-			<span>伟大的时代已经逝去，
-			<br />
-			<span>前人的字迹继续存在。</span>
+			透过冬天的薄雾，夕阳依旧朦朦胧胧地照着。
 			<br />
 			<br class="f-1" />
-			<span>时间无情，但生命仍然在绽放 ......</span>
+			绿藤缠绕，野花装点着古老的「留言板」
+			<br />
+			伟大的时代已经过去，
+			<br />
+			前人的字迹继续存在。
+			<br />
+			<br class="f-1" />
+			时间无情，但生命仍然在绽放 ......
 		</para>
 
-		<div class="post" >
-			<textarea oninput="this.value = this.value.replace(/\n/g, '')" placeholder="" autocomplete="off" maxlength="20" ></textarea>
-			<textarea placeholder="" autocomplete="off" maxlength="200" class="tbox" ></textarea>
+		<para>
+			<div class="post" >
+				<textarea oninput="this.value = this.value.replace(/\n/g, '')" placeholder="" autocomplete="off" maxlength="20" ></textarea>
+				<textarea placeholder="" autocomplete="off" maxlength="200" class="tbox" ></textarea>
 
-			<a onclick="env.f.submit()" >留言</a>
-		</div>
-
-		<div class="list" ><span>danto, miliano-huyio kkin irruom.</span><br /><br class="f-1" /></div>
-		<footer>
-			<a onclick="env.f.page(-1)" class="disabled" >上一页</a><a onclick="env.f.page(1)" class="disabled" >下一页</a><a onclick="env.f.init()" >刷新</a>
-			<span>第 <span id="_1" >0</span> 页 | 共 <span id="_2" >0</span> 条留言
-		</footer>
+				<a onclick="env.f.submit()" >留言</a>
+			</div>
+			<div class="list" ><span>hemiyo danto, hoer semila oomo.</span><br /><br class="f-1" /></div>
+			<footer>
+				<a onclick="env.f.page(-1)" class="disabled" >上一页</a><a onclick="env.f.page(1)" class="disabled" >下一页</a><a onclick="env.f.init()" >刷新</a>
+				<span>第 <span id="_1" >0</span> 页 | 共 <span id="_2" >0</span> 条留言
+			</footer>
+		</para>
 	</div>
 
 	<script src="script.js" ></script>

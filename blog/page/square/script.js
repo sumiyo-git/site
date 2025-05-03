@@ -9,22 +9,22 @@
 
 
 const env = {
-	'data': {
+	'd': {
 		'db': null,
 		'p': 1,
 		'cn': null,
 		'pn': 1,
+		'domain': 'sumiyo.link',
 		'isNetwork': (document.domain ? true :false),
-		'version': '1.0.10',
+		'version': '1.0.100',
 	},
-	'e': [
-		document.querySelectorAll('footer a')[0],
-		document.querySelectorAll('footer a')[1],
-		document.querySelectorAll('footer a')[2],
-		document.querySelector('.post a'),
-	],
 	'f': {},
-	'timer': {'t1': null},
+	'e': {
+		'btn': [...document.querySelectorAll('footer a'), document.querySelector('.post a')],
+	},
+	'tmp': {
+		't1': null
+	},
 }
 
 
@@ -41,12 +41,12 @@ env.f.time = function() {
 
 env.f.wait = function() {
 	// 防止触发速率限制
-	clearInterval(env.timer.t1)
-	for (var i = 0; i < env.e.length; i++) {env.e[i].classList.add('wait')}
+	clearInterval(env.tmp.t1)
+	for (var i = 0; i < env.e.btn.length; i++) {env.e.btn[i].classList.add('wait')}
 
-	env.timer.t1 = setInterval(() => {
-		for (var i = 0; i < env.e.length; i++) {env.e[i].classList.remove('wait')}
-		clearInterval(env.timer.t1)
+	env.tmp.t1 = setInterval(() => {
+		for (var i = 0; i < env.e.btn.length; i++) {env.e.btn[i].classList.remove('wait')}
+		clearInterval(env.tmp.t1)
 	}, 5000)
 }
 
@@ -58,8 +58,8 @@ env.f.err = function(str) {
 env.f.init = function() {
 	// 初始化
 	env.f.wait()
-	if (env.data.isNetwork) {
-		fetch('https://sumiyo.link/remark.api', {
+	if (env.d.isNetwork) {
+		fetch(`https://${env.d.domain}/api/comments`, {
 			method: "POST",
 			headers: {
 				"Token": 3,
@@ -72,9 +72,9 @@ env.f.init = function() {
 			}
 		})
 		.then(json => {
-			env.data.cn = Number(json.results[0].data)
-			env.data.pn = Math.ceil(env.data.cn / 5)
-			document.getElementById('_2').innerHTML = env.data.cn
+			env.d.cn = Number(json.results[0].data)
+			env.d.pn = Math.ceil(env.d.cn / 5)
+			document.getElementById('_2').innerHTML = env.d.cn
 
 			env.f.get(1)
 		})
@@ -84,10 +84,10 @@ env.f.init = function() {
 
 env.f.get = function(n) {
 	// 获取留言数据
-	env.data.p = n
+	env.d.p = n
 	document.getElementById('_1').innerHTML = n
 
-	fetch('https://sumiyo.link/remark.api', {
+	fetch(`https://${env.d.domain}/api/comments`, {
 		method: "POST",
 		headers: {
 			"Token": 2,
@@ -102,7 +102,7 @@ env.f.get = function(n) {
 		}
 	})
 	.then(json => {
-		env.data.db = json
+		env.d.db = json
 		env.f.load()
 	})
 	.catch(err => {env.f.err(err)})
@@ -110,12 +110,12 @@ env.f.get = function(n) {
 
 env.f.load = function() {
 	// 加载留言
-	var d = env.data.db.results
+	var d = env.d.db.results
 	var e = document.querySelector('.list')
 
 	e.innerHTML = ''
-	env.e[0].setAttribute('class', (env.data.pn == 1) ? 'disabled' : '')
-	env.e[1].setAttribute('class', (env.data.p == env.data.pn) ? 'disabled' : '')
+	env.e.btn[0].setAttribute('class', (env.d.pn == 1) ? 'disabled' : '')
+	env.e.btn[1].setAttribute('class', (env.d.p == env.d.pn) ? 'disabled' : '')
 
 	for (var i = 0; i < d.length; i++) {
 		var span = document.createElement('comment')
@@ -126,7 +126,7 @@ env.f.load = function() {
 			span.appendChild(name)
 
 		var cont = document.createElement('span')
-			cont.innerText = d[i].content
+			cont.innerHTML = d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')
 			span.appendChild(cont)
 
 		if (cont.offsetHeight>150) {
@@ -147,7 +147,7 @@ env.f.load = function() {
 				var a = document.createElement('a')
 					a.innerHTML = '[删除]'
 					a.setAttribute('class', 'zoltraak')
-					a.setAttribute('onclick', 'env.f.zoltraak("' + env.data.db['results'][i]['id'] + '")')
+					a.setAttribute('onclick', 'env.f.zoltraak("' + env.d.db['results'][i]['id'] + '")')
 					info.appendChild(a)
 			}
 		}
@@ -164,14 +164,15 @@ env.f.submit = function() {
 	var e2 = document.querySelectorAll('textarea')[1]
 	var n = e1.value.replace(/\n/g, '')
 	var c = e2.value
-	var ban = [' ']
+	var ban = []
 
 	//  排除违禁词
 	if (ban.some(item => n.includes(item))) {return}
-	if (n.length == 0 || n.length > 20 || c.length == 0 || c.length > 200) {return	}
+	if (n.length == 0 || n.length > 20 || c.length == 0 || c.length > 200) {return}
+	if (/^[ \t]+$/.test(n)) {return}
 
 	env.f.wait()
-	fetch('https://sumiyo.link/remark.api', {
+	fetch(`https://${env.d.domain}/api/comments`, {
 		method: "POST",
 		headers: {
 			"Token": 1
@@ -186,9 +187,9 @@ env.f.submit = function() {
 			e2.value = ''
 			e2.removeAttribute('style')
 
-			env.data.cn ++
-			env.data.pn = Math.ceil(env.data.cn / 5)
-			document.getElementById('_2').innerHTML = env.data.cn
+			env.d.cn ++
+			env.d.pn = Math.ceil(env.d.cn / 5)
+			document.getElementById('_2').innerHTML = env.d.cn
 
 			env.f.get(1)
 		}
@@ -199,7 +200,7 @@ env.f.submit = function() {
 env.f.zoltraak = function(id) {
 	// 删除留言
 	env.f.wait()
-	fetch('https://sumiyo.link/remark.api', {
+	fetch(`https://${env.d.domain}/api/comments`, {
 		method: "POST",
 		headers: {
 			"Token": 0,
@@ -214,9 +215,9 @@ env.f.zoltraak = function(id) {
 		}
 	})
 	.then(json => {
-		env.data.cn --
-		env.data.pn = Math.ceil(env.data.cn / 5)
-		document.getElementById('_2').innerHTML = env.data.cn
+		env.d.cn --
+		env.d.pn = Math.ceil(env.d.cn / 5)
+		document.getElementById('_2').innerHTML = env.d.cn
 
 		env.f.get(1)
 	})
@@ -225,12 +226,12 @@ env.f.zoltraak = function(id) {
 
 env.f.page = function(n) {
 	// 翻页
-	if (((env.data.p + n) > 0) && ((env.data.p + n) <= env.data.pn)) {
+	if (((env.d.p + n) > 0) && ((env.d.p + n) <= env.d.pn)) {
 		env.f.wait()
-		env.e[0].setAttribute('class', (env.data.p + n == 1) ? 'disabled' : '')
-		env.e[1].setAttribute('class', (env.data.p + n == env.data.pn) ? 'disabled' : '')
+		env.e.btn[0].setAttribute('class', (env.d.p + n == 1) ? 'disabled' : '')
+		env.e.btn[1].setAttribute('class', (env.d.p + n == env.d.pn) ? 'disabled' : '')
 
-		env.f.get(env.data.p + n)
+		env.f.get(env.d.p + n)
 	}
 }
 

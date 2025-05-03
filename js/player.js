@@ -7,33 +7,44 @@
 	*/
 
 
-
-const player = {
-	'f': {},
-	'data': {
-		'mode': 0,
-		'pause': 1,
-		'vol': 0.5,
-		'loop': false,
-		'lrc': {
-			'data': null,
-			'leng': 0,
-			'now': 0,
-			'open': 0,
-		},
-		'timer': {},
-		'now': {
-			'leng': 0,
-			'now': 0,
-			'id': 0,
-		},
+env.d.version.player = '1.0.241'
+env.d.player = {
+	'id': 0,
+	'mode': 0,
+	'vol': 0.5,
+	'offsetTop': 0,
+	'pause': true,
+	'loop': false,
+	'init': false,
+	'ui': false,
+	'lrc': {
+		'data': [],
+		'now': 0,
 	},
 }
 
-// 加载音乐信息
-player.f.data = function(){
-	return [
+env.e = {...env.e, ...{
+	player: {
+		ui0: document.querySelector('.player-1'),
+		ui1: document.querySelector('.player-2'),
+		btn: document.querySelector('.player-0 a'),
+		audio: document.querySelector('.player-0 audio'),
+		name: document.querySelector('.player-0 span'),
+		img: document.querySelectorAll('.player-1 img'),
+		list: document.querySelectorAll('.player-1 list'),
+		bar: [document.querySelector('.player-1 bar'), document.querySelector('.player-1 bar div div')],
+		ctrl: document.querySelectorAll('.player-1 .ctrl a'),
+		footer: document.querySelector('.player-1 .footer'),
+	}
+}}
 
+
+
+env.f.player = {}
+
+// 加载默认音乐数据
+env.f.player.album = function(){
+	return [
 	{
 		name: 'この空であなたを待ってる - KOKIA',
 		src: '1830163710',
@@ -41,9 +52,15 @@ player.f.data = function(){
 		lrc: true,
 	},
 	{
+		name: 'ワタリドリ - KOKIA',
+		src: '2101452199',
+		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
+		lrc: true,
+	},
+	{
 		name: 'One Last Adventure - Evan Call',
 		src: '2116382384',
-		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
 		lrc: false,
 	},
 	{
@@ -56,12 +73,6 @@ player.f.data = function(){
 		name: "原風景 - mamomo & 丘咲アンナ",
 		src: '33469247',
 		img: 'ct9bs4VXR1mrbVRsX9iboA==/3372202162443903',
-		lrc: true,
-	},
-	{
-		name: 'ワタリドリ - KOKIA',
-		src: '2101452199',
-		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
 		lrc: true,
 	},
 	{
@@ -107,6 +118,12 @@ player.f.data = function(){
 		lrc: false,
 	},
 	{
+		name: 'Dóchas - Aaron Dolan & Florian Bur',
+		src: '2165170302',
+		img: 'sMtYDaEmC2VGAsjGPaKZdg==/109951169674040753',
+		lrc: false,
+	},
+	{
 		name: 'There Is Still Wonder Left To Behold - reche',
 		src: '2017419119',
 		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
@@ -137,250 +154,250 @@ player.f.data = function(){
 		lrc: true,
 	},
 	{
+		name: 'Hanezeve Caradhina (ft.Takeshi Saito) - Kevin Penkin',
+		src: '509098792',
+		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+		lrc: true,
+	},
+	{
+		name: 'The Return of Made in Abyss - Kevin Penkin',
+		src: '1417631425',
+		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+		lrc: false,
+	},
+	{
 		name: 'この空であなたを待ってる inst. - KOKIA',
 		src: '1830163712',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
 		lrc: true,
-	},
-
-	]
-
+	}]
 }
 
-
-
-player.list = player.f.data()
-player.data.num = player.list.length
-env.data.version.player = '1.0.24a'
-
-player.e = {
-		ui: document.querySelector('.player-ui'),
-		btn: document.querySelector('.player a'),
-		audio: document.querySelector('.player audio'),
-		name: document.querySelector('.player span'),
-		img: document.querySelector('.player-ui img'),
-		lrc: document.querySelector('.player-ui .lrc span'),
-		trans: document.querySelector('.player-ui .lrc trans'),
-		time: document.querySelector('.player-ui .time a'),
-
-		menu: document.querySelector('.player-menu'),
-		mode: document.querySelector('.player-header-right a'),
-		list_body: document.querySelector('.player-list'),
-		list: document.querySelectorAll('.player-list a'),
-		s1: document.querySelector('.player-sound1'),
-		s2: document.querySelector('.player-sound0'),
-		bar0: document.querySelector('.player-bar0'),
-		bar1: document.querySelector('.player-bar1 div'),
-	}
-
-
-
-player.f.load = function(){
+env.f.player.load = function(e){
 	// 加载音乐信息
-	var id = player.data.now.id
+	var id = e.dataset.id
+	var img = e.dataset.img
+	var name = e.dataset.name
+	var lrc = e.dataset.lrc
 
-	player.e.name.innerHTML = player.list[id].name.split(' - ')[0].split('(')[0]
-	player.e.audio.src = 'https://music.163.com/song/media/outer/url?id=' + player.list[id].src + '.mp3'
-	player.e.bar1.style.width = '0px'
-	player.data.now.per = 0
+	env.e.player.name.innerHTML = env.e.player.ui1.innerHTML = name.split(' - ')[0].split('(')[0]
+	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 
-	player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
-	player.e.img.setAttribute('style', 'opacity: 0;')
-	env.f.fade(player.e.img, -300)
+	env.e.player.bar[1].style.width = '0px'
+	env.e.player.ctrl[0].innerHTML = '00:00'
+
+	env.e.player.img[0].setAttribute('style', 'opacity: 0;')
+	env.e.player.img[1].setAttribute('style', 'opacity: 0;')
+	env.f.root.fade(env.e.player.img[0], -300)
+	env.f.root.fade(env.e.player.img[1], -300)
 
 	// 为当前播放歌曲添加样式
-	if (player.e.list[id]) {
-		document.querySelector('.player-ui .active').removeAttribute('class')
-		player.e.list[id].setAttribute('class', 'active')
-		env.f.scroll(player.e.list_body, player.e.list[0].offsetHeight * (player.data.now.id - 3), 300)
-	}
+	if (document.querySelector('.player-1 .active')) document.querySelector('.player-1 .active').removeAttribute('class')
+	e.setAttribute('class', 'active')
+	env.f.root.scroll(env.e.player.list[1], e.offsetTop - env.d.player.offsetTop, 500)
 
-	// 加载歌词
-	player.f.lrc.get()
 	setTimeout(function (){
-		player.e.lrc.innerHTML = player.list[id].name.split(' - ')[0]
-		player.e.trans.innerHTML = player.list[id].name.split(' - ')[1]
-		player.e.lrc.parentNode.setAttribute('style', 'opacity: 1')
-		player.e.img.src = 'https://p1.music.126.net/' + player.list[id].img + '.jpg?param=600y600'
+		env.e.player.list[0].innerHTML = `<line style="margin-top: ` + env.d.player.offsetTop + `px" >${name.split(' - ')[0]}<lrc></lrc><trans>${name.split(' - ')[1]}</trans></line>`
+		env.f.player.lrc.get((lrc == 'true') ? id : null)
 
-		if (!isNaN(player.e.audio.duration)) {
-			player.data.now.leng = player.e.audio.duration
+		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=600y600`
+
+		if (!isNaN(env.e.player.audio.duration)) {
+			env.d.player.now.leng = env.e.player.audio.duration
 		}
+
+		!env.d.player.pause ? env.f.player.play.set(1) : null
 	}, 500)
+
+	var l = env.e.player.list[1].children
+	for (let i = 0; i < l.length; i++) {
+		if (l[i] === e) {
+			env.d.player.id = i
+			break
+		}
+	}
 }
 
-player.f.mode = function(){
+env.f.player.mode = function(){
 	// 切换播放模式
-	player.f.mode.set(player.e.audio.loop ? 0 : 1)
+	env.f.player.mode.set(env.d.player.loop ? 0 : 1)
 }
-	player.f.mode.set = function(bool){
+	env.f.player.mode.set = function(bool){
 		if (bool) {
-			player.e.mode.innerHTML = ''
-			player.e.mode.title = '单曲循环'
-			player.e.audio.loop = player.data.loop = true
+			env.e.player.ctrl[3].innerHTML = ''
+			env.e.player.ctrl[3].title = '单曲循环'
+			env.d.player.loop = true
 		} else {
-			player.e.mode.innerHTML = ''
-			player.e.mode.title = '列表循环'
-			player.e.audio.loop = player.data.loop = false
+			env.e.player.ctrl[3].innerHTML = ''
+			env.e.player.ctrl[3].title = '列表循环'
+			env.d.player.loop = false
 		}
 	}
 
-player.f.list = function(){
+env.f.player.playlist = function(a, replace = false){
 	// 初始化播放列表
-	player.e.list_body.innerHTML = ''
-	for (var i = 0; i < player.data.num; i++) {
-		var a = document.createElement('a')
-			a.innerHTML = player.list[i].name.split('-')[0]
-			a.setAttribute('onclick', 'player.f.play.start(' + i + ', 1)')
-			a.setAttribute('title', player.list[i].name)
+	if (replace) env.e.player.list[1].innerHTML = ''
+	for (var i = 0; i < a.length; i++) {
+		var line = document.createElement('line')
+			line.setAttribute('onclick', "env.f.player.load(this)")
+			line.setAttribute('data-img', a[i].img)
+			line.setAttribute('data-id', a[i].src)
+			line.setAttribute('data-lrc', a[i].lrc)
+			line.setAttribute('data-name', a[i].name)
+			env.e.player.list[1].appendChild(line)
 
-		player.e.list_body.appendChild(a)
+			var s1 = document.createElement('lrc')
+				s1.innerHTML = a[i].name.split('-')[0]
+				line.appendChild(s1)
+
+			var s2 = document.createElement('trans')
+				s2.innerHTML = a[i].name.split('-')[1]
+				line.appendChild(s2)
 	}
-
-	player.e.list = document.querySelectorAll('.player-list a')
-	player.e.list[player.data.now.id].setAttribute('class', 'active')
-	env.f.scroll(player.e.s1, 600, 10)
 }
 
-player.f.play = function(){
+env.f.player.play = function(){
 	// 播放 & 暂停
-	player.f.play.set(player.data.pause ? 1 : 0)
+	env.f.player.play.set(env.d.player.pause ? 1 : 0)
 }
-	player.f.play.set = function(bool){
+	env.f.player.play.set = function(bool){
 		if (bool) {
-			player.e.audio.volume = 0
-			player.data.pause = 0
-			player.e.audio.play()
-
-			player.e.audio.currentTime = (player.e.audio.duration * player.data.now.per) || 0
-			player.e.audio.volume = player.data.vol
-
-			player.e.btn.innerHTML = '暂停'
+			env.e.player.audio.play()
+			env.d.player.pause = false
+			env.e.player.btn.innerHTML = '暂停'
+			env.f.root.fade(env.e.player.ui1, 300)
 		} else {
-			player.e.audio.pause()
-			player.data.pause = 1
-
-			player.e.btn.innerHTML = '播放'
+			env.e.player.audio.pause()
+			env.d.player.pause = true
+			env.e.player.btn.innerHTML = '播放'
+			env.f.root.fade(env.e.player.ui1, -300)
 		}
 	}
 
-	player.f.play.start = function(id, autoplay){
-		// 函数调用播放器
-		player.data.now.id = id
-		player.f.load()
-
-		setTimeout(function (){player.f.play.set(autoplay ? 1 : 0)}, 500)
-		return player.list[id].name
-	}
-
-player.f.add = function(str) {
+env.f.player.add = function(str) {
 	// 更新播放器列表
-	player.list = [str]
-
-	player.data.now.id = 0
-	player.data.num = 1
-
-	if (player.e.list.length) player.f.list()
-	player.f.load()
-	player.f.play.set(1)
+	var a = str['1']
+	env.d.player.id = str['0'] ? 0 : env.e.player.list[1].children.length
+	env.f.player.playlist(a, str['0'])
+	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	env.d.player.pause = false
 }
-	player.f.add.ask = function(str) {
+	env.f.player.add.ask = function(str) {
+		// 弹出询问框
 		setTimeout(function (){
-			env.f.notification.open(str.name + `<br /><div><a onclick='player.f.add(` + JSON.stringify(str) + `); env.f.notification.close()'>播放</a> | <a onclick="env.f.notification.close()" >关闭</a></div>`, 20000)
+			if (str['0']) {
+				env.f.root.prompt(`发现一个隐藏的播放列表！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+			} else {
+				env.f.root.prompt(`发现 ` + str['1'].length + ` 只隐藏的歌曲！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+			}
 		}, 3000)
 	}
 
-player.f.reset = function() {
+env.f.player.reset = function() {
 	// 重置歌单
-	player.list = player.f.data()
-	player.data.num = player.list.length
-	player.data.now.id = 0
-	player.f.list()
-	player.f.load()
-	player.f.mode.set(0)
+	env.f.player.playlist(env.f.player.album(), true)
+	env.f.player.load(env.e.player.list[1].children[0])
+	env.f.root.scroll(env.e.player.ctrl[4], 500, 1)
+	env.d.player.id = 0
+	env.f.player.mode.set(0)
 }
 
-player.f.conv0 = function(n) {
-	// 转换 ms --> mm:ss.fff
-	var ts = Math.floor(n / 1000)
-	var m = String(Math.floor(ts / 60)).padStart(2, '0')
-	var s = String(ts % 60).padStart(2, '0')
-	var ms = String(n % 1000).padStart(3, '0')
-
-	return `${m}:${s}.${ms}`.substring(0, 9)
-}
-
-player.f.conv1 = function(str) {
-	// 转换 mm:ss.fff --> ms
-	var parts = str.split(':')
-	return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10)
-}
-
-player.f.vol = function(n) {
-	// 调整音量
-	player.e.audio.volume = n
-}
-
-player.f.lrc = {}
-	player.f.lrc.get = function() {
+env.f.player.lrc = {}
+	env.f.player.lrc.get = function(id) {
 		// 下载歌词
-		player.data.lrc.data = []
-		player.data.lrc.leng = 0
+		env.d.player.lrc.data = []
 
-		if (player.list[player.data.now.id].lrc) {
-			fetch('https://' + env.data.domain + '/src/lrc/' + player.list[player.data.now.id].src + '.lrc')
+		if (id) {
+			fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
 			.then(response => {
 				if (response.ok) {
 					return response.text();
 				}
 			})
-			.then(text => {player.f.lrc.load(text)})
+			.then(lrc => {
+				env.f.player.lrc.load(lrc)
+			})
 			.catch(error => {
 				console.error(error)
-				setTimeout(function (){env.f.fade(player.e.lrc, 200)}, 1000)
-				player.e.trans.innerHTML = '加载歌词失败 ...'
+
+				var line = document.createElement('line')
+					env.e.player.list[0].appendChild(line)
+
+				var s1 = document.createElement('trans')
+					s1.innerHTML = '歌词加载异常: ' + error
+					line.appendChild(s1)
 			})
-		}
-	}
-
-	player.f.lrc.load = function(str) {
-		// 渲染歌词
-		player.data.lrc.leng = str.split('\n').length
-		player.data.lrc.data = str.split('\n')
-		player.data.lrc.data.push("[59:59.999]")
-		player.data.lrc.now = 0
-	}
-
-	player.f.lrc.ui = function() {
-		// 打开歌词页面
-		if (player.data.lrc.open) {
-			player.data.lrc.open = 0
-			env.f.fade(player.e.ui, -160)
 		} else {
-			player.data.lrc.open = 1
-			if (!player.e.list.length) player.f.list()
-			player.f.lrc.find(player.e.audio.currentTime)
-			env.f.fade(player.e.ui, 160)
+			var line = document.createElement('line')
+				env.e.player.list[0].appendChild(line)
+
+			var s1 = document.createElement('trans')
+				s1.innerHTML = '没有歌词的纯音乐哦'
+				line.appendChild(s1)
 		}
 	}
 
-	player.f.lrc.find = function(n) {
+	env.f.player.lrc.load = function(str) {
+		// 渲染歌词
+		lrc = str.split('\n')
+		lrc.push("[59:59.999]")
+
+		env.d.player.lrc.data = lrc
+		env.d.player.lrc.now = 0
+
+		for (var i = 0; i < lrc.length; i++) {
+			var line = document.createElement('line')
+				env.e.player.list[0].appendChild(line)
+
+			var s1 = document.createElement('lrc')
+				s1.innerHTML = lrc[i].split('#')[0].slice(12) || ''
+				line.appendChild(s1)
+
+			var s2 = document.createElement('trans')
+				s2.innerHTML = lrc[i].split('#')[1] || ''
+				line.appendChild(s2)
+		}
+	}
+
+	env.f.player.lrc.ui = function() {
+		// 打开歌词页面
+		if (env.d.player.ui) {
+			env.d.player.ui = false
+			env.f.root.fade(env.e.player.ui0, -160)
+		} else {
+			env.d.player.ui = true
+			env.f.player.lrc.find(env.e.player.audio.currentTime)
+			env.f.root.fade(env.e.player.ui0, 160)
+
+			if (!env.d.player.init) {
+				env.d.player.init = true
+				env.f.root.scroll(env.e.player.ctrl[4], 500, 1)
+				env.d.isMobile ? (env.d.player.offsetTop = 70) : (env.d.player.offsetTop = Math.max((window.innerHeight - env.e.player.img[1].parentNode.parentNode.clientHeight) / 2, 0))
+				env.e.player.list[0].children[0].setAttribute('style', 'margin-top: ' + env.d.player.offsetTop + 'px')
+			}
+		}
+	}
+
+	env.f.player.lrc.find = function(n) {
 		// 找到当前正在播放的歌词行数
-		if (player.data.lrc.leng) {
-			for (var i = 0; i < player.data.lrc.leng + 1; i++) {
-				if (player.e.audio.currentTime <= player.f.conv1((player.data.lrc.data[i]).substring(1, 10))) {
-					player.data.lrc.now = i
+		if (env.d.player.lrc.data[0]) {
+			for (var i = 0; i < 100; i++) {
+				if (env.e.player.audio.currentTime <= env.f.root.conv.c1((env.d.player.lrc.data[i]).substring(1, 10))) {
+					env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
+					env.d.player.lrc.now = i
+					env.e.player.list[0].children[i].setAttribute('class', 'highlight')
+					env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[i].offsetTop - env.d.player.offsetTop, 500)
 					break
 				}
 			}
 		}
 	}
 
-	player.f.lrc.debug = function() {
+	env.f.player.lrc.debug = function() {
 		// 调试模式
 		document.addEventListener('keydown', function(event) {
 			if (event.key === 'Enter' || event.keyCode === 13) {
-				console.log(player.f.conv0(player.e.audio.currentTime))
+				console.log(env.f.root.conv.c0(env.e.player.audio.currentTime))
 			}
 		});
 
@@ -389,119 +406,117 @@ player.f.lrc = {}
 			div.innerHTML = `
 				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
-					<button onclick="document.querySelector('.player-ui pre').innerHTML = document.querySelector('.player-ui textarea').value" >preview</button>
-					<button onclick="player.f.lrc.load(document.querySelector('.player-ui textarea').value)" >load</button>
+					<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
+					<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value)" >load</button>
 			`
-			document.querySelector('.player-ui').appendChild(div)
+			document.querySelector('.player-1').appendChild(div)
 	}
 
-player.f.kana = function() {
+env.f.player.kana = function() {
 	// 假名注音
-	if (player.e.lrc.classList.contains('no-kana')) {
-		player.e.lrc.removeAttribute('class')
+	if (env.e.player.list[0].classList.contains('no-kana')) {
+		env.e.player.list[0].classList.remove('no-kana')
 	} else {
-		player.e.lrc.classList.add('no-kana')
+		env.e.player.list[0].classList.add('no-kana')
 	}
 }
 
+env.f.player.list = function(){
+	// 切换列表
+	env.f.player.list.set((env.e.player.list[0].style.display == '') ? 0 : 1)
+}
+	env.f.player.list.set = function(bool){
+		if (bool) {
+			env.e.player.list[1].style.display = 'none'
+			env.e.player.list[0].removeAttribute('style')
+			env.e.player.ctrl[1].innerHTML = '歌单'
+			env.f.player.lrc.find(env.e.player.audio.currentTime)
+		} else {
+			env.e.player.list[0].style.display = 'none'
+			env.e.player.list[1].removeAttribute('style')
+			env.e.player.ctrl[1].innerHTML = '歌词'
+		}
+	}
 
 
 
 
 
-player.f.load()
-player.e.audio.volume = 0.5
+
+env.f.player.playlist(env.f.player.album(), true)
+env.f.player.load(env.e.player.list[1].children[0])
+env.e.player.footer.innerHTML = env.e.player.footer.innerHTML + env.d.version.player
+
+env.e.player.audio.volume = 0.5
 
 // 进度条
 setInterval(() => {
-	if(!player.data.pause){
-		player.data.now.per = (player.e.audio.currentTime / player.e.audio.duration).toFixed(8) || player.data.now.per
-		player.e.bar1.setAttribute('style', 'width: ' + player.data.now.per * 100 + '%')
-		player.e.time.innerHTML = player.f.conv0(player.e.audio.currentTime * 1000).substring(0, 5)
+	if(!env.d.player.pause){
+		env.e.player.bar[1].setAttribute('style', `width: ${(env.e.player.audio.currentTime * 100 / env.e.player.audio.duration || 1).toFixed(3) || 0}%`)
+		env.e.player.ctrl[0].innerHTML = env.f.root.conv.c0(env.e.player.audio.currentTime * 1000).substring(0, 5)
 	}
 }, 1000)
 
 // 进度调整
-player.e.bar0.addEventListener('click', function(event) {
-	var p = ((event.clientX - player.e.bar0.getBoundingClientRect().left) / player.e.bar0.offsetWidth).toFixed(4)
-	var now = Math.floor(player.e.audio.duration || player.data.now.leng) * p
-	player.e.bar1.setAttribute('style', 'width: ' + p * 100 + '%')
-	player.data.now.per = p
+env.e.player.bar[0].addEventListener('click', function(event) {
+	var p = ((event.clientX - env.e.player.bar[0].getBoundingClientRect().left) / env.e.player.bar[0].offsetWidth).toFixed(4)
+	var now = Math.floor(env.e.player.audio.duration || 0) * p
+	env.e.player.bar[1].setAttribute('style', `width: ${p * 100}%`)
 
-	if (!player.data.pause) player.e.audio.currentTime = now
-	if (player.data.lrc.leng) player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
-	player.e.time.innerHTML = player.f.conv0(now * 1000).substring(0, 5)
-
-	player.f.lrc.find(now)
+	env.e.player.audio.currentTime = now
+	env.f.player.lrc.find(now)
 })
 
 // 歌词显示
-player.e.audio.addEventListener('timeupdate', function () {
-	if (player.data.lrc.open && player.data.lrc.leng) {
-		if (player.f.conv1((player.data.lrc.data[player.data.lrc.now]).substring(1, 10)) - 1 <= player.e.audio.currentTime) {
-			player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
-			player.data.lrc.now ++
-			setTimeout(function (){
-				var lrc = (player.data.lrc.data[player.data.lrc.now - 1] || '').slice(12)
-				if (lrc.split('#')[0]) {
-					player.e.lrc.innerHTML = lrc.split('#')[0] || ' '
-					player.e.trans.innerHTML = lrc.split('#')[1] || ' '
-
-					player.e.lrc.parentNode.setAttribute('style', 'opacity: 1')
-				}
-			}, 300)
-
-		} else if (player.data.loop && ((player.e.audio.duration - player.e.audio.currentTime) <= 1)) {
-			// 单曲循环时重置歌词
-			player.data.lrc.now = 0
-			player.e.lrc.parentNode.setAttribute('style', 'opacity: 0; pointer-events: none;')
+env.e.player.audio.addEventListener('timeupdate', function () {
+	if (env.d.player.lrc.data[0]) {
+		if (env.f.root.conv.c1((env.d.player.lrc.data[env.d.player.lrc.now]).substring(1, 10)) - 1 <= env.e.player.audio.currentTime) {
+			env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
+			env.d.player.lrc.now ++
+			env.e.player.list[0].children[env.d.player.lrc.now].setAttribute('class', 'highlight')
+			env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[env.d.player.lrc.now].offsetTop - env.d.player.offsetTop, 500)
 		}
 	}
-
 })
 
 // 列表播放
-player.e.audio.addEventListener('ended', function () {
-	if (player.data.now.id == player.data.num - 1) player.data.now.id = -1
-	player.data.now.id ++
-	player.f.load()
-	player.f.play.set(1)
+env.e.player.audio.addEventListener('ended', function () {
+	if (env.d.player.loop) {
+		env.e.player.audio.currentTime = 0
+		env.d.player.lrc.now = 0
+		env.f.player.lrc.find(0)
+		env.f.player.play.set(1)
+	} else {
+		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
+		env.d.player.id ++
+		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	}
 })
 
 // 调整音量
-player.e.s1.addEventListener('scroll', () => {
-	var s = 100 - (player.e.s1.scrollTop / 10).toFixed(0) + 10
+env.e.player.ctrl[4].addEventListener('scroll', () => {
+	var s = 100 - (env.e.player.ctrl[4].scrollTop / 10).toFixed(0)
 	if (s < 0) var s = 0
 	if (s > 100) var s = 100
 	var s = (s / 10).toFixed(0) * 10
 
-	player.e.s2.innerHTML = s + '%'
-	player.e.audio.volume = s / 100
-	player.data.vol = s / 100
+	env.e.player.ctrl[4].setAttribute('volume', s + '%')
+	env.e.player.audio.volume = s / 100
+	env.d.player.vol = s / 100
 })
 
 // 键盘监听
-player.e.ui.addEventListener('keydown', function(event) {
+env.e.player.ui0.addEventListener('keydown', function(event) {
 	var k = event.key
 
 	if (k == ' ') {
-		player.f.play()
+		env.f.player.play()
 	} else if (k == 'Escape') {
-		player.f.lrc.ui()
+		env.f.player.lrc.ui()
 	} else if (k == 'ArrowUp') {
-		env.f.scroll(player.e.s1, -100, 10, false)
+		env.f.root.scroll(env.e.player.s1, -100, 10, false)
 	} else if (k == 'ArrowDown') {
-		env.f.scroll(player.e.s1, 100, 10, false)
-	} else if (k == 'ArrowRight') {
-		if (player.data.now.id == player.data.num - 1) player.data.now.id = -1
-		player.data.now.id ++
-		player.f.load()
-		player.f.play.set(1)
-	} else if (k == 'ArrowLeft') {
-		if (player.data.now.id == 0) player.data.now.id = player.list.length
-		player.data.now.id --
-		player.f.load()
-		player.f.play.set(1)
+		env.f.root.scroll(env.e.player.s1, 100, 10, false)
 	}
 })
 

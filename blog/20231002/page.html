@@ -13,19 +13,21 @@
 
 <body>
 <script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 	})
 
-	var music = JSON.stringify({
-		name: 'Moon Child - 西原健一郎 & Nina Vidal',
-		src: '456041',
-		img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
-		lrc: true,
-	})
+	var music = JSON.stringify({0: false, 1: [
+		{
+			name: 'Moon Child - 西原健一郎 & Nina Vidal',
+			src: '456041',
+			img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
+			lrc: true,
+		}
+	]})
 
-	window.parent.postMessage('player.f.add.ask(' + music + ')', document.domain ? '/' : '*')
+	window.parent.postMessage('env.f.player.add.ask(' + music + ')', document.domain ? '/' : '*')
 
 </script>
 <style>
@@ -86,7 +88,7 @@
 			<i>2023.8.16</i>
 			<mat></mat>
 			<mat></mat>
-			<span>第一件作品！</span>
+			第一件作品！
 		</para>
 
 		<para>
@@ -99,7 +101,7 @@
 			<i>2023.10.1</i>
 			<mat></mat>
 			<mat></mat>
-			<span>开始尝试复杂的人物绘画。</span>
+			开始尝试复杂的人物绘画。
 		</para>
 
 		<para>
@@ -117,16 +119,16 @@
 			<i>2024.2.24</i>
 			<mat></mat>
 			<mat></mat>
-			<span>Safebooru 上的意外收获。旁边是画师 LUZZI 创作的原图。</span>
+			Safebooru 上的意外收获。旁边是画师 LUZZI 创作的原图。
 			<br />
-			<span>四个月的漫长创作后，我才完成了它！这是目前最有挑战性的作品。</span>
+			四个月的漫长创作后，我才完成了它！这是目前最有挑战性的作品。
 		</para>
 
 		<para>
 			<h2>未来</h2>
-			<span>最近超级忙，更新不得不暂停一段时间了。呜呜呜 ...</span>
+			最近超级忙，更新不得不暂停一段时间了。呜呜呜 ...
 			<br />
-			<span>以后一定要找机会学习绘画！</span>
+			以后一定要找机会学习绘画！
 		</para>
 	</div>
 

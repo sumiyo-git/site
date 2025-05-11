@@ -396,20 +396,22 @@ env.f.root.page = {}
 	}
 
 env.f.root.prompt = {}
-	env.f.root.prompt = function(str, t = 3000) {
+	env.f.root.prompt = function(str, t = -1) {
 		// 弹出信息窗口
-		var e = env.e.root.prompt
 		var prompt = document.createElement('prompt')
 			prompt.innerHTML = str
+			prompt.id = Date.now()
 			prompt.setAttribute('onclick', 'env.f.root.prompt.close(this)')
-			e.appendChild(prompt)
+			env.e.root.prompt.appendChild(prompt)
 
 		setTimeout(function (){
 			prompt.setAttribute('class', 'active')
 		}, 100)
-		setTimeout(function (){
-			env.f.root.prompt.close(prompt)
-		}, t)
+		if (t > 0) {
+			setTimeout(function (){
+				env.f.root.prompt.close(prompt)
+			}, t)
+		}
 	}
 	env.f.root.prompt.close = function(e) {
 		// 关闭信息窗口
@@ -418,6 +420,10 @@ env.f.root.prompt = {}
 			setTimeout(function (){
 				e.remove()
 			}, 500)
+
+			clearInterval(env.tmp.prompt[e.id])
+			env.tmp.prompt[e.id] = null
+			delete env.tmp.prompt[e.id]
 		} else {
 			var e = env.e.root.prompt.children
 			for (var i = 0; i < e.length; i++) {

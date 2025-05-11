@@ -299,13 +299,8 @@ backdrop {
 	height: 100%;
 	opacity: 0.4;
 	pointer-events: none;
+	filter: saturate(1.2);
 }
-
-.main .avatar:nth-of-type(2) {
-	opacity: 0.3;
-	filter: saturate(1.8);
-}
-
 
 
 .main .description {
@@ -624,6 +619,7 @@ backdrop {
 	word-wrap: break-word;
 	transition: 0.5s;
 	transform: translateX(0px);
+	overflow: hidden;
 }
 
 .prompt .active {
@@ -665,8 +661,6 @@ backdrop {
 .prompt prompt a:hover {
 	color: rgba(var(--t-c1), 0.8);
 }
-
-
 
 
 

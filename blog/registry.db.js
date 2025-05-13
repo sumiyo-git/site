@@ -8,12 +8,6 @@ env.d.list.blog = [
 	},
 
 	{
-		name: 'hoer i uta',
-		src: '20250504',
-		des: 'mulorai memoro, miralo i mirayato.',
-		type: ['', null],
-	},
-	{
 		name: 'PE 系统制作',
 		src: '20250503',
 		des: '尝试构建一个 Win11 PE 系统',
@@ -22,13 +16,13 @@ env.d.list.blog = [
 	{
 		name: 'BatchDecryption',
 		src: '20250502',
-		des: '破解 BatchEncryption 加密的一种方法',
+		des: '破解 BatchEncryption 加密的可能途径',
 		type: ['', null],
 	},
 	{
 		name: 'mio',
 		src: '20241122',
-		des: '简单的一段介绍',
+		des: '简单的介绍',
 		type: ['', null],
 	},
 

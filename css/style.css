@@ -79,7 +79,7 @@ header btn {
 	border-radius: 100%;
 	padding: 8px 5px;
 	font-size: 34px;
-	line-height: 33px;
+	line-height: 28px;
 	cursor: pointer;
 	user-select: none;
 	backdrop-filter: blur(3px);
@@ -160,7 +160,6 @@ backdrop {
 
 .main header a {
 	padding: 0px 10px;
-	vertical-align: middle;
 	cursor: pointer;
 	transition: 0.3s;
 	color: rgba(var(--t-t1), 0.4);

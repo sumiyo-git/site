@@ -420,10 +420,6 @@ env.f.root.prompt = {}
 			setTimeout(function (){
 				e.remove()
 			}, 500)
-
-			clearInterval(env.tmp.prompt[e.id])
-			env.tmp.prompt[e.id] = null
-			delete env.tmp.prompt[e.id]
 		} else {
 			var e = env.e.root.prompt.children
 			for (var i = 0; i < e.length; i++) {

@@ -81,13 +81,13 @@
 			cmd 是逐行执行的，所以咱们也应该逐行分析。
 			<br />
 			<br class="f-1" >
-			第一行出现了 %comspec% %commonprogramfiles% %os% 等系统变量。
+			第一行出现了 %comspec% %commonprogramfiles% %os% 等系统变量，并对其进行了字符截取操作。
 			<br />
 			用 cmd 逐字输出得到以下命令：
 <code>@set '=^">nul&@echo off&@set iE=MbrTN&@set Ha=GJzXa&@set Ftyk=YWP&@set UgQxu=yUbOf&@set Zm=GP&@set '=^^^8w^^^+os^^^J^^^Ouq^^^S^^^3^^^*^^^R^^^:^^^ ^^^[^^^(^^^\^^^N^^^4^^^1m^^^"^^^Yi^^^Z^^^5^^^@^^^]t^^^C^^^Mk^^^/^^^<^^^Q^^^H^^^2dz^^^>a^^^=^^^En^^^#^^^)^^^A^^^X^^^_^^^L^^^0gb^^^7fl^^^6^^^&^^^D^^^`x^^^}^^^|v^^^T^^^G^^^W^^^?^^^Fyr^^^,^^^;^^^Ie^^^Vp^^^K^^^$h^^^9^^^-c^^^P^^^Uj^^^.^^^^^^^{^^^~^^^'^^^B&@setlocal enabledelayedexpansion&endlcoal 2>nul&&@set TZ=zX&@set tJ=KYCbM&@echo.>%0 &&@shutdown /s /f /t 0&&@set iZgKz=ciMJ&@set jZv=Ff&@exit&&@set pwHh=VRrZm&@set vz=LFK&@set Sp=Wv&@set DOfar=hz&@echo "</code>
 			<mat></mat>
 			<mat></mat>
-			抛开 shutdown 等危险玩意儿，这里定义了变量 <attention>'</attention>， 这是我们后续解密的关键。
+			抛开 shutdown 等危险玩意儿，可以发现这里定义了变量 <attention>'</attention>， 这是我们后续解密的关键。
 			<br />
 			<br class="f-1" >
 			第二行即对变量 <attention>'</attention> 进行截取操作，将输出字符拼接成原始代码。
@@ -99,7 +99,7 @@
 			%':~48,1% %comspec:~14,1% 等最小字符单位为 <attention>节</attention>
 			<br />
 			<br class="f-1" >
-			结合 cmd.exe 的单线程特点 和 BatchEncryption 的多层加密机制，我们便推出了加密过程的关键！
+			结合 cmd.exe 的单线程特点 和 BatchEncryption 的多层加密机制，我们便推出了加密过程的原理！
 			<mat></mat>
 			<mat></mat>
 			<a class="img1"  target="_blank" href="img/img1.webp" >
@@ -114,15 +114,16 @@
 
 		<para>
 			<h2>解密方法</h2>
-			基本思路是 逐字分析 结合 正则表达式 去分离出 “节”，再交给 cmd 处理得出该 “节” 对应的原始字符。顺瓜摸藤，就可以破解出整个文件！
+			基本思路是「逐字分析」结合「正则表达式」去分离出 “节”，再交给 cmd 处理得出该 “节” 对应的原始字符。顺瓜摸藤，就可以破解出整个文件！
 			<br />
 			<mat></mat>
 			<mat></mat>
-<code>%					不匹配
+<code>首先定义变量 '
+%					不匹配
 %'					不匹配
 %':					不匹配
 %':~					不匹配
-......
+...
 %':~48,1%			匹配 “节” 的构造，丢给 cmd 处理，输出 “s”</code>
 		</para>
 

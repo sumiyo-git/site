@@ -19,12 +19,6 @@ env.d.list.blog = [
 		des: '破解 BatchEncryption 加密的可能途径',
 		type: ['', null],
 	},
-	{
-		name: 'mio',
-		src: '20241122',
-		des: '简单的介绍',
-		type: ['', null],
-	},
 
 ];
 

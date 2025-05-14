@@ -53,21 +53,21 @@
 
 		<para>
 			<h1>PE 系统的制作</h1>
-			<i>一直想给 U 盘换个纯净点的 PE 系统。结果发现这个领域似乎被几个自动构建 PE 盘的工具垄断了。在某个偏僻的角落，我发现了这个还算不错的方案 ...</i>
+			<i>本来只是想给 U 盘找个纯净点的 PE 系统，结果发现这领域几乎被一些制作 PE 盘的工具垄断了 ...</i>
 		</para>
 
 		<para>
 			啊啊，本来不想写技术方面的文章的 :(
 			<br />
 			<br class="f-1" />
-			这篇文章使用了大神「深谷憂狼」的批处理脚本。感谢各位大佬提供的技术支持！
+			本文使用了大神「深谷憂狼」的批处理脚本。感谢各位大佬提供的技术支持！
 		</para>
 
 		<para>
 		<h2>准备</h2>
 			Windows11PE64一键制作21H2至Dev通用版工具-2025
 			<br />
-			<i>http://wuyou.net/forum.php?mod=viewthread&tid=435134&extra=&page=1</i>
+			<note>http://wuyou.net/forum.php?mod=viewthread&tid=435134&extra=&page=1</note>
 			<br />
 			<mat></mat>
 			<mat></mat>
@@ -75,7 +75,7 @@
 
 			Windows11 ISO 镜像文件（21H2 ~ 24H2）
 			<br />
-			<i>https://msdn.itellyou.cn/ （需要登录）</i>
+			<note>https://msdn.itellyou.cn/ （需要登录）</note>
 			<br />
 			<mat></mat>
 			<mat></mat>
@@ -83,7 +83,7 @@
 
 			ISO 挂载工具
 			<br />
-			<i>不太推荐 PowerISO 和 UltraISO，要有所谓的“序列号”才能正常使用。</i>
+			<note>不太推荐 PowerISO 和 UltraISO，要有所谓的 “序列号” 才能正常使用。</note>
 			<br />
 			<mat></mat>
 			<mat></mat>
@@ -91,7 +91,7 @@
 
 			虚拟机（非必须）
 			<br />
-			<i>制作过程存在一定危险系数，建议在虚拟机中进行构建和调试。</i>
+			<note>构建过程存在一定危险系数，建议在虚拟机中进行构建和调试。</note>
 		</para>
 
 
@@ -112,14 +112,14 @@
 ┗━━ WIN11PE64一键制作工具通用版.exe
 </code>
 			<br class="f-1" />
-			主程序是那个 .exe 文件。由原始批处理文件（70KB 左右）经过 BatchEncryption 22 层加密后，再转为 .exe 程序（830 KB）制成。
+			主程序是那个 .exe 文件。由原始批处理文件（70KB 左右）经 BatchEncryption 22 层加密后再打包得来（830 KB） 。
 			<br />
 			<mat></mat>
-			<i>不要问咱们是怎么知道这个的。看了这么夸张的加密，气得用一下午时间把 <a class="link" href="source.zip" target="_blank" download="source.zip" >源代码</a> 弄出来了。方法放在这里： <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('20250502')`, document.domain ? '/' : '*')" >id=20250502/</span></i>
+			<note>不要问咱们是怎么知道这个的。看到这么夸张的操作，气得用一下午时间把 <a class="link" href="source.zip" target="_blank" download="source.zip" >源代码</a> 搞出来了。方法放这里： <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('20250502')`, document.domain ? '/' : '*')" >20250502/</span></note>
 			<br />
 			<br class="f-1" />
 			<br class="f-1" />
-			别的不说，工具本身还是蛮好用的。制作过程非常简单，挂载了原始 ISO 后直接运行主程序，几分钟后就可以得到 PE 系统的镜像文件了。本文以 Win11 22H2 版本为例进行构建。
+			好了，别的不说，工具本身还是挺不错的。制作过程非常简单，挂载了原始 ISO 后直接运行主程序，几分钟后就可以得到 PE 系统的镜像文件了。这里以 Win11 22H2 版本为例进行构建。
 		</para>
 
 
@@ -134,7 +134,7 @@
 			<mat></mat>
 			想不到吧？ 这玩意儿是个压缩包！
 			<br />
-			开机后的一个选择页面可以在其中的 MakeISO\boot\grub\MENU 中进行修改。改成如下代码后，可跳过该页面。
+			开机后的一个选择页面可以在其中的 MakeISO\boot\grub\MENU 中进行修改。改成如下代码后，可直接跳过该页面。
 			<br class="f-1" />
 			<mat></mat>
 			<mat></mat>
@@ -167,7 +167,7 @@ clear</code>
 壁纸
 
 <attention>Windows\System32\pecmd.ini</attention>
-这个是 pecmd.exe 在开机后自动执行的命令列表，可以进行显示文字、添加快捷键、修改屏幕分辨率等操作。
+这个是 pecmd.exe 在开机后自动执行的命令列表，可以执行显示文字、添加快捷键、修改屏幕分辨率等操作。
 启动页面 “但愿人长久，千里共婵娟” 等提示语就藏在这里。
 </code>
 		</para>
@@ -181,10 +181,10 @@ clear</code>
 			<mat></mat>
 <code><attention>WIN11PE64\reg\22H2\import-def\pe-def.reg</attention>
 [HKEY_LOCAL_MACHINE\PE-DEF\Software\StartIsBack]
-居中任务栏 透明任务栏 任务栏·、开始菜单的颜色调整
+任务栏居中、透明 开始菜单的颜色调整
 
 [HKEY_LOCAL_MACHINE\PE-DEF\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
-资源管理器
+资源管理器的相关设置
 
 <attention>WIN11PE64\reg\22H2\import-soft\pe-soft.reg</attention>
 [HKEY_LOCAL_MACHINE\PE-SOFT\Microsoft\Windows NT\CurrentVersion]

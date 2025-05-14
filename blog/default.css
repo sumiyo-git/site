@@ -104,6 +104,7 @@ para {
 	padding-bottom: 100px;
 	color: rgba(var(--t-t1), 0.6);
 	font-size: 16px;
+	word-break: break-all;
 }
 
 code {
@@ -134,6 +135,7 @@ code attention {
 	color: rgba(var(--t-b1), 0.8);
 }
 
+note,
 i {
 	color: rgba(var(--t-t1), 0.4);
 }

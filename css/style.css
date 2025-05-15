@@ -34,8 +34,15 @@
 
 @font-face{
 	font-family: Poppins Regular;
-	src: url('../src/Poppins Regular.woff2');
+	src: url('../src/font/Poppins Regular.woff2');
 }
+
+@font-face{
+	font-family: icomoon;
+	src: url('../src/font/icomoon.woff2');
+}
+
+
 
 html {
 	height: 100%;
@@ -43,7 +50,7 @@ html {
 }
 
 body {
-	font-family: 'Poppins Regular', 'Microsoft YaHei';
+	font-family: 'Poppins Regular', 'icomoon', 'Microsoft YaHei';
 	overflow: overlay;
 	margin: 0;
 	line-height: 30px;
@@ -204,7 +211,6 @@ backdrop {
 	bottom: 20px;
 	right: 40px;
 	content: attr(data-text);
-	font-family: 'Microsoft YaHei';
 	font-size: 24px;
 	color: rgba(var(--t-b2), 0.6);
 }
@@ -281,7 +287,6 @@ backdrop {
 	content:attr(data-timer);
 	font-size: 120px;
 	line-height: 120px;
-	font-family: 'Microsoft YaHei';
 	color: rgba(var(--t-t1), 0.1);
 
 	white-space: nowrap;
@@ -407,7 +412,6 @@ backdrop {
 .menu news {
 	display: block;
 	height: 24px;
-	font-family: 'Microsoft YaHei';
 	font-size: 16px;
 	line-height: 24px;
 	color: rgba(var(--t-t1), 0.4);

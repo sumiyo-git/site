@@ -22,9 +22,9 @@
 
 
 
-@font-face {
+@font-face{
 	font-family: Poppins Regular;
-	src: url('../src/Poppins Regular.woff2');
+	src: url('../src/font/Poppins Regular.woff2');
 }
 
 html {
@@ -36,7 +36,7 @@ body {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	font-family: 'Poppins Regular',  'Microsoft YaHei'; 
+	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	overflow: overlay;
 	margin: 0;
 	line-height: 30px;
@@ -112,7 +112,7 @@ code {
 	background-color: rgba(var(--t-c1), 0.1);
 	color: rgba(var(--t-c1), 0.6);
 	padding: 6px 12px 6px 12px;
-	font-family: 'Microsoft YaHei';
+	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	line-height: 28px;
 	font-size: 16px;
 	border-radius: 5px;
@@ -176,7 +176,6 @@ hr {
 	color: rgba(var(--t-c1), 1);
 	text-decoration: underline;
 	text-decoration-color: rgba(var(--t-t1), 0.2);
-	font-family: "Microsoft YaHei";
 	cursor: pointer;
 	transition: 0.3s;
 

@@ -391,7 +391,7 @@ env.f.root.page = {}
 
 	env.f.root.page.ok = function(title) {
 		// 博客加载完成
-		document.title = ((title.slice(0, 1) == '-') ? `${title.slice(1)} | ${env.d.title}` : title)
+		document.title = `${title} | ${env.d.title}`
 		setTimeout(function (){env.f.root.page.load.stop()}, 2000)
 	}
 

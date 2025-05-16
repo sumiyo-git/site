@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-BatchDecryption</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,33 +12,10 @@
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-</script>
 <style>
-
-	.img1 {
+	.ibox0 {
 		aspect-ratio: 2 / 1;
 		width: 100%;
-		display: inline-block;
-	}
-
-	img {
-		vertical-align: text-top;
-		width: 100%;
-		height: 100%;
-		border-radius: 5px;
-		opacity: 0;
-		border: 1px rgba(151, 153, 153, 0.3) solid;
-		box-sizing: border-box;
-	}
-
-	@media screen and (max-width: 900px) {
-
 	}
 
 </style>
@@ -102,7 +78,7 @@
 			结合 cmd.exe 的单线程特点 和 BatchEncryption 的多层加密机制，我们便推出了加密过程的原理！
 			<mat></mat>
 			<mat></mat>
-			<a class="img1"  target="_blank" href="img/img1.webp" >
+			<a class="ibox0"  target="_blank" href="img/img1.webp" >
 				<img src="img/img1.webp" onload="this.setAttribute('class', 'fade')" />
 			</a>
 			<br class="f-1" >
@@ -145,6 +121,14 @@
 
 
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+	</script>
 
 </body>
 </html>

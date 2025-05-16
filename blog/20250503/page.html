@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-PE 系统的制作</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,41 +12,25 @@
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-</script>
 <style>
-
-	.img1 {
+	.ibox0 {
 		aspect-ratio: 16 / 9;
 		width: 80%;
-		display: inline-block;
-	}
-
-	.img1 img {
-		vertical-align: text-top;
-		width: 100%;
-		height: 100%;
-		border-radius: 5px;
-		opacity: 0;
-		border: 1px rgba(151, 153, 153, 0.3) solid;
-		box-sizing: border-box;
 	}
 
 	@media screen and (max-width: 900px) {
-		.img1 {
+		.ibox0 {
 			width: 100%;
 		}
 	}
 
 </style>
 
+
+
 	<!-- Mian -->
 	<div class="main" >
+
 
 		<para>
 			<h1>PE 系统的制作</h1>
@@ -216,12 +199,20 @@ clear</code>
 			<mat></mat>
 			<mat></mat>
 			<mat></mat>
-			<a class="img1"  target="_blank" href="img/1.webp" >
+			<a class="ibox0"  target="_blank" href="img/1.webp" >
 				<img src="img/1.webp" onload="this.setAttribute('class', 'fade')" />
 			</a>
 		</para>
 
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+	</script>
 
 </body>
 </html>

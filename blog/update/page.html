@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,47 +12,18 @@
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-	var music = JSON.stringify({0: false, 1: [
-		{
-			name: 'Moon Child - 西原健一郎 & Nina Vidal',
-			src: '456041',
-			img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
-			lrc: true,
-		}
-	]})
-
-	window.parent.postMessage('env.f.player.add.ask(' + music + ')', document.domain ? '/' : '*')
-
-</script>
 <style>
-
-	.img1 {
+	.ibox0 {
 		aspect-ratio: 1 / 1;
 		width: 50%;
-		display: inline-block;
-	}
-
-	.img1 img {
-		vertical-align: text-top;
-		width: 100%;
-		height: 100%;
-		border-radius: 5px;
-		opacity: 0;
-		border: 1px rgba(151, 153, 153, 0.3) solid;
-		box-sizing: border-box;
 	}
 
 	@media screen and (max-width: 900px) {
-		.img1 {
+		.ibox0 {
 			width: 100%;
 		}
 	}
+
 
 </style>
 
@@ -133,19 +103,30 @@ Hello world!
 
 		<br />
 		<br />
-		<a class="img1"  target="_blank" href="../../src/mio.png" >
+		<a class="ibox0"  target="_blank" href="../../src/mio.png" >
 			<img src="../../src/mio.png" onload="this.setAttribute('class', 'fade')" />
 		</a>
 
-<br />
-
-<pre>
-	.f-1 无效元素
-	.f-2 仅在电脑端显示的元素
-	.f-3 仅在移动端显示的元素
-
-</pre>
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+		var music = JSON.stringify({0: false, 1: [
+			{
+				name: 'Moon Child - 西原健一郎 & Nina Vidal',
+				src: '456041',
+				img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
+				lrc: true,
+			}
+		]})
+
+		window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+
+	</script>
 
 </body>
 </html>

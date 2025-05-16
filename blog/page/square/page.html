@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-寂静的广场</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,13 +12,6 @@
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-</script>
 <style>
 
 	textarea {
@@ -192,6 +184,13 @@
 		</para>
 	</div>
 
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+	</script>
 	<script src="script.js" ></script>
 
 </body>

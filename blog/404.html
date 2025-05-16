@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-404</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,13 +11,7 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '"); env.f.root.post("document.querySelector(`i`).innerHTML = `" + document.location.href + "`")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
 
-</script>
 	<!-- Mian -->
 	<div class="main" >
 		<para>
@@ -67,6 +60,14 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 			<a onclick="window.parent.postMessage('env.f.root.blog.close()', document.domain ? '/' : '*')">[返回主页]</a>
 		</para>
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}"); env.f.root.post("document.querySelector('i').innerHTML = '${document.location.href}'")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+	</script>
 
 </body>
 

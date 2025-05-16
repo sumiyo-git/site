@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-画室</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,40 +11,14 @@
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-	var music = JSON.stringify({0: false, 1: [
-		{
-			name: 'Moon Child - 西原健一郎 & Nina Vidal',
-			src: '456041',
-			img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
-			lrc: true,
-		}
-	]})
-
-	window.parent.postMessage('env.f.player.add.ask(' + music + ')', document.domain ? '/' : '*')
-
-</script>
 <style>
-
-	.img1 {
-		aspect-ratio: 3364 / 2126;
+	.ibox0 {
+		aspect-ratio: 3 / 2;
 		width: 80%;
-		display: inline-block;
-	}
-
-	.img1 img {
-		border-radius: 10px;
-		width: 100%;
-		opacity: 0;
 	}
 
 	@media screen and (max-width: 900px) {
-		.img1 {
+		.ibox0 {
 			width: 100%;
 		}
 	}
@@ -63,7 +36,7 @@
 		</para>
 
 		<para>
-			<a class="img1"  target="_blank" href="img/raw/千と千尋の神隠し.png" >
+			<a class="ibox0"  target="_blank" href="img/raw/千と千尋の神隠し.png" >
 				<img src="img/千と千尋の神隠し.webp" onload="this.setAttribute('class', 'fade')" />
 			</a>
 			<mat></mat>
@@ -82,6 +55,25 @@
 			好在已经拿定主意了！下一张就画娜娜奇！
 		</para>
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+		var music = JSON.stringify({0: false, 1: [
+			{
+				name: 'Moon Child - 西原健一郎 & Nina Vidal',
+				src: '456041',
+				img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
+				lrc: true,
+			}
+		]})
+
+		window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+
+	</script>
 
 </body>
 </html>

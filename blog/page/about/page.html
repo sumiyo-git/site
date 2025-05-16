@@ -2,7 +2,6 @@
 <html lang="zh">
 
 <head>
-	<title>-网站介绍</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,27 +12,8 @@
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-	var music = JSON.stringify({0: false, 1: [
-		{
-			name: 'Welcome to my World - Kevin Penkin',
-			src: '509098790',
-			img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
-			lrc: false,
-		},
-	]})
-
-	window.parent.postMessage('env.f.player.add.ask(' + music + ')', document.domain ? '/' : '*')
-
-</script>
 <style>
-
-	.img1 {
+	.ibox0 {
 		aspect-ratio: 200 / 280;
 		width: 20%;
 		display: inline-block;
@@ -42,15 +22,7 @@
 		margin-right: 10px;
 	}
 
-	.img1 img {
-		display: block;
-		width: 100%;
-		height: 100%;
-		border-radius: 8px;
-		opacity: 0;
-	}
-
-	.details {
+	.ibox0 span {
 		position: sticky;
 		padding: 5px 10px;
 		height: 60px;
@@ -67,21 +39,18 @@
 		transition: 0.5s;
 	}
 
-	.details i {
+	.ibox0 span i {
 		color: rgba(var(--t-b1), 0.4);
 		font-style: normal;
 		user-select: none;
 	}
 
-	.img1:hover .details {
+	.ibox0:hover span {
 		opacity: 1;
 	}
 
 	@media screen and (max-width: 900px) {
-		.details {
-			display: none;
-		}
-		.img1 {
+		.ibox0 {
 			width: 45%;
 		}
 	}
@@ -130,15 +99,15 @@
 			<br />
 			<mat></mat>
 			<mat></mat>
-			<span class="img1" >
+			<a class="ibox0" >
 				<img src="img/葬送のフリーレン.webp" onload="this.setAttribute('class', 'fade')" />
-				<span class="details" >葬送のフリーレン<br /><i> 2020</i></span>
-			</span>
+				<span>葬送のフリーレン<br /><i># 2020</i></span>
+			</a>
 
-			<span class="img1" >
+			<a class="ibox0" >
 				<img src="img/メイドインアビス.webp" onload="this.setAttribute('class', 'fade')" />
-				<span class="details" >メイドインアビス<br /><i> 2017</i></span>
-			</span>
+				<span>メイドインアビス<br /><i># 2017</i></span>
+			</a>
 
 			<br class="f-1" />
 			<br class="f-1" />
@@ -159,6 +128,25 @@
 		</para>
 
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+		var music = JSON.stringify({0: false, 1: [
+			{
+				name: 'Welcome to my World - Kevin Penkin',
+				src: '509098790',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+		]})
+
+		window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+
+	</script>
 
 </body>
 </html>

@@ -62,7 +62,7 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 	</div>
 
 	<script>
-		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}"); env.f.root.post("document.querySelector('i').innerHTML = '${document.location.href}'")`, document.domain ? '/' : '*')
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}"); env.f.root.post("document.querySelector('i').innerHTML = '" + document.location.href + "'")`, document.domain ? '/' : '*')
 		window.addEventListener('message', function(event) {
 			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 		})

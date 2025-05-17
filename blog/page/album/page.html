@@ -77,7 +77,7 @@
 	</div>
 
 	<script>
-		window.parent.postMessage('env.f.root.page.ok("' + document.title + '")', document.domain ? '/' : '*')
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
 		window.addEventListener('message', function(event) {
 			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 		})

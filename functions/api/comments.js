@@ -24,7 +24,7 @@
 
 	// 添加留言
 	if (m == "1") {
-		if (body.content.length > 200 || body.name.length > 20) {return Response.json(r)}
+		if (body.content.length > 200 || body.name.length > 16) {return Response.json(r)}
 
 		// 生成一个 id
 		var now = new Date()

@@ -20,11 +20,12 @@ const env = {
 	},
 	'f': {},
 	'e': {
-		'btn': [...document.querySelectorAll('footer a'), document.querySelector('.post a')],
 		'content': document.querySelectorAll('textarea')[0],
 		'name': document.querySelectorAll('textarea')[1],
 		'challenge': document.querySelectorAll('textarea')[2],
 		'can': document.querySelector('canvas'),
+		'user': document.querySelectorAll('.user')[0],
+		'footer': document.querySelector('footer'),
 	},
 	'tmp': {
 		't1': null
@@ -46,10 +47,12 @@ env.f.time = function() {
 env.f.wait = function() {
 	// 防止触发速率限制
 	clearInterval(env.tmp.t1)
-	for (var i = 0; i < env.e.btn.length; i++) {env.e.btn[i].classList.add('wait')}
+	var e = [...document.querySelectorAll('footer a'), document.querySelector('.post a')]
+
+	for (var i = 0; i < e.length; i++) {e[i].classList.add('wait')}
 
 	env.tmp.t1 = setInterval(() => {
-		for (var i = 0; i < env.e.btn.length; i++) {env.e.btn[i].classList.remove('wait')}
+		for (var i = 0; i < e.length; i++) {e[i].classList.remove('wait')}
 		clearInterval(env.tmp.t1)
 	}, 5000)
 }
@@ -79,7 +82,7 @@ env.f.init = function() {
 		.then(json => {
 			env.d.cn = Number(json.results[0].data)
 			env.d.pn = Math.ceil(env.d.cn / 5)
-			document.getElementById('_2').innerHTML = env.d.cn
+			document.getElementById('_1').innerHTML = env.d.cn
 
 			env.f.get(1)
 		})
@@ -90,7 +93,7 @@ env.f.init = function() {
 env.f.get = function(n) {
 	// 获取留言数据
 	env.d.p = n
-	document.getElementById('_1').innerHTML = n
+	env.f.pagination(n)
 
 	fetch(`https://${env.d.domain}/api/comments`, {
 		method: "POST",
@@ -119,12 +122,43 @@ env.f.load = function() {
 	var e = document.querySelector('.list')
 
 	e.innerHTML = ''
-	env.e.btn[0].setAttribute('class', (env.d.pn == 1) ? 'disabled' : '')
-	env.e.btn[1].setAttribute('class', (env.d.p == env.d.pn) ? 'disabled' : '')
 
 	for (var i = 0; i < d.length; i++) {
+		var com = document.createElement('comment')
+
+			com.innerHTML = `
+<div class="user" data-icon="` + env.f.user(null, d[i].name.replace(/\n/g, '')) + `" ></div>
+<div class="body" >
+	<name>` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <info>` + d[i].id.substring(0, 16) + `</info></name>
+	<div>` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
+</div>
+`
+
+
+			e.appendChild(com)
+
+		var span = com.querySelector('.body div')
+		if (span.offsetHeight>145) {
+			span.setAttribute('style', 'height: 145px')
+			var unfold = document.createElement('a')
+				unfold.innerHTML = '[展开]'
+				unfold.setAttribute('class', 'unfold')
+				unfold.setAttribute('onclick', "this.parentNode.querySelector('div').removeAttribute('style'); this.remove()")
+				span.parentNode.appendChild(unfold)
+		}
+
+
+
+
+
+/*
 		var span = document.createElement('comment')
 			e.appendChild(span)
+
+		var icon = document.createElement('div')
+			icon.setAttribute('class', 'user')
+			span.appendChild(icon)
+			env.f.user(icon, d[i].name.replace(/\n/g, ''))
 
 		var name = document.createElement('name')
 			name.innerText = d[i].name.replace(/\n/g, '') + ':  '
@@ -160,6 +194,8 @@ env.f.load = function() {
 		if (d[i].op == '1') {
 			name.setAttribute('class', 'op')
 		}
+
+*/
 	}
 }
 
@@ -174,7 +210,7 @@ env.f.submit = function() {
 	var ban = []
 
 	if (!env.f.challenge.try()) {
-		env.f.connect("env.f.root.prompt('验证码有问题哦', 3000)")
+		env.f.connect("env.f.root.prompt('验证码输错了哦', 3000)")
 		return
 	}
 	if (ban.some(item => n.includes(item))) {
@@ -212,10 +248,10 @@ env.f.submit = function() {
 
 			env.d.cn ++
 			env.d.pn = Math.ceil(env.d.cn / 5)
-			document.getElementById('_2').innerHTML = env.d.cn
+			document.getElementById('_1').innerHTML = env.d.cn
 
 			env.f.get(1)
-			env.f.connect(`env.f.root.prompt('<span style="color: rgba(var(--t-g), 0.6)" >留言成功 !<span>', 3000)`)
+			env.f.connect("env.f.root.prompt('留言成功', 5000)")
 		}
 	})
 	.catch(err => {env.f.err(err)})
@@ -241,7 +277,7 @@ env.f.zoltraak = function(id) {
 	.then(json => {
 		env.d.cn --
 		env.d.pn = Math.ceil(env.d.cn / 5)
-		document.getElementById('_2').innerHTML = env.d.cn
+		document.getElementById('_1').innerHTML = env.d.cn
 
 		env.f.get(1)
 	})
@@ -252,9 +288,6 @@ env.f.page = function(n) {
 	// 翻页
 	if (((env.d.p + n) > 0) && ((env.d.p + n) <= env.d.pn)) {
 		env.f.wait()
-		env.e.btn[0].setAttribute('class', (env.d.p + n == 1) ? 'disabled' : '')
-		env.e.btn[1].setAttribute('class', (env.d.p + n == env.d.pn) ? 'disabled' : '')
-
 		env.f.get(env.d.p + n)
 	}
 }
@@ -283,7 +316,7 @@ env.f.debug = function() {
 	env.f.load()
 }
 
-env.f.getRandom = function(min, max) {
+env.f.random = function(min, max) {
 	// 生成随机整数
 	return Math.floor(Math.random() * (max - min + 1)) + min
 }
@@ -305,16 +338,16 @@ env.f.challenge = {}
 		ctx.clearRect(0, 0, 100, 100)
 
 		for (var i = 0; i < 4; i++) {
-			var r = env.f.getRandom(0, 31)
+			var r = env.f.random(0, l.length - 1)
 			var a = a + l[r]
-			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.getRandom(60, 100) / 100 + ')' 
-			ctx.fillText(l[r], 12 + 16 * i, 20 + env.f.getRandom(-5, 5));
+			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(60, 100) / 100 + ')' 
+			ctx.fillText(l[r], 12 + 16 * i, 20 + env.f.random(-5, 5));
 		}
 
 		for (var i = 0; i < 20; i++) {
 			ctx.beginPath()
-			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.getRandom(20, 40) / 100 + ')' 
-			ctx.arc(env.f.getRandom(0, e.width), env.f.getRandom(0, e.height), env.f.getRandom(2, 4), 0, Math.PI * 2)
+			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(20, 40) / 100 + ')' 
+			ctx.arc(env.f.random(0, e.width), env.f.random(0, e.height), env.f.random(2, 4), 0, Math.PI * 2)
 			ctx.fill()
 		}
 
@@ -328,8 +361,56 @@ env.f.challenge = {}
 		}
 	}
 
+env.f.user = function(e, str) {
+	// 计算评论头像
+	var l = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+	var r = (str.charCodeAt(0) * 77 || 0).toString().slice(-3, -1) / 100
+
+	if (e) {
+		e.setAttribute('data-icon', l[Math.floor(r * (l.length - 1))])
+	} else {
+		return l[Math.floor(r * (l.length - 1))]
+	}
+}
+
+env.f.pagination = function(n) {
+	var e = env.e.footer
+	e.innerHTML = ''
 
 
+	var a = document.createElement('a')
+		a.innerHTML = ''
+		a.setAttribute('onclick', 'env.f.page(-1)')
+		e.appendChild(a)
+		if (n <= 1) a.setAttribute('style', 'color: rgba(var(--t-c1), 0.2); pointer-events: none;')
+
+	var st = Math.max(0, n - 3)
+	var et = Math.min(n + 6, env.d.pn - 9)
+
+	for (var i = 1; i < 10; i++) {
+		var p = Math.min(et, st) + i
+		if (p > env.d.pn || 0 >= p) continue
+
+		var a = document.createElement('a')
+			a.innerHTML = p
+			a.setAttribute('onclick', 'env.f.page(' + (p - n) + ')')
+			e.appendChild(a)
+
+		if (p == n) a.setAttribute('class', 'active')
+	}
+
+	var a = document.createElement('a')
+		a.innerHTML = ''
+		a.setAttribute('onclick', 'env.f.page(1)')
+		e.appendChild(a)
+		if (n >= env.d.pn) a.setAttribute('style', 'color: rgba(var(--t-c1), 0.2); pointer-events: none;')
+
+
+}
+
+
+
+env.f.pagination(1)
 env.f.challenge.new()
 env.f.init()
 

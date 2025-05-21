@@ -8,147 +8,14 @@
 
 	<link rel="preload" as="font" crossorigin="anonymous" href="../../../src/font/Poppins Regular.woff2" />
 	<link rel="stylesheet" type="text/css" href="../../default.css">
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../../src/font/icomoon.woff2" />
 
 </head>
 
 <body>
 <style>
 
-	textarea {
-		display: inline-block;
-		vertical-align: top;
-		padding: 2px 4px;
-		height: 24px;
-		min-height: 24px;
-		width: 220px;
-		resize: none;
-		outline: none;
-		background-color: rgba(var(--t-b1), 0.6);
-		color: rgba(var(--t-t1), 0.8);
-		border: 1px solid rgba(var(--t-t1), 0.4);
-		font-size: 16px;
-		font-family: 'Poppins Regular', 'Microsoft YaHei'; 
-		line-height: 24px;
-		border-radius: 5px;
-	}
-	textarea::placeholder {
-		color: rgba(var(--t-t1), 0.4);
-		font-family: 'Poppins Regular', 'Microsoft YaHei'; 
-		user-select: none;
-	}
-	.tbox {
-		width: calc(100% - 18px);
-		height: 120px;
-		min-height: 120px;
-		max-height: 600px;
-		resize: vertical;
-	}
-	.post {
-		width: 80%;
-		margin-bottom: 100px;
-		white-space: nowrap;
-		user-select: none;
-	}
-
-	footer a,
-	.post a {
-		height: 24px;
-		width: 60px;
-		padding: 2px 5px;
-		margin-right: 10px;
-		text-align: center;
-		font-size: 16px;
-		line-height: 25px;
-		color: rgba(var(--t-t1), 1);
-		background-color: rgba(var(--t-t1), 0.1);
-		display: inline-block;
-		border: 1px solid rgba(var(--t-t1), 0.4);
-		border-radius: 3px;
-		user-select: none;
-		cursor: pointer;
-	}
-	footer a:active,
-	.post a:active {
-		background-color: rgba(var(--t-t1), 0.1) !important;
-	}
-	footer a:hover,
-	.post a:hover {
-		background-color: rgba(var(--t-t1), 0.2);
-	}
-	footer .disabled,
-	.wait {
-		opacity: 0.6;
-		pointer-events: none;
-	}
-
-	.list {
-		font-size: 16px;
-		line-height: 24px;
-	}
-
-	comment {
-		display: block;
-		margin-bottom: 50px;
-	}
-	comment name {
-		display: block;
-		font-weight: bolder;
-		font-size: 18px;
-		color: rgba(var(--t-t1), 0.8);
-	}
-	comment info {
-		display: block;
-		color: rgba(var(--t-c1), 0.6);
-	}
-
-	comment span {
-		display: block;
-		white-space: pre-wrap;
-		overflow: hidden;
-	}
-	comment span a {
-		user-select: auto !important;
-	}
-	comment .zoltraak {
-		margin-left: 5px;
-		color: rgba(var(--t-c1), 1);
-		text-decoration: underline;
-		cursor: pointer;
-		user-select: none;
-	}
-
-	footer .policy,
-	comment .unfold {
-		color: rgba(var(--t-c1), 1);
-		text-decoration: underline;
-		cursor: pointer;
-		user-select: none;
-	}
-	comment .op:after {
-		content: '👑';
-		margin-left: 5px;
-		font-size: 18px;
-		color: rgba(var(--t-c2), 0.8);
-		pointer-events: none;
-	}
-	canvas {
-		margin-left: 5px;
-		border: 1px solid rgba(var(--t-t1), 0.4);
-		border-radius: 5px;
-		cursor: help;
-	}
-
-	@media screen and (max-width: 850px)  {
-		.post {
-			width: 100%;
-		}
-		footer span {
-			display: none;
-		}
-		textarea {
-			width: 30%;
-		}
-	}
 
 </style>
 
@@ -179,25 +46,29 @@
 		</para>
 
 		<para>
+			<h3>留言</h3>
+			<hr />
 			<div class="post" >
-				<textarea autocomplete="off" maxlength="200" class="tbox" ></textarea>
-				<mat></mat>
-				<mat></mat>
-				<mat></mat>
-				<textarea autocomplete="off" placeholder="昵称" maxlength="16" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
-				<a onclick="env.f.submit()" style="float: right;" >留言</a>
-				<mat></mat>
-				<mat></mat>
-				<mat></mat>
-				<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
-				<canvas width="80px" height="28px" onclick="env.f.challenge.new()" ></canvas>
+				<div class="user" data-icon="" ></div>
+				<div class="ui" >
+					<textarea autocomplete="off" maxlength="200" class="tbox" ></textarea>
+					<mat></mat>
+					<mat></mat>
+					<mat></mat>
+					<textarea autocomplete="off" placeholder="昵称" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
+					<a onclick="env.f.submit()" style="float: right;" >留言</a>
+					<mat></mat>
+					<mat></mat>
+					<mat></mat>
+					<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
+					<canvas width="80px" height="28px" onclick="env.f.challenge.new()" ></canvas>
+				</div>
 			</div>
 
+			共 <span id="_1" >0</span> 留言
+			<hr />
 			<div class="list" ><span>hemiyo danto, hoer semila oomo.</span><br /><br class="f-1" /></div>
-			<footer>
-				<a onclick="env.f.page(-1)" class="disabled" >上一页</a><a onclick="env.f.page(1)" class="disabled" >下一页</a><a onclick="env.f.init()" >刷新</a>
-				<span>第 <span id="_1" >0</span> 页 | 共 <span id="_2" >0</span> 条留言
-			</footer>
+			<footer></footer>
 		</para>
 	</div>
 

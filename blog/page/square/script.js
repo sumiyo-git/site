@@ -84,6 +84,7 @@ env.f.init = function() {
 			env.d.pn = Math.ceil(env.d.cn / 5)
 			document.getElementById('_1').innerHTML = env.d.cn
 
+			if (env.d.pn > 1) env.f.pagination(1)
 			env.f.get(1)
 		})
 		.catch(err => {env.f.err(err)})
@@ -128,74 +129,44 @@ env.f.load = function() {
 
 			com.innerHTML = `
 <div class="user" data-icon="` + env.f.user(null, d[i].name.replace(/\n/g, '')) + `" ></div>
-<div class="body" >
-	<name>` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <info>` + d[i].id.substring(0, 16) + `</info></name>
-	<div>` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
+<div class="content" >
+	<div class="comment-header" >` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <span>` + d[i].id.substring(0, 16) + `</span></div>
+	<div class="comment-body" >` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
+	<div class="comment-footer" ><a onclick="env.f.reply()" >回复</a> | </div>
 </div>
 `
-
-
 			e.appendChild(com)
 
-		var span = com.querySelector('.body div')
+		var span = com.querySelector('.comment-body')
+		var header = com.querySelector('.comment-header')
+		var footer = com.querySelector('.comment-footer')
+
 		if (span.offsetHeight>145) {
 			span.setAttribute('style', 'height: 145px')
 			var unfold = document.createElement('a')
 				unfold.innerHTML = '[展开]'
 				unfold.setAttribute('class', 'unfold')
-				unfold.setAttribute('onclick', "this.parentNode.querySelector('div').removeAttribute('style'); this.remove()")
-				span.parentNode.appendChild(unfold)
+				unfold.setAttribute('onclick', "this.parentNode.querySelector('.comment-body').removeAttribute('style'); this.remove()")
+				span.parentNode.insertBefore(unfold, footer)
 		}
 
 
 
+		var a = document.createElement('a')
+			a.innerHTML = '删除'
+			a.setAttribute('title', '删除这条留言')
+			a.setAttribute('onclick', 'env.f.zoltraak("' + env.d.db['results'][i]['id'] + '")')
+			footer.appendChild(a)
 
-
-/*
-		var span = document.createElement('comment')
-			e.appendChild(span)
-
-		var icon = document.createElement('div')
-			icon.setAttribute('class', 'user')
-			span.appendChild(icon)
-			env.f.user(icon, d[i].name.replace(/\n/g, ''))
-
-		var name = document.createElement('name')
-			name.innerText = d[i].name.replace(/\n/g, '') + ':  '
-			span.appendChild(name)
-
-		var cont = document.createElement('span')
-			cont.innerHTML = d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')
-			span.appendChild(cont)
-
-		if (cont.offsetHeight>145) {
-			cont.setAttribute('style', 'height: 145px')
-			var unfold = document.createElement('a')
-				unfold.innerHTML = '[展开]'
-				unfold.setAttribute('class', 'unfold')
-				unfold.setAttribute('onclick', "this.parentNode.querySelector('span').removeAttribute('style'); this.remove()")
-				span.appendChild(unfold)
-		}
-
-		var info = document.createElement('info')
-			info.innerText = '[' + d[i].id.substring(0, 16) + ']'
-			span.appendChild(info)
-
-		if (d[i].op == '0') {
-			if (parseInt(d[i].id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 > parseInt(env.f.time())) {
-				var a = document.createElement('a')
-					a.innerHTML = '[删除]'
-					a.setAttribute('class', 'zoltraak')
-					a.setAttribute('onclick', 'env.f.zoltraak("' + env.d.db['results'][i]['id'] + '")')
-					info.appendChild(a)
-			}
+		if (parseInt(d[i].id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
+			a.setAttribute('title', '嗯？ 竟然删不掉')
+			a.setAttribute('style', 'cursor: not-allowed;')
+			a.removeAttribute('onclick')
 		}
 
 		if (d[i].op == '1') {
-			name.setAttribute('class', 'op')
+			header.setAttribute('class', 'comment-header op')
 		}
-
-*/
 	}
 }
 
@@ -297,7 +268,7 @@ env.f.debug = function() {
 	env.d.db = {
 		"results": [
 		{
-			"id": "2024-01-02 00:00:00",
+			"id": "2025-01-01 00:00:00",
 			"op": "0",
 			"name": "user",
 			"content": "这是一条普通的留言，\nhttps://www.baidu.com/"
@@ -408,9 +379,12 @@ env.f.pagination = function(n) {
 
 }
 
+env.f.reply = function() {
+	env.f.connect("env.f.root.prompt('回复功能还没有完成哦', 3000)")
+}
 
 
-env.f.pagination(1)
+
 env.f.challenge.new()
 env.f.init()
 

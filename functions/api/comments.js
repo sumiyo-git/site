@@ -33,7 +33,7 @@
 		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
 		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
 
-		await context.env.MetaDB.prepare('INSERT INTO pool (id, op, name, content) VALUES (?, ?, ?, ?)').bind(id, '0', body.name.replace(/\n/g, ''), body.content).first()
+		await context.env.MetaDB.prepare('INSERT INTO pool (id, op, name, content, reply) VALUES (?, ?, ?, ?)').bind(id, '0', body.name.replace(/\n/g, ''), body.content, '[]').first()
 		await context.env.MetaDB.prepare('UPDATE root set data=data+1 where name="comment"').first()
 
 		r.success = true
@@ -51,10 +51,6 @@
 		r = await context.env.MetaDB.prepare('SELECT * from root where name="comment"').all()
 		r.msg = null
 	}
-
-
-
-	return Response.json(r)
 }
 
 

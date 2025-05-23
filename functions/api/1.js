@@ -68,22 +68,24 @@
 	// 获取留言总数
 	if (m == "6") {
 		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		r = JSON.parse(r.results[0].reply.replace(/'/g, '\"'))
+		r = r.results[0].reply.split('⧯')
 	}
 
 	// 获取留言总数
 	if (m == "7") {
 		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		b = JSON.parse(r.results[0].reply.replace(/'/g, '\"'))
+		r = r.results[0].reply.split('⧯')
 		r = b.length
 	}
 
 	// 获取留言总数
 	if (m == "8") {
 		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		b = JSON.parse(r.results[0].reply.replace(/'/g, '\"'))
-		r = eval(r.results[0].reply)[0].id
+		r = r.results[0].reply.split('⧯')
+		r = b[1]
 	}
+
+
 
 	return Response.json(r)
 }

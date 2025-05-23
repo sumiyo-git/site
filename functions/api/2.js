@@ -59,7 +59,7 @@
 	if (m == "4") {
 		if (body.content.length > 500 || body.name.length > 20) {return Response.json(r)}
 
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id = ?').bind(body.id).first()
+		r = await context.env.MetaDB.prepare('SELECT * from pool where id = "?"').bind(body.id).first()
 		r.success = true
 		r.msg = {reply: eval(r.results[0].reply)}
 	}
@@ -68,7 +68,7 @@
 	if (m == "5") {
 		if (body.content.length > 500 || body.name.length > 20) {return Response.json(r)}
 
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id = ?').bind(body.id).first()
+		r = await context.env.MetaDB.prepare('SELECT * from pool where id = "?"').bind(body.id).first()
 		r.success = true
 		r.msg = {reply: eval(r.results[0].reply)[0].id}
 	}

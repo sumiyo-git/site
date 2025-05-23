@@ -57,10 +57,10 @@
 
 	// 获取留言总数
 	if (m == "4") {
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id = "?"').bind(body.id).first()
-		r.success = true
-		r.msg = r.results[0].reply
+		if (body.content.length > 500 || body.name.length > 20) {return Response.json(r)}
+		r.msg = body.id
 	}
+
 
 	return Response.json(r)
 }

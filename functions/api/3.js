@@ -52,15 +52,25 @@
 		r.msg = null
 	}
 
-	// 获取留言总数
-	if (m == "4") {
-		if (body.content.length > 500 || body.name.length > 20) {return Response.json(r)}
 
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id = "?"').bind(body.id).all()
-		r.success = true
-		r.msg = typeof r.results[0].reply
+
+
+
+	if (m == "4") {
+		r.msg = body.id
 	}
 
+	// 获取留言总数
+	if (m == "5") {
+		r = await context.env.MetaDB.prepare('SELECT * from pool where id="?"').bind(body.id).all()
+		r = r.results[0].reply
+	}
+
+	// 获取留言总数
+	if (m == "6") {
+		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
+		r = typeof r.results[0].reply
+	}
 
 	return Response.json(r)
 }

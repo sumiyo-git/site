@@ -114,9 +114,9 @@ env.f.analysis = function(str) {
 
 
 
-	if (cmd[0] == 'help') {
+	if (cmd[0] == 'help' || cmd[0] == '?') {
 		env.f.write(`---------------------- <span class="a2" >[ <span class="a1" >help</span> ]</span> ----------------------------
-help									查看帮助信息
+help / ?								查看帮助信息
 cls									清除控制台
 login "密码"							登录
 login "旧密码" "新密码"					修改密码
@@ -131,6 +131,7 @@ file delete							删除文件
 select name from sqlite_schema where type='table' and name != '_cf_KV' ORDER BY name		查询所有表名
 select * from 表名																	查询指定表的全部数据
 select * from 表名 where 列名='数据'													查询指定表指定行的数据
+select * from pragma_table_xinfo('表名') as tblInfo										查询指定表的列信息
 update 表名 set 列名='新数据' where 列名='数据'											修改指定位置的数据
 alter table 旧表名 rename to 新表名													重命名表
 alter table 表名 rename column 旧列名 to 新列名											重命名列

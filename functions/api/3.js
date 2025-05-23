@@ -56,7 +56,7 @@
 	if (m == "4") {
 		if (body.content.length > 500 || body.name.length > 20) {return Response.json(r)}
 
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id = "?"').bind(body.id).first()
+		r = await context.env.MetaDB.prepare('SELECT * from pool where id = "?"').bind(body.id).all()
 		r.success = true
 		r.msg = typeof r.results[0].reply
 	}

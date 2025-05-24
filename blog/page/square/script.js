@@ -175,7 +175,7 @@ env.f.load = function() {
 				var j = JSON.parse(l[i2])
 				var r = document.createElement('div')
 					r.innerHTML = `
-<div class="comment-header" >` + j.name.replace(/</g, "&lt;").replace(/>/g, "&gt;") + ` <span>` + j.id.substring(0, 16) + `</span> <a title="删除这条回复" onclick="env.f.zoltraak('` + j.id + `', ` + (i2 + 1) + `)" >删除</a></div>
+<div class="comment-header" >` + j.name.replace(/</g, "&lt;").replace(/>/g, "&gt;") + ` <span>` + j.id.substring(0, 16) + `</span> <a title="删除这条回复" onclick="env.f.zoltraak('` + d[i].id + `', ` + (i2 + 1) + `)" >删除</a></div>
 <div class="comment-body" >` + j.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").split("‍").join("\n").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
 `
 					r.setAttribute('class', 'reply')
@@ -472,5 +472,4 @@ env.f.reply = function(e, id) {
 
 env.f.challenge.new()
 env.f.init()
-env.f.debug()
 

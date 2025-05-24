@@ -35,7 +35,7 @@
 			l.pop()
 
 			l.splice(body.at - 1, 1)
-			if (r == "null") {
+			if (l[0] == undefined) {
 				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind('null', body.id).all()
 			} else {
 				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()

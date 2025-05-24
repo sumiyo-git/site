@@ -75,26 +75,52 @@
 
 	// 获取留言总数
 	if (m == "7") {
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		r = r.results[0].reply.split('​')
-		r.splice(-1, 1)
-		r = r.length
+//		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
+
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var l = reply.split('​')
+		l.pop()
+
+		if (l.length > 10) {
+			r.msg = 'exceeding the maximum number of replies'
+			return Response.json(r)
+		}
+
+		r = reply + JSON.stringify({id: body.id, op: '0', name: body.name, content: body.content}) + '​'
 	}
+
 
 	// 获取留言总数
 	if (m == "8") {
-		r = {id: body.id, op: '0', name: body.name, content: body.content}
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var l = reply.split('​')
+		l.pop()
+
+		if (l.length > 10) {
+			r.msg = 'exceeding the maximum number of replies'
+			return Response.json(r)
+		}
+
+		r = reply + JSON.stringify({id: body.id, op: '0', name: body.name, content: body.content}) + '​'
 	}
 
 	// 获取留言总数
 	if (m == "9") {
-		r = JSON.stringify({id: body.id, op: '0', name: body.name, content: body.content})
+
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var l = reply.split('​')
+		l.pop()
+
+		r = JSON.parse(l[0])
 	}
 
 	// 获取留言总数
 	if (m == "10") {
-		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		r = r + JSON.stringify({id: body.id, op: '0', name: body.name, content: body.content}) + '​'
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var l = reply.split('​')
+		l.pop()
+
+		r = JSON.parse(l[0].content)
 	}
 
 	return Response.json(r)

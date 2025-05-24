@@ -77,7 +77,7 @@
 	if (m == "7") {
 //		r = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
 
-		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first().reply
 		var l = reply.split('​')
 		l.pop()
 
@@ -92,7 +92,7 @@
 
 	// 获取留言总数
 	if (m == "8") {
-		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first().reply
 		var l = reply.split('​')
 		l.pop()
 
@@ -106,15 +106,30 @@
 
 	// 获取留言总数
 	if (m == "9") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first().reply
+		var l = reply.split('​')
+		l.pop()
+
+		r = l[0]
 	}
 
 	// 获取留言总数
 	if (m == "10") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		r = typeof r
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first().reply
+		var l = reply.split('​')
+		l.pop()
+
+		r = JSON.parse(jl[0])
 	}
 
+	// 获取留言总数
+	if (m == "11") {
+		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first().reply
+		var l = reply.split('​')
+		l.pop()
+
+		r = typeof JSON.parse(jl[0])
+	}
 	return Response.json(r)
 }
 

@@ -133,6 +133,7 @@ env.f.load = function() {
 	<div class="comment-header" >` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <span>` + d[i].id.substring(0, 16) + `</span></div>
 	<div class="comment-body" >` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
 	<div class="comment-footer" ><a onclick="env.f.reply()" >回复</a> | </div>
+	<div class="comment-reply" ></div>
 </div>
 `
 			e.appendChild(com)
@@ -140,6 +141,12 @@ env.f.load = function() {
 		var span = com.querySelector('.comment-body')
 		var header = com.querySelector('.comment-header')
 		var footer = com.querySelector('.comment-footer')
+		var reply= com.querySelector('.comment-reply')
+
+		if (d[i].reply != "null") {
+			a = d[i].reply
+			reply.innerHTML = a
+		}
 
 		if (span.offsetHeight>145) {
 			span.setAttribute('style', 'height: 145px')
@@ -150,12 +157,10 @@ env.f.load = function() {
 				span.parentNode.insertBefore(unfold, footer)
 		}
 
-
-
 		var a = document.createElement('a')
 			a.innerHTML = '删除'
 			a.setAttribute('title', '删除这条留言')
-			a.setAttribute('onclick', 'env.f.zoltraak("' + env.d.db['results'][i]['id'] + '")')
+			a.setAttribute('onclick', 'env.f.zoltraak("' + env.d.db['results'][i]['id'] + '", -1)')
 			footer.appendChild(a)
 
 		if (parseInt(d[i].id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
@@ -209,6 +214,7 @@ env.f.submit = function() {
 		body: JSON.stringify({
 			"name": n,
 			"content": c,
+			"isreply": false
 		})
 	})
 	.then(response => {
@@ -228,7 +234,7 @@ env.f.submit = function() {
 	.catch(err => {env.f.err(err)})
 }
 
-env.f.zoltraak = function(id) {
+env.f.zoltraak = function(id, at) {
 	// 删除留言
 	env.f.wait()
 	fetch(`https://${env.d.domain}/api/comments`, {
@@ -238,6 +244,7 @@ env.f.zoltraak = function(id) {
 		},
 		body: JSON.stringify({
 			"id": id,
+			"at": at,
 		})
 	})
 	.then(response => {
@@ -268,7 +275,7 @@ env.f.debug = function() {
 	env.d.db = {
 		"results": [
 		{
-			"id": "2025-01-01 00:00:00",
+			"id": "2025-05-20 00:00:00",
 			"op": "0",
 			"name": "user",
 			"content": "这是一条普通的留言，\nhttps://www.baidu.com/"

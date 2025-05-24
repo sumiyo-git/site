@@ -158,6 +158,11 @@ comment .comment-footer a {
 	cursor: pointer;
 }
 
+comment .comment-reply {
+	width: calc(100% - 45px);
+	margin-top: 20px;
+	margin-left: 45px;
+}
 
 comment .unfold {
 	color: rgba(var(--t-c1), 1);

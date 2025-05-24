@@ -107,10 +107,10 @@
 		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
 		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 
-		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-			r.msg = "out of the deadline"
-			return Response.json(r)
-		}
+//		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
+//			r.msg = "out of the deadline"
+//			return Response.json(r)
+//		}
 
 		if (body.at == "-1") {
 			await context.env.MetaDB.prepare('DELETE FROM pool WHERE op = 0 and id = ?').bind(body.id).first()
@@ -138,7 +138,7 @@
 
 	// 删除留言
 	if (m == "10") {
-		if (body.id.length != 19 || isNaN(Number(body.at))) {return Response.json(r)}
+		if (body.id.length != 19 || typeof body.at == 'number') {return Response.json(r)}
 
 		var now = new Date()
 		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
@@ -146,12 +146,12 @@
 		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
 		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 
-		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-			r.msg = "out of the deadline"
-			return Response.json(r)
-		}
+//		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
+//			r.msg = "out of the deadline"
+//			return Response.json(r)
+//		}
 
-		if (body.at == "-1") {
+		if (body.at == -1) {
 			await context.env.MetaDB.prepare('DELETE FROM pool WHERE op = 0 and id = ?').bind(body.id).first()
 			await context.env.MetaDB.prepare('UPDATE root set data=data-1 where name="comment"').first()
 

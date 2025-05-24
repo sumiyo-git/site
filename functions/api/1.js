@@ -162,7 +162,7 @@
 			r = r.reply
 			var l = r.split('​')
 			l.pop()
-			l.splice(index, body.at)
+			l.splice(body.at, 1)
 
 			r = l
 		}
@@ -194,7 +194,7 @@
 			r = r.reply
 			var l = r.split('​')
 			l.pop()
-			l.splice(index, body.at - 1)
+			l.splice(body.at - 1, 1)
 
 			r = l
 		}
@@ -226,7 +226,7 @@
 			r = r.reply
 			var l = r.split('​')
 			l.pop()
-			l.splice(index, body.at + 1)
+			l.splice(body.at + 1, 1)
 
 			r = l
 		}

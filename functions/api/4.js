@@ -41,7 +41,6 @@
 				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()
 			}
 			r.success = true
-			r.msg = {delete_reply: body.id + '-' + body.at}
 		}
 	}
 

@@ -31,17 +31,6 @@
 			// 回复
 			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 			r = r.reply
-			var l = r.split('​')
-			l.pop()
-
-			l.splice(body.at - 1, 1)
-			if (r == "null") {
-				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind('null', body.id).all()
-			} else {
-				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()
-			}
-			r.success = true
-			r.msg = {delete_reply: body.id + '-' + body.at}
 		}
 	}
 

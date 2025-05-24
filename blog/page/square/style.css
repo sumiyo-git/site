@@ -142,8 +142,8 @@ comment .comment-header span {
 
 
 comment .comment-body {
-	white-space: pre-wrap;
 	overflow: hidden;
+	white-space: pre-wrap;
 	user-select: text;
 }
 
@@ -151,7 +151,7 @@ comment .comment-body a {
 	user-select: text !important;
 }
 
-
+comment .comment-reply .comment-header a,
 comment .comment-footer a {
 	color: rgba(var(--t-t1), 0.4);
 	font-size: 16px;
@@ -162,6 +162,10 @@ comment .comment-reply {
 	width: calc(100% - 45px);
 	margin-top: 20px;
 	margin-left: 45px;
+}
+
+comment .comment-reply .reply {
+	margin-bottom: 30px;
 }
 
 comment .unfold {

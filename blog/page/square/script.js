@@ -132,7 +132,7 @@ env.f.load = function() {
 <div class="content" >
 	<div class="comment-header" >` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <span>` + d[i].id.substring(0, 16) + `</span></div>
 	<div class="comment-body" >` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
-	<div class="comment-footer" ><a onclick="env.f.reply()" >回复</a> | </div>
+	<div class="comment-footer" ><a onclick="env.f.reply('` + d[i].id + `')" >回复</a> | </div>
 	<div class="comment-reply" ></div>
 </div>
 `
@@ -142,11 +142,6 @@ env.f.load = function() {
 		var header = com.querySelector('.comment-header')
 		var footer = com.querySelector('.comment-footer')
 		var reply= com.querySelector('.comment-reply')
-
-		if (d[i].reply != "null") {
-			a = d[i].reply
-			reply.innerHTML = a
-		}
 
 		if (span.offsetHeight>145) {
 			span.setAttribute('style', 'height: 145px')
@@ -172,6 +167,42 @@ env.f.load = function() {
 		if (d[i].op == '1') {
 			header.setAttribute('class', 'comment-header op')
 		}
+
+		if (d[i].reply != "null") {
+			var l = d[i].reply.replace(/\n/g, "‍").split('​')
+			l.pop()
+			for (var i2 = 0; i2 < l.length; i2++) {
+				var j = JSON.parse(l[i2])
+				var r = document.createElement('div')
+					r.innerHTML = `
+<div class="comment-header" >` + j.name.replace(/</g, "&lt;").replace(/>/g, "&gt;") + ` <span>` + j.id.substring(0, 16) + `</span> <a title="删除这条回复" onclick="env.f.zoltraak('` + j.id + `', ` + (i2 + 1) + `)" >删除</a></div>
+<div class="comment-body" >` + j.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").split("‍").join("\n").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
+`
+					r.setAttribute('class', 'reply')
+					reply.appendChild(r)
+
+				var span = r.querySelector('.comment-body')
+				var header = r.querySelector('.comment-header')
+
+				if (span.offsetHeight>70) {
+					span.setAttribute('style', 'height: 70px')
+					var unfold = document.createElement('a')
+						unfold.innerHTML = '[展开]'
+						unfold.setAttribute('class', 'unfold')
+						unfold.setAttribute('onclick', "this.parentNode.querySelector('.comment-body').removeAttribute('style'); this.remove()")
+						r.appendChild(unfold)
+				}
+
+				if (j.op == '1') {
+					header.setAttribute('class', 'comment-header op')
+				}
+
+				if (parseInt(j.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
+					header.querySelector('a').remove()
+				}
+
+			}
+		}
 	}
 }
 
@@ -183,13 +214,17 @@ env.f.submit = function() {
 
 	var n = e1.value.replace(/\n/g, '')
 	var c = e2.value
-	var ban = []
+	var ban = ["​", "‍"]
 
 	if (!env.f.challenge.try()) {
 		env.f.connect("env.f.root.prompt('验证码输错了哦', 3000)")
 		return
 	}
 	if (ban.some(item => n.includes(item))) {
+		env.f.connect("env.f.root.prompt('检测到非法字符', 3000)")
+		return
+	}
+	if (ban.some(item => c.includes(item))) {
 		env.f.connect("env.f.root.prompt('检测到非法字符', 3000)")
 		return
 	}
@@ -214,7 +249,7 @@ env.f.submit = function() {
 		body: JSON.stringify({
 			"name": n,
 			"content": c,
-			"isreply": false
+			"isreply": /^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(c.split('\n')[0])
 		})
 	})
 	.then(response => {
@@ -275,16 +310,18 @@ env.f.debug = function() {
 	env.d.db = {
 		"results": [
 		{
-			"id": "2025-05-20 00:00:00",
+			"id": "2025-01-01 00:00:00",
 			"op": "0",
 			"name": "user",
-			"content": "这是一条普通的留言，\nhttps://www.baidu.com/"
+			"content": "这是一条普通的留言，\nhttps://www.baidu.com/",
+			"reply": '{"id":"2025-01-01 00:00:00","op":"1","name":"debug","content":"测试\n1\n2\n3\n4\n5\n6"}​{"id":"2025-01-01 00:00:00","op":"0","name":"debug","content":"2"}​'
 		},
 		{
 			"id": "2024-01-01 00:00:00",
 			"op": "1",
 			"name": "sumiyo",
-			"content": "测试\n1\n2\n3\n4\n5\n6\n7"
+			"content": "测试\n1\n2\n3\n4\n5\n6\n7",
+			"reply": "null"
 		}
 		],
 		"msg": {
@@ -355,7 +392,6 @@ env.f.pagination = function(n) {
 	var e = env.e.footer
 	e.innerHTML = ''
 
-
 	var a = document.createElement('a')
 		a.innerHTML = ''
 		a.setAttribute('onclick', 'env.f.page(-1)')
@@ -386,8 +422,16 @@ env.f.pagination = function(n) {
 
 }
 
-env.f.reply = function() {
-	env.f.connect("env.f.root.prompt('回复功能还没有完成哦', 3000)")
+env.f.reply = function(id) {
+	// 回复按钮
+	var e = env.e.content
+	e.value = 'REPLY: ' + id + '\n'
+	e.setAttribute('maxlength', 100)
+
+	window.scrollTo({
+ 		 top: e.offsetTop - 80,
+ 		 behavior: 'smooth'
+	})
 }
 
 

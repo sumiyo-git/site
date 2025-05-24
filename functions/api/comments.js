@@ -35,7 +35,15 @@
 			l.pop()
 			l.splice(body.at - 1, 1)
 
-			r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()
+			if (l[body.at - 1].includes('"op":"0"')) {
+				r = {success: false, meta: {}, results: [], msg: "no access"}
+				return Response.json(r)
+			}
+			if (l[0] == undefined) {
+				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind('null', body.id).all()
+			} else {
+				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()
+			}
 			r.success = true
 			r.msg = {delete_reply: body.id + '-' + body.at}
 		}
@@ -52,16 +60,16 @@
 
 		if (body.isreply == false) {
 			// 留言
-			if (body.content.length > 200 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
+			if (body.content.length > 200 || body.name.length > 20 || (body.name + body.content).includes('​') || (body.name + body.content).includes('‍')) {return Response.json(r)}
 
-			await context.env.MetaDB.prepare('INSERT INTO pool (id, op, name, content) VALUES (?, ?, ?, ?)').bind(id, '0', body.name.replace(/\n/g, ''), body.content).first()
+			await context.env.MetaDB.prepare('INSERT INTO pool (id, op, name, content, reply) VALUES (?, ?, ?, ?, ?)').bind(id, '0', body.name.replace(/\n/g, ''), body.content, 'null').first()
 			await context.env.MetaDB.prepare('UPDATE root set data=data+1 where name="comment"').first()
 
 			r.success = true
 			r.msg = {add: id}
 		} else {
 			// 回复
-			if (body.content.length > 100 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
+			if (body.content.length > 100 || body.name.length > 20 || (body.name + body.content).includes('​') || (body.name + body.content).includes('‍')) {return Response.json(r)}
 
 			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 			r = r.reply
@@ -72,7 +80,7 @@
 				return Response.json(r)
 			}
 
-			r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(r + JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
+			r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind((r || '') + JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
 			r.success = true
 			r.msg = {add_reply: id}
 		}

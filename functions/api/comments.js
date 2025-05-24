@@ -33,13 +33,14 @@
 			r = r.reply
 			var l = r.split('​')
 			l.pop()
-			l.splice(body.at - 1, 1)
 
 			if (l[body.at - 1].includes('"op":"0"')) {
 				r = {success: false, meta: {}, results: [], msg: "no access"}
 				return Response.json(r)
 			}
-			if (l[0] == undefined) {
+
+			l.splice(body.at - 1, 1)
+			if (r == "null") {
 				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind('null', body.id).all()
 			} else {
 				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()
@@ -80,7 +81,11 @@
 				return Response.json(r)
 			}
 
-			r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind((r || '') + JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
+			if (r == "null") {
+				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
+			} else {
+				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(r + JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
+			}
 			r.success = true
 			r.msg = {add_reply: id}
 		}

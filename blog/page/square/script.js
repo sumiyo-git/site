@@ -241,32 +241,64 @@ env.f.submit = function() {
 	if (/^[ \t]+$/.test(n)) {return}
 
 	env.f.wait()
-	fetch(`https://${env.d.domain}/api/comments`, {
-		method: "POST",
-		headers: {
-			"Token": 1
-		},
-		body: JSON.stringify({
-			"name": n,
-			"content": c,
-			"isreply": /^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(c.split('\n')[0])
+	if (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(c.split('\n')[0])) {
+		fetch(`https://${env.d.domain}/api/comments`, {
+			method: "POST",
+			headers: {
+				"Token": 1
+			},
+			body: JSON.stringify({
+				"id": c.split('\n')[0].slice(7, 26),
+				"name": n,
+				"content": c.slice(26),
+				"isreply": true
+			})
 		})
-	})
-	.then(response => {
-		if (response.ok) {
-			e2.value = ''
-			e2.removeAttribute('style')
-			env.f.challenge.new()
+		.then(response => {
+			if (response.ok) {
+				e2.value = ''
+				e2.removeAttribute('style')
+				env.f.challenge.new()
 
-			env.d.cn ++
-			env.d.pn = Math.ceil(env.d.cn / 5)
-			document.getElementById('_1').innerHTML = env.d.cn
+				env.d.cn ++
+				env.d.pn = Math.ceil(env.d.cn / 5)
+				document.getElementById('_1').innerHTML = env.d.cn
 
-			env.f.get(env.d.p)
-			env.f.connect("env.f.root.prompt('留言成功', 5000)")
-		}
-	})
-	.catch(err => {env.f.err(err)})
+				env.f.get(env.d.p)
+				env.f.connect("env.f.root.prompt('留言成功', 5000)")
+			}
+		})
+		.catch(err => {env.f.err(err)})
+	} else {
+		fetch(`https://${env.d.domain}/api/comments`, {
+			method: "POST",
+			headers: {
+				"Token": 1
+			},
+			body: JSON.stringify({
+				"name": n,
+				"content": c,
+				"isreply": false
+			})
+		})
+		.then(response => {
+			if (response.ok) {
+				e2.value = ''
+				e2.removeAttribute('style')
+				env.f.challenge.new()
+
+				env.d.cn ++
+				env.d.pn = Math.ceil(env.d.cn / 5)
+				document.getElementById('_1').innerHTML = env.d.cn
+
+				env.f.get(env.d.p)
+				env.f.connect("env.f.root.prompt('留言成功', 5000)")
+			}
+		})
+		.catch(err => {env.f.err(err)})
+	}
+
+
 }
 
 env.f.zoltraak = function(id, at) {
@@ -288,11 +320,13 @@ env.f.zoltraak = function(id, at) {
 		}
 	})
 	.then(json => {
-		env.d.cn --
-		env.d.pn = Math.ceil(env.d.cn / 5)
-		document.getElementById('_1').innerHTML = env.d.cn
+		if (at == -1) {
+			env.d.cn --
+			env.d.pn = Math.ceil(env.d.cn / 5)
+			document.getElementById('_1').innerHTML = env.d.cn
 
-		env.f.get(1)
+			env.f.get(1)
+		}
 	})
 	.catch(err => {env.f.err(err)})
 }
@@ -426,7 +460,7 @@ env.f.reply = function(id) {
 	// 回复按钮
 	var e = env.e.content
 	e.value = 'REPLY: ' + id + '\n'
-	e.setAttribute('maxlength', 100)
+	e.setAttribute('maxlength', 126)
 
 	window.scrollTo({
  		 top: e.offsetTop - 80,

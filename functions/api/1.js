@@ -73,11 +73,12 @@
 		r = r.length
 	}
 
-
+	// 添加回复
 	if (m == "7") {
+		if (body.content.length > 100 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
+
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		r = r.reply
-
 		var l = r.split('​')
 		l.pop()
 
@@ -98,88 +99,80 @@
 		r.msg = {add_reply: id}
 	}
 
-
+	// 删除留言
 	if (m == "8") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		r = r.reply
-
-		var l = r.split('​')
-		l.pop()
-
-		// 生成一个 id
 		var now = new Date()
 		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
 		var formatter = new Intl.DateTimeFormat('en-US', options)
 		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
+		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 
-
-		var n = {id: id, op: '0', name: body.name, content: body.content}
-
-		r = n
-	}
-
-	if (m == "9") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		r = r.reply
-
-		var l = r.split('​')
-		l.pop()
-
-		// 生成一个 id
-		var now = new Date()
-		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-		var formatter = new Intl.DateTimeFormat('en-US', options)
-		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
-
-
-		var n = JSON.stringify({id: id, op: '0', name: body.name, content: body.content})
-
-		r = n
-	}
-
-	if (m == "10") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		r = r.reply
-
-		var l = r.split('​')
-		l.pop()
-
-		var n = JSON.stringify({id: '1', op: '0', name: body.name, content: body.content})
-
-		r = n
-	}
-
-	if (m == "11") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		r = r.reply
-
-		var l = r.split('​')
-		l.pop()
-
-		var n = r + JSON.stringify({id: '1', op: '0', name: body.name, content: body.content}) + '​'
-
-		r = n
-	}
-
-
-
-	if (m == "15") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		var reply = raw.reply
-
-		l = reply.split('​')
-		l.pop()
-
-		if (l.length > 10) {
-			r.msg = 'exceeding the maximum number of replies'
+		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
+			r.msg = "out of the deadline"
 			return Response.json(r)
 		}
 
-		r = reply + JSON.stringify({id: body.id, op: '0', name: body.name, content: body.content}) + '​'
-	
+		if (body.at == "-1") {
+			await context.env.MetaDB.prepare('DELETE FROM pool WHERE op = 0 and id = ?').bind(body.id).first()
+			await context.env.MetaDB.prepare('UPDATE root set data=data-1 where name="comment"').first()
+
+			r.success = true
+			r.msg = {delete: id}
+		} else {
+			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+			r = r.reply
+			var l = r.split('​')
+			l.pop()
+
+			r = l
+		}
 	}
+
+
+
+	// 删除留言
+	if (m == "9") {
+		r = typeof body.at
+	}
+
+
+	// 删除留言
+	if (m == "10") {
+		if (body.id.length != 19 || isNaN(Number(body.at))) {return Response.json(r)}
+
+		var now = new Date()
+		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
+		var formatter = new Intl.DateTimeFormat('en-US', options)
+		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
+
+		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
+			r.msg = "out of the deadline"
+			return Response.json(r)
+		}
+
+		if (body.at == "-1") {
+			await context.env.MetaDB.prepare('DELETE FROM pool WHERE op = 0 and id = ?').bind(body.id).first()
+			await context.env.MetaDB.prepare('UPDATE root set data=data-1 where name="comment"').first()
+
+			r.success = true
+			r.msg = {delete: id}
+		} else {
+			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+			r = r.reply
+			var l = r.split('​')
+			l.pop()
+			l.splice(index, parseInt(body.at))
+
+			r = l
+		}
+	}
+
+
+
+
+
+
 	return Response.json(r)
 }
 

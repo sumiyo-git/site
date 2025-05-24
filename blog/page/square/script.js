@@ -132,7 +132,7 @@ env.f.load = function() {
 <div class="content" >
 	<div class="comment-header" >` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <span>` + d[i].id.substring(0, 16) + `</span></div>
 	<div class="comment-body" >` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
-	<div class="comment-footer" ><a onclick="env.f.reply('` + d[i].id + `')" >回复</a> | </div>
+	<div class="comment-footer" ><a onclick="env.f.reply(this, '` + d[i].id + `')" >回复</a> | </div>
 	<div class="comment-reply" ></div>
 </div>
 `
@@ -250,7 +250,7 @@ env.f.submit = function() {
 			body: JSON.stringify({
 				"id": c.split('\n')[0].slice(7, 26),
 				"name": n,
-				"content": c.slice(26),
+				"content": c.slice(27),
 				"isreply": true
 			})
 		})
@@ -260,12 +260,8 @@ env.f.submit = function() {
 				e2.removeAttribute('style')
 				env.f.challenge.new()
 
-				env.d.cn ++
-				env.d.pn = Math.ceil(env.d.cn / 5)
-				document.getElementById('_1').innerHTML = env.d.cn
-
 				env.f.get(env.d.p)
-				env.f.connect("env.f.root.prompt('留言成功', 5000)")
+				env.f.connect("env.f.root.prompt('回复成功', 5000)")
 			}
 		})
 		.catch(err => {env.f.err(err)})
@@ -456,14 +452,18 @@ env.f.pagination = function(n) {
 
 }
 
-env.f.reply = function(id) {
+env.f.reply = function(e, id) {
 	// 回复按钮
-	var e = env.e.content
-	e.value = 'REPLY: ' + id + '\n'
-	e.setAttribute('maxlength', 126)
+	if (e.parentNode.parentNode.querySelectorAll('.reply').length > 10) {
+		env.f.connect("env.f.root.prompt('已超过最大回复数', 3000)")
+		return
+	}
+	var t = env.e.content
+	t.value = 'REPLY: ' + id + '\n'
+	t.setAttribute('maxlength', 126)
 
 	window.scrollTo({
- 		 top: e.offsetTop - 80,
+ 		 top: t.offsetTop - 80,
  		 behavior: 'smooth'
 	})
 }
@@ -472,5 +472,5 @@ env.f.reply = function(id) {
 
 env.f.challenge.new()
 env.f.init()
-
+env.f.debug()
 

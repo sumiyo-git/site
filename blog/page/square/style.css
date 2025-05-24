@@ -176,9 +176,9 @@ comment .unfold {
 }
 
 comment .op:after {
-	content: '👑';
-	margin-left: 5px;
-	font-size: 18px;
+	content: '博主';
+	margin-left: 10px;
+	font-size: 16px;
 	color: rgba(var(--t-c2), 0.8);
 	pointer-events: none;
 }

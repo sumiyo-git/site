@@ -29,12 +29,7 @@
 			r.msg = {delete: id}
 		} else {
 			// 回复
-			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-			r = r.reply
-			var l = r.split('​')
-			l.pop()
-
-			r = l
+			r = body.id
 		}
 	}
 

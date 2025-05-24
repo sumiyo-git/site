@@ -30,7 +30,6 @@
 		} else {
 			// 回复
 			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-			r = r.reply
 		}
 	}
 

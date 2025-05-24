@@ -75,23 +75,57 @@
 
 	// 获取留言总数
 	if (m == "7") {
-		var raw = await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		var reply = raw.results[0].reply
+		r= await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
+		var reply = r.results[0].reply
 
 		l = reply.split('​')
 		l.pop()
 
-		if (l.length > 10) {
-			r.msg = 'exceeding the maximum number of replies'
-			return Response.json(r)
-		}
-
-		r = reply + JSON.stringify({id: body.id, op: '0', name: body.name, content: body.content}) + '​'
-	
+		r = l[0]
 	}
 
 	if (m == "8") {
-		var raw = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		r= await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
+		var reply = r.results[0].reply
+
+		r = reply
+	}
+
+	if (m == "9") {
+		r= await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
+		r = r.results[0]
+	}
+
+	if (m == "10") {
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var reply = r.reply
+
+		r = reply
+	}
+
+	if (m == "11") {
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var reply = r
+
+		r = reply
+	}
+
+	if (m == "12") {
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		var reply = r.reply
+
+		l = reply.split('​')
+		l.pop()
+
+		r = l[0]
+	}
+
+
+
+
+
+	if (m == "15") {
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		var reply = raw.reply
 
 		l = reply.split('​')

@@ -73,54 +73,81 @@
 		r = r.length
 	}
 
-	// 获取留言总数
-	if (m == "7") {
-		r= await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		var reply = r.results[0].reply
 
-		l = reply.split('​')
+	if (m == "7") {
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		r = r.reply
+
+		var l = reply.split('​')
 		l.pop()
 
 		r = l[0]
 	}
 
-	if (m == "8") {
-		r= await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		var reply = r.results[0].reply
 
-		r = reply
+	if (m == "8") {
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		r = r.reply
+
+		var l = reply.split('​')
+		l.pop()
+
+		// 生成一个 id
+		var now = new Date()
+		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
+		var formatter = new Intl.DateTimeFormat('en-US', options)
+		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
+
+
+		var n = {id: id, op: '0', name: body.name, content: body.content}
+
+		r = n
 	}
 
 	if (m == "9") {
-		r= await context.env.MetaDB.prepare('SELECT * from pool where id=?').bind(body.id).all()
-		r = r.results[0]
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		r = r.reply
+
+		var l = reply.split('​')
+		l.pop()
+
+		// 生成一个 id
+		var now = new Date()
+		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
+		var formatter = new Intl.DateTimeFormat('en-US', options)
+		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
+
+
+		var n = JSON.stringify({id: id, op: '0', name: body.name, content: body.content})
+
+		r = n
 	}
 
 	if (m == "10") {
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		var reply = r.reply
+		r = r.reply
 
-		r = reply
+		var l = reply.split('​')
+		l.pop()
+
+		var n = JSON.stringify({id: '1', op: '0', name: body.name, content: body.content})
+
+		r = n
 	}
 
 	if (m == "11") {
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		var reply = r
+		r = r.reply
 
-		r = reply
-	}
-
-	if (m == "12") {
-		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		var reply = r.reply
-
-		l = reply.split('​')
+		var l = reply.split('​')
 		l.pop()
 
-		r = l[0]
+		var n = r + JSON.stringify({id: '1', op: '0', name: body.name, content: body.content}) + '​'
+
+		r = n
 	}
-
-
 
 
 

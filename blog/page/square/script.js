@@ -60,7 +60,7 @@ env.f.wait = function() {
 env.f.err = function(str) {
 	// 抛出请求错误
 	document.querySelector('.list').innerHTML = '<span>unable to load comment pool.</span><br /><br class="f-1" />'
-	env.f.connect("env.f.root.prompt('意外的错误: <br />" + str.replace(/'/g, "&apos;") + "', -1)")
+	env.f.connect("env.f.root.prompt('错误', -1)")
 }
 
 env.f.init = function() {

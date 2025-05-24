@@ -78,7 +78,7 @@
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		r = r.reply
 
-		var l = reply.split('​')
+		var l = r.split('​')
 		l.pop()
 
 		r = l[0]
@@ -89,7 +89,7 @@
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		r = r.reply
 
-		var l = reply.split('​')
+		var l = r.split('​')
 		l.pop()
 
 		// 生成一个 id
@@ -109,7 +109,7 @@
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		r = r.reply
 
-		var l = reply.split('​')
+		var l = r.split('​')
 		l.pop()
 
 		// 生成一个 id
@@ -129,7 +129,7 @@
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		r = r.reply
 
-		var l = reply.split('​')
+		var l = r.split('​')
 		l.pop()
 
 		var n = JSON.stringify({id: '1', op: '0', name: body.name, content: body.content})
@@ -141,7 +141,7 @@
 		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 		r = r.reply
 
-		var l = reply.split('​')
+		var l = r.split('​')
 		l.pop()
 
 		var n = r + JSON.stringify({id: '1', op: '0', name: body.name, content: body.content}) + '​'

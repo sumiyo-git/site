@@ -106,21 +106,13 @@
 
 	// 获取留言总数
 	if (m == "9") {
-
-		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		var l = reply.split('​')
-		l.pop()
-
-		r = JSON.parse(l[0])
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 	}
 
 	// 获取留言总数
 	if (m == "10") {
-		var reply = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-		var l = reply.split('​')
-		l.pop()
-
-		r = JSON.parse(l[0].content)
+		r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
+		r = typeof r
 	}
 
 	return Response.json(r)

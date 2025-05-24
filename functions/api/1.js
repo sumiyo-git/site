@@ -81,7 +81,21 @@
 		var l = r.split('​')
 		l.pop()
 
-		r = l[0]
+		if (l.length > 10) {
+			r = {success: false, meta: {}, results: [], msg: "out of the maximum"}
+			return Response.json(r)
+		}
+
+		// 生成一个 id
+		var now = new Date()
+		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
+		var formatter = new Intl.DateTimeFormat('en-US', options)
+		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
+
+		r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(r + JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
+		r.success = true
+		r.msg = {add_reply: id}
 	}
 
 

@@ -2,69 +2,41 @@
 <html lang="zh">
 
 <head>
-	<title>-</title>
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="preload" as="font" href="../../src/Poppins Regular.woff2" crossorigin="anonymous" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
 	<link rel="stylesheet" type="text/css" href="../default.css">
-	<link rel="stylesheet" type="text/css" href="style.css">
 
 </head>
 
 <body>
-<script>
-	window.parent.postMessage('env.f.page.ok("' + document.title + '")', document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-	})
-
-	var music = {
-		name: 'Moon Child - 西原健一郎 & Nina Vidal',
-		src: '456041',
-		img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
-		act: {lrc: true, js: null}
-	}
-
-	window.parent.postMessage('player.f.add.ask(1, "' + music.name + '", "' + music.src + '", "' + music.img + '", ' + music.act.lrc + ', "' + music.act.js + '" )', document.domain ? '/' : '*')
-
-</script>
 <style>
-
-	.imgBox1 {
+	.ibox0 {
 		aspect-ratio: 1 / 1;
 		width: 50%;
-		display: inline-block;
-	}
-
-	.imgBox1 img {
-		vertical-align: text-top;
-		width: 100%;
-		height: 100%;
-		border-radius: 10px;
-		opacity: 0;
-		border: 1px rgba(151, 153, 153, 0.3) solid;
-		box-sizing: border-box;
 	}
 
 	@media screen and (max-width: 900px) {
-		.imgBox1 {
+		.ibox0 {
 			width: 100%;
 		}
 	}
+
 
 </style>
 
 	<!-- Mian -->
 	<div class="main" >
 
-		<h1>标题</h1>
-		<i>—— 介绍</i>
-		<br />
-		<br class="f-1" />
 		<para>
-			<span>内容</span>
+			<h1>标题</h1>
+			<i>介绍</i>
+		</para>
+
+		<para>
+			内容
 		</para>
 
 		<quote>
@@ -78,11 +50,15 @@
 		<br />
 		<br />
 
+		<note>注释</note>
+		<br />
+		<br />
+
 		<a class="link" href="https://kotobank.jp/" target="_blank"> kotobank.jp/</a>
 		<br />
 		<br />
 
-		<span class="link" onclick="window.parent.postMessage(`env.f.linkto('20240917')`, document.domain ? '/' : '*')" >id=20240917/</span>
+		<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/about')`, document.domain ? '/' : '*')" >20240917/</span>
 		<br />
 		<br />
 
@@ -115,12 +91,6 @@
 		<br />
 		<br />
 
-		<li class="list1" >这是列表内容</li>
-		<li class="list2" >这是子项</li>
-		<li class="list3" >这是子项的子项</li>
-		<br />
-		<br />
-
 <code><attention>js/script.js</attention>
 
 <note># 注释</note>
@@ -129,25 +99,34 @@ Hello world!
 </code>
 		<br />
 		<br />
+		<hr />
 
-		<hr1></hr1>
-		<hr2></hr2>
-		<hr3></hr3>
 		<br />
 		<br />
-		<a class="imgBox1"  target="_blank" href="../../src/sumiyo.png" >
-			<img src="../../src/sumiyo.png" onload="this.setAttribute('class', 'fade')" />
+		<a class="ibox0"  target="_blank" href="../../src/mio.png" >
+			<img src="../../src/mio.png" onload="this.setAttribute('class', 'fade')" />
 		</a>
 
-<br />
-
-<pre>
-	.f-1 无效元素
-	.f-2 仅在电脑端显示的元素
-	.f-3 仅在移动端显示的元素
-
-</pre>
 	</div>
+
+	<script>
+		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+		window.addEventListener('message', function(event) {
+			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
+		})
+
+		var music = JSON.stringify({0: false, 1: [
+			{
+				name: 'Moon Child - 西原健一郎 & Nina Vidal',
+				src: '456041',
+				img: 'jBO0wfjt5-AprTRmDzhtcQ==/6057209557711541',
+				lrc: true,
+			}
+		]})
+
+		window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+
+	</script>
 
 </body>
 </html>

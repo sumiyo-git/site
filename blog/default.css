@@ -22,9 +22,9 @@
 
 
 
-@font-face {
+@font-face{
 	font-family: Poppins Regular;
-	src: url('../src/Poppins Regular.woff2');
+	src: url('../src/font/Poppins Regular.woff2');
 }
 
 html {
@@ -36,10 +36,10 @@ body {
 	position: absolute;
 	height: 100%;
 	width: 100%;
-	font-family: 'Poppins Regular',  'Microsoft YaHei'; 
+	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	overflow: overlay;
 	margin: 0;
-	line-height: 32px;
+	line-height: 30px;
 	min-width: 380px;
 }
 
@@ -92,32 +92,38 @@ body {
 
 /* 预设样式 */
 
-a {
-	text-decoration: none;
-	-webkit-user-drag: none;
-}
-
 img {
 	user-select: none;
 	-webkit-user-drag: none;
-	opacity: 0;
+}
+
+a {
+	text-decoration: none;
 }
 
 para {
 	display: block;
 	padding-bottom: 100px;
+	color: rgba(var(--t-t1), 0.6);
+	font-size: 16px;
+	word-break: break-all;
 }
 
 code {
 	display: block;
-	background-color: rgba(var(--t-c1), 0.15);
+	background-color: rgba(var(--t-c1), 0.1);
 	color: rgba(var(--t-c1), 0.6);
 	padding: 6px 12px 6px 12px;
-	font-family: 'Microsoft YaHei';
+	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	line-height: 28px;
 	font-size: 16px;
 	border-radius: 5px;
-	white-space: pre-line;
+	white-space: pre;
+	overflow: scroll;
+}
+
+code::-webkit-scrollbar {
+	display: unset !important;
 }
 
 code note {
@@ -131,12 +137,7 @@ code attention {
 	color: rgba(var(--t-b1), 0.8);
 }
 
-span {
-	color: rgba(var(--t-t1), 0.6);
-	font-size: 16px;
-	line-height: 30px;
-}
-
+note,
 i {
 	color: rgba(var(--t-t1), 0.4);
 }
@@ -164,69 +165,19 @@ h3 {
 	margin: 0;
 }
 
-hr1,
-hr2,
-hr3 {
+hr {
 	display: block;
 	height: 10px;
-	margin-top: 10px;
-	border-top: 1px rgba(var(--t-t1), 0.2) solid;
-}
-
-hr1 {
 	width: 100%;
-}
-
-hr2 {
-	width: 80%;
-}
-
-hr3 {
-	width: 60%;
-}
-
-li {
-	list-style: none;
-	color: rgba(var(--t-t1), 0.6);
-}
-
-.list1:before {
-	content: "\ea56";
-	color: rgba(var(--t-c1), 1);
-	margin-right: 10px;
-	font-size: 14px;
-}
-
-.list2:before {
-	content: "\ea56";
-	color: rgba(var(--t-c1), 0.8);
-	margin-right: 10px;
-	margin-left: 25px;
-	font-size: 14px;
-}
-
-.list2 {
-	color: rgba(var(--t-t1), 0.5);
-}
-
-
-.list3:before {
-	content: "\ea56";
-	color: rgba(var(--t-c1), 0.6);
-	margin-right: 10px;
-	margin-left: 50px;
-	font-size: 14px;
-}
-
-.list3 {
-	color: rgba(var(--t-t1), 0.4);
+	margin-top: 10px;
+	border: none;
+	border-top: 1px rgba(var(--t-t1), 0.2) solid;
 }
 
 .link {
 	color: rgba(var(--t-c1), 1);
 	text-decoration: underline;
 	text-decoration-color: rgba(var(--t-t1), 0.2);
-	font-family: "Microsoft YaHei";
 	cursor: pointer;
 	transition: 0.3s;
 
@@ -234,6 +185,20 @@ li {
 
 .link:hover {
 	text-decoration-color: rgba(var(--t-c1), 1);
+}
+
+a[class^='ibox'] {
+	display: inline-block;
+}
+
+a[class^='ibox'] img {
+	vertical-align: top;
+	width: 100%;
+	height: 100%;
+	border-radius: 5px;
+	opacity: 0;
+	border: 1px rgba(var(--t-t1), 0.3) solid;
+	box-sizing: border-box;
 }
 
 quote {
@@ -256,25 +221,11 @@ attention {
 	border-radius: 5px;
 }
 
-showcase {
-	display: inline-block;
-	width: 45%;
-	vertical-align: top;
-	word-break: break-all;
-	padding-right: 10px;
-}
-
 mat {
 	display: block;
 	width: 100%;
 	height: 5px;
 	pointer-events: none;
-}
-
-box1 {
-	display: block;
-	width: calc(100% - 28px);
-	margin-left: 28px;
 }
 
 thead tr th {
@@ -292,7 +243,6 @@ table {
 	border: 1px rgba(var(--t-t1), 0.1) solid;
 	border-radius: 8px;
 	overflow: hidden;
-	box-shadow: 1px 1px 1px 0px rgb(var(--t-b2), 0.1);
 }
 
 
@@ -324,7 +274,7 @@ tr:nth-child(odd) {
 .main {
 	margin: 0px auto;
 	padding: 360px 0px 200px 0px;
-	width: 900px;
+	width: 800px;
 }
 
 
@@ -351,22 +301,15 @@ tr:nth-child(odd) {
 /* 功能样式 */
 
 .f-1 {
-	/* 无效元素 */
 	-webkit-user-select: none;
 	pointer-events: none;
 }
 
-.f-2 {
-	/* 仅在 PC 端显示 */
-	display: unset;
+@media screen and (min-width: 900px)  {
+	.f-3 {
+		display: none !important;
+	}
 }
-
-.f-3 {
-	/* 仅在移动端显示 */
-	display: none;
-}
-
-
 
 @media screen and (max-width: 900px) {
 	::-webkit-scrollbar {
@@ -378,20 +321,7 @@ tr:nth-child(odd) {
 		width: 90%;
 	}
 	.f-2 {
-		/* 仅在 PC 端显示 */
-		display: none;
-	}
-	.f-3 {
-		/* 仅在移动端显示 */
-		display: unset;
-	}
-	showcase {
-		width: 100%;
-		display: block;
-	}
-	showcase:nth-child(even) {
-
-		margin-left: 0px;
+		display: none !important;
 	}
 
 }

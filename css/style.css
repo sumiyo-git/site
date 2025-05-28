@@ -310,16 +310,18 @@ backdrop {
 .main .description {
 	position: absolute;
 	width: 500px;
-	height: 160px;
-	bottom: 150px;
-	left: 260px;
+	height: 150px;
+	bottom: 120px;
+	left: 200px;
+	padding-left: 40px;
 	z-index: 2;
 	white-space: nowrap;
+	border-left: rgba(var(--t-c2), 0.8) 8px solid;
 }
 
 .main .description :first-child {
 	font-size: 80px;
-	line-height: 100px;
+	line-height: 70px;
 	font-weight: bold;
 	background-image: linear-gradient(62deg, rgba(var(--t-c2), 0.9), rgba(var(--t-c3), 0.8));
 	color: transparent;
@@ -328,7 +330,7 @@ backdrop {
 
 .main .description :last-child {
 	display: block;
-	margin-top: 13px;
+	margin-top: 25px;
 	color: rgba(var(--t-t1), 0.5);
 	font-size: 30px;
 
@@ -706,6 +708,8 @@ backdrop {
 		height: 100px;
 		bottom: 64px;
 		left: 40px;
+		border-left: none;
+		padding-left: 0;
 	}
 	.main .description :first-child {
 		font-size: 46px;

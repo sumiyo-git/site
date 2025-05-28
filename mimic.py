@@ -343,7 +343,7 @@ git "string"\t\t\t执行原生 git 命令
 
         # 减少 commit 值
         if (cmd1[1].lower() == "-reduce") and (cmd1[2].lower() != "null"):
-            env["cmt"] = env["cmt"] - (int(cmd1[2]) + 1)
+            env["cmt"] = env["cmt"] - (int(cmd1[2]) - 1)
 
             wprint(git("git reset --soft HEAD~" + cmd1[2]).stdout, 0)
             wprint(git("git add .").stdout, 0)

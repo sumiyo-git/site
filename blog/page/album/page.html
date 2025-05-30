@@ -56,32 +56,32 @@
 		</para>
 
 		<para>
-			<album onclick="addmusic(0)" >
+			<album onclick="addmusic('未分卷')" >
+				<img src="img/Thought.webp" onload="this.setAttribute('class', 'fade')" />
+				未分卷
+			</album>
+			<br class="f-1" />
+
+			<album onclick="addmusic('メイドインアビス')" >
 				<img src="img/メイドインアビス.webp" onload="this.setAttribute('class', 'fade')" />
 				TVアニメ「メイドインアビス」オリジナルサウンドトラック
 			</album>
 			<br class="f-1" />
 
-			<album onclick="addmusic(1)" >
+			<album onclick="addmusic('C418')" >
 				<img src="img/C418.webp" onload="this.setAttribute('class', 'fade')" />
 				C418
 			</album>
 			<br class="f-1" />
 
-			<album onclick="addmusic(2)" >
-				<img src="img/Thought.webp" onload="this.setAttribute('class', 'fade')" />
-				Others
-			</album>
-			<br class="f-1" />
-
-			<album onclick="addmusic(3)" >
+			<album onclick="addmusic('STUDIO GHIBLI')" >
 				<img src="img/GHIBLI.webp" onload="this.setAttribute('class', 'fade')" />
 				STUDIO GHIBLI
 			</album>
 			<br class="f-1" />
 
-			<album onclick="addmusic(4)" >
-				<img src="img/chillhop.webp" onload="this.setAttribute('class', 'fade')" />
+			<album onclick="addmusic('Chillhop')" >
+				<img src="img/Chillhop.webp" onload="this.setAttribute('class', 'fade')" />
 				Chillhop
 			</album>
 
@@ -98,8 +98,8 @@
 
 
 		function addmusic(n) {
-		var list = [
-			{0: true, 1: [
+		var list = {
+			'メイドインアビス': {0: true, 1: [
 				{
 					name: 'Rafters - Kevin Penkin',
 					src: '509098781',
@@ -192,7 +192,7 @@
 				},
 			]},
 
-			{0: true, 1: [
+			'C418': {0: true, 1: [
 				{
 					name: 'Twilight Breeze - C418',
 					src: '2676406609',
@@ -327,7 +327,7 @@
 				},
 			]},
 
-			{0: true, 1: [
+			'未分卷': {0: true, 1: [
 				{
 					name: 'Turtle Swim - Johannes Bornlöf',
 					src: '2022748660',
@@ -341,21 +341,21 @@
 					lrc: false,
 				},
 				{
-					name: 'arne - Haruka Nakamura',
-					src: '22701041',
-					img: '5_HhEQ8mq59LOcza3E5CAw==/109951169651378466',
+					name: 'Lifelike - Porter Robinson',
+					src: '1839140772',
+					img: '2qW-OYZod7SgrzxTwtyBqA==/109951165911363831',
 					lrc: false,
 				},
 				{
-					name: 'Green Green Grass Of Tunnel - Múm',
-					src: '22062998',
-					img: 'cqA3M-z4_D0L4ZqW3teW0A==/109951166731324047',
+					name: 'like water - Park Bird & Chance Thrash',
+					src: '1847674461',
+					img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
 					lrc: false,
 				},
 				{
-					name: 'Woven Song - Ólafur Arnalds',
-					src: '1481845416',
-					img: 'FknLuixbuaiJGlFKdIJFSA==/109951165340615699',
+					name: 'leaving home - Park Bird & Chance Thrash',
+					src: '1847674458',
+					img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
 					lrc: false,
 				},
 				{
@@ -371,6 +371,12 @@
 					lrc: false,
 				},
 				{
+					name: 'Peter Pan Was Right - Anson Seabra',
+					src: '2626634745',
+					img: 'yhS80cYs4vpWf_xwwKbufA==/109951167353556368',
+					lrc: false,
+				},
+				{
 					name: 'Maverick - FM-84',
 					src: '1483021439',
 					img: '0fJbbKoElgR6K2OSSaOd-A==/109951165350778131',
@@ -381,18 +387,6 @@
 					src: '2149080951',
 					img: 'ZXyajKL8NFG8W6NsCbJ9Iw==/109951169527938432',
 					lrc: true,
-				},
-				{
-					name: 'leaving home - Park Bird & Chance Thrash',
-					src: '1847674458',
-					img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
-					lrc: false,
-				},
-				{
-					name: 'like water - Park Bird & Chance Thrash',
-					src: '1847674461',
-					img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
-					lrc: false,
 				},
 				{
 					name: '海底、月明かり - ヨルシカ',
@@ -430,10 +424,15 @@
 					img: 'ULY7CJ5oAigHVaC7Aru0_A==/1395280259219612',
 					lrc: false,
 				},
-
+				{
+					name: 'End Credits (Xeuphoria Piano Ver.) - Xeuphoria',
+					src: '2097901074',
+					img: 'Jy81HDZgl9CeU8AKm7IjWg==/109951169041245037',
+					lrc: false,
+				},
 			]},
 
-			{0: true, 1: [
+			'STUDIO GHIBLI': {0: true, 1: [
 				{
 					name: '大崩壊 - 久石譲',
 					src: '2078005474',
@@ -562,7 +561,7 @@
 				},
 			]},
 
-			{0: true, 1: [
+			'Chillhop': {0: true, 1: [
 				{
 					name: 'Sea Forest - Ambulo',
 					src: '1922473245',
@@ -575,10 +574,27 @@
 					img: 'oyLj6GCf3OoH-zNUzPi66g==/109951168736774876',
 					lrc: false,
 				},
-
+				{
+					name: 'Something Warm - No Spirit',
+					src: '1407890393',
+					img: 'WqQjUvk-vGvb-y0mCz3tnA==/109951165070072781',
+					lrc: false,
+				},
+				{
+					name: 'Together - Bcalm & Purrple Cat',
+					src: '1916742663',
+					img: 'zJBR2s3mTC06Z-v4npw2Jw==/109951168736565471',
+					lrc: false,
+				},
+				{
+					name: 'Snug - Aso',
+					src: '525225261',
+					img: 'XRPWt8cskD1c79sp4NRDTQ==/109951165052905851',
+					lrc: false,
+				},
 			]},
 
-		]
+		}
 
 		window.parent.postMessage('env.f.player.add(' + JSON.stringify(list[n]) + ')', document.domain ? '/' : '*')
 		}

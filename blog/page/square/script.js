@@ -466,5 +466,5 @@ env.f.reply = function(e, id) {
 
 env.f.challenge.new()
 env.f.init()
-env.f.debug()
+
 

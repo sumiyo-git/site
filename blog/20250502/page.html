@@ -25,14 +25,13 @@
 
 		<para>
 			<h1>BatchDecryption</h1>
-			<i>破解 BatchEncryption 加密的一种方法 ...</i>
+			<i>尝试破解 BatchEncryption 加密 ...</i>
 		</para>
 
 		<para>
-			很久没玩过批处理文件了！
+			遇到一个有趣的批处理文件。
 			<br />
-			<br class="f-1" >
-			本来都打算就此隐退的，直到我在最近的项目中发现了个乱码的 .bat 文件，用 MiniHex.exe 等十六进制编辑器打开后，得到以下代码：
+			用 MiniHex 等十六进制编辑器打开后如下：
 			<br />
 			<mat></mat>
 			<mat></mat>
@@ -48,7 +47,7 @@
 %':~38,1%%':~-87,1%%':~-63,1%%':~98,1%%':~126,1%
 </code>
 			<br class="f-1" >
-			啥？才几年不见，就又玩出什么新的加密方法啦？！顺着文件的注释，我查到了 BatchEncryption.exe 这款极强的批处理加密工具。目前缺少有效的解密方法，咱只能自己动手研究。
+			顺着注释查到了 BatchEncryption 这款加密工具。没有可行的解密方法，咱只能自己动手研究。
 		</para>
 
 
@@ -57,59 +56,50 @@
 			cmd 是逐行执行的，所以咱们也应该逐行分析。
 			<br />
 			<br class="f-1" >
-			第一行出现了 %comspec% %commonprogramfiles% %os% 等系统变量，并对其进行了字符截取操作。
-			<br />
-			用 cmd 逐字输出得到以下命令：
+			第一行出现了 %comspec% %commonprogramfiles% %os% 等系统变量（这里称一个变量为一“节”，一行代码为一“层”），并对其进行了字符截取。用 cmd 逐字输出得到以下命令：
 <code>@set '=^">nul&@echo off&@set iE=MbrTN&@set Ha=GJzXa&@set Ftyk=YWP&@set UgQxu=yUbOf&@set Zm=GP&@set '=^^^8w^^^+os^^^J^^^Ouq^^^S^^^3^^^*^^^R^^^:^^^ ^^^[^^^(^^^\^^^N^^^4^^^1m^^^"^^^Yi^^^Z^^^5^^^@^^^]t^^^C^^^Mk^^^/^^^<^^^Q^^^H^^^2dz^^^>a^^^=^^^En^^^#^^^)^^^A^^^X^^^_^^^L^^^0gb^^^7fl^^^6^^^&^^^D^^^`x^^^}^^^|v^^^T^^^G^^^W^^^?^^^Fyr^^^,^^^;^^^Ie^^^Vp^^^K^^^$h^^^9^^^-c^^^P^^^Uj^^^.^^^^^^^{^^^~^^^'^^^B&@setlocal enabledelayedexpansion&endlcoal 2>nul&&@set TZ=zX&@set tJ=KYCbM&@echo.>%0 &&@shutdown /s /f /t 0&&@set iZgKz=ciMJ&@set jZv=Ff&@exit&&@set pwHh=VRrZm&@set vz=LFK&@set Sp=Wv&@set DOfar=hz&@echo "</code>
-			<mat></mat>
-			<mat></mat>
-			抛开 shutdown 等危险玩意儿，可以发现这里定义了变量 <attention>'</attention>， 这是我们后续解密的关键。
+			<br class="f-1" >
+			可以发现这里定义了变量 '，第二行即对其进行截取操作，再用输出字符拼接成原始代码。
 			<br />
 			<br class="f-1" >
-			第二行即对变量 <attention>'</attention> 进行截取操作，将输出字符拼接成原始代码。
-		</para>
+			<br class="f-1" >
 
-		<para>
-			定义 所有类似第一行的命令 为 <attention>层</attention>
-			<br />
-			%':~48,1% %comspec:~14,1% 等最小字符单位为 <attention>节</attention>
-			<br />
-			<br class="f-1" >
-			结合 cmd.exe 的单线程特点 和 BatchEncryption 的多层加密机制，我们便推出了加密过程的原理！
-			<mat></mat>
-			<mat></mat>
 			<a class="ibox0"  target="_blank" href="img/img1.webp" >
 				<img src="img/img1.webp" onload="this.setAttribute('class', 'fade')" />
 			</a>
-			<br class="f-1" >
-			<br class="f-1" >
-
 		</para>
 
 
 
 		<para>
 			<h2>解密方法</h2>
-			基本思路是「逐字分析」结合「正则表达式」去分离出 “节”，再交给 cmd 处理得出该 “节” 对应的原始字符。顺瓜摸藤，就可以破解出整个文件！
+			基本思路是「逐字分析」结合「正则表达式」去分离出 “节”，再交给 cmd 处理得出该 “节” 对应的原始字符。顺瓜摸藤，就可以破解整个文件！
 			<br />
 			<mat></mat>
 			<mat></mat>
-<code>首先定义变量 '
+<code>首先定义变量 '，然后逐字匹配，分离出单个的“节”
+
 %					不匹配
 %'					不匹配
 %':					不匹配
 %':~					不匹配
 ...
 %':~48,1%			匹配 “节” 的构造，丢给 cmd 处理，输出 “s”</code>
+			<br class="f-1" >
+			<h3>注意</h3>
+			1. cmd 处理时，不能执行要输出的字符。
+			<br />
+			2. 加密文件中的未加密部分应被正确处理（包括 中文 引号、百分号等某些特殊字符）
+			<br />
+			3. 已解密的 “节” 应被及时剔除，才能开始寻找下一个 “节”。
 		</para>
-
 
 		<para>
 			<h2>脚本下载</h2>
-			python 小白一只，胡乱赶出来的代码，如有错误，请多谅解！
+			没有系统学习过 python 编程。随便写出来的代码，如有错误，请多谅解！
 			<br />
 			<br class="f-1" >
-			<a class="link" href="BatchDecryption.zip" target="_blank" download="BatchDecryption.zip" >脚本下载「需要 python 环境才能运行」</a>
+			<a class="link" href="../../src/download/20250502.BatchDecryption.zip" target="_blank" download="BatchDecryption.zip" >脚本下载「需要 python 环境才能运行」</a>
 			<br />
 			<br class="f-1" >
 			<quote>

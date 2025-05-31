@@ -34,14 +34,14 @@
 
 		<para>
 			<h1>PE 系统的制作</h1>
-			<i>本来只是想给 U 盘找个纯净点的 PE 系统，结果发现这领域几乎被一些制作 PE 盘的工具垄断了 ...</i>
+			<i>最初只是想给 U 盘找个纯净点的 PE 系统 ...</i>
 		</para>
 
 		<para>
-			啊啊，本来不想写技术方面的文章的 :(
+			本来不想写技术方面的文章的 :(
 			<br />
 			<br class="f-1" />
-			本文使用了大神「深谷憂狼」的批处理脚本。感谢各位大佬提供的技术支持！
+			这篇文章使用了大神「深谷憂狼」的批处理脚本。感谢各位大佬提供的技术支持！
 		</para>
 
 		<para>
@@ -72,7 +72,7 @@
 
 			虚拟机（非必须）
 			<br />
-			<note>构建过程存在一定危险系数，建议在虚拟机中进行构建和调试。</note>
+			<note>构建过程存在一定危险系数，强烈建议在虚拟机中进行构建和调试。</note>
 		</para>
 
 
@@ -82,38 +82,38 @@
 			<mat></mat>
 <code><attention>目录树</attention>
 ┣━━ [WIN11PE64]
-┃       ┣━━ [files]
-┃       ┣━━ [MakeISO]	# 大致是最终生成的 ISO 文件的内容
-┃       ┣━━ [OEM]
-┃       ┣━━ [reg]		# PE 系统的注册表
-┃       ┣━━ [temp]		# 储存构建时所用的临时文件
-┃       ┣━━ [tools]		# 这是主程序运行所需的工具库
-┃       ┣━━ [winpe]
-┃       ┗━━ [zh-CN]	# PE 系统的核心文件
+┃      ┣━━ [files]
+┃      ┣━━ [MakeISO]		# 大致是最终生成的 ISO 文件的内容
+┃      ┣━━ [OEM]
+┃      ┣━━ [reg]		# PE 系统的注册表
+┃      ┣━━ [temp]		# 储存构建时所用的临时文件
+┃      ┣━━ [tools]		# 这是主程序运行所需的工具库
+┃      ┣━━ [winpe]
+┃      ┗━━ [zh-CN]		# PE 系统的核心文件
 ┗━━ WIN11PE64一键制作工具通用版.exe
 </code>
 			<br class="f-1" />
-			主程序是那个 .exe 文件。由原始批处理文件（70KB 左右）经 BatchEncryption 22 层加密后再打包得来（830 KB） 。
+			主程序由原始批处理文件（70KB 左右）经 BatchEncryption 22 层加密后再打包得来（830 KB） 。
 			<br />
 			<mat></mat>
-			<note>不要问咱们是怎么知道这个的。看到这么夸张的操作，气得用一下午时间把 <a class="link" href="source.zip" target="_blank" download="source.zip" >源代码</a> 搞出来了。方法放这里： <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('20250502')`, document.domain ? '/' : '*')" >20250502/</span></note>
+			<note>不要问咱们是怎么知道这个的。看到这么夸张的操作，气得用一下午时间把 <a class="link" href="../../src/download/20250503.source.zip" target="_blank" download="source.zip" >源代码</a> 解析出来了。方法放这里： <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('20250502')`, document.domain ? '/' : '*')" >20250502/</span></note>
 			<br />
 			<br class="f-1" />
 			<br class="f-1" />
-			好了，别的不说，工具本身还是挺不错的。制作过程非常简单，挂载了原始 ISO 后直接运行主程序，几分钟后就可以得到 PE 系统的镜像文件了。这里以 Win11 22H2 版本为例进行构建。
+			别的不说，工具本身还是挺不错的。制作过程非常简单，挂载原始 ISO 后运行主程序，几分钟后就可以看到 PE 系统的镜像文件了。这里以 Win11 22H2 版本为例进行构建。
 		</para>
 
 
 
 		<para>
 		<h2>个性化</h2>
-			这里列出了几个可以 DIY 的地方，请大家自行参考。
+			列出几个可以 DIY 的地方，请大家自行参考。
 			<br />
 			<br class="f-1" />
 
 			<quote>WIN11PE64\MakeISO\MakeISOGD4.dll</quote>
 			<mat></mat>
-			想不到吧？ 这玩意儿是个压缩包！
+			想不到吧？ 这是个压缩包！
 			<br />
 			开机后的一个选择页面可以在其中的 MakeISO\boot\grub\MENU 中进行修改。改成如下代码后，可直接跳过该页面。
 			<br class="f-1" />
@@ -129,7 +129,7 @@ clear</code>
 		<para>
 			<quote>WIN11PE64\zh-CN\zh-CN-22H2.dll</quote>
 			<mat></mat>
-			还是想不到吧？ 这玩意儿也是压缩包！！！
+			还是想不到吧？ 这个也是压缩包！
 			<br />
 			主程序会用这边的资源覆盖原始镜像中的部分系统文件。
 			<br class="f-1" />
@@ -156,7 +156,7 @@ clear</code>
 		<para>
 			<quote>WIN11PE64\reg\22H2</quote>
 			<mat></mat>
-			这里就是 PE 系统的预设注册表了。基本上有用的都在 pe-def.reg（主要是样式） 和 pe-soft.reg（主要是右键菜单）
+			这里就是 PE 系统的预设注册表了。有用的都在 pe-def.reg（主要是样式） 和 pe-soft.reg（主要是右键菜单）
 			<br class="f-1" />
 			<mat></mat>
 			<mat></mat>
@@ -182,10 +182,10 @@ clear</code>
 			其实很简单的啦！
 			<br />
 			<br class="f-1" />
-			随便找一个制作 PE 盘的工具，咱只用他 U 盘分区的功能。把 U 盘分区做好后，清空 U 盘 EFI 分区里的脏东西。把之前生成的 ISO 文件解压后放到里面就可以啦。
+			随便找一个制作 PE 盘的工具，咱只用他 U 盘分区的功能。把 U 盘分区做好后，清空 EFI 分区文件。把之前生成的 ISO 文件解压后放到里面就大功告成啦。
 			<br />
 			<br class="f-1" />
-			建议实体机操作前先用虚拟机 debug 一下，免得遭受蓝屏打击。
+			建议实体机操作前先用虚拟机 debug 一下。
 		</para>
 
 

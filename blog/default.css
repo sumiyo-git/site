@@ -117,6 +117,7 @@ code {
 	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	line-height: 28px;
 	font-size: 16px;
+	tab-size: 20;
 	border-radius: 5px;
 	white-space: pre;
 	overflow: scroll;

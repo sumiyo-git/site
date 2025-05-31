@@ -46,8 +46,8 @@ env.f.player = {}
 env.f.player.album = function(){
 	return [
 	{
-		name: 'この空であなたを待ってる - KOKIA',
-		src: '1830163710',
+		name: 'この空であなたを待ってる inst. - KOKIA',
+		src: '1830163712',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
 		lrc: true,
 	},
@@ -58,63 +58,21 @@ env.f.player.album = function(){
 		lrc: true,
 	},
 	{
-		name: 'One Last Adventure - Evan Call',
-		src: '2116382384',
-		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
-		lrc: false,
-	},
-	{
-		name: 'Goodbye for Now, Eisen - Evan Call',
-		src: '2146700515',
-		img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
-		lrc: false,
-	},
-	{
 		name: "原風景 - mamomo & 丘咲アンナ",
 		src: '33469247',
 		img: 'ct9bs4VXR1mrbVRsX9iboA==/3372202162443903',
 		lrc: true,
 	},
 	{
-		name: 'Calling - MAROK & mamomo',
-		src: '1944649836',
-		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
+		name: 'カメリア - 大神ミオ',
+		src: '2110680224',
+		img: 'JlxHCRJi7i4OjvxsqhImog==/109951169195605007',
 		lrc: false,
 	},
 	{
-		name: 'Friend - Kozoro',
-		src: '33004707',
-		img: 'FR7zKYB8ujNRoWQuGCHbGg==/109951163288692527',
-		lrc: false,
-	},
-	{
-		name: 'Together - Bcalm & Purrple Cat',
-		src: '1916742663',
-		img: 'zJBR2s3mTC06Z-v4npw2Jw==/109951168736565471',
-		lrc: false,
-	},
-	{
-		name: 'Have You Ever - Darsena & eugenio izzi',
-		src: '1980987766',
-		img: 'rrUDhlEJKRBdz-1JcsUAFw==/109951169990022823',
-		lrc: false,
-	},
-	{
-		name: 'Gusts of Wind Blowing in Different Directions - The Last Dinosaur',
-		src: '19498811',
-		img: 'f3exPjEKfsnrQbsUqUlb2w==/109951169557730207',
-		lrc: false,
-	},
-	{
-		name: 'Figlia del cielo III - Roberto Cacciapaglia & Royal Philharmonic Orchestra',
-		src: '18495513',
-		img: '174ug-Xg_-IJ4aRxWs8SxQ==/109951167699550669',
-		lrc: false,
-	},
-	{
-		name: 'Flight of the Inner Bird - Sivan Talmor & Yehezkel Raz',
-		src: '1807891944',
-		img: 'fvX-PBuiZthCkZi6yZ6WnQ==/109951167146867364',
+		name: 'One Last Adventure - Evan Call',
+		src: '2116382384',
+		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
 		lrc: false,
 	},
 	{
@@ -124,15 +82,9 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
-		name: 'There Is Still Wonder Left To Behold - reche',
-		src: '2017419119',
-		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
-		lrc: true,
-	},
-	{
-		name: 'One Day - KISNOU',
-		src: '448316625',
-		img: '9QkYHkN8UCiybMg-qHempw==/109951168047707020',
+		name: 'もののけ姫 〜インストゥルメンタル バージョン〜 - 久石譲',
+		src: '444769',
+		img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
 		lrc: false,
 	},
 	{
@@ -142,15 +94,33 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
+		name: 'One Day - KISNOU',
+		src: '448316625',
+		img: '9QkYHkN8UCiybMg-qHempw==/109951168047707020',
+		lrc: false,
+	},
+	{
+		name: 'There Is Still Wonder Left To Behold - reche',
+		src: '2017419119',
+		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
+		lrc: true,
+	},
+	{
 		name: '変わり行く世界のために - 茶太',
 		src: '697291',
 		img: 'eiR5oFPitGtu1hzka4Vm5g==/814738116182197',
 		lrc: true,
 	},
 	{
-		name: 'bliss - milet',
-		src: '2122535814',
-		img: 'b66bKUxVNZlC_S_3u7UCaA==/109951169268030489',
+		name: 'Calling - MAROK & mamomo',
+		src: '1944649836',
+		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
+		lrc: false,
+	},
+	{
+		name: 'Underground River (opening version ft.Raj Ramayya) - Kevin Penkin',
+		src: '509098783',
+		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
 		lrc: true,
 	},
 	{
@@ -164,12 +134,6 @@ env.f.player.album = function(){
 		src: '1417631425',
 		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
 		lrc: false,
-	},
-	{
-		name: 'この空であなたを待ってる inst. - KOKIA',
-		src: '1830163712',
-		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
-		lrc: true,
 	}]
 }
 

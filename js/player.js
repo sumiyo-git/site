@@ -58,6 +58,12 @@ env.f.player.album = function(){
 		lrc: true,
 	},
 	{
+		name: 'One Last Adventure - Evan Call',
+		src: '2116382384',
+		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
+		lrc: false,
+	},
+	{
 		name: "原風景 - mamomo & 丘咲アンナ",
 		src: '33469247',
 		img: 'ct9bs4VXR1mrbVRsX9iboA==/3372202162443903',
@@ -70,9 +76,9 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
-		name: 'One Last Adventure - Evan Call',
-		src: '2116382384',
-		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
+		name: 'Calling - MAROK & mamomo',
+		src: '1944649836',
+		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
 		lrc: false,
 	},
 	{
@@ -82,16 +88,10 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
-		name: 'もののけ姫 〜インストゥルメンタル バージョン〜 - 久石譲',
-		src: '444769',
-		img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
-		lrc: false,
-	},
-	{
-		name: 'like water - Park Bird & Chance Thrash',
-		src: '1847674461',
-		img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
-		lrc: false,
+		name: 'There Is Still Wonder Left To Behold - reche',
+		src: '2017419119',
+		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
+		lrc: true,
 	},
 	{
 		name: 'One Day - KISNOU',
@@ -100,10 +100,10 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
-		name: 'There Is Still Wonder Left To Behold - reche',
-		src: '2017419119',
-		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
-		lrc: true,
+		name: 'leaving home - Park Bird & Chance Thrash',
+		src: '1847674458',
+		img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
+		lrc: false,
 	},
 	{
 		name: '変わり行く世界のために - 茶太',
@@ -112,20 +112,8 @@ env.f.player.album = function(){
 		lrc: true,
 	},
 	{
-		name: 'Calling - MAROK & mamomo',
-		src: '1944649836',
-		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
-		lrc: false,
-	},
-	{
 		name: 'Underground River (opening version ft.Raj Ramayya) - Kevin Penkin',
 		src: '509098783',
-		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
-		lrc: true,
-	},
-	{
-		name: 'Hanezeve Caradhina (ft.Takeshi Saito) - Kevin Penkin',
-		src: '509098792',
 		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
 		lrc: true,
 	},
@@ -163,14 +151,8 @@ env.f.player.load = function(e){
 	setTimeout(function (){
 		env.e.player.list[0].innerHTML = `<line style="margin-top: ` + env.d.player.offsetTop + `px" >${name.split(' - ')[0]}<lrc></lrc><trans>${name.split(' - ')[1]}</trans></line>`
 		env.f.player.lrc.get((lrc == 'true') ? id : null)
-
 		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=600y600`
-
-		if (!isNaN(env.e.player.audio.duration)) {
-			env.d.player.now.leng = env.e.player.audio.duration
-		}
-
-		!env.d.player.pause ? env.f.player.play.set(1) : null
+		env.d.player.init ? env.f.player.play.set(1) : null
 	}, 500)
 
 	var l = env.e.player.list[1].children
@@ -412,6 +394,8 @@ env.f.player.load(env.e.player.list[1].children[0])
 env.e.player.footer.innerHTML = env.e.player.footer.innerHTML + env.d.version.player
 
 env.e.player.audio.volume = 0.5
+
+
 
 // 进度条
 setInterval(() => {

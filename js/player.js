@@ -211,12 +211,10 @@ env.f.player.play = function(){
 			env.e.player.audio.play()
 			env.d.player.pause = false
 			env.e.player.btn.innerHTML = '暂停'
-			env.f.root.fade(env.e.player.ui1, 300)
 		} else {
 			env.e.player.audio.pause()
 			env.d.player.pause = true
 			env.e.player.btn.innerHTML = '播放'
-			env.f.root.fade(env.e.player.ui1, -300)
 		}
 	}
 
@@ -226,7 +224,8 @@ env.f.player.add = function(str) {
 	env.d.player.id = str['0'] ? 0 : env.e.player.list[1].children.length
 	env.f.player.playlist(a, str['0'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
-	env.d.player.pause = false
+	env.e.player.ui1.removeAttribute('style')
+	env.d.player.init ? null : env.f.player.play.set(1)
 }
 	env.f.player.add.ask = function(str) {
 		// 弹出询问框

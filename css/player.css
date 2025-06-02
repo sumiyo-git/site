@@ -278,7 +278,9 @@
 }
 
 .blog .player-2::before {
-	content: '♫ '
+	content: ' | ';
+	font-family: 'icomoon';
+	font-size: 16px;
 }
 
 .blog .player-2:hover {

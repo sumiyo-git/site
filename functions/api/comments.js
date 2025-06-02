@@ -16,13 +16,13 @@
 		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
 		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 
-		if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-			r.msg = "out of the deadline"
-			return Response.json(r)
-		}
-
 		if (body.at == -1) {
 			// 留言
+			if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
+				r.msg = "out of the deadline"
+				return Response.json(r)
+			}
+
 			await context.env.MetaDB.prepare('DELETE FROM pool WHERE op = 0 and id = ?').bind(body.id).first()
 			await context.env.MetaDB.prepare('UPDATE root set data=data-1 where name="comment"').first()
 
@@ -35,12 +35,19 @@
 			var l = r.split('​')
 			l.pop()
 
+			if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(JSON.parse(l[body.at - 1]).id)) {
+				r.msg = "out of the deadline"
+				return Response.json(r)
+			}
+
 			l.splice(body.at - 1, 1)
 			if (l[0] == undefined) {
-				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind('null', body.id).all()
+				var n = 'null'
 			} else {
-				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(l.join('​') + '​', body.id).all()
+				var n = l.join('​') + '​'
 			}
+
+			r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(n, body.id).all()
 			r.success = true
 			r.msg = {delete_reply: body.id + '-' + body.at}
 		}

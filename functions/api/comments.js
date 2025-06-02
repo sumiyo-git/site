@@ -35,7 +35,7 @@
 			var l = r.split('​')
 			l.pop()
 
-			if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(JSON.parse(l[body.at - 1]).id)) {
+			if ((parseInt(JSON.parse(l[body.at - 1]).id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
 				r.msg = "out of the deadline"
 				return Response.json(r)
 			}

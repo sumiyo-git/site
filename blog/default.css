@@ -92,6 +92,12 @@ body {
 
 /* 预设样式 */
 
+.main {
+	margin: 0px auto;
+	padding: 360px 0px 200px 0px;
+	width: 800px;
+}
+
 img {
 	user-select: none;
 	-webkit-user-drag: none;
@@ -108,6 +114,51 @@ para {
 	font-size: 16px;
 	word-break: break-all;
 }
+
+note,
+i {
+	color: rgba(var(--t-t1), 0.4);
+}
+
+hr {
+	display: block;
+	height: 10px;
+	width: 100%;
+	margin-top: 10px;
+	border: none;
+	border-top: 1px rgba(var(--t-t1), 0.2) solid;
+}
+
+quote {
+	display: block;
+	color: rgba(var(--t-t1), 0.6);
+	background-color: rgba(var(--t-c1), 0.15);
+	padding: 10px 15px 10px 10px;
+	border-left: rgba(var(--t-c1), 0.6) solid 5px;
+	border-radius: 0px 7px 7px 0px;
+	word-break: break-all;
+	line-height: 26px;
+}
+
+attention {
+	display: inline-block;
+	background-color: rgba(var(--t-c1), 0.15);
+	color: rgba(var(--t-c1), 1);
+	padding: 0px 8px 0px 8px;
+	line-height: 27px;
+	border-radius: 5px;
+}
+
+mat {
+	display: block;
+	width: 100%;
+	height: 5px;
+	pointer-events: none;
+}
+
+
+
+/* 代码框 */
 
 code {
 	display: block;
@@ -138,10 +189,9 @@ code attention {
 	color: rgba(var(--t-b1), 0.8);
 }
 
-note,
-i {
-	color: rgba(var(--t-t1), 0.4);
-}
+
+
+/* 标题 */
 
 h1 {
 	color: rgba(var(--t-t1), 0.8);
@@ -166,14 +216,9 @@ h3 {
 	margin: 0;
 }
 
-hr {
-	display: block;
-	height: 10px;
-	width: 100%;
-	margin-top: 10px;
-	border: none;
-	border-top: 1px rgba(var(--t-t1), 0.2) solid;
-}
+
+
+/* 链接 */
 
 .link {
 	color: rgba(var(--t-c1), 1);
@@ -187,6 +232,10 @@ hr {
 .link:hover {
 	text-decoration-color: rgba(var(--t-c1), 1);
 }
+
+
+
+/* 图像 */
 
 a[class^='ibox'] {
 	display: inline-block;
@@ -202,32 +251,64 @@ a[class^='ibox'] img {
 	box-sizing: border-box;
 }
 
-quote {
+
+
+/* 列表 */
+
+list {
 	display: block;
 	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-c1), 0.15);
-	padding: 10px 15px 10px 10px;
-	border-left: rgba(var(--t-c1), 0.6) solid 5px;
-	border-radius: 0px 7px 7px 0px;
+	font-size: 16px;
 	word-break: break-all;
-	line-height: 26px;
+	margin-left: 25px;
 }
 
-attention {
-	display: inline-block;
-	background-color: rgba(var(--t-c1), 0.15);
+list[type="1"]::before {
+	content: '-';
+	margin-left: -20px;
+	margin-right: 11px;
+	color: rgba(var(--t-t1), 0.4);
+}
+
+list[type="2"]::before {
+	content: '-';
+	margin-left: -20px;
+	margin-right: 11px;
 	color: rgba(var(--t-c1), 1);
-	padding: 0px 8px 0px 8px;
-	line-height: 27px;
-	border-radius: 5px;
 }
 
-mat {
-	display: block;
-	width: 100%;
-	height: 5px;
-	pointer-events: none;
+list[type="3"]::before {
+	content: '•';
+	margin-left: -20px;
+	margin-right: 13px;
+	color: rgba(var(--t-t1), 0.4);
 }
+
+list[type="4"]::before {
+	content: '•';
+	margin-left: -20px;
+	margin-right: 13px;
+	color: rgba(var(--t-c1), 1);
+}
+
+list[type="5-reset"] {
+	margin-left: 0;
+	counter-reset: counter-li5;
+}
+
+list[type="5"] {
+	counter-increment: counter-li5;
+}
+
+list[type="5"]::before {
+	content: " " counter(counter-li5) ".";
+	margin-left: -20px;
+	margin-right: 7px;
+	color: rgba(var(--t-t1), 0.6);
+}
+
+
+/* 表格 */
 
 thead tr th {
 
@@ -272,13 +353,9 @@ tr:nth-child(odd) {
 	font-weight: bolder;
 }
 
-.main {
-	margin: 0px auto;
-	padding: 360px 0px 200px 0px;
-	width: 800px;
-}
 
 
+/* 淡出动画 */
 
 @keyframes fade {
 	0% {

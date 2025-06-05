@@ -1,7 +1,7 @@
 ﻿
 .player-0 {
-	margin-left: 20px;
-	width: 280px;
+	margin-left: 24px;
+	width: 266px;
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
@@ -13,18 +13,19 @@
 }
 
 .player-0 a {
-	color: rgba(var(--t-c1), 0.8);
+	color: rgba(var(--t-t1), 0.6);
+	cursor: pointer;
+	transition: 0.3s;
+}
+
+.player-0 a {
+	color: rgba(var(--t-t1), 0.6);
 	cursor: pointer;
 	transition: 0.3s;
 }
 
 .player-0 a:hover {
-	color: rgba(var(--t-c1), 1);
-}
-
-.player-0 span {
-	color: rgba(var(--t-t1), 0.6);
-	user-select: none;
+	color: rgba(var(--t-c1), 0.8);
 }
 
 
@@ -58,12 +59,13 @@
 
 .player-1 aside {
 	display: inline-block;
-	width: calc(50% - 90px);
+	width: calc(50% - 40px);
 	padding: 0 45px 0 45px;
 }
 
 .player-1 aside:nth-child(2) {
 	height: 100%;
+	width: calc(50% - 240px);
 }
 
 .player-1 .frame {
@@ -84,6 +86,8 @@
 	width: 100%;
 	background-color: rgba(var(--t-b1), 0.05);
 	border-radius: 10px;
+	border: 1px solid rgba(var(--t-b1), 0.1);
+	box-sizing: border-box;
 	overflow: hidden;
 }
 
@@ -93,7 +97,7 @@
 
 .player-1 .ctrl {
 	height: 50px;
-	margin-top: 20px;
+	margin-top: 25px;
 	color: rgba(var(--t-b1), 0.1);
 }
 
@@ -104,13 +108,7 @@
 	padding-right: 5px;
 	font-size: 24px;
 	color: rgba(var(--t-b1), 0.2);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.4);
 	cursor: pointer;
-	transition: 0.3s;
-}
-
-.player-1 .ctrl a:hover {
-	color: rgba(var(--t-b1), 0.6);
 }
 
 .player-1 .ctrl a:nth-of-type(1) {
@@ -140,12 +138,6 @@
 	width: 30px;
 }
 
-.player-1 .footer {
-	padding: 15px;
-	font-size: 16px;
-	color: rgba(var(--t-b1), 0.6);
-}
-
 .player-1 header btn {
 	color: rgba(var(--t-b1), 0.2);
 }
@@ -159,19 +151,23 @@
 	display: none;
 }
 
+.player-1 list:nth-child(1) line {
+	background-color: rgba(var(--t-b1), 0);
+}
+
 .player-1 list:nth-child(2) line {
 	cursor: pointer;
+	margin-left: 5px;
 }
 
 .player-1 list .active,
 .player-1 list:nth-child(2) line:hover {
 	background-color: rgba(var(--t-b1), 0.1);
 	color: rgba(var(--t-b1), 0.8);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.4);
-	box-shadow: rgb(var(--t-b2), 0.05) 20px 20px 20px -3px;
 }
 
 .player-1 list .active {
+	background-color: rgba(var(--t-c1), 0.2) !important;
 	color: rgba(var(--t-c1), 0.7) !important;
 }
 
@@ -181,12 +177,11 @@
 	padding: 5px 15px 5px 15px;
 	min-width: 100px;
 	min-height: 30px;
-	line-height: 28px;
-	background-color: rgba(var(--t-b1), 0);
+	line-height: 30px;
+	background-color: rgba(var(--t-b1), 0.05);
 	border-radius: 5px;
 	font-size: 22px;
 	color: rgba(var(--t-b1), 0.6);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.2);
 	white-space: break-spaces;
 	transition: 0.3s;
 }
@@ -198,10 +193,8 @@
 }
 
 .player-1 .highlight {
-	background-color: rgba(var(--t-b1), 0.2);
+	background-color: rgba(var(--t-b1), 0.2) !important;
 	color: rgba(var(--t-b1), 1);
-	text-shadow: 1px 1px 3px rgb(var(--t-b2), 0.8);
-	box-shadow: rgb(var(--t-b2), 0.05) 20px 20px 20px -3px;
 }
 
 .player-1 .highlight trans {
@@ -244,9 +237,10 @@
 
 .player-1 list {
 	display: block;
-	height: calc(100% - 80px);
+	height: 100%;
 	overflow: scroll;
-	border-bottom: 1px solid rgba(var(--t-b1), 0.2);
+	border-bottom: 1px solid rgba(var(--t-b1), 0.1);
+	border-top: 1px solid rgba(var(--t-b1), 0.1);
 }
 
 .player-1 list::-webkit-scrollbar:horizontal {
@@ -281,6 +275,7 @@
 	content: ' | ';
 	font-family: 'icomoon';
 	font-size: 16px;
+	transition: 0.3s;
 }
 
 .blog .player-2:hover {
@@ -290,7 +285,6 @@
 
 
 @media screen and (max-width: 850px)  {
-	.player-1 .footer,
 	.player-1 list::-webkit-scrollbar,
 	.player-1 .cover {
 		display: none;
@@ -302,16 +296,14 @@
 		white-space: unset;
 		word-break: break-word;
 	}
-	.player-1 .time {
-		width: 260px;
-	}
-	.player-1 aside {
-		width: calc(100% - 40px);
-		padding: 0 20px 0 20px;
-	}
 	.player-1 aside:nth-child(1) {
 		padding: 0 !important;
 		width: 0;
+	}
+	.player-1 aside:nth-child(2) {
+		width: calc(100% - 40px);
+		height: calc(100% - 162px);
+		padding: 0 20px 0 20px;
 	}
 	.player-1 .frame {
 		width: 100%;
@@ -326,12 +318,12 @@
 	.player-1 list {
 		border-bottom: none;
 	}
-	.player-1 list line:nth-child(1) {
-		margin-top: 70px !important;
-	}
 	.player-1 .wallpaper {
 		width: unset;
 		height: calc(100% + 200px);
+	}
+	.blog .player-2 {
+		max-width: 50%;
 	}
 }
 

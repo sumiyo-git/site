@@ -60,7 +60,6 @@
 				'd1': new Date(),
 				'd2': null,
 				'd3': null,
-				'd4': 0,
 				'd5': null,
 
 				't1': null,
@@ -74,28 +73,23 @@
 	env.tmp.root.t1 = setInterval(() => {
 		if (!document.hidden && env.tmp.root.d2 && env.d.isLoad == 2) {
 			setTimeout(function (){
-				document.querySelectorAll('.avatar')[1].removeAttribute('style')
-				document.querySelectorAll('.avatar')[0].removeAttribute('style')
-				if (env.tmp.root.d4) {
-					env.tmp.root.d4 = null
-					delete env.tmp.root.d4
-					env.f.root.prompt('欢迎来到我的世界<br />🎉🎉🎉', 8000)
-				}
-			}, 4000)
-			setTimeout(function (){
-				document.querySelector('.main .loading').remove()
+				setTimeout(function (){
+					document.querySelectorAll('.avatar')[1].removeAttribute('style')
+					document.querySelectorAll('.avatar')[0].removeAttribute('style')
+				}, 4000)
+				setTimeout(function (){
+					document.querySelector('.main .loading').remove()
+					document.querySelectorAll('.avatar')[1].style.opacity = '0.4'
+				}, 600)
+
+				document.querySelectorAll('.avatar')[0].style.opacity = '0.4'
+				document.querySelector('.main .loading').removeAttribute('style');
+
+				env.d.isLoad = true
+				clearInterval(env.tmp.root.t1)
 			}, 1000)
-			setTimeout(function (){
-				document.querySelectorAll('.avatar')[1].style.opacity = '0.4'
-			}, 600)
-
-			document.querySelectorAll('.avatar')[0].style.opacity = '0.4'
-			document.querySelector('.main .loading').removeAttribute('style');
-
-			env.d.isLoad = true
-			clearInterval(env.tmp.root.t1)
 		}
-	}, 1000)
+	}, 1500)
 
 	// 仅允许直接访问此页
 	if (env.d.isNetwork && ((window.location.href != (`https://${env.d.domain}/`)) && !window.location.href.includes(`https://${env.d.domain}/blog`) || window.location.href.includes(`.html`))) {
@@ -180,7 +174,7 @@
 	<!-- 页脚 -->
 	<footer>
 		<div class="player-0">
-			<a onclick="env.f.player.play()" >播放</a> | <span onclick="env.f.player.lrc.ui()" ></span>
+			<a onclick="env.f.player.lrc.ui()" > | 音乐播放器 </a>
 			<audio preload="none" ></audio>
 		</div>
 	</footer>
@@ -204,14 +198,14 @@
 					<a onclick="env.f.player.list()" >歌单</a>
 					<a onclick="env.f.player.reset()" >重置</a>｜ 
 					<a onclick="env.f.player.mode()" title="列表循环" ></a>
+					<a onclick="env.f.player.kana()" title="假名注音" style="display: none;" >あ</a>
 					<a><div title="音量" ></div></a>
-				</div>
-			</div>			
+				</div>	
+			</div>		
 		</aside>
 		<aside>
-			<list class="no-kana" onclick="env.f.player.kana()" ></list>
+			<list class="no-kana" ></list>
 			<list style="display: none" ></list>
-			<div class="footer" >Player </div>
 		</aside>
 	</div>
 </div>

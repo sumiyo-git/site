@@ -263,7 +263,6 @@ env.f.root.url = {}
 		} else {
 			env.f.root.url.clear()
 			document.title = env.d.title
-			env.tmp.root.d4 = 1
 		}
 	}
 

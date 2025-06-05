@@ -7,12 +7,12 @@
 	*/
 
 
-env.d.version.player = '1.0.241'
+env.d.version.player = '1.0.242'
 env.d.player = {
 	'id': 0,
 	'mode': 0,
 	'vol': 0.5,
-	'offsetTop': 0,
+	'offsetTop': 240,
 	'pause': true,
 	'loop': false,
 	'init': false,
@@ -34,7 +34,6 @@ env.e = {...env.e, ...{
 		list: document.querySelectorAll('.player-1 list'),
 		bar: [document.querySelector('.player-1 bar'), document.querySelector('.player-1 bar div div')],
 		ctrl: document.querySelectorAll('.player-1 .ctrl a'),
-		footer: document.querySelector('.player-1 .footer'),
 	}
 }}
 
@@ -132,7 +131,7 @@ env.f.player.load = function(e){
 	var name = e.dataset.name
 	var lrc = e.dataset.lrc
 
-	env.e.player.name.innerHTML = env.e.player.ui1.innerHTML = name.split(' - ')[0].split('(')[0]
+	env.e.player.ui1.innerHTML = name.split(' - ')[0].split('(')[0]
 	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 
 	env.e.player.bar[1].style.width = '0px'
@@ -148,8 +147,9 @@ env.f.player.load = function(e){
 	e.setAttribute('class', 'active')
 	env.f.root.scroll(env.e.player.list[1], e.offsetTop - env.d.player.offsetTop, 500)
 
+
 	setTimeout(function (){
-		env.e.player.list[0].innerHTML = `<line style="margin-top: ` + env.d.player.offsetTop + `px" >${name.split(' - ')[0]}<lrc></lrc><trans>${name.split(' - ')[1]}</trans></line>`
+		env.e.player.list[0].innerHTML = `<line>${name.split(' - ')[0]}<lrc></lrc><trans>${name.split(' - ')[1]}</trans></line>`
 		env.f.player.lrc.get((lrc == 'true') ? id : null)
 		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=600y600`
 		env.d.player.init ? env.f.player.play.set(1) : null
@@ -210,11 +210,10 @@ env.f.player.play = function(){
 		if (bool) {
 			env.e.player.audio.play()
 			env.d.player.pause = false
-			env.e.player.btn.innerHTML = '暂停'
+			env.e.player.ui1.removeAttribute('style')
 		} else {
 			env.e.player.audio.pause()
 			env.d.player.pause = true
-			env.e.player.btn.innerHTML = '播放'
 		}
 	}
 
@@ -224,7 +223,6 @@ env.f.player.add = function(str) {
 	env.d.player.id = str['0'] ? 0 : env.e.player.list[1].children.length
 	env.f.player.playlist(a, str['0'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
-	env.e.player.ui1.removeAttribute('style')
 	env.d.player.init ? null : env.f.player.play.set(1)
 }
 	env.f.player.add.ask = function(str) {
@@ -233,7 +231,7 @@ env.f.player.add = function(str) {
 			if (str['0']) {
 				env.f.root.prompt(`发现一个隐藏的播放列表！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
 			} else {
-				env.f.root.prompt(`发现 ` + str['1'].length + ` 只隐藏的歌曲！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+				env.f.root.prompt(`发现 ` + str['1'].length + ` 首隐藏的音乐！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
 			}
 		}, 3000)
 	}
@@ -242,9 +240,10 @@ env.f.player.reset = function() {
 	// 重置歌单
 	env.f.player.playlist(env.f.player.album(), true)
 	env.f.player.load(env.e.player.list[1].children[0])
-	env.f.root.scroll(env.e.player.ctrl[4], 500, 1)
+	env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 	env.d.player.id = 0
 	env.f.player.mode.set(0)
+	env.f.root.fade(env.e.player.ctrl[4], -1)
 }
 
 env.f.player.lrc = {}
@@ -264,21 +263,15 @@ env.f.player.lrc = {}
 			})
 			.catch(error => {
 				console.error(error)
-
-				var line = document.createElement('line')
-					env.e.player.list[0].appendChild(line)
-
-				var s1 = document.createElement('trans')
-					s1.innerHTML = '歌词加载异常: ' + error
-					line.appendChild(s1)
+				var l = document.createElement('line')
+					l.innerHTML = '<trans>歌词加载异常: ' + error + '</trans>'
+					env.e.player.list[0].appendChild(l)
 			})
 		} else {
-			var line = document.createElement('line')
-				env.e.player.list[0].appendChild(line)
-
-			var s1 = document.createElement('trans')
-				s1.innerHTML = '没有歌词的纯音乐哦'
-				line.appendChild(s1)
+			if (env.e.player.ctrl[4].style.display != 'none') env.f.root.fade(env.e.player.ctrl[4], -1)
+			var l = document.createElement('line')
+				l.innerHTML = '<trans>没有找到这首歌的歌词 ...</trans>'
+				env.e.player.list[0].appendChild(l)
 		}
 	}
 
@@ -290,17 +283,16 @@ env.f.player.lrc = {}
 		env.d.player.lrc.data = lrc
 		env.d.player.lrc.now = 0
 
+		if (str.includes('<ruby>')) {
+			env.f.root.fade(env.e.player.ctrl[4], 1)
+		} else {
+			if (env.e.player.ctrl[4].style.display != 'none') env.f.root.fade(env.e.player.ctrl[4], -1)
+		}
+
 		for (var i = 0; i < lrc.length; i++) {
-			var line = document.createElement('line')
-				env.e.player.list[0].appendChild(line)
-
-			var s1 = document.createElement('lrc')
-				s1.innerHTML = lrc[i].split('#')[0].slice(12) || ''
-				line.appendChild(s1)
-
-			var s2 = document.createElement('trans')
-				s2.innerHTML = lrc[i].split('#')[1] || ''
-				line.appendChild(s2)
+			var l = document.createElement('line')
+				l.innerHTML = '<lrc>' + (lrc[i].split('#')[0].slice(12) || '') + '</lrc><trans>' + (lrc[i].split('#')[1] || '') + '</trans>'
+				env.e.player.list[0].appendChild(l)
 		}
 	}
 
@@ -316,9 +308,8 @@ env.f.player.lrc = {}
 
 			if (!env.d.player.init) {
 				env.d.player.init = true
-				env.f.root.scroll(env.e.player.ctrl[4], 500, 1)
-				env.d.isMobile ? (env.d.player.offsetTop = 70) : (env.d.player.offsetTop = Math.max((window.innerHeight - env.e.player.img[1].parentNode.parentNode.clientHeight) / 2, 0))
-				env.e.player.list[0].children[0].setAttribute('style', 'margin-top: ' + env.d.player.offsetTop + 'px')
+				env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
+				if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 			}
 		}
 	}
@@ -351,8 +342,8 @@ env.f.player.lrc = {}
 			div.innerHTML = `
 				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
-					<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
-					<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value)" >load</button>
+				<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
+				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value)" >load</button>
 			`
 			document.querySelector('.player-1').appendChild(div)
 	}
@@ -390,7 +381,7 @@ env.f.player.list = function(){
 
 env.f.player.playlist(env.f.player.album(), true)
 env.f.player.load(env.e.player.list[1].children[0])
-env.e.player.footer.innerHTML = env.e.player.footer.innerHTML + env.d.version.player
+env.e.player.btn.innerHTML += env.d.version.player
 
 env.e.player.audio.volume = 0.5
 
@@ -441,13 +432,13 @@ env.e.player.audio.addEventListener('ended', function () {
 })
 
 // 调整音量
-env.e.player.ctrl[4].addEventListener('scroll', () => {
-	var s = 100 - (env.e.player.ctrl[4].scrollTop / 10).toFixed(0)
+env.e.player.ctrl[5].addEventListener('scroll', () => {
+	var s = 100 - (env.e.player.ctrl[5].scrollTop / 10).toFixed(0)
 	if (s < 0) var s = 0
 	if (s > 100) var s = 100
 	var s = (s / 10).toFixed(0) * 10
 
-	env.e.player.ctrl[4].setAttribute('volume', s + '%')
+	env.e.player.ctrl[5].setAttribute('volume', s + '%')
 	env.e.player.audio.volume = s / 100
 	env.d.player.vol = s / 100
 })

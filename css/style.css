@@ -698,7 +698,7 @@ backdrop {
 
 @media screen and (max-width: 850px)  {
 	/* phone or PC min */
-	.main .loading,
+	.main .loading::after,
 	.f-2 {
 		display: none !important;
 	}

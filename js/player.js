@@ -45,8 +45,8 @@ env.f.player = {}
 env.f.player.album = function(){
 	return [
 	{
-		name: 'この空であなたを待ってる inst. - KOKIA',
-		src: '1830163712',
+		name: 'この空であなたを待ってる - KOKIA',
+		src: '1830163710',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
 		lrc: true,
 	},
@@ -150,7 +150,7 @@ env.f.player.load = function(e){
 
 
 	setTimeout(function (){
-		env.e.player.list[0].innerHTML = `<line>${name.split(' - ')[0]}<lrc></lrc><trans>${name.split(' - ')[1]}</trans></line>`
+		env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans></line>`
 		env.f.player.lrc.get((lrc == 'true') ? id : null)
 		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=600y600`
 		env.d.player.init ? env.f.player.play.set(1) : null
@@ -164,12 +164,12 @@ env.f.player.load = function(e){
 		}
 	}
 
-	// 调用 Media Session API
+	// 更新 Media Session API 信息
 	if ('mediaSession' in navigator) {
 		navigator.mediaSession.metadata = new MediaMetadata({
 			title: name,
 			artist: artist,
-			album: name + ' - ' + artist,
+			album: '',
 			artwork: [{
 				src: `https://p1.music.126.net/${img}.jpg`,
 				sizes: '',
@@ -459,6 +459,23 @@ env.e.player.ctrl[5].addEventListener('scroll', () => {
 	env.d.player.vol = s / 100
 })
 
+// 监听 Media Session API 按钮事件
+if ('mediaSession' in navigator) {
+	navigator.mediaSession.setActionHandler('previoustrack', () => {
+		// 上一首
+		if (env.d.player.id == 0) env.d.player.id = env.e.player.list[1].childElementCount - 2
+		env.d.player.id ++
+		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	})
+	navigator.mediaSession.setActionHandler('nexttrack', () => {
+
+		// 下一首
+		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
+		env.d.player.id ++
+		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	})
+}
+
 // 键盘监听
 env.e.player.ui0.addEventListener('keydown', function(event) {
 	var k = event.key
@@ -468,9 +485,9 @@ env.e.player.ui0.addEventListener('keydown', function(event) {
 	} else if (k == 'Escape') {
 		env.f.player.lrc.ui()
 	} else if (k == 'ArrowUp') {
-		env.f.root.scroll(env.e.player.s1, -100, 10, false)
+		env.f.root.scroll(env.e.player.ctrl[5], -100, 10, false)
 	} else if (k == 'ArrowDown') {
-		env.f.root.scroll(env.e.player.s1, 100, 10, false)
+		env.f.root.scroll(env.e.player.ctrl[5], 100, 10, false)
 	}
 })
 

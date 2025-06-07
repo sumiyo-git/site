@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Media Session API</title>
+  </head>
+  <body>
+    <audio id="audio" src="./tts.mp3"></audio>
+    <button type="button" id="btn-play">播放</button>
+    <button type="button" id="btn-pause">暂停</button>
+ 
+    <script>
+      // 允许我们控制媒体播放和自定义媒体通知。这意味着我们可以定义媒体元数据，如标题、艺术家、专辑和插图，并响应媒体相关事件，如播放、暂停、下一个和上一个
+ 
+      // Media Session API: 当前媒体会话并保存所有元数据和播放控制的对象
+      // 通过提供与媒体相关的事件、动作和元数据来控制媒体播放
+ 
+      /** @type {HTMLAudioElement} */
+      const audioDOM = document.getElementById('audio');
+      const playBtn = document.getElementById('btn-play');
+      const pauseBtn = document.getElementById('btn-pause');
+ 
+      // 创建媒体元数据
+      const metaData = new MediaMetadata({
+        // 媒体标题
+        title: '音乐标题',
+        // 媒体类型
+        artist: '艺术家',
+        // 媒体专辑
+        album: '专辑',
+        // 媒体封面
+        artwork: [
+          { src: 'http://p2.music.126.net/txQOuRf20d2fKbuyxhtNRA==/109951166512080386.jpg?param=130y130', sizes: '150x150', type: 'image/png' },
+          { src: 'http://p2.music.126.net/txQOuRf20d2fKbuyxhtNRA==/109951166512080386.jpg?param=130y130', sizes: '500x500', type: 'image/png' },
+        ],
+      });
+ 
+      // 设置媒体元数据
+      navigator.mediaSession.metadata = metaData;
+      console.log("navigator.mediaSession => ", navigator.mediaSession)
+ 
+      playBtn.addEventListener('click', () => {
+        audioDOM.play();
+      })
+      pauseBtn.addEventListener('click', () => {
+        audioDOM.pause();
+      })
+ 
+      // 监听媒体事件
+      navigator.mediaSession.setActionHandler('play', () => {
+        audioDOM.play();
+        console.log('play');
+      });
+      navigator.mediaSession.setActionHandler('pause', () => {
+        audioDOM.pause();
+        console.log('pause');
+      });
+      navigator.mediaSession.setActionHandler('nexttrack', () => {
+        console.log('next track');
+      });
+      navigator.mediaSession.setActionHandler('previoustrack', () => {
+        console.log('previous track');
+      });
+    </script>
+  </body>
+</html>

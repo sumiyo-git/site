@@ -129,9 +129,10 @@ env.f.player.load = function(e){
 	var id = e.dataset.id
 	var img = e.dataset.img
 	var name = e.dataset.name
+	var artist = e.dataset.artist
 	var lrc = e.dataset.lrc
 
-	env.e.player.ui1.innerHTML = name.split(' - ')[0].split('(')[0]
+	env.e.player.ui1.innerHTML = name
 	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 
 	env.e.player.bar[1].style.width = '0px'
@@ -162,6 +163,20 @@ env.f.player.load = function(e){
 			break
 		}
 	}
+
+	// 调用 Media Session API
+	if ('mediaSession' in navigator) {
+		navigator.mediaSession.metadata = new MediaMetadata({
+			title: name,
+			artist: artist,
+			album: name + ' - ' + artist,
+			artwork: [{
+				src: `https://p1.music.126.net/${img}.jpg`,
+				sizes: '',
+				type: "image/jpg"
+			}]
+		})
+	}
 }
 
 env.f.player.mode = function(){
@@ -189,7 +204,8 @@ env.f.player.playlist = function(a, replace = false){
 			line.setAttribute('data-img', a[i].img)
 			line.setAttribute('data-id', a[i].src)
 			line.setAttribute('data-lrc', a[i].lrc)
-			line.setAttribute('data-name', a[i].name)
+			line.setAttribute('data-name', a[i].name.split(' - ')[0].split('(')[0])
+			line.setAttribute('data-artist', a[i].name.split(' - ')[1].split('(')[0])
 			env.e.player.list[1].appendChild(line)
 
 			var s1 = document.createElement('lrc')

@@ -394,8 +394,7 @@ env.f.player.next = function(n){
 	// 切换歌曲
 	if (n == -1) {
 		// 上一首
-		if (env.d.player.id == 0) env.d.player.id = env.e.player.list[1].childElementCount - 1
-
+		if (env.d.player.id == 0) env.d.player.id = env.e.player.list[1].childElementCount
 		env.d.player.id --
 
 		env.f.player.load(env.e.player.list[1].children[env.d.player.id])

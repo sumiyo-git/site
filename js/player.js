@@ -72,7 +72,7 @@ env.f.player.album = function(){
 		name: 'カメリア - 大神ミオ',
 		src: '2110680224',
 		img: 'JlxHCRJi7i4OjvxsqhImog==/109951169195605007',
-		lrc: false,
+		lrc: true,
 	},
 	{
 		name: 'Calling - MAROK & mamomo',
@@ -343,7 +343,7 @@ env.f.player.lrc = {}
 				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
 				<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
-				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value)" >load</button>
+				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
 			`
 			document.querySelector('.player-1').appendChild(div)
 	}

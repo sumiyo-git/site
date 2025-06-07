@@ -390,7 +390,22 @@ env.f.player.list = function(){
 		}
 	}
 
+env.f.player.next = function(n){
+	// 切换歌曲
+	if (n == -1) {
+		// 上一首
+		if (env.d.player.id == 0) env.d.player.id = env.e.player.list[1].childElementCount - 1
 
+		env.d.player.id --
+
+		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	} else {
+		// 下一首
+		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
+		env.d.player.id ++
+		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	}
+}
 
 
 
@@ -463,16 +478,12 @@ env.e.player.ctrl[5].addEventListener('scroll', () => {
 if ('mediaSession' in navigator) {
 	navigator.mediaSession.setActionHandler('previoustrack', () => {
 		// 上一首
-		if (env.d.player.id == 0) env.d.player.id = env.e.player.list[1].childElementCount - 2
-		env.d.player.id ++
-		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+		env.f.player.next(-1)
 	})
 	navigator.mediaSession.setActionHandler('nexttrack', () => {
 
 		// 下一首
-		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
-		env.d.player.id ++
-		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+		env.f.player.next(1)
 	})
 }
 
@@ -488,6 +499,10 @@ env.e.player.ui0.addEventListener('keydown', function(event) {
 		env.f.root.scroll(env.e.player.ctrl[5], -100, 10, false)
 	} else if (k == 'ArrowDown') {
 		env.f.root.scroll(env.e.player.ctrl[5], 100, 10, false)
+	} else if (k == 'ArrowLeft') {
+		env.f.player.next(-1)
+	} else if (k == 'ArrowRight') {
+		env.f.player.next(1)
 	}
 })
 

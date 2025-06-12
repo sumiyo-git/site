@@ -19,7 +19,7 @@
 		if (body.at == -1) {
 			// 留言
 			if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-				r.msg = "out of the deadline"
+				r = {success: false, meta: {}, results: [], msg: "out of the deadline"}
 				return Response.json(r)
 			}
 
@@ -36,7 +36,12 @@
 			l.pop()
 
 			if ((parseInt(JSON.parse(l[body.at - 1]).id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-				r.msg = "out of the deadline"
+				r = {success: false, meta: {}, results: [], msg: "out of the deadline"}
+				return Response.json(r)
+			}
+
+			if (JSON.parse(l[body.at - 1]).op == '1') {
+				r = {success: false, meta: {}, results: [], msg: "no access"}
 				return Response.json(r)
 			}
 

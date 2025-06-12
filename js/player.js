@@ -171,7 +171,7 @@ env.f.player.load = function(e){
 			artist: artist,
 			album: '',
 			artwork: [{
-				src: `https://p1.music.126.net/${img}.jpg`,
+				src: `https://p1.music.126.net/${img}.jpg?param=600y600`,
 				sizes: '',
 				type: "image/jpg"
 			}]

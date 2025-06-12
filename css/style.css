@@ -307,19 +307,17 @@ backdrop {
 }
 
 
-.main .description {
+.main .des {
 	position: absolute;
 	width: 500px;
 	height: 150px;
 	bottom: 120px;
-	left: 200px;
-	padding-left: 40px;
+	left: 240px;
 	z-index: 2;
 	white-space: nowrap;
-	border-left: rgba(var(--t-c2), 0.8) 8px solid;
 }
 
-.main .description :first-child {
+.main .des :first-child {
 	font-size: 80px;
 	line-height: 70px;
 	font-weight: bold;
@@ -328,7 +326,7 @@ backdrop {
 	-webkit-background-clip: text;
 }
 
-.main .description :last-child {
+.main .des :last-child {
 	display: block;
 	margin-top: 25px;
 	color: rgba(var(--t-t1), 0.5);
@@ -363,7 +361,6 @@ backdrop {
 }
 
 .menu::-webkit-scrollbar {
-
 	display: none;
 }
 

@@ -190,8 +190,8 @@ env.f.load = function() {
 				var body = r.querySelector('.comment-body')
 				var header = r.querySelector('.comment-header')
 
-				if (body.offsetHeight>70) {
-					body.setAttribute('style', 'height: 70px')
+				if (body.offsetHeight>75) {
+					body.setAttribute('style', 'height: 75px')
 					var u = document.createElement('a')
 						u.innerHTML = '[展开]'
 						u.setAttribute('class', 'unfold')
@@ -201,6 +201,7 @@ env.f.load = function() {
 
 				if (j.op == '1') {
 					header.setAttribute('class', 'comment-header op')
+					header.querySelector('a').remove()
 				}
 
 				if (parseInt(j.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {

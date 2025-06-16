@@ -45,79 +45,92 @@ env.f.player = {}
 env.f.player.album = function(){
 	return [
 	{
-		name: 'この空であなたを待ってる - KOKIA',
+		name: 'この空であなたを待ってる',
+		artist: 'KOKIA',
 		src: '1830163710',
 		img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
 		lrc: true,
 	},
 	{
-		name: 'ワタリドリ - KOKIA',
+		name: 'ワタリドリ',
+		artist: 'KOKIA',
 		src: '2101452199',
 		img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
 		lrc: true,
 	},
 	{
-		name: 'One Last Adventure - Evan Call',
+		name: 'One Last Adventure',
+		artist: 'Evan Call',
 		src: '2116382384',
 		img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
 		lrc: false,
 	},
 	{
-		name: "原風景 - mamomo & 丘咲アンナ",
+		name: "原風景",
+		artist: 'mamomo & 丘咲アンナ',
 		src: '33469247',
 		img: 'ct9bs4VXR1mrbVRsX9iboA==/3372202162443903',
 		lrc: true,
 	},
 	{
-		name: 'カメリア - 大神ミオ',
+		name: 'カメリア',
+		artist: '大神ミオ',
 		src: '2110680224',
 		img: 'JlxHCRJi7i4OjvxsqhImog==/109951169195605007',
 		lrc: true,
 	},
 	{
-		name: 'Calling - MAROK & mamomo',
+		name: 'Calling',
+		artist: 'MAROK & mamomo',
 		src: '1944649836',
 		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
 		lrc: false,
 	},
 	{
-		name: 'Dóchas - Aaron Dolan & Florian Bur',
+		name: 'Dóchas',
+		artist: 'Aaron Dolan & Florian Bur',
 		src: '2165170302',
 		img: 'sMtYDaEmC2VGAsjGPaKZdg==/109951169674040753',
 		lrc: false,
 	},
 	{
-		name: 'There Is Still Wonder Left To Behold - reche',
+		name: 'There Is Still Wonder Left To Behold',
+		artist: 'reche',
 		src: '2017419119',
 		img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
 		lrc: true,
 	},
 	{
-		name: 'One Day - KISNOU',
+		name: 'One Day',
+		artist: 'KISNOU',
 		src: '448316625',
 		img: '9QkYHkN8UCiybMg-qHempw==/109951168047707020',
 		lrc: false,
 	},
 	{
-		name: 'leaving home - Park Bird & Chance Thrash',
+		name: 'leaving home',
+		artist: 'Park Bird & Chance Thrash',
 		src: '1847674458',
 		img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
 		lrc: false,
 	},
 	{
-		name: '変わり行く世界のために - 茶太',
+		name: '変わり行く世界のために',
+		artist: '茶太',
 		src: '697291',
 		img: 'eiR5oFPitGtu1hzka4Vm5g==/814738116182197',
 		lrc: true,
 	},
 	{
-		name: 'Underground River (opening version ft.Raj Ramayya) - Kevin Penkin',
+		name: 'Underground River (opening version ft.Raj Ramayya)',
+		artist: 'Kevin Penkin',
 		src: '509098783',
 		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
 		lrc: true,
 	},
 	{
-		name: 'The Return of Made in Abyss - Kevin Penkin',
+		name: 'The Return of Made in Abyss',
+		artist: 'Kevin Penkin',
 		src: '1417631425',
 		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
 		lrc: false,
@@ -204,17 +217,10 @@ env.f.player.playlist = function(a, replace = false){
 			line.setAttribute('data-img', a[i].img)
 			line.setAttribute('data-id', a[i].src)
 			line.setAttribute('data-lrc', a[i].lrc)
-			line.setAttribute('data-name', a[i].name.split(' - ')[0].split('(')[0])
-			line.setAttribute('data-artist', a[i].name.split(' - ')[1].split('(')[0])
+			line.setAttribute('data-name', a[i].name)
+			line.setAttribute('data-artist', a[i].artist)
+			line.innerHTML = `<lrc>${a[i].name}</lrc><trans>${a[i].artist}</trans>`
 			env.e.player.list[1].appendChild(line)
-
-			var s1 = document.createElement('lrc')
-				s1.innerHTML = a[i].name.split('-')[0]
-				line.appendChild(s1)
-
-			var s2 = document.createElement('trans')
-				s2.innerHTML = a[i].name.split('-')[1]
-				line.appendChild(s2)
 	}
 }
 
@@ -280,7 +286,7 @@ env.f.player.lrc = {}
 			.catch(error => {
 				console.error(error)
 				var l = document.createElement('line')
-					l.innerHTML = '<trans>歌词加载异常: ' + error + '</trans>'
+					l.innerHTML = `<trans>歌词加载异常: ${error}</trans>`
 					env.e.player.list[0].appendChild(l)
 			})
 		} else {
@@ -307,7 +313,7 @@ env.f.player.lrc = {}
 
 		for (var i = 0; i < lrc.length; i++) {
 			var l = document.createElement('line')
-				l.innerHTML = '<lrc>' + (lrc[i].split('#')[0].slice(12) || '') + '</lrc><trans>' + (lrc[i].split('#')[1] || '') + '</trans>'
+				l.innerHTML = `<lrc>${lrc[i].split('#')[0].slice(12) || ''}</lrc><trans>${lrc[i].split('#')[1] || ''}</trans>`
 				env.e.player.list[0].appendChild(l)
 		}
 	}

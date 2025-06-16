@@ -16,7 +16,7 @@ env.e = {...env.e, ...{
 	root: {
 		'prompt': document.querySelector('.prompt'),
 		'menu': document.querySelectorAll('.menu btn'),
-		'footer': document.querySelectorAll('.main footer span'),
+		'counter': document.querySelectorAll('.main footer tag'),
 		'blog': document.querySelector('.main .blog'),
 		'btn1': document.querySelector('.main header btn'),
 		'btn2': document.querySelector('.main header backdrop'),
@@ -300,7 +300,7 @@ env.f.root.init = function() {
 	// 文章
 	var d = env.d.list.blog
 	var e = document.querySelector('.search list')
-	env.e.root.menu[0].children[0].setAttribute('data-num', d.length)
+	env.e.root.menu[0].setAttribute('data-item', d.length)
 
 	for (var i = 0; i < d.length; i++) {
 		if (d[i].type != 'hide') {
@@ -354,13 +354,18 @@ env.f.root.menu = {}
 		env.f.root.fade(env.e.root.btn2, -300)
 	}
 
-	env.f.root.menu.folder = function(e, h = 0) {
+	env.f.root.menu.folder = function(e) {
 		if (e.classList.contains('active')) {
 			e.removeAttribute('class')
 			e.nextElementSibling.setAttribute('style', 'opacity: 0; height: 0; overflow: hidden;')
 		} else {
 			e.classList.add('active')
-			h ? e.nextElementSibling.setAttribute('style', `opacity: 1; height: ${Math.min(5, (Number(env.e.root.menu[0].children[0].dataset.num) || 1)) * 22 + 55}px;`) : e.nextElementSibling.removeAttribute('style')
+			if (e == env.e.root.menu[0]) {
+				// 配合检索栏
+				e.nextElementSibling.setAttribute('style', `opacity: 1; height: ${Math.min(5, (Number(env.e.root.menu[0].dataset.item) || 1)) * 22 + 55}px;`)
+			} else {
+				e.nextElementSibling.removeAttribute('style')
+			}
 		}
 	}
 
@@ -466,7 +471,7 @@ env.f.root.search = function() {
 		}
 	}
 
-	env.e.root.menu[0].children[0].setAttribute('data-num', r.length)
+	env.e.root.menu[0].setAttribute('data-item', r.length)
 	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(5, r.length), 1) * 22 + 55}px`)
 	document.querySelector('.search .null').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
 }
@@ -477,7 +482,7 @@ env.f.root.search = function() {
 
 
 // 初始化环境
-env.e.root.footer[0].innerHTML = env.d.uptime = env.f.root.getUptime()
+env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
 env.f.root.url.read()
 
 
@@ -516,8 +521,8 @@ window.addEventListener('load',function(){
 			env.d.visitors = Number(json.results[0].data)
 			env.f.root.setCookie('Cookie !')
 
-			env.e.root.footer[1].innerHTML = env.d.visitors
-			env.e.root.footer[1].parentNode.removeAttribute('style')
+			env.e.root.counter[1].innerHTML = env.d.visitors
+			env.e.root.counter[1].parentNode.removeAttribute('style')
 		})
 	}
 })

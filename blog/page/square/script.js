@@ -26,6 +26,7 @@ const env = {
 		'can': document.querySelector('canvas'),
 		'user': document.querySelectorAll('.user')[0],
 		'footer': document.querySelector('footer'),
+		'tag': document.querySelectorAll('tag'),
 	},
 	'tmp': {
 		't1': null
@@ -82,7 +83,7 @@ env.f.init = function() {
 		.then(json => {
 			env.d.cn = Number(json.results[0].data)
 			env.d.pn = Math.ceil(env.d.cn / 5)
-			document.getElementById('_1').innerHTML = env.d.cn
+			env.e.tag[0].innerHTML = env.d.cn
 
 			if (env.d.pn > 1) env.f.pagination(1)
 			env.f.get(1)
@@ -202,6 +203,7 @@ env.f.load = function() {
 				if (j.op == '1') {
 					header.setAttribute('class', 'comment-header op')
 					header.querySelector('a').remove()
+					continue
 				}
 
 				if (parseInt(j.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
@@ -276,7 +278,7 @@ env.f.submit = function() {
 			if (id == null) {
 				env.d.cn ++
 				env.d.pn = Math.ceil(env.d.cn / 5)
-				document.getElementById('_1').innerHTML = env.d.cn
+				env.e.tag[0].innerHTML = env.d.cn
 				env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言哦', 5000)")
 			} else {
 				env.f.connect("env.f.root.prompt('回复成功', 5000)")
@@ -311,7 +313,7 @@ env.f.zoltraak = function(id, at) {
 		if (at == -1) {
 			env.d.cn --
 			env.d.pn = Math.ceil(env.d.cn / 5)
-			document.getElementById('_1').innerHTML = env.d.cn
+			env.e.tag[0].innerHTML = env.d.cn
 		}
 		env.f.get(env.d.p)
 		env.f.connect("env.f.root.prompt('看起来应该是删掉了', 3000)")

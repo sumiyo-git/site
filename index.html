@@ -132,7 +132,7 @@
 		</div>
 		<div style="opacity: 0;">
 			<!-- 小小的成就 -->
-			 | <span>0</span> 天 & <span>0</span> 访客
+			 | <tag>0</tag> 天 & <tag>0</tag> 访客
 		</div>
 
 	</footer>
@@ -148,9 +148,9 @@
 
 	<!-- 博客 -->
 	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this, true)" class="active" >检索:<span data-num="0" ></span></btn>
+		<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
 		<div class="search" >
-			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="16" autocomplete="off" ></textarea><span></span>
+			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="20" autocomplete="off" ></textarea><span></span>
 			<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
 		</div>
 	</div>

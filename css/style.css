@@ -486,8 +486,8 @@ backdrop {
 	transition: 0.3s ease-out 0s;
 }
 
-.menu btn span[data-num]::after {
-	content: attr(data-num) ' items';
+.menu btn[data-item]::after {
+	content: attr(data-item) ' items';
 	font-size: 18px;
 	margin-left: 8px;
 	color: rgba(var(--t-t1), 0.3);

@@ -171,8 +171,14 @@ env.f.root.conv = {}
 
 	env.f.root.conv.c1 = function(str) {
 		// 转换 mm:ss.fff --> ms
-		var parts = str.split(':')
-		return parseInt(parts[0], 10) * 60 + parseInt(parts[1], 10)
+		var p = str.split(/[:.]/)
+		return parseInt(p[0] * 60000) + parseInt(p[1] * 1000) + parseInt(p[2])
+	}
+
+	env.f.root.conv.c2 = function(str) {
+		// 转换 mm:ss.fff --> s
+		var p = str.split(/[:.]/)
+		return parseFloat((parseInt(p[0] * 60) + parseInt(p[1])) + '.' + p[2])
 	}
 
 env.f.root.getUptime = function() {

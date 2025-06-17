@@ -18,7 +18,8 @@ env.d.player = {
 	'init': false,
 	'ui': false,
 	'lrc': {
-		'data': [],
+		'timeline': [],
+		'raw': null,
 		'now': 0,
 	},
 }
@@ -80,7 +81,7 @@ env.f.player.album = function(){
 		lrc: true,
 	},
 	{
-		name: 'Calling',
+		name: 'Calling (feat. marok)',
 		artist: 'MAROK & mamomo',
 		src: '1944649836',
 		img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
@@ -140,10 +141,9 @@ env.f.player.album = function(){
 env.f.player.load = function(e){
 	// 加载音乐信息
 	var id = e.dataset.id
-	var img = e.dataset.img
 	var name = e.dataset.name
 	var artist = e.dataset.artist
-	var lrc = e.dataset.lrc
+	var img = e.dataset.img
 
 	env.e.player.ui1.innerHTML = name
 	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
@@ -163,9 +163,9 @@ env.f.player.load = function(e){
 
 
 	setTimeout(function (){
-		env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans></line>`
-		env.f.player.lrc.get((lrc == 'true') ? id : null)
-		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=600y600`
+		env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans><trans></trans></line>`
+		env.f.player.lrc.get((e.dataset.lrc == 'true') ? id : null)
+		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=1000y1000`
 		env.d.player.init ? env.f.player.play.set(1) : null
 	}, 500)
 
@@ -184,7 +184,7 @@ env.f.player.load = function(e){
 			artist: artist,
 			album: '',
 			artwork: [{
-				src: `https://p1.music.126.net/${img}.jpg?param=600y600`,
+				src: `https://p1.music.126.net/${img}.jpg?param=1000y1000`,
 				sizes: '',
 				type: "image/jpg"
 			}]
@@ -271,7 +271,7 @@ env.f.player.reset = function() {
 env.f.player.lrc = {}
 	env.f.player.lrc.get = function(id) {
 		// 下载歌词
-		env.d.player.lrc.data = []
+		env.d.player.lrc.timeline = []
 
 		if (id) {
 			fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
@@ -299,11 +299,15 @@ env.f.player.lrc = {}
 
 	env.f.player.lrc.load = function(str) {
 		// 渲染歌词
-		lrc = str.split('\n')
-		lrc.push("[59:59.999]")
 
-		env.d.player.lrc.data = lrc
+		// 歌词信息
+		env.d.player.lrc.raw = str
 		env.d.player.lrc.now = 0
+		env.d.player.lrc.timeline = []
+
+		var p = str.includes('\n------------------------------\n') ? str.split('\n------------------------------\n') : [null, str]
+		var lrc = p[1].split('\n')
+		lrc.push("[59:59.999]")
 
 		if (str.includes('<ruby>')) {
 			env.f.root.fade(env.e.player.ctrl[4], 1)
@@ -311,7 +315,9 @@ env.f.player.lrc = {}
 			if (env.e.player.ctrl[4].style.display != 'none') env.f.root.fade(env.e.player.ctrl[4], -1)
 		}
 
+		if (p[0]) env.e.player.list[0].children[0].querySelectorAll('trans')[1].innerHTML = '<br class="f-1" >' + p[0]
 		for (var i = 0; i < lrc.length; i++) {
+			env.d.player.lrc.timeline.push(env.f.root.conv.c2(lrc[i].slice(1, 10)))
 			var l = document.createElement('line')
 				l.innerHTML = `<lrc>${lrc[i].split('#')[0].slice(12) || ''}</lrc><trans>${lrc[i].split('#')[1] || ''}</trans>`
 				env.e.player.list[0].appendChild(l)
@@ -338,9 +344,9 @@ env.f.player.lrc = {}
 
 	env.f.player.lrc.find = function(n) {
 		// 找到当前正在播放的歌词行数
-		if (env.d.player.lrc.data[0]) {
+		if (env.d.player.lrc.timeline[0] != undefined) {
 			for (var i = 0; i < 100; i++) {
-				if (env.e.player.audio.currentTime <= env.f.root.conv.c1((env.d.player.lrc.data[i]).substring(1, 10))) {
+				if (env.e.player.audio.currentTime <= env.d.player.lrc.timeline[i]) {
 					env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 					env.d.player.lrc.now = i
 					env.e.player.list[0].children[i].setAttribute('class', 'highlight')
@@ -357,7 +363,7 @@ env.f.player.lrc = {}
 			if (event.key === 'Enter' || event.keyCode === 13) {
 				console.log(env.f.root.conv.c0(env.e.player.audio.currentTime))
 			}
-		});
+		})
 
 		var div = document.createElement('div')
 			div.setAttribute('style', 'position: fixed; z-index: 50; bottom: 0;')
@@ -365,7 +371,7 @@ env.f.player.lrc = {}
 				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
 				<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
-				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
+				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans><trans></trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
 			`
 			document.querySelector('.player-1').appendChild(div)
 	}
@@ -374,8 +380,10 @@ env.f.player.kana = function() {
 	// 假名注音
 	if (env.e.player.list[0].classList.contains('no-kana')) {
 		env.e.player.list[0].classList.remove('no-kana')
+		env.e.player.ctrl[4].innerHTML = 'ア'
 	} else {
 		env.e.player.list[0].classList.add('no-kana')
+		env.e.player.ctrl[4].innerHTML = 'あ'
 	}
 }
 
@@ -443,8 +451,8 @@ env.e.player.bar[0].addEventListener('click', function(event) {
 
 // 歌词显示
 env.e.player.audio.addEventListener('timeupdate', function () {
-	if (env.d.player.lrc.data[0]) {
-		if (env.f.root.conv.c1((env.d.player.lrc.data[env.d.player.lrc.now]).substring(1, 10)) - 1 <= env.e.player.audio.currentTime) {
+	if (env.d.player.lrc.timeline[0] != undefined) {
+		if (env.d.player.lrc.timeline[env.d.player.lrc.now] <= env.e.player.audio.currentTime) {
 			env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 			env.d.player.lrc.now ++
 			env.e.player.list[0].children[env.d.player.lrc.now].setAttribute('class', 'highlight')

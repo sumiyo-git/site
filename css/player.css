@@ -1,36 +1,16 @@
-﻿
-.player-0 {
-	margin-left: 24px;
-	width: 266px;
-	overflow: hidden;
-	white-space: nowrap;
-	text-overflow: ellipsis;
-	color: rgba(var(--t-t1), 0.3);
-}
-
-.player-0 audio {
-	display: none;
-}
-
-.player-0 a {
+﻿.main footer a {
 	color: rgba(var(--t-t1), 0.6);
 	cursor: pointer;
 	transition: 0.3s;
 }
 
-.player-0 a {
-	color: rgba(var(--t-t1), 0.6);
-	cursor: pointer;
-	transition: 0.3s;
-}
-
-.player-0 a:hover {
+.main footer a:hover {
 	color: rgba(var(--t-c1), 0.8);
 }
 
 
 
-.player-1 {
+.player-ui {
 	position: fixed;
 	z-index: 30;
 	top: 0;
@@ -40,7 +20,7 @@
 	background-color: rgba(var(--t-b4), 1);
 }
 
-.player-1 .wallpaper {
+.player-ui .wallpaper {
 	position: fixed;
 	aspect-ratio: 1 / 1;
 	width: calc(100% + 200px);
@@ -51,24 +31,24 @@
 	pointer-events: none;
 }
 
-.player-1 backdrop {
+.player-ui backdrop {
 	z-index: 30;
 	backdrop-filter: brightness(0.4) blur(20px);
 	pointer-events: none;
 }
 
-.player-1 aside {
+.player-ui aside {
 	display: inline-block;
 	width: calc(50% - 40px);
 	padding: 0 45px 0 45px;
 }
 
-.player-1 aside:nth-child(2) {
+.player-ui aside:nth-child(2) {
 	height: 100%;
 	width: calc(50% - 240px);
 }
 
-.player-1 .frame {
+.player-ui .frame {
 	position: absolute;
 	z-index: 30;
 	width: 70%;
@@ -81,7 +61,7 @@
 	align-items: center;
 }
 
-.player-1 .cover {
+.player-ui .cover {
 	aspect-ratio: 1 / 1;
 	width: 100%;
 	background-color: rgba(var(--t-b1), 0.05);
@@ -91,17 +71,17 @@
 	overflow: hidden;
 }
 
-.player-1 .cover img {
+.player-ui .cover img {
 	width: 100%;
 }
 
-.player-1 .ctrl {
+.player-ui .ctrl {
 	height: 50px;
 	margin-top: 25px;
 	color: rgba(var(--t-b1), 0.1);
 }
 
-.player-1 .ctrl a {
+.player-ui .ctrl a {
 	vertical-align: top;
 	display: inline-block;
 	height: 30px;
@@ -111,67 +91,67 @@
 	cursor: pointer;
 }
 
-.player-1 .ctrl a:nth-of-type(1) {
+.player-ui .ctrl a:nth-of-type(1) {
 	float: right;
 	padding-right: 0;
 	font-family: 'Microsoft YaHei';
 }
 
-.player-1 .ctrl a:last-child {
+.player-ui .ctrl a:last-child {
 	width: 60px;
 	overflow: scroll;
 }
 
-.player-1 .ctrl a:last-child::before {
+.player-ui .ctrl a:last-child::before {
 	position: absolute;
 	content: attr(volume);
 	font-family: 'Microsoft YaHei';
 }
 
-.player-1 .ctrl a:last-child::-webkit-scrollbar {
+.player-ui .ctrl a:last-child::-webkit-scrollbar {
 
 	display: none;
 }
 
-.player-1 .ctrl a:last-child div {
+.player-ui .ctrl a:last-child div {
 	height: 1200px;
 	width: 30px;
 }
 
-.player-1 header btn {
+.player-ui header btn {
 	color: rgba(var(--t-b1), 0.2);
 }
 
-.player-1 header btn:hover {
+.player-ui header btn:hover {
 	color: rgba(var(--t-b1), 0.6);
 }
 
-.player-1 list:nth-child(1)::-webkit-scrollbar {
+.player-ui list:nth-child(1)::-webkit-scrollbar {
 
 	display: none;
 }
 
-.player-1 list:nth-child(1) line {
+.player-ui list:nth-child(1) line {
 	background-color: rgba(var(--t-b1), 0);
 }
 
-.player-1 list:nth-child(2) line {
+.player-ui list:nth-child(2) line {
 	cursor: pointer;
 	margin-left: 5px;
 }
 
-.player-1 list .active,
-.player-1 list:nth-child(2) line:hover {
+.player-ui list .active,
+.player-ui list:nth-child(2) line:hover {
 	background-color: rgba(var(--t-b1), 0.1);
 	color: rgba(var(--t-b1), 0.8);
 }
 
-.player-1 list .active {
+.player-ui list .active {
 	background-color: rgba(var(--t-c1), 0.2) !important;
 	color: rgba(var(--t-c1), 0.7) !important;
 }
 
-.player-1 line {
+.player-ui line {
 	margin-top: 10px;
 	display: block;
 	padding: 5px 15px 5px 15px;
@@ -186,35 +166,35 @@
 	transition: 0.3s;
 }
 
-.player-1 trans {
+.player-ui trans {
 	display: block;
 	font-size: 16px;
 	color: rgba(var(--t-b1), 0.2);
 }
 
-.player-1 .highlight {
+.player-ui .highlight {
 	background-color: rgba(var(--t-b1), 0.2) !important;
 	color: rgba(var(--t-b1), 1);
 }
 
-.player-1 .highlight trans {
+.player-ui .highlight trans {
 	color: rgba(var(--t-b1), 0.6);
 }
 
-.player-1 rt {
+.player-ui rt {
 	user-select: none;
 }
 
-.player-1 .no-kana rt {
+.player-ui .no-kana rt {
 	display: none;
 }
 
-.player-1 bar {
+.player-ui bar {
 	height: 10px;
 	cursor: text;
 }
 
-.player-1 bar div {
+.player-ui bar div {
 	margin-top: 4px;
 	border-radius: 20px;
 	overflow: hidden;
@@ -224,18 +204,18 @@
 	transition: 0.5s;
 }
 
-.player-1 bar div div {
+.player-ui bar div div {
 	margin-top: 0;
 	height: 5px;
 	border: none;
 	background-color: rgba(var(--t-b2), 0.4);
 }
 
-.player-1 header {
+.player-ui header {
 	z-index: 35;
 }
 
-.player-1 list {
+.player-ui list {
 	display: block;
 	height: 100%;
 	overflow: scroll;
@@ -243,13 +223,13 @@
 	border-top: 1px solid rgba(var(--t-b1), 0.1);
 }
 
-.player-1 list::-webkit-scrollbar:horizontal {
+.player-ui list::-webkit-scrollbar:horizontal {
 	display: none !important;
 }
 
 
 
-.blog .player-2 {
+.blog .player-blog {
 	position: fixed;
 	left: 20px;
 	bottom: 20px;
@@ -271,58 +251,58 @@
 	transition: 0.3s;
 }
 
-.blog .player-2::before {
+.blog .player-blog::before {
 	content: ' | ';
 	font-family: 'icomoon';
 	font-size: 16px;
 	transition: 0.3s;
 }
 
-.blog .player-2:hover {
+.blog .player-blog:hover {
 	background-color: rgba(var(--t-b2), 0.7);
 }
 
 
 
-@media screen and (max-width: 850px)  {
-	.player-1 list::-webkit-scrollbar,
-	.player-1 .cover {
+@media (orientation: portrait) {
+	.player-ui list::-webkit-scrollbar,
+	.player-ui .cover {
 		display: none;
 	}
-	.player-1 .lrc {
+	.player-ui .lrc {
 		max-width: 300px;
 		padding: 5px 10px 5px 10px;
 		text-align: left;
 		white-space: unset;
 		word-break: break-word;
 	}
-	.player-1 aside:nth-child(1) {
+	.player-ui aside:nth-child(1) {
 		padding: 0 !important;
 		width: 0;
 	}
-	.player-1 aside:nth-child(2) {
+	.player-ui aside:nth-child(2) {
 		width: calc(100% - 40px);
 		height: calc(100% - 162px);
 		padding: 0 20px 0 20px;
 	}
-	.player-1 .frame {
+	.player-ui .frame {
 		width: 100%;
 		left: 0;
 	}
-	.player-1 .ctrl {
+	.player-ui .ctrl {
 		position: fixed;
 		bottom: 34px;
 		width: calc(100% - 40px);
 		padding: 0 20px 0 20px;
 	}
-	.player-1 list {
+	.player-ui list {
 		border-bottom: none;
 	}
-	.player-1 .wallpaper {
+	.player-ui .wallpaper {
 		width: unset;
 		height: calc(100% + 200px);
 	}
-	.blog .player-2 {
+	.blog .player-blog {
 		max-width: 50%;
 	}
 }

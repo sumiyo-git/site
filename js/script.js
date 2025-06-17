@@ -8,7 +8,7 @@
 
 
 
-env.d.version.root = '1.0.241'
+env.d.version.root = '1.0.242'
 env.f.root = {}
 
 // 初始化元素列表
@@ -26,9 +26,19 @@ env.e = {...env.e, ...{
 // 通知列表
 env.d.list.news = [
 	{
+		date: '6.17',
+		name: '小更改',
+		des: 'Ｆ 留言板回复功能权限问题\nＯ 播放器滚动歌词 (又要重调时间轴了... 呜呜呜)\nＯ 响应式页面布局\nＯ 美化页面元素',
+	},
+	{
+		date: '4.13',
+		name: '后台爆破攻击',
+		des: '部分地区的访问已被屏蔽',
+	},
+	{
 		date: '4.03',
 		name: '主题优化',
-		des: '重写播放器代码\n微调网站 env 框架',
+		des: 'Ｏ 播放器样式调整\nＯ 调整网站 env 框架',
 	},
 	{
 		date: '1.16',
@@ -39,16 +49,6 @@ env.d.list.news = [
 		date: '11.21',
 		name: '注册 <ins>sumiyo.link/</ins>',
 		des: '新的域名，新的开始！',
-	},
-	{
-		date: '10.02',
-		name: '网站界面优化',
-		des: '一点点小调整',
-	},
-	{
-		date: '6.08',
-		name: '留言板上线',
-		des: '终于可以留言啦',
 	},
 
 ]
@@ -116,7 +116,7 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 }
 
 env.f.root.setCookie = function(value) {
-	// 设置 Cookie
+	// 写入 Cookie
 	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`
 }
 
@@ -313,13 +313,9 @@ env.f.root.init = function() {
 			var div = document.createElement('div')
 				div.setAttribute('style', 'display: block')
 				div.setAttribute('data-type', d[i].type[0])
-				e.appendChild(div)
+				div.innerHTML = `<a onclick="env.f.root.blog.open('${d[i].src}')" title="${d[i].des}" >${d[i].name}</a>`
 
-			var a = document.createElement('a')
-				a.setAttribute('onclick', `env.f.root.blog.open('${d[i].src}')`)
-				a.setAttribute('title', d[i].des)
-				a.innerHTML = d[i].name
-				div.appendChild(a)
+				e.appendChild(div)
 
 			if (d[i].type[1] == 'pin') {div.setAttribute('class', 'pin')}
 		}
@@ -379,6 +375,7 @@ env.f.root.page = {}
 	env.f.root.page.load = function() {
 		// 博客加载动画
 		clearInterval(env.tmp.root.t2)
+		if (document.querySelector('.main .loading')) document.querySelector('.main .loading').style.display = 'none'
 		env.f.root.fade(env.e.root.blog.children[2], 30)
 
 		env.tmp.root.d5 = new Date()

@@ -224,13 +224,10 @@ backdrop {
 	z-index: 1;
 	height: 40px;
 	width: 100%;
-
 	background-color: rgba(var(--t-b3), 1);
 	background-image: linear-gradient(90deg, rgba(var(--t-b3), 1) 0%, rgba(var(--t-b1), 1) 70%);
-
 	mask-image: linear-gradient(90deg, rgba(var(--t-b3), 1) 0%, rgba(var(--t-b3), 0) 70%);
 	-webkit-mask-image: linear-gradient(90deg, rgba(var(--t-b3), 1) 0%, rgba(var(--t-b3), 0) 70%);
-
 	color: rgba(var(--t-t1), 0.4);
 	user-select: none;
 	line-height: 24px;
@@ -244,12 +241,6 @@ backdrop {
 	color: rgba(var(--t-t1), 0.6);
 	transition: 0.3s;
 }
-
-.main footer a {
-	color: rgba(var(--t-c1), 0.8);
-}
-
-
 
 .main .blog {
 	position: fixed;
@@ -428,20 +419,23 @@ backdrop {
 }
 
 .menu .menu-c3 {
-	display: block;
-	height: 80px;
+	display: flex;
+	flex-wrap: wrap;
+	height: 100px;
 	overflow: hidden;
 	transition: all 0.3s ease-out 0s;
 }
 
 .menu .menu-c3 a {
-	display: block;
-	height: 20px;
-	width: 160px;
-	padding: 5px 10px 5px 10px;
-	font-size: 16px;
-	line-height: 20px;
-	color: rgba(var(--t-b4), 0.6);
+	display: inline-block;
+	height: 70px;
+	width: 70px;
+	margin-top: 5px;
+	margin-right: 5px;
+	font-size: 30px;
+	line-height: 71px;
+	text-align: center;
+	color: rgba(var(--t-b4), 0.4);
 	background-color: rgba(var(--t-b4), 0.05);
 	border-radius: 5px;
 	user-select: none;
@@ -451,15 +445,7 @@ backdrop {
 }
 
 .menu .menu-c3 a:hover {
-	background-color: rgba(var(--t-b4), 0.08);
-}
-
-.menu .menu-c3 a:after {
-	content: '';
-	font-size: 20px;
-	vertical-align: -2px;
-	margin-left: 13px;
-	color: rgba(var(--t-t1), 0.6);
+	background-color: rgba(var(--t-b4), 0.1);
 }
 
 .menu footer {
@@ -468,14 +454,18 @@ backdrop {
 	top: calc(100% - 40px);
 	margin-left: -40px;
 	height: 20px;
+	width: calc(100% + 80px);
 	padding: 10px 0 10px 0;
 	line-height: 24px;
 	font-size: 16px;
+	color: rgba(var(--t-t1), 0.6);
 	background-color: rgba(var(--t-b3), 0.6);
 	backdrop-filter: blur(5px);
 }
 
-
+.menu footer a {
+	color: rgba(var(--t-c1), 0.8);
+}
 
 
 
@@ -513,16 +503,6 @@ backdrop {
 .menu .search textarea:hover,
 .menu .search textarea:focus {
 	border: 1px solid rgba(var(--t-t1), 0.8);
-}
-
-.menu .search span {
-	color: rgba(var(--t-t1), 0.8);
-	display: inline-block;
-	vertical-align: top;
-	margin-left: -24px;
-	font-size: 16px;
-	user-select: none;
-	pointer-events: none;
 }
 
 .menu .search list {
@@ -666,40 +646,44 @@ backdrop {
 
 
 
-/* 设备兼容 */
+/* 响应式设计 */
 
-@media screen and (min-width: 1200px)  {
-	/* PC */
+/* PC */
+@media (orientation: landscape) {
 	.f-3 {
 		display: none !important;
 	}
 }
 
-@media screen and (max-width: 1200px) and (min-width: 850px)  {
-	/* tablet */
-	.f-3 {
-		display: none !important;
-	}
-	.main .description {
-		left: 12%;
+@media (orientation: landscape) and (max-width: 1200px) and (min-width: 900px) {
+	.main .des {
 		bottom: 100px;
+		left: 100px;
 	}
-	.main .description :first-child {
-		font-size: 70px;
+}
+
+@media (orientation: landscape) and (max-width: 900px) and (min-width: 500px) {
+	.main .des {
+		bottom: 60px;
+		left: 100px;
 	}
-	.main .description :last-child {
+	.main .des :first-child {
+		font-size: 50px;
+	}
+	.main .des :last-child {
 		font-size: 26px;
 		margin-top: 3px;
 	}
 }
 
-@media screen and (max-width: 850px)  {
-	/* phone or PC min */
+
+/* phone */
+@media (orientation: portrait) {
 	.main .loading::after,
 	.f-2 {
 		display: none !important;
 	}
-	.main .description {
+	.main .des {
 		position: fixed;
 		width: 260px;
 		height: 100px;
@@ -708,11 +692,11 @@ backdrop {
 		border-left: none;
 		padding-left: 0;
 	}
-	.main .description :first-child {
+	.main .des :first-child {
 		font-size: 46px;
 		line-height: 46px;
 	}
-	.main .description :last-child {
+	.main .des :last-child {
 		font-size: 16px;
 		margin-top: 0px;
 		margin-left: 3px;
@@ -720,10 +704,6 @@ backdrop {
 	.menu {
 		padding-right: 30px;
 	}
-}
-
-@media screen and (max-width: 850px) and (min-height: 600px)  {
-	/* phone */
 	.main .avatar {
 		position: fixed;
 		width: 90%;

@@ -51,7 +51,7 @@
 			'isNew': null,
 			'isLoad': 0,
 			'isNetwork': (document.domain ? true : false),
-			'isMobile': (window.innerWidth < 800 ? true : false),
+			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
 		},
 		'f': {},
 		'e': {},
@@ -120,21 +120,16 @@
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
 		<header><btn onclick="env.f.root.blog.close()" ></btn></header>
-		<div class="player-2" onclick="env.f.player.lrc.ui()" style="opacity: 0; pointer-events: none;" ></div>
+		<div class="player-blog" onclick="env.f.player.lrc.ui()" style="opacity: 0; pointer-events: none;" ></div>
 		<backdrop style="display: none;" ></backdrop>
 	</div>
 
 	<!-- 页脚 -->
 	<footer>
-		<div class="f-2" >
-			<!-- 简短但真挚的感谢 -->
-			项目支持: <a onclick="window.open('https://www.cloudflare.com/')" target="_blank" style="cursor: help;" >Cloudflare</a>
-		</div>
 		<div style="opacity: 0;">
-			<!-- 小小的成就 -->
+			<!-- 网站统计 -->
 			 | <tag>0</tag> 天 & <tag>0</tag> 访客
 		</div>
-
 	</footer>
 
 </div>
@@ -150,7 +145,7 @@
 	<div style="margin-top: 10px;" >
 		<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
 		<div class="search" >
-			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="20" autocomplete="off" ></textarea><span></span>
+			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="20" autocomplete="off" ></textarea>
 			<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
 		</div>
 	</div>
@@ -163,19 +158,20 @@
 
 	<hr style="margin-top: 80px;" />
 
-	<!-- 联系 -->
+	<!-- 其他 -->
 	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this)" class="active" >联系</btn>
+		<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
 		<div class="menu-c3" >
-			<a href="mailto:me@sumiyo.link" target="_blank" >me@sumiyo.link</a>
+			<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
+			<a onclick="env.f.player.lrc.ui()" title="歌曲" ></a>
 		</div>
 	</div>
 
 	<!-- 页脚 -->
 	<footer>
-		<div class="player-0">
-			<a onclick="env.f.player.lrc.ui()" > | 音乐播放器 </a>
-			<audio preload="none" ></audio>
+		<div style="margin-left: 40px;">
+			<!-- 简短但真挚的感谢 -->
+			项目支持: <a onclick="window.open('https://www.cloudflare.com/')" target="_blank" style="cursor: help;" >Cloudflare </a>
 		</div>
 	</footer>
 </div>
@@ -183,7 +179,7 @@
 
 
 <!-- 播放器  -->
-<div class="player-1" style="display: none;" tabindex="0" >
+<div class="player-ui" style="display: none;" tabindex="0" >
 	<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
 	<backdrop></backdrop>
 
@@ -218,27 +214,26 @@
 
 
 <!-- Javascript -->
-	<script src="blog/registry.db.js" ></script>
-	<script src="js/script.js" ></script>
-	<script src="js/player.js"></script>
+<script src="blog/registry.db.js" ></script>
+<script src="js/script.js" ></script>
+<script src="js/player.js"></script>
 
-	<script>
-		// 检查页面加载情况
-		setTimeout(function (){
-			if (!env.tmp.root.d2) {
-				var e = document.querySelector('.prompt')
-				var prompt = document.createElement('prompt')
-					prompt.innerHTML = `文件加载失败？！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.isLoad = 2; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
+<script>
+	// 检查页面加载情况
+	setTimeout(function (){
+		if (!env.tmp.root.d2) {
+			var e = document.querySelector('.prompt')
+			var prompt = document.createElement('prompt')
+				prompt.innerHTML = `网页加载异常！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.isLoad = 2; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
+				prompt.setAttribute('onclick', `this.removeAttribute('class'); setTimeout(function (){this.remove()}, 500)`)
+				e.appendChild(prompt)
 
-					prompt.setAttribute('onclick', `this.removeAttribute('class'); setTimeout(function (){this.remove()}, 500)`)
-					e.appendChild(prompt)
-
-				setTimeout(function (){
-					prompt.setAttribute('class', 'active')
-				}, 100)
-			}
-		}, 30000)
-	</script>
+			setTimeout(function (){
+				prompt.setAttribute('class', 'active')
+			}, 100)
+		}
+	}, 30000)
+</script>
 </body>
 
 

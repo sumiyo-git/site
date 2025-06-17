@@ -383,13 +383,13 @@ tr:nth-child(odd) {
 	pointer-events: none;
 }
 
-@media screen and (min-width: 900px)  {
+@media (orientation: landscape) {
 	.f-3 {
 		display: none !important;
 	}
 }
 
-@media screen and (max-width: 900px) {
+@media (orientation: portrait) {
 	::-webkit-scrollbar {
 		display: none !important;
 	}

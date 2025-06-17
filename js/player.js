@@ -7,7 +7,7 @@
 	*/
 
 
-env.d.version.player = '1.0.242'
+env.d.version.player = '1.0.243'
 env.d.player = {
 	'id': 0,
 	'mode': 0,
@@ -26,15 +26,13 @@ env.d.player = {
 
 env.e = {...env.e, ...{
 	player: {
-		ui0: document.querySelector('.player-1'),
-		ui1: document.querySelector('.player-2'),
-		btn: document.querySelector('.player-0 a'),
-		audio: document.querySelector('.player-0 audio'),
-		name: document.querySelector('.player-0 span'),
-		img: document.querySelectorAll('.player-1 img'),
-		list: document.querySelectorAll('.player-1 list'),
-		bar: [document.querySelector('.player-1 bar'), document.querySelector('.player-1 bar div div')],
-		ctrl: document.querySelectorAll('.player-1 .ctrl a'),
+		audio: new Audio(),
+		ui0: document.querySelector('.player-ui'),
+		ui1: document.querySelector('.player-blog'),
+		img: document.querySelectorAll('.player-ui img'),
+		list: document.querySelectorAll('.player-ui list'),
+		bar: [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
+		ctrl: document.querySelectorAll('.player-ui .ctrl a'),
 	}
 }}
 
@@ -157,7 +155,7 @@ env.f.player.load = function(e){
 	env.f.root.fade(env.e.player.img[1], -300)
 
 	// 为当前播放歌曲添加样式
-	if (document.querySelector('.player-1 .active')) document.querySelector('.player-1 .active').removeAttribute('class')
+	if (document.querySelector('.player-ui .active')) document.querySelector('.player-ui .active').removeAttribute('class')
 	e.setAttribute('class', 'active')
 	env.f.root.scroll(env.e.player.list[1], e.offsetTop - env.d.player.offsetTop, 500)
 
@@ -291,6 +289,10 @@ env.f.player.lrc = {}
 			})
 		} else {
 			if (env.e.player.ctrl[4].style.display != 'none') env.f.root.fade(env.e.player.ctrl[4], -1)
+			env.d.player.lrc.raw = null
+			env.d.player.lrc.now = 0
+			env.d.player.lrc.timeline = []
+
 			var l = document.createElement('line')
 				l.innerHTML = '<trans>没有找到这首歌的歌词 ...</trans>'
 				env.e.player.list[0].appendChild(l)
@@ -349,7 +351,7 @@ env.f.player.lrc = {}
 				if (env.e.player.audio.currentTime <= env.d.player.lrc.timeline[i]) {
 					env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 					env.d.player.lrc.now = i
-					env.e.player.list[0].children[i].setAttribute('class', 'highlight')
+					if (i != 0) env.e.player.list[0].children[i].setAttribute('class', 'highlight')
 					env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[i].offsetTop - env.d.player.offsetTop, 500)
 					break
 				}
@@ -370,10 +372,10 @@ env.f.player.lrc = {}
 			div.innerHTML = `
 				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
-				<button onclick="document.querySelector('.player-1 pre').innerHTML = document.querySelector('.player-1 textarea').value" >preview</button>
-				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans><trans></trans></line>'; env.f.player.lrc.load(document.querySelector('.player-1 textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
+				<button onclick="document.querySelector('.player-ui pre').innerHTML = document.querySelector('.player-ui textarea').value" >preview</button>
+				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans><trans></trans></line>'; env.f.player.lrc.load(document.querySelector('.player-ui textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
 			`
-			document.querySelector('.player-1').appendChild(div)
+			document.querySelector('.player-ui').appendChild(div)
 	}
 
 env.f.player.kana = function() {
@@ -423,9 +425,9 @@ env.f.player.next = function(n){
 
 
 
+env.e.player.audio.preload = 'none'
 env.f.player.playlist(env.f.player.album(), true)
 env.f.player.load(env.e.player.list[1].children[0])
-env.e.player.btn.innerHTML += env.d.version.player
 
 env.e.player.audio.volume = 0.5
 
@@ -451,13 +453,11 @@ env.e.player.bar[0].addEventListener('click', function(event) {
 
 // 歌词显示
 env.e.player.audio.addEventListener('timeupdate', function () {
-	if (env.d.player.lrc.timeline[0] != undefined) {
-		if (env.d.player.lrc.timeline[env.d.player.lrc.now] <= env.e.player.audio.currentTime) {
-			env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
-			env.d.player.lrc.now ++
-			env.e.player.list[0].children[env.d.player.lrc.now].setAttribute('class', 'highlight')
-			env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[env.d.player.lrc.now].offsetTop - env.d.player.offsetTop, 500)
-		}
+	if (env.d.player.lrc.timeline[0] != undefined && env.d.player.lrc.timeline[env.d.player.lrc.now] <= env.e.player.audio.currentTime) {
+		env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
+		env.d.player.lrc.now ++
+		env.e.player.list[0].children[env.d.player.lrc.now].setAttribute('class', 'highlight')
+		env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[env.d.player.lrc.now].offsetTop - env.d.player.offsetTop, 500)
 	}
 })
 

@@ -1,4 +1,5 @@
-﻿.main footer a {
+﻿
+.main footer a {
 	color: rgba(var(--t-t1), 0.6);
 	cursor: pointer;
 	transition: 0.3s;
@@ -157,7 +158,7 @@
 	padding: 5px 15px 5px 15px;
 	min-width: 100px;
 	min-height: 30px;
-	line-height: 30px;
+	line-height: 31px;
 	background-color: rgba(var(--t-b1), 0.05);
 	border-radius: 5px;
 	font-size: 22px;

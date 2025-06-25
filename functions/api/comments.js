@@ -10,11 +10,9 @@
 		if (body.id.length != 19 || typeof body.at != 'number') {return Response.json(r)}
 
 		// 生成 id 时间戳
-		var now = new Date()
-		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-		var formatter = new Intl.DateTimeFormat('en-US', options)
-		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
+		var f = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false})
+		var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+		var id = `${t.year}-${t.month}-${t.day} ${t.hour}:${t.minute}:${t.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 
 		if (body.at == -1) {
 			// 留言
@@ -61,11 +59,9 @@
 	// 添加留言
 	if (m == "1") {
 		// 生成 id 时间戳
-		var now = new Date()
-		var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-		var formatter = new Intl.DateTimeFormat('en-US', options)
-		var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-		var id = `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`
+		var f = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false})
+		var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+		var id = `${t.year}-${t.month}-${t.day} ${t.hour}:${t.minute}:${t.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 
 		if (body.id == null) {
 			// 留言

@@ -27,27 +27,27 @@ env.e = {...env.e, ...{
 env.d.list.news = [
 	{
 		date: '6.17',
-		name: '小更改',
+		title: '小更改',
 		des: 'Ｆ 留言板回复功能权限问题\nＯ 播放器滚动歌词 (又要重调时间轴了... 呜呜呜)\nＯ 响应式页面布局\nＯ 美化页面元素',
 	},
 	{
 		date: '4.13',
-		name: '后台爆破攻击',
+		title: '后台爆破攻击',
 		des: '部分地区的访问已被屏蔽',
 	},
 	{
 		date: '4.03',
-		name: '主题优化',
+		title: '主题优化',
 		des: 'Ｏ 播放器样式调整\nＯ 调整网站 env 框架',
 	},
 	{
 		date: '1.16',
-		name: '主题优化',
+		title: '主题优化',
 		des: '不优雅的东西，删掉！\n2025 新年快乐',
 	},
 	{
 		date: '11.21',
-		name: '注册 <ins>sumiyo.link/</ins>',
+		title: '注册 <ins>sumiyo.link/</ins>',
 		des: '新的域名，新的开始！',
 	},
 
@@ -55,130 +55,109 @@ env.d.list.news = [
 
 
 
-// 添加函数
+// 注册函数
 
-env.f.root.fade = function(e, t, style = '') {
+env.f.root.fade = function(e, t, style = 'display: none;') {
 	// 淡入淡出动画
-	var s = null
+	var n = null
+	var i = (t > 0) ? 0 : 1
+	var o = parseFloat(env.f.root.getCSS(e, 'opacity'))
 	var t0 = Math.abs(t)
-	e.setAttribute('style', `transition: 0s; opacity: ${(t > 0) ? 1 : 0}`)
+	e.setAttribute('style', 'transition: none;')
 
-	function animation(t1) {
-		if (!s) {s = t1}
-		var p = t1 - s
-		if (t > 0) {
-			e.style.opacity = Math.min(p / t0, 1).toFixed(2)
-			if (p < t0) {
-				requestAnimationFrame(animation)
-			} else {
-				e.setAttribute('style', style)
-			}
+	function anime(t1) {
+		if (n == null) {n = t1}
+		var p = t1 - n
+		e.style.opacity = (o * (i + p / t)).toFixed(2)
+		if (p < t0) {
+			requestAnimationFrame(anime)
 		} else {
-			e.style.opacity = Math.max(1 - p / t0, 0)
-			if (p < t0) {
-				requestAnimationFrame(animation)
-			} else {
-				e.setAttribute('style', style || 'display: none')
-			}
+			e.setAttribute('style', (t > 0) ? '' : style)
 		}
 	}
-
-	requestAnimationFrame(animation)
+	requestAnimationFrame(anime)
 }
 
 env.f.root.scroll = function(e, y, t = 300, abs = true) {
 	// 滚动动画
-	var start = e.scrollTop
-	var end = abs ? y : (start + y)
-	var d = end - start
-	var s = null
+	var n = null
+	var s = e.scrollTop
+	var d = abs ? y : (s + y)
 
-	function ease(p) {
-		return p < 0.5 
-		? 2 * p * p 
-		: -1 + (4 - 2 * p) * p
-	}
-	function animation(t1) {
-		if (s === null) s = t1
-		const timeElapsed = t1 - s
-		const p = Math.min(timeElapsed / t, 1)
+	function anime(t1) {
+		if (n == null) {n = t1}
+		var t2 = t1 - n
+		var p = Math.min(t2 / t, 1)
 
 		// 使用缓动函数来实现平滑效果
-		const easing = ease(p)
-		e.scrollTop = start + d * easing
-
-		if (timeElapsed < t) {
-			requestAnimationFrame(animation)
+		e.scrollTop = s + (d - s) * (p < 0.5 ? (2 * p * p) : (-1 + (4 - 2 * p) * p))
+		if (t2 < t) {
+			requestAnimationFrame(anime)
 		}
 	}
-
-	requestAnimationFrame(animation)
+	requestAnimationFrame(anime)
 }
 
-env.f.root.setCookie = function(value) {
-	// 写入 Cookie
-	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`
-}
+env.f.root.cookie = {}
+	env.f.root.cookie.set = function(value) {
+		// 写入 Cookie
+		document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`
+	}
 
-env.f.root.getCookie = function(name) {
-	// 读取 Cookie
-	var r = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'))
-	if (r) return decodeURIComponent(r[1])
-	return undefined
-}
+	env.f.root.cookie.get = function(name) {
+		// 读取 Cookie
+		var c = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
+		return c ? decodeURIComponent(c[1]) : null
+	}
 
 env.f.root.getRandom = function(min, max) {
 	// 生成随机整数
 	return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
+env.f.root.getCSS = function(e, style) {
+	// 获取元素计算样式
+	s = window.getComputedStyle(e)
+	return style ? s.getPropertyValue(style) : s
+}
+
 env.f.root.fmt = {}
-	env.f.root.fmt.date = function(formatter, date) {
+	env.f.root.fmt.date = function(formatter, date = new Date()) {
 		// 日期格式化
-		date = (date ? new Date(date) : new Date)
-		const Y = date.getFullYear() + '',
-			M = date.getMonth() + 1,
-			D = date.getDate(),
-			H = date.getHours(),
-			m = date.getMinutes(),
-			s = date.getSeconds()
-		return formatter.replace(/YYYY|yyyy/g, Y)
-			.replace(/YY|yy/g, Y.substr(2, 2))
-			.replace(/MM/g, (M < 10 ? '0' : '') + M)
-			.replace(/DD/g, (D < 10 ? '0' : '') + D)
-			.replace(/HH|hh/g, (H < 10 ? '0' : '') + H)
-			.replace(/mm/g, (m < 10 ? '0' : '') + m)
-			.replace(/ss/g, (s < 10 ? '0' : '') + s)
+		var pad = n => n.toString().padStart(2, '0')
+		return formatter
+			.replace(/YYYY|yyyy/g, date.getFullYear())
+			.replace(/MM/g, pad(date.getMonth() + 1))
+			.replace(/mm/g, pad(date.getMinutes()))
+			.replace(/HH/g, pad(date.getHours()))
+			.replace(/hh/g, pad(date.getHours() % 12 || 12))
+			.replace(/DD|dd/g, pad(date.getDate()))
+			.replace(/SS|ss/g, pad(date.getSeconds()))
 	}
 
-	env.f.root.fmt.size = function(n) {
+	env.f.root.fmt.size = function(n = 0) {
 		// 文件大小转换
-		if (n == 0) return '0 Bytes'
-		var i = parseInt(Math.floor(Math.log(n) / Math.log(1024)), 10)
-		return (n / Math.pow(1024, i)).toFixed(2) + ' ' + ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB'][i]
+		var i = parseInt(Math.floor(Math.log(n || 1) / Math.log(1024)), 10)
+		return (n / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', '你够了'][i]
 	}
 
 env.f.root.conv = {}
-	env.f.root.conv.c0 = function(n) {
+	env.f.root.conv.c0 = function(n = 0) {
 		// 转换 ms --> mm:ss.fff
-		var ts = Math.floor(n / 1000)
-		var m = String(Math.floor(ts / 60)).padStart(2, '0')
-		var s = String(ts % 60).padStart(2, '0')
-		var ms = String(n % 1000).padStart(3, '0')
-
-		return `${m}:${s}.${ms}`.substring(0, 9)
+		var t = Math.floor(n / 1000)
+		return `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}.${String(n % 1000).padStart(3, '0')}`.substring(0, 9)
 	}
 
 	env.f.root.conv.c1 = function(str) {
 		// 转换 mm:ss.fff --> ms
-		var p = str.split(/[:.]/)
-		return parseInt(p[0] * 60000) + parseInt(p[1] * 1000) + parseInt(p[2])
+		var t = str.split(/[:.]/)
+		return parseInt(t[0] * 60000) + parseInt(t[1] * 1000) + parseInt(t[2])
 	}
 
 	env.f.root.conv.c2 = function(str) {
 		// 转换 mm:ss.fff --> s
-		var p = str.split(/[:.]/)
-		return parseFloat((parseInt(p[0] * 60) + parseInt(p[1])) + '.' + p[2])
+		var t = str.split(/[:.]/)
+		return parseFloat((parseInt(t[0] * 60) + parseInt(t[1])) + '.' + t[2])
 	}
 
 env.f.root.getUptime = function() {
@@ -193,72 +172,37 @@ env.f.root.post = function(event) {
 
 env.f.root.linkto = function(id) {
 	// 博客文章重定向
+	var e = document.createElement('iframe')
 	env.e.root.blog.children[3].remove()
-	env.e.root.blog.appendChild(document.createElement('iframe'))
-
+	env.e.root.blog.appendChild(e)
 	env.f.root.page.load()
 	env.f.root.prompt.close()
 
 	setTimeout(function (){
 		env.f.root.url.set('id', id)
-		env.e.root.blog.querySelector('iframe').src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
+		e.src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
 	}, 500)
 }
 
 env.f.root.url = {}
-	env.f.root.url.clear = function() {
+	env.f.root.url.clear = function(name) {
 		// 清除参数
-		let url = window.location.href
-		if (url.indexOf('?') != -1) {
-			history.replaceState(null, null, url.replace(/(\?|#)[^'"]*/, ''))
-		}
+		var url = new URL(window.location.href)
+		name ? (url.searchParams.delete(name)) : (url.search = '')
+		history.replaceState(null, '', decodeURIComponent(url))
 	}
 
 	env.f.root.url.set = function(name, value) {
 		// 修改参数
-		let url = location.href
-		let url2
-
-		if (typeof value === 'string') {value = value.toString().replace(/(^\s*)|(\s*$)/, "")}
-		if (!value) {
-			let reg = eval('/(([\?|&])' + name + '=[^&]*)(&)?/i')
-			let res = url.match(reg)
-			if (res) {
-				if (res[2] && res[2] === '?') { // before has ?
-					if (res[3]) {url2 = url.replace(reg, '?')} else {url2 = url.replace(reg, '')}
-				} else {
-					url2 = url.replace(reg, '$3')
-				}
-			}
-		} else {
-			let reg = eval('/([\?|&]' + name + '=)[^&]*/i')
-			if (url.match(reg)) {
-				url2 = url.replace(reg, '$1' + value)
-			} else {
-				let reg = /([?](\w+=?)?)[^&]*/i
-				let res = url.match(reg)
-				url2 = url
-				if (res) {
-					if (res[0] !== '?') {
-						url2 += '&'
-					}
-				} else {
-					url2 += '?'
-				}
-				url2 += name + '=' + value
-			}
-		}
-		history.replaceState(null, null, url2)
+		var url = new URL(window.location.href)
+		url.searchParams.set(name, value)
+		history.replaceState(null, '', decodeURIComponent(url))
 	}
 
 	env.f.root.url.get = function(name) {
 		// 读取参数
-		var d = window.location.search.substr(1).match(new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i"))
-		var r = ''
-		if (d != null) {
-			r = decodeURIComponent(d[2])
-			return r == null || r == '' || r == undefined ? undefined : r
-		}
+		var d = window.location.search.substr(1).match(new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i'))
+		return d ? decodeURIComponent(d[2]) : null
 	}
 
 	env.f.root.url.read = function() {
@@ -276,22 +220,22 @@ env.f.root.url = {}
 env.f.root.blog = {}
 	env.f.root.blog.open = function(id) {
 		// 打开博客
-		env.e.root.blog.appendChild(document.createElement('iframe'))
-
+		var e = document.createElement('iframe')
+		env.e.root.blog.appendChild(e)
 		env.f.root.page.load()
 		env.f.root.fade(env.e.root.blog, 300)
 
 		setTimeout(function (){
 			env.d.isNetwork ? (history.replaceState(null, null, `${window.location.origin}/blog?id=${id}`)) : ( env.f.root.url.set('id', id))
-			env.e.root.blog.querySelector('iframe').src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
-		}, 500)
+			e.src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
+		}, 1000)
 	}
 
 	env.f.root.blog.close = function() {
 		// 关闭博客
 		env.f.root.fade(env.e.root.blog, -300)
-		document.title = env.d.title
 		env.d.isNetwork ? (history.replaceState(null, null, window.location.origin)) : (env.f.root.url.clear())
+		document.title = env.d.title
 
 		setTimeout(function (){
 			env.f.root.prompt.close()
@@ -305,20 +249,15 @@ env.f.root.init = function() {
 
 	// 文章
 	var d = env.d.list.blog
-	var e = document.querySelector('.search list')
 	env.e.root.menu[0].setAttribute('data-item', d.length)
-
 	for (var i = 0; i < d.length; i++) {
-		if (d[i].type != 'hide') {
-			var div = document.createElement('div')
-				div.setAttribute('style', 'display: block')
-				div.setAttribute('data-type', d[i].type[0])
-				div.innerHTML = `<a onclick="env.f.root.blog.open('${d[i].src}')" title="${d[i].des}" >${d[i].name}</a>`
+		var div = document.createElement('div')
+			div.setAttribute('style', 'display: block')
+			div.setAttribute('data-icon', d[i].type[0])
+			div.innerHTML = `<a onclick="env.f.root.blog.open('${d[i].src}')" title="${d[i].des}" >${d[i].name}</a>`
+			document.querySelector('.search list').appendChild(div)
 
-				e.appendChild(div)
-
-			if (d[i].type[1] == 'pin') {div.setAttribute('class', 'pin')}
-		}
+		if (d[i].type[1] == 'pin') {div.setAttribute('class', 'pin')}
 	}
 
 	// 搜索引擎
@@ -328,12 +267,11 @@ env.f.root.init = function() {
 	})
 
 	// 通知
-	var e = document.querySelector('.menu-c2')
-	var l = env.d.list.news
+	var d = env.d.list.news
 	for (var i = 0; i < 5; i++) {
 		var div = document.createElement('news')
-			div.innerHTML = `<time>${l[i].date}</time><span title="${l[i].des}" >${l[i].name}</span>`
-			e.appendChild(div)
+			div.innerHTML = `<time>${d[i].date}</time><span title="${d[i].des}" >${d[i].title}</span>`
+			document.querySelector('.menu-c2').appendChild(div)
 	}
 
 	setTimeout(function (){env.e.root.btn1.removeAttribute('style'); env.f.root.menu.open()}, 1000)
@@ -343,6 +281,7 @@ env.f.root.menu = {}
 	env.f.root.menu.open = function() {
 		// 打开菜单
 		if (!document.querySelector('.menu-c2 news')) {
+			// 初始化
 			env.e.root.btn1.setAttribute('style', 'pointer-events: none')
 			env.f.root.init()
 		} else {
@@ -411,9 +350,7 @@ env.f.root.prompt = {}
 			prompt.setAttribute('onclick', 'env.f.root.prompt.close(this)')
 			env.e.root.prompt.appendChild(prompt)
 
-		setTimeout(function (){
-			prompt.setAttribute('class', 'active')
-		}, 100)
+		setTimeout(function (){prompt.setAttribute('class', 'active')}, 100)
 		if (t > 0) {
 			setTimeout(function (){
 				env.f.root.prompt.close(prompt)
@@ -504,25 +441,18 @@ window.addEventListener('load',function(){
 
 	// 获取访问量
 	if (env.d.isNetwork) {
-		// 一周内的重复访问不计数
-		if (env.f.root.getCookie('Cookie') == undefined) {
-			var m = 1
-			env.d.isNew = true
-		} else {
-			var m = 0
-			env.d.isNew = false
-		}
-
+		// 重复访问不计数
+		env.d.isNew = (env.f.root.cookie.get('Cookie') ? false : true)
 		fetch(`https://${env.d.domain}/api/counter`, {
 			method: "POST",
 			headers: {
-				"Token": m
+				"Token": (env.d.isNew ? 1 : 0)
 			}
 		})
 		.then(response => {return response.json()})
 		.then(json => {
 			env.d.visitors = Number(json.results[0].data)
-			env.f.root.setCookie('Cookie !')
+			env.f.root.cookie.set('Cookie !')
 
 			env.e.root.counter[1].innerHTML = env.d.visitors
 			env.e.root.counter[1].parentNode.removeAttribute('style')

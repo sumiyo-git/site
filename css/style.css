@@ -535,7 +535,7 @@ backdrop {
 }
 
 .menu .search list div::before {
-	content:attr(data-type);
+	content:attr(data-icon);
 	margin-right: 5px;
 }
 

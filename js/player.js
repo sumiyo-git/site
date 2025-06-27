@@ -130,7 +130,7 @@ env.f.player.album = function(){
 	{
 		name: 'The Return of Made in Abyss',
 		artist: 'Kevin Penkin',
-		src: '1417631425',
+		src: '1417133244',
 		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
 		lrc: false,
 	}]

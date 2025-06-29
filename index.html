@@ -26,7 +26,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="stylesheet" type="text/css" href="css/style.css" />
+	<link rel="stylesheet" type="text/css" href="css/root.css" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins Regular.woff2" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/icomoon.woff2" />
 	<link rel="shortcut icon" href="src/icon.png?ver=10" />
@@ -41,18 +41,20 @@
 	// 定义核心变量
 	const env = {
 		'd': {
-			'version': {},
-			'list': {
-				'blog': [],
-			},
 			'visitors': 0,
 			'domain': 'sumiyo.link',
 			'title': 'sumiyo ~',
 			'isNew': null,
-			'isLoad': 0,
 			'isNetwork': (document.domain ? true : false),
 			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
-
+			'version': {},
+			'init': {
+				'root': 0,
+			},
+			'list': {
+				'blog': [],
+				'news': [],
+			},
 		},
 		'f': {},
 		'e': {},
@@ -72,21 +74,22 @@
 	}
 
 	env.tmp.root.t1 = setInterval(() => {
-		if (!document.hidden && env.tmp.root.d2 && env.d.isLoad == 2) {
+		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 2) {
 			setTimeout(function (){
 				setTimeout(function (){
-					document.querySelectorAll('.avatar')[1].removeAttribute('style')
-					document.querySelectorAll('.avatar')[0].removeAttribute('style')
+					env.e.root.avatar[0].removeAttribute('style')
+					env.e.root.avatar[1].removeAttribute('style')
 				}, 4000)
 				setTimeout(function (){
-					document.querySelector('.main .loading').remove()
-					document.querySelectorAll('.avatar')[1].style.opacity = '0.4'
+					env.e.root.load1.remove()
+					env.e.root.load1 = null
+					env.e.root.avatar[1].style.opacity = '0.4'
+					env.d.init.root = 1
 				}, 600)
 
-				document.querySelectorAll('.avatar')[0].style.opacity = '0.4'
-				document.querySelector('.main .loading').removeAttribute('style');
+				env.e.root.avatar[0].style.opacity = '0.4'
+				env.e.root.load1.removeAttribute('style')
 
-				env.d.isLoad = true
 				clearInterval(env.tmp.root.t1)
 			}, 1000)
 		}
@@ -115,13 +118,13 @@
 		<span>私のサイト、私一人の世界です。</span>
 	</div>
 
-	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.isLoad ++" src="src/mio-draft.webp" />
-	<img class="avatar" style="opacity: 0; transition: 3.5s;" onload="env.d.isLoad ++" src="src/mio.webp" />
+	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.init.root ++" src="src/mio-draft.webp" />
+	<img class="avatar" style="opacity: 0; transition: 3.5s;" onload="env.d.init.root ++" src="src/mio.webp" />
 
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
 		<header><btn onclick="env.f.root.blog.close()" ></btn></header>
-		<div class="player-blog" onclick="env.f.player.lrc.ui()" style="opacity: 0; pointer-events: none;" ></div>
+		<div class="player-blog" onclick="env.f.player.lrc.ui()" ></div>
 		<backdrop style="display: none;" ></backdrop>
 	</div>
 
@@ -216,7 +219,7 @@
 
 <!-- Javascript -->
 <script src="blog/registry.db.js" ></script>
-<script src="js/script.js" ></script>
+<script src="js/root.js" ></script>
 <script src="js/player.js"></script>
 
 <script>
@@ -225,7 +228,7 @@
 		if (!env.tmp.root.d2) {
 			var e = document.querySelector('.prompt')
 			var prompt = document.createElement('prompt')
-				prompt.innerHTML = `网页加载异常！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.isLoad = 2; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
+				prompt.innerHTML = `网页加载异常！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.init.root = 2; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
 				prompt.setAttribute('onclick', `this.removeAttribute('class'); setTimeout(function (){this.remove()}, 500)`)
 				e.appendChild(prompt)
 

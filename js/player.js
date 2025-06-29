@@ -15,7 +15,6 @@ env.d.player = {
 	'offsetTop': 240,
 	'pause': true,
 	'loop': false,
-	'init': false,
 	'ui': false,
 	'lrc': {
 		'timeline': [],
@@ -34,6 +33,10 @@ env.e = {...env.e, ...{
 		bar: [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
 		ctrl: document.querySelectorAll('.player-ui .ctrl a'),
 	}
+}}
+
+env.d.init = {...env.d.init, ...{
+	'player': 0,
 }}
 
 
@@ -145,35 +148,37 @@ env.f.player.load = function(e){
 
 	env.e.player.ui1.innerHTML = name
 	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
-
-	env.e.player.bar[1].style.width = '0px'
+	env.e.player.bar[1].style.width = '0%'
 	env.e.player.ctrl[0].innerHTML = '00:00'
-
-	env.e.player.img[0].setAttribute('style', 'opacity: 0;')
-	env.e.player.img[1].setAttribute('style', 'opacity: 0;')
 	env.f.root.fade(env.e.player.img[0], -300)
 	env.f.root.fade(env.e.player.img[1], -300)
 
 	// 为当前播放歌曲添加样式
-	if (document.querySelector('.player-ui .active')) document.querySelector('.player-ui .active').removeAttribute('class')
+	document.querySelector('.player-ui .active')?.removeAttribute('class')
 	e.setAttribute('class', 'active')
 	env.f.root.scroll(env.e.player.list[1], e.offsetTop - env.d.player.offsetTop, 500)
 
-
 	setTimeout(function (){
-		env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans><trans></trans></line>`
-		env.f.player.lrc.get((e.dataset.lrc == 'true') ? id : null)
-		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=1000y1000`
-		env.d.player.init ? env.f.player.play.set(1) : null
+		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=800y800`
+		if (env.d.init.player) env.f.player.play.set(1)
 	}, 500)
 
-	var l = env.e.player.list[1].children
-	for (let i = 0; i < l.length; i++) {
-		if (l[i] === e) {
-			env.d.player.id = i
-			break
-		}
+	// 歌词
+	env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans><trans></trans></line>`
+	env.e.player.ctrl[4].style.display = 'none'
+	env.d.player.lrc.now = 0
+	env.d.player.lrc.timeline = []
+	if (e.dataset.lrc == 'true') {
+		env.f.player.lrc.get(id)
+	} else {
+		env.d.player.lrc.raw = null
+		var l = document.createElement('line')
+			l.innerHTML = '<trans>没有找到这首歌的歌词 ...</trans>'
+			env.e.player.list[0].appendChild(l)
 	}
+
+	// 寻找当前 id
+	env.d.player.id = Array.from(env.e.player.list[1].children).indexOf(e)
 
 	// 更新 Media Session API 信息
 	if ('mediaSession' in navigator) {
@@ -182,9 +187,9 @@ env.f.player.load = function(e){
 			artist: artist,
 			album: '',
 			artwork: [{
-				src: `https://p1.music.126.net/${img}.jpg?param=1000y1000`,
+				src: `https://p1.music.126.net/${img}.jpg?param=800y800`,
 				sizes: '',
-				type: "image/jpg"
+				type: 'image/jpg'
 			}]
 		})
 	}
@@ -195,13 +200,14 @@ env.f.player.mode = function(){
 	env.f.player.mode.set(env.d.player.loop ? 0 : 1)
 }
 	env.f.player.mode.set = function(bool){
+		var e = env.e.player.ctrl[3]
 		if (bool) {
-			env.e.player.ctrl[3].innerHTML = ''
-			env.e.player.ctrl[3].title = '单曲循环'
+			e.innerHTML = ''
+			e.title = '单曲循环'
 			env.d.player.loop = true
 		} else {
-			env.e.player.ctrl[3].innerHTML = ''
-			env.e.player.ctrl[3].title = '列表循环'
+			e.innerHTML = ''
+			e.title = '列表循环'
 			env.d.player.loop = false
 		}
 	}
@@ -210,15 +216,15 @@ env.f.player.playlist = function(a, replace = false){
 	// 初始化播放列表
 	if (replace) env.e.player.list[1].innerHTML = ''
 	for (var i = 0; i < a.length; i++) {
-		var line = document.createElement('line')
-			line.setAttribute('onclick', "env.f.player.load(this)")
-			line.setAttribute('data-img', a[i].img)
-			line.setAttribute('data-id', a[i].src)
-			line.setAttribute('data-lrc', a[i].lrc)
-			line.setAttribute('data-name', a[i].name)
-			line.setAttribute('data-artist', a[i].artist)
-			line.innerHTML = `<lrc>${a[i].name}</lrc><trans>${a[i].artist}</trans>`
-			env.e.player.list[1].appendChild(line)
+		var l = document.createElement('line')
+			l.setAttribute('onclick', "env.f.player.load(this)")
+			l.setAttribute('data-img', a[i].img)
+			l.setAttribute('data-id', a[i].src)
+			l.setAttribute('data-lrc', a[i].lrc)
+			l.setAttribute('data-name', a[i].name)
+			l.setAttribute('data-artist', a[i].artist)
+			l.innerHTML = `<lrc>${a[i].name}</lrc><trans>${a[i].artist}</trans>`
+			env.e.player.list[1].appendChild(l)
 	}
 }
 
@@ -227,31 +233,25 @@ env.f.player.play = function(){
 	env.f.player.play.set(env.d.player.pause ? 1 : 0)
 }
 	env.f.player.play.set = function(bool){
-		if (bool) {
-			env.e.player.audio.play()
-			env.d.player.pause = false
-			env.e.player.ui1.removeAttribute('style')
-		} else {
-			env.e.player.audio.pause()
-			env.d.player.pause = true
-		}
+		env.d.player.pause = !bool
+		bool ? env.e.player.audio.play() : env.e.player.audio.pause()
 	}
 
 env.f.player.add = function(str) {
 	// 更新播放器列表
-	var a = str['1']
-	env.d.player.id = str['0'] ? 0 : env.e.player.list[1].children.length
-	env.f.player.playlist(a, str['0'])
+	env.d.player.id = str['0'] ? env.e.player.list[1].children.length : 0
+	env.f.player.playlist(str['1'], !str['0'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
-	env.d.player.init ? null : env.f.player.play.set(1)
+	env.f.player.play.set(1)
 }
+
 	env.f.player.add.ask = function(str) {
 		// 弹出询问框
 		setTimeout(function (){
 			if (str['0']) {
-				env.f.root.prompt(`发现一个隐藏的播放列表！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
-			} else {
 				env.f.root.prompt(`发现 ` + str['1'].length + ` 首隐藏的音乐！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+			} else {
+				env.f.player.add(JSON.stringify(str))
 			}
 		}, 3000)
 	}
@@ -263,61 +263,45 @@ env.f.player.reset = function() {
 	env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 	env.d.player.id = 0
 	env.f.player.mode.set(0)
-	env.f.root.fade(env.e.player.ctrl[4], -1)
 }
 
 env.f.player.lrc = {}
 	env.f.player.lrc.get = function(id) {
 		// 下载歌词
-		env.d.player.lrc.timeline = []
-
-		if (id) {
-			fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
-			.then(response => {
-				if (response.ok) {
-					return response.text();
-				}
-			})
-			.then(lrc => {
-				env.f.player.lrc.load(lrc)
-			})
-			.catch(error => {
-				console.error(error)
-				var l = document.createElement('line')
-					l.innerHTML = `<trans>歌词加载异常: ${error}</trans>`
-					env.e.player.list[0].appendChild(l)
-			})
-		} else {
-			if (env.e.player.ctrl[4].style.display != 'none') env.f.root.fade(env.e.player.ctrl[4], -1)
-			env.d.player.lrc.raw = null
-			env.d.player.lrc.now = 0
-			env.d.player.lrc.timeline = []
-
+		fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
+		.then(response => {
+			if (response.ok) {
+				return response.text();
+			}
+		})
+		.then(lrc => {
+			env.f.player.lrc.load(lrc)
+		})
+		.catch(error => {
+			console.error(error)
 			var l = document.createElement('line')
-				l.innerHTML = '<trans>没有找到这首歌的歌词 ...</trans>'
+				l.innerHTML = `<trans>歌词加载异常: ${error}</trans>`
 				env.e.player.list[0].appendChild(l)
-		}
+		})
 	}
 
 	env.f.player.lrc.load = function(str) {
 		// 渲染歌词
+		env.d.player.lrc.timeline = []
 
 		// 歌词信息
 		env.d.player.lrc.raw = str
-		env.d.player.lrc.now = 0
-		env.d.player.lrc.timeline = []
-
-		var p = str.includes('\n------------------------------\n') ? str.split('\n------------------------------\n') : [null, str]
+		var p = [info = null, content] = str.split('\n------------------------------\n')
 		var lrc = p[1].split('\n')
-		lrc.push("[59:59.999]")
+		lrc.push('[59:59.999]')
 
 		if (str.includes('<ruby>')) {
-			env.f.root.fade(env.e.player.ctrl[4], 1)
+			env.e.player.ctrl[4].removeAttribute('style')
 		} else {
-			if (env.e.player.ctrl[4].style.display != 'none') env.f.root.fade(env.e.player.ctrl[4], -1)
+			env.e.player.ctrl[4].style.display = 'none'
 		}
 
-		if (p[0]) env.e.player.list[0].children[0].querySelectorAll('trans')[1].innerHTML = '<br class="f-1" >' + p[0]
+		if (p[0]) env.e.player.list[0].querySelectorAll('trans')[1].innerHTML = '<br class="f-1" >' + p[0]
 		for (var i = 0; i < lrc.length; i++) {
 			env.d.player.lrc.timeline.push(env.f.root.conv.c2(lrc[i].slice(1, 10)))
 			var l = document.createElement('line')
@@ -336,8 +320,8 @@ env.f.player.lrc = {}
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
 			env.f.root.fade(env.e.player.ui0, 160)
 
-			if (!env.d.player.init) {
-				env.d.player.init = true
+			if (!env.d.init.player) {
+				env.d.init.player = 1
 				env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 				if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 			}
@@ -346,13 +330,14 @@ env.f.player.lrc = {}
 
 	env.f.player.lrc.find = function(n) {
 		// 找到当前正在播放的歌词行数
-		if (env.d.player.lrc.timeline[0] != undefined) {
+		if (env.d.player.lrc.raw) {
 			for (var i = 0; i < 100; i++) {
 				if (env.e.player.audio.currentTime <= env.d.player.lrc.timeline[i]) {
 					env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 					env.d.player.lrc.now = i
-					if (i != 0) env.e.player.list[0].children[i].setAttribute('class', 'highlight')
-					env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[i].offsetTop - env.d.player.offsetTop, 500)
+					var e = env.e.player.list[0].children[i]
+					if (i && e.children[0].innerHTML) e.setAttribute('class', 'highlight')
+					env.f.root.scroll(env.e.player.list[0], e.offsetTop - env.d.player.offsetTop, 500)
 					break
 				}
 			}
@@ -361,12 +346,6 @@ env.f.player.lrc = {}
 
 	env.f.player.lrc.debug = function() {
 		// 调试模式
-		document.addEventListener('keydown', function(event) {
-			if (event.key === 'Enter' || event.keyCode === 13) {
-				console.log(env.f.root.conv.c0(env.e.player.audio.currentTime))
-			}
-		})
-
 		var div = document.createElement('div')
 			div.setAttribute('style', 'position: fixed; z-index: 50; bottom: 0;')
 			div.innerHTML = `
@@ -380,18 +359,13 @@ env.f.player.lrc = {}
 
 env.f.player.kana = function() {
 	// 假名注音
-	if (env.e.player.list[0].classList.contains('no-kana')) {
-		env.e.player.list[0].classList.remove('no-kana')
-		env.e.player.ctrl[4].innerHTML = 'ア'
-	} else {
-		env.e.player.list[0].classList.add('no-kana')
-		env.e.player.ctrl[4].innerHTML = 'あ'
-	}
+	env.e.player.ctrl[4].innerHTML = env.e.player.list[0].classList.contains('no-kana') ? 'ア' : 'あ'
+	env.e.player.list[0].classList.toggle('no-kana')
 }
 
 env.f.player.list = function(){
 	// 切换列表
-	env.f.player.list.set((env.e.player.list[0].style.display == '') ? 0 : 1)
+	env.f.player.list.set((!!env.e.player.list[0].style.display) ? 1 : 0)
 }
 	env.f.player.list.set = function(bool){
 		if (bool) {
@@ -424,12 +398,11 @@ env.f.player.next = function(n){
 
 
 
-
 env.e.player.audio.preload = 'none'
+env.e.player.audio.volume = 0.5
+
 env.f.player.playlist(env.f.player.album(), true)
 env.f.player.load(env.e.player.list[1].children[0])
-
-env.e.player.audio.volume = 0.5
 
 
 
@@ -453,38 +426,32 @@ env.e.player.bar[0].addEventListener('click', function(event) {
 
 // 歌词显示
 env.e.player.audio.addEventListener('timeupdate', function () {
-	if (env.d.player.lrc.timeline[0] != undefined && env.d.player.lrc.timeline[env.d.player.lrc.now] <= env.e.player.audio.currentTime) {
+	if (env.d.player.lrc.raw && env.d.player.lrc.timeline[env.d.player.lrc.now] <= env.e.player.audio.currentTime) {
 		env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
 		env.d.player.lrc.now ++
-		env.e.player.list[0].children[env.d.player.lrc.now].setAttribute('class', 'highlight')
-		env.f.root.scroll(env.e.player.list[0], env.e.player.list[0].children[env.d.player.lrc.now].offsetTop - env.d.player.offsetTop, 500)
+
+		var e = env.e.player.list[0].children[env.d.player.lrc.now]
+		if (e.children[0].innerHTML) e.setAttribute('class', 'highlight')
+		env.f.root.scroll(env.e.player.list[0], e.offsetTop - env.d.player.offsetTop, 500)
 	}
 })
 
 // 列表播放
 env.e.player.audio.addEventListener('ended', function () {
 	if (env.d.player.loop) {
-		env.e.player.audio.currentTime = 0
-		env.d.player.lrc.now = 0
+		env.e.player.audio.currentTime = env.d.player.lrc.now = 0
 		env.f.player.lrc.find(0)
 		env.f.player.play.set(1)
 	} else {
-		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
-		env.d.player.id ++
-		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+		env.f.player.next(1)
 	}
 })
 
 // 调整音量
 env.e.player.ctrl[5].addEventListener('scroll', () => {
-	var s = 100 - (env.e.player.ctrl[5].scrollTop / 10).toFixed(0)
-	if (s < 0) var s = 0
-	if (s > 100) var s = 100
-	var s = (s / 10).toFixed(0) * 10
-
+	var s = Math.round(Math.max(Math.min(100 - (env.e.player.ctrl[5].scrollTop / 10).toFixed(0), 100), 0) / 10) * 10
 	env.e.player.ctrl[5].setAttribute('volume', s + '%')
-	env.e.player.audio.volume = s / 100
-	env.d.player.vol = s / 100
+	env.e.player.audio.volume = env.d.player.vol = s / 100
 })
 
 // 监听 Media Session API 按钮事件

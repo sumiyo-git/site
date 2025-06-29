@@ -1,14 +1,14 @@
 ﻿
 
 
-/*	script.js
+/*	root.js
  *	created by sumiyo, 2024/8/27
 
 	*/
 
 
 
-env.d.version.root = '1.0.242'
+env.d.version.root = '1.0.243'
 env.f.root = {}
 
 // 初始化元素列表
@@ -16,6 +16,8 @@ env.e = {...env.e, ...{
 	root: {
 		'prompt': document.querySelector('.prompt'),
 		'menu': document.querySelectorAll('.menu btn'),
+		'avatar': document.querySelectorAll('.avatar'),
+		'load1': document.querySelector('.main .loading'),
 		'counter': document.querySelectorAll('.main footer tag'),
 		'blog': document.querySelector('.main .blog'),
 		'btn1': document.querySelector('.main header btn'),
@@ -23,11 +25,21 @@ env.e = {...env.e, ...{
 	}
 }}
 
+// 初始化初始化列表
+env.d.init = {...env.d.init, ...{
+	'menu': 0,
+}}
+
 // 通知列表
 env.d.list.news = [
 	{
+		date: '6.29',
+		title: '主题优化',
+		des: 'Ａ 属性访问链 env.d.init，用于记录初始化状态\nＦ 浏览器历史记录中 title 与 url 不匹配的问题\nＯ 优化 root.js\nＯ 优化 player.js',
+	},
+	{
 		date: '6.17',
-		title: '小更改',
+		title: '主题优化',
 		des: 'Ｆ 留言板回复功能权限问题\nＯ 播放器滚动歌词 (又要重调时间轴了... 呜呜呜)\nＯ 响应式页面布局\nＯ 美化页面元素',
 	},
 	{
@@ -39,11 +51,6 @@ env.d.list.news = [
 		date: '4.03',
 		title: '主题优化',
 		des: 'Ｏ 播放器样式调整\nＯ 调整网站 env 框架',
-	},
-	{
-		date: '1.16',
-		title: '主题优化',
-		des: '不优雅的东西，删掉！\n2025 新年快乐',
 	},
 	{
 		date: '11.21',
@@ -117,8 +124,7 @@ env.f.root.getRandom = function(min, max) {
 
 env.f.root.getCSS = function(e, style) {
 	// 获取元素计算样式
-	s = window.getComputedStyle(e)
-	return style ? s.getPropertyValue(style) : s
+	return window.getComputedStyle(e)?.getPropertyValue(style)
 }
 
 env.f.root.fmt = {}
@@ -209,6 +215,7 @@ env.f.root.url = {}
 		// 读取参数并打开
 		var id = env.f.root.url.get('id')
 		if (id) {
+			if (env.d.init.root != 1) {env.e.root.load1.removeAttribute('data-text'); setTimeout(function (){env.e.root.load1.style.display = 'none'}, 500)}
 			env.f.root.blog.open(id)
 		} else {
 			env.f.root.url.clear()
@@ -226,8 +233,13 @@ env.f.root.blog = {}
 		env.f.root.fade(env.e.root.blog, 300)
 
 		setTimeout(function (){
-			env.d.isNetwork ? (history.replaceState(null, null, `${window.location.origin}/blog?id=${id}`)) : ( env.f.root.url.set('id', id))
-			e.src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
+			if (env.d.isNetwork) {
+				history.replaceState(null, null, `${window.location.origin}/blog?id=${id}`)
+				e.src = `${window.location.origin}/blog/${id}/page`
+			} else {
+				env.f.root.url.set('id', id)
+				e.src = `blog/${id}/page.html`
+			}
 		}, 1000)
 	}
 
@@ -243,9 +255,38 @@ env.f.root.blog = {}
 		}, 600)
 	}
 
+env.f.root.page = {}
+	env.f.root.page.load = function() {
+		// 博客加载动画
+		clearInterval(env.tmp.root.t2)
+		env.e.root.blog.children[2].style.display = 'block'
+
+		env.tmp.root.d5 = new Date()
+		env.tmp.root.t2 = setInterval(() => {
+			env.e.root.blog.children[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d5) / 1000).toFixed(2))
+		}, 100)
+	}
+		env.f.root.page.load.stop = function() {
+			// 停止加载动画
+			clearInterval(env.tmp.root.t2)
+			env.tmp.root.d5 = null
+			delete env.tmp.root.d5
+			env.f.root.fade(env.e.root.blog.children[2], -500)
+
+			setTimeout(function (){
+				env.e.root.blog.children[2].removeAttribute('data-timer')
+			}, 500)
+		}
+
+	env.f.root.page.ok = function(title) {
+		// 博客加载完成
+		document.title = `${title} | ${env.d.title}`
+		setTimeout(function (){env.f.root.page.load.stop()}, 2000)
+	}
 
 env.f.root.init = function() {
 	// 初始化菜单
+	env.d.init.menu = 1
 
 	// 文章
 	var d = env.d.list.blog
@@ -280,13 +321,13 @@ env.f.root.init = function() {
 env.f.root.menu = {}
 	env.f.root.menu.open = function() {
 		// 打开菜单
-		if (!document.querySelector('.menu-c2 news')) {
+		if (env.d.init.menu) {
+			document.querySelector('.menu').classList.add('menu-active')
+			env.f.root.fade(env.e.root.btn2, 300)
+		} else {
 			// 初始化
 			env.e.root.btn1.setAttribute('style', 'pointer-events: none')
 			env.f.root.init()
-		} else {
-			document.querySelector('.menu').classList.add('menu-active')
-			env.f.root.fade(env.e.root.btn2, 300)
 		}
 	}
 
@@ -310,37 +351,6 @@ env.f.root.menu = {}
 		}
 	}
 
-env.f.root.page = {}
-	env.f.root.page.load = function() {
-		// 博客加载动画
-		clearInterval(env.tmp.root.t2)
-		if (document.querySelector('.main .loading')) document.querySelector('.main .loading').style.display = 'none'
-		env.f.root.fade(env.e.root.blog.children[2], 30)
-
-		env.tmp.root.d5 = new Date()
-		env.tmp.root.t2 = setInterval(() => {
-			var t = new Date() - env.tmp.root.d5
-			env.e.root.blog.children[2].setAttribute('data-timer', (t / 1000).toFixed(2))
-		}, 100)
-	}
-		env.f.root.page.load.stop = function() {
-			// 停止加载动画
-			clearInterval(env.tmp.root.t2)
-			env.tmp.root.d5 = null
-			delete env.tmp.root.d5
-			env.f.root.fade(env.e.root.blog.children[2], -500)
-
-			setTimeout(function (){
-				env.e.root.blog.children[2].removeAttribute('data-timer')
-			}, 500)
-		}
-
-	env.f.root.page.ok = function(title) {
-		// 博客加载完成
-		document.title = `${title} | ${env.d.title}`
-		setTimeout(function (){env.f.root.page.load.stop()}, 2000)
-	}
-
 env.f.root.prompt = {}
 	env.f.root.prompt = function(str, t = -1) {
 		// 弹出信息窗口
@@ -361,9 +371,7 @@ env.f.root.prompt = {}
 		// 关闭信息窗口
 		if (e) {
 			e.removeAttribute('class')
-			setTimeout(function (){
-				e.remove()
-			}, 500)
+			setTimeout(function (){e.remove()}, 500)
 		} else {
 			var e = env.e.root.prompt.children
 			for (var i = 0; i < e.length; i++) {
@@ -373,51 +381,32 @@ env.f.root.prompt = {}
 	}
 
 env.f.root.search = function() {
-
-	/*	站内检索引擎
-	*	created by sumiyo, 2025/1/02
-
-		*/
-
-	var d = env.d.list.blog
-	var ban = []
-	var k = document.querySelector('.search textarea').value
+	//  站内检索引擎
+	var s = document.querySelector('.search textarea').value
 	var f = document.querySelector('.search')
 	var o = [...document.querySelectorAll('.search list div')].slice(1)
 
 	//  排除违禁词
-	if (ban.some(item => k.includes(item))) {return}
-
+	if ([].some(item => s.includes(item))) {return}
 	for (var i = 0; i < o.length; i++) {
 		o[i].setAttribute('style', 'display: none')
 	}
 
 	// 创建新数组，格式为 {'name': 符合条件的 name 值, 'index': 项数}
-	const r = d
+	const r = env.d.list.blog
 		.map((item, index) => ({ name: item.name, index }))
-		.filter(item => item.name.toLowerCase().includes(k.toLowerCase()))
+		.filter(item => item.name.toLowerCase().includes(s.toLowerCase()))
 
 	//  渲染结果
-	var k = k.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
-	if (k != '') {
-		for (var i = 0; i < r.length; i++) {
-			o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(k, 'gi'), (match) => `<key>${match}</key>`)
-			o[r[i].index].setAttribute('style', 'display: block')
-		}
-	} else {
-		for (var i = 0; i < r.length; i++) {
-			o[r[i].index].children[0].innerHTML = r[i].name
-			o[r[i].index].setAttribute('style', 'display: block')
-		}
+	for (var i = 0; i < r.length; i++) {
+		o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), (match) => `<key>${match}</key>`)
+		o[r[i].index].setAttribute('style', 'display: block')
 	}
 
 	env.e.root.menu[0].setAttribute('data-item', r.length)
 	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(5, r.length), 1) * 22 + 55}px`)
 	document.querySelector('.search .null').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
 }
-
-
-
 
 
 
@@ -462,13 +451,10 @@ window.addEventListener('load',function(){
 
 
 
-
-
-
 env.tmp.root.d2 = 1
 setTimeout(console.log.bind(
 	console, 
-	'\n%c THEME %c しろい花 %c		ver.' + env.d.version.root + '\n',
+	`\n%c THEME %c しろい花 %c		${env.d.version.root}\n`,
 	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
 	'background-color: rgba(186, 138, 219, 0.5); color: white;',
 	'color: rgba(192, 194, 194, 1);',

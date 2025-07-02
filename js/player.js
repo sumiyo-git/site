@@ -36,7 +36,7 @@ env.e = {...env.e, ...{
 }}
 
 env.d.init = {...env.d.init, ...{
-	'player': 0,
+	'playerUI': 0,
 }}
 
 
@@ -139,7 +139,7 @@ env.f.player.album = function(){
 	}]
 }
 
-env.f.player.load = function(e){
+env.f.player.load = function(e, autoplay = true){
 	// 加载音乐信息
 	var id = e.dataset.id
 	var name = e.dataset.name
@@ -160,7 +160,6 @@ env.f.player.load = function(e){
 
 	setTimeout(function (){
 		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=800y800`
-		if (env.d.init.player) env.f.player.play.set(1)
 	}, 500)
 
 	// 歌词
@@ -193,6 +192,15 @@ env.f.player.load = function(e){
 			}]
 		})
 	}
+
+	// 加载完成后播放音乐
+	if (!autoplay) return
+	var play = function() {
+		env.f.player.play.set(1)
+		env.e.player.audio.removeEventListener('canplay', play)
+	}
+
+	env.e.player.audio.addEventListener('canplay', play)
 }
 
 env.f.player.mode = function(){
@@ -242,14 +250,13 @@ env.f.player.add = function(str) {
 	env.d.player.id = str['0'] ? env.e.player.list[1].children.length : 0
 	env.f.player.playlist(str['1'], !str['0'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
-	env.f.player.play.set(1)
 }
 
 	env.f.player.add.ask = function(str) {
 		// 弹出询问框
 		setTimeout(function (){
 			if (str['0']) {
-				env.f.root.prompt(`发现 ` + str['1'].length + ` 首隐藏的音乐！<br /><a onclick='env.f.player.add(` + JSON.stringify(str) + `);'>播放</a>`, 20000)
+				env.f.root.prompt(`发现 ${str['1'].length} 首隐藏的音乐！<br /><a onclick='env.f.player.add(${JSON.stringify(str)});'>播放</a>`, 20000)
 			} else {
 				env.f.player.add(JSON.stringify(str))
 			}
@@ -259,7 +266,7 @@ env.f.player.add = function(str) {
 env.f.player.reset = function() {
 	// 重置歌单
 	env.f.player.playlist(env.f.player.album(), true)
-	env.f.player.load(env.e.player.list[1].children[0])
+	env.f.player.load(env.e.player.list[1].children[0], false)
 	env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 	env.d.player.id = 0
 	env.f.player.mode.set(0)
@@ -278,7 +285,7 @@ env.f.player.lrc = {}
 			env.f.player.lrc.load(lrc)
 		})
 		.catch(error => {
-			console.error(error)
+			console.error('歌词加载异常')
 			var l = document.createElement('line')
 				l.innerHTML = `<trans>歌词加载异常: ${error}</trans>`
 				env.e.player.list[0].appendChild(l)
@@ -320,8 +327,8 @@ env.f.player.lrc = {}
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
 			env.f.root.fade(env.e.player.ui0, 160)
 
-			if (!env.d.init.player) {
-				env.d.init.player = 1
+			if (!env.d.init.playerUI) {
+				env.d.init.playerUI = 1
 				env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 				if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 			}
@@ -398,11 +405,11 @@ env.f.player.next = function(n){
 
 
 
-env.e.player.audio.preload = 'none'
+env.e.player.audio.preload = 'metadata'
 env.e.player.audio.volume = 0.5
 
 env.f.player.playlist(env.f.player.album(), true)
-env.f.player.load(env.e.player.list[1].children[0])
+env.f.player.load(env.e.player.list[1].children[0], false)
 
 
 
@@ -445,6 +452,13 @@ env.e.player.audio.addEventListener('ended', function () {
 	} else {
 		env.f.player.next(1)
 	}
+})
+
+// 若无法加载音频，则抛出错误
+env.e.player.audio.addEventListener('error', function(event) {
+	var d = env.e.player.list[1].children[env.d.player.id].dataset
+	console.error(`音频加载失败:`, event, `\n	at env.e.player.audio\n	at https://music.163.com/song/media/outer/url?id=${env.e.player.list[1].children[env.d.player.id].dataset.id}`)
+	console.warn('可能原因:\n	1. 当前歌曲重定向后的资源链接超时（似乎是 30 min），请重新播放该歌曲\n	2. 该歌曲已升为会员专享\n	3. 您所在地区不支持网易云音乐 https://music.163.com/ 的服务')
 })
 
 // 调整音量

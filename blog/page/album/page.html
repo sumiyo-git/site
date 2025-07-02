@@ -61,7 +61,7 @@
 			<br class="f-1" />
 
 			<album onclick="addmusic(3)" >
-				<img src="img/Thought.webp" onload="this.setAttribute('class', 'fade')" />
+				<img src="img/others.webp" onload="this.setAttribute('class', 'fade')" />
 				未分卷
 			</album>
 			<br class="f-1" />
@@ -84,11 +84,16 @@
 			</album>
 			<br class="f-1" />
 
+			<album onclick="addmusic(6)" >
+				<img src="img/少女終末旅行.webp" onload="this.setAttribute('class', 'fade')" />
+				TVアニメ「少女終末旅行」オリジナルサウンドトラック
+			</album>
+			<br class="f-1" />
+
 			<album onclick="addmusic(1)" >
 				<img src="img/葬送のフリーレン.webp" onload="this.setAttribute('class', 'fade')" />
 				TVアニメ『葬送のフリーレン』Original Soundtrack
 			</album>
-
 			<br class="f-1" />
 
 			<album onclick="addmusic(4)" >
@@ -940,6 +945,38 @@
 				},
 			]},
 
+			//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 少女終末旅行
+			6: {0: false, 1: [
+				{
+					name: '少女終末旅行 -Main Theme-',
+					artist: '末廣健一郎',
+					src: '524148934',
+					img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+					lrc: false,
+				},
+				{
+					name: 'あの瓦礫の向こうへ',
+					artist: '末廣健一郎',
+					src: '524149922',
+					img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+					lrc: false,
+				},
+				{
+					name: 'ケッテンクラート',
+					artist: '末廣健一郎',
+					src: '524149923',
+					img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+					lrc: false,
+				},
+				{
+					name: '動く、動く -Piano version',
+					artist: '???',
+					src: '1331104316',
+					img: 'sSMBq4im8ku4bfRtiyMQCA==/18941286812148451',
+					lrc: false,
+				},
+
+			]},
 		}
 		if (n != null) {
 			window.parent.postMessage('env.f.player.add(' + JSON.stringify(list[n]) + ')', document.domain ? '/' : '*')

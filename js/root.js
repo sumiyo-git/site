@@ -35,12 +35,12 @@ env.d.list.news = [
 	{
 		date: '6.29',
 		title: '主题优化',
-		des: 'Ａ 属性访问链 env.d.init，用于记录初始化状态\nＦ 浏览器历史记录中 title 与 url 不匹配的问题\nＯ 优化 root.js\nＯ 优化 player.js',
+		des: 'Ａ 属性访问链 env.d.init，用于记录初始化状态\nＡ 播放器错误处理逻辑\nＦ 浏览器历史记录中本站 title 与 url 不匹配的问题\nＦ 播放器界面未初始化时，Media Session API 曲目切换导致音乐暂停\nＯ 修改 audio preload 为 metadata\nＯ 优化 root.js\nＯ 优化 player.js',
 	},
 	{
 		date: '6.17',
 		title: '主题优化',
-		des: 'Ｆ 留言板回复功能权限问题\nＯ 播放器滚动歌词 (又要重调时间轴了... 呜呜呜)\nＯ 响应式页面布局\nＯ 美化页面元素',
+		des: 'Ｆ 留言板回复功能权限问题\nＯ 播放器滚动歌词 (又要重做时间轴了... 呜呜呜)\nＯ 响应式页面布局\nＯ 美化页面元素',
 	},
 	{
 		date: '4.13',

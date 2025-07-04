@@ -1,5 +1,5 @@
 ﻿User-agent: *
-Crawl-delay: 10
+Crawl-delay: 5
 Disallow: /blog/
 Disallow: /src/
 Allow: /*.png$

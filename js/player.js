@@ -458,7 +458,7 @@ env.e.player.audio.addEventListener('ended', function () {
 env.e.player.audio.addEventListener('error', function(event) {
 	var d = env.e.player.list[1].children[env.d.player.id].dataset
 	console.error(`音频加载失败:`, event, `\n	at env.e.player.audio\n	at https://music.163.com/song/media/outer/url?id=${env.e.player.list[1].children[env.d.player.id].dataset.id}`)
-	console.info('可能原因:\n	1. 当前歌曲重定向后的资源链接超时（似乎是 30 min），请重新播放该歌曲\n	2. 该歌曲已升为会员专享\n	3. 您所在地区不支持网易云音乐 https://music.163.com/ 的服务')
+	console.warn('可能原因:\n	1. 当前歌曲重定向后的资源链接超时（似乎是 30 min），请重新播放该歌曲\n	2. 该歌曲已升为会员专享\n	3. 您所在地区不支持网易云音乐 https://music.163.com/ 的服务')
 	env.f.root.prompt('当前歌曲播放失败<br />打开控制台以获取详情', -1)
 })
 

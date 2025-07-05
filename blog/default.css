@@ -239,16 +239,16 @@ h3 {
 
 a[class^='ibox'] {
 	display: inline-block;
+	background-color: rgba(var(--t-t1), 0.08);
+	border-radius: 10px;
+	overflow: hidden;
 }
 
 a[class^='ibox'] img {
 	vertical-align: top;
 	width: 100%;
 	height: 100%;
-	border-radius: 5px;
 	opacity: 0;
-	border: 1px rgba(var(--t-t1), 0.3) solid;
-	box-sizing: border-box;
 }
 
 

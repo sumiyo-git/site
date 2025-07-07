@@ -266,7 +266,7 @@ git "string"\t\t\t执行原生 git 命令
 
             if ("-save" in cmd0):
                 f = env["path"] + "logs\\" + datetime.now(timezone.utc).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H-%M-%S") + ".log"
-                with open(f, "w") as file:
+                with open(f, "w", encoding="utf-8") as file:
                     json.dump(result, file, indent=4, ensure_ascii=False)
     
                 wprint("日志已保存: " + f + "\n", 2)
@@ -281,7 +281,7 @@ git "string"\t\t\t执行原生 git 命令
             f = env["path"] + "\\logs\\" + cmd1[2]
 
             if (os.path.exists(f)):
-                with open(f, "r") as file:
+                with open(f, "r", encoding='utf-8') as file:
                     table1(json.loads(file.read()))
                 return "break"
             else:

@@ -88,18 +88,12 @@
 				}, 600)
 
 				env.e.root.avatar[0].style.opacity = '0.4'
-				env.e.root.load1.removeAttribute('style')
+				env.e.root.load1?.removeAttribute('style')
 
 				clearInterval(env.tmp.root.t1)
 			}, 1000)
 		}
 	}, 1500)
-
-	// 仅允许直接访问此页
-	if (env.d.isNetwork && ((window.location.href != (`https://${env.d.domain}/`)) && !window.location.href.includes(`https://${env.d.domain}/blog`) || window.location.href.includes(`.html`))) {
-		document.body.innerHTML = ''
-		window.location.href = `https://${env.d.domain}/`
-	}
 
 </script>
 

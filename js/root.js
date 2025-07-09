@@ -35,7 +35,7 @@ env.d.list.news = [
 	{
 		date: '6.29',
 		title: '主题优化',
-		des: 'Ａ 属性访问链 env.d.init，用于记录初始化状态\nＡ 播放器错误处理逻辑\nＦ 浏览器历史记录中本站 title 与 url 不匹配的问题\nＦ 播放器界面未初始化时，Media Session API 曲目切换导致音乐暂停\nＯ 修改 audio preload 为 metadata\nＯ 优化 root.js\nＯ 优化 player.js',
+		des: 'Ａ 属性访问链 env.d.init，用于记录初始化状态\nＡ 播放器错误处理逻辑\nＦ 浏览器历史记录中本站 title 与 url 不匹配的问题\nＦ 播放器界面未初始化时，Media Session API 曲目切换导致音乐暂停\nＯ 修改 audio preload 为 metadata\nＯ 优化 root.js\nＯ 优化 player.js\nＯ 优化 url 参数的处理逻辑\nＤ 移除 url 中的 blog/ 路径',
 	},
 	{
 		date: '6.17',
@@ -229,19 +229,14 @@ env.f.root.blog = {}
 
 		setTimeout(function (){
 			env.f.root.url.set('id', id)
-			if (env.d.isNetwork) {
-				history.replaceState(null, null, `${window.location.origin}/blog${decodeURIComponent(new URL(window.location.href).search)}`)
-				e.src = `${window.location.origin}/blog/${id}/page`
-			} else {
-				e.src = `blog/${id}/page.html`
-			}
+			e.src = `blog/${id}/page${env.d.isNetwork ? '' : '.html'}`
 		}, 1000)
 	}
 
 	env.f.root.blog.close = function() {
 		// 关闭博客
 		env.f.root.fade(env.e.root.blog, -300)
-		env.d.isNetwork ? (history.replaceState(null, null, window.location.origin)) : (env.f.root.url.clear())
+		env.f.root.url.clear()
 		document.title = env.d.title
 
 		setTimeout(function (){

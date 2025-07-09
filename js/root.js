@@ -226,9 +226,9 @@ env.f.root.blog = {}
 		env.e.root.blog.appendChild(e)
 		env.f.root.page.load()
 		env.f.root.fade(env.e.root.blog, 300)
-		env.f.root.url.set('id', id)
 
 		setTimeout(function (){
+			env.f.root.url.set('id', id)
 			if (env.d.isNetwork) {
 				history.replaceState(null, null, `${window.location.origin}/blog${decodeURIComponent(new URL(window.location.href).search)}`)
 				e.src = `${window.location.origin}/blog/${id}/page`

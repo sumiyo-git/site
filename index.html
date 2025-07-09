@@ -95,6 +95,11 @@
 		}
 	}, 1500)
 
+	// url 修正
+	if (env.d.isNetwork && window.location.href.includes('index')) {
+		history.replaceState(null, '', 'https://${env.d.domain}/')
+	}
+
 </script>
 
 

@@ -196,6 +196,7 @@ code attention {
 h1 {
 	color: rgba(var(--t-t1), 0.8);
 	font-size: 40px;
+	line-height: 45px;
 }
 
 h2 {

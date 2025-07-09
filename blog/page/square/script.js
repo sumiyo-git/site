@@ -371,7 +371,7 @@ env.f.connect = function(str) {
 env.f.challenge = {}
 	env.f.challenge.new = function() {
 		env.e.challenge.value = ''
-		var l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+		var l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'Y', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 		var a = ''
 		var e = env.e.can
 		var c = getComputedStyle(document.documentElement).getPropertyValue('--t-c1')
@@ -383,18 +383,18 @@ env.f.challenge = {}
 			var r = env.f.random(0, l.length - 1)
 			var a = a + l[r]
 			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(60, 100) / 100 + ')' 
-			ctx.fillText(l[r], 12 + 16 * i, 20 + env.f.random(-5, 5));
+			ctx.fillText(l[r], 12 + 16 * i, 20 + env.f.random(-5, 5))
 		}
 
 		for (var i = 0; i < 20; i++) {
 			ctx.beginPath()
 			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(20, 40) / 100 + ')' 
-			ctx.arc(env.f.random(0, e.width), env.f.random(0, e.height), env.f.random(2, 4), 0, Math.PI * 2)
+			ctx.arc(env.f.random(0, e.width), env.f.random(0, e.height), env.f.random(1, 3) * 2, 0, Math.PI * 2)
 			ctx.fill()
 		}
 
 		env.f.challenge.try = function() {
-			if (env.e.challenge.value == a) {
+			if (env.e.challenge.value.toLowerCase() == a.toLowerCase()) {
 				return true
 			} else {
 				env.f.challenge.new()

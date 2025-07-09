@@ -23,7 +23,7 @@
 	<div class="main" >
 		<para>
 			<h1>广场</h1>
-			<i>寒风穿过空荡荡的街道。<br class="f-3" />广场上，还是一个人都没有 ...</i>
+			<note>寒风穿过空荡荡的街道。<br class="f-3" />广场上，还是一个人都没有 ...</note>
 		</para>
 
 		<para>
@@ -61,6 +61,7 @@
 					<mat></mat>
 					<mat></mat>
 					<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
+					<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=留言板')`, document.domain ? '/' : '*')">使用须知</span>
 					<canvas width="80px" height="28px" onclick="env.f.challenge.new()" ></canvas>
 				</div>
 			</div>

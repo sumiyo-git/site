@@ -44,6 +44,18 @@ textarea::placeholder {
 	user-select: none;
 }
 
+.post .link {
+	position: absolute;
+	margin-left: -80px;
+}
+
+.post canvas {
+	margin-left: 5px;
+	border: 1px solid rgba(var(--t-t1), 0.4);
+	border-radius: 5px;
+	cursor: help;
+}
+
 .post div {
 	display: inline-block;
 	vertical-align: top;
@@ -181,13 +193,6 @@ comment .op:after {
 	font-size: 16px;
 	color: rgba(var(--t-c2), 0.8);
 	pointer-events: none;
-}
-
-canvas {
-	margin-left: 5px;
-	border: 1px solid rgba(var(--t-t1), 0.4);
-	border-radius: 5px;
-	cursor: help;
 }
 
 .user {

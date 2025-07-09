@@ -117,6 +117,13 @@ env.f.player.album = function(){
 		lrc: false,
 	},
 	{
+		name: '少女終末旅行 -Main Theme-',
+		artist: '末廣健一郎',
+		src: '524148934',
+		img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+		lrc: false,
+	},
+	{
 		name: '変わり行く世界のために',
 		artist: '茶太',
 		src: '697291',

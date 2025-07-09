@@ -178,16 +178,11 @@ env.f.root.post = function(event) {
 
 env.f.root.linkto = function(id) {
 	// 博客文章重定向
-	var e = document.createElement('iframe')
-	env.e.root.blog.children[3].remove()
-	env.e.root.blog.appendChild(e)
-	env.f.root.page.load()
-	env.f.root.prompt.close()
-
+	env.f.root.blog.close()
 	setTimeout(function (){
 		env.f.root.url.set('id', id)
-		e.src = env.d.isNetwork ? (`${window.location.origin}/blog/${id}/page`) : (`blog/${id}/page.html`)
-	}, 500)
+		env.f.root.blog.open(env.f.root.url.get('id'))
+	}, 600)
 }
 
 env.f.root.url = {}
@@ -231,13 +226,13 @@ env.f.root.blog = {}
 		env.e.root.blog.appendChild(e)
 		env.f.root.page.load()
 		env.f.root.fade(env.e.root.blog, 300)
+		env.f.root.url.set('id', id)
 
 		setTimeout(function (){
 			if (env.d.isNetwork) {
-				history.replaceState(null, null, `${window.location.origin}/blog?id=${id}`)
+				history.replaceState(null, null, `${window.location.origin}/blog${decodeURIComponent(new URL(window.location.href).search)}`)
 				e.src = `${window.location.origin}/blog/${id}/page`
 			} else {
-				env.f.root.url.set('id', id)
 				e.src = `blog/${id}/page.html`
 			}
 		}, 1000)
@@ -251,7 +246,7 @@ env.f.root.blog = {}
 
 		setTimeout(function (){
 			env.f.root.prompt.close()
-			env.e.root.blog.querySelector('iframe').remove()
+			env.e.root.blog.children[3].remove()
 		}, 600)
 	}
 

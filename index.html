@@ -81,7 +81,7 @@
 					env.e.root.avatar[1].removeAttribute('style')
 				}, 4000)
 				setTimeout(function (){
-					env.e.root.load1.remove()
+					env.e.root.load1?.remove()
 					env.e.root.load1 = null
 					env.e.root.avatar[1].style.opacity = '0.4'
 					env.d.init.root = 1
@@ -167,6 +167,7 @@
 		<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
 		<div class="menu-c3" >
 			<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
+			<a onclick="env.f.root.blog.open('page/policy')" title="隐私政策 & 使用协议" ></a>
 			<a onclick="env.f.player.lrc.ui()" title="歌曲" ></a>
 		</div>
 	</div>

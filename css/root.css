@@ -421,7 +421,7 @@ backdrop {
 .menu .menu-c3 {
 	display: flex;
 	flex-wrap: wrap;
-	height: 100px;
+	height: 150px;
 	overflow: hidden;
 	transition: all 0.3s ease-out 0s;
 }

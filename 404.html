@@ -54,20 +54,15 @@ body{position:absolute;height:100%;width:100%;font-family:'Microsoft YaHei';over
 	</div>
 
 	<script>
-		var isSub = false
-		var isInit = 0
-		window.parent.postMessage("(typeof env != 'undefined') ? env.f.root.post('isSub = true') : null", document.domain ? '/' : '*')
 		window.addEventListener('message', function(event) {
 			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-			if (!isInit) {
-				isInit = 1
-				if (isSub) {
-					window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}"); env.f.root.post("document.querySelectorAll('i')[0].innerHTML = '" + document.location.href + "'")`, document.domain ? '/' : '*')
-				} else {
-					document.querySelectorAll('i')[0].innerHTML = window.location.href
-				}
-			}
 		})
+
+		if (window.parent == window) {
+			document.querySelectorAll('i')[0].innerHTML = window.location.href
+		} else {
+			window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}"); env.f.root.post("document.querySelectorAll('i')[0].innerHTML = '" + document.location.href + "'")`, document.domain ? '/' : '*')
+		}
 	</script>
 
 </body>

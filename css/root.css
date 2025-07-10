@@ -421,6 +421,7 @@ backdrop {
 .menu .menu-c3 {
 	display: flex;
 	flex-wrap: wrap;
+	align-content: flex-start;
 	height: 150px;
 	overflow: hidden;
 	transition: all 0.3s ease-out 0s;
@@ -428,12 +429,12 @@ backdrop {
 
 .menu .menu-c3 a {
 	display: inline-block;
-	height: 70px;
-	width: 70px;
+	height: 60px;
+	width: 60px;
 	margin-top: 5px;
 	margin-right: 5px;
 	font-size: 30px;
-	line-height: 71px;
+	line-height: 61px;
 	text-align: center;
 	color: rgba(var(--t-b4), 0.4);
 	background-color: rgba(var(--t-b4), 0.05);

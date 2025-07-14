@@ -1,86 +1,68 @@
-﻿<!DOCTYPE HTML>
-<html lang="zh">
-
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="preload" as="font" crossorigin="anonymous" href="../../../src/font/Poppins Regular.woff2" />
 	<link rel="stylesheet" type="text/css" href="../../default.css">
 	<link rel="stylesheet" type="text/css" href="style.css" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../../src/font/Poppins Regular.woff2" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="../../../src/font/icomoon.woff2" />
-
 </head>
-
 <body>
-<style>
+<div class="main" >
+	<para>
+		<h1>广场</h1>
+		<note>寒风穿过空荡荡的街道。<br class="f-3" />广场上，还是一个人都没有 ...</note>
+	</para>
 
+	<para>
+		已经很久没有人来过这里了。
+		<br />
+		<br class="f-1" />
+		漫步走过一排排锈迹斑斑的长椅，<br class="f-3" />昔日的荣光早已不再。
+		<br />
+		透过冬天的薄雾，夕阳依旧朦胧。
+		<br />
+		<br class="f-1" />
+		绿藤缠绕，野花装点着古老的「留言板」
+		<br />
+		留下些什么吧！ 来自远方的朋友 ...
+	</para>
 
-</style>
-
-	<!-- Mian -->
-	<div class="main" >
-		<para>
-			<h1>广场</h1>
-			<note>寒风穿过空荡荡的街道。<br class="f-3" />广场上，还是一个人都没有 ...</note>
-		</para>
-
-		<para>
-			已经很久没有人来过这里了。
-			<br />
-			<br class="f-1" />
-			漫步走过一排排锈迹斑斑的长椅，<br class="f-3" />昔日的荣光早已不再。
-			<br />
-			透过冬天的薄雾，夕阳依旧朦胧。
-			<br />
-			<br class="f-1" />
-			绿藤缠绕，野花装点着古老的「留言板」
-			<br />
-			伟大的时代已经过去，
-			<br />
-			前人的字迹依旧存在。
-			<br />
-			<br class="f-1" />
-			留下些什么吧！ 远方的朋友 ...
-		</para>
-
-		<para>
-			<h3>留言</h3>
-			<hr />
-			<div class="post" >
-				<div class="user" data-icon="" ></div>
-				<div class="ui" >
-					<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.setAttribute('maxlength', (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(this.value.split('\n')[0])) ? 126 : 200)" ></textarea>
-					<mat></mat>
-					<mat></mat>
-					<mat></mat>
-					<textarea autocomplete="off" placeholder="昵称" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
-					<a onclick="env.f.submit()" style="float: right;" >留言</a>
-					<mat></mat>
-					<mat></mat>
-					<mat></mat>
-					<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
-					<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=留言板')`, document.domain ? '/' : '*')">使用须知</span>
-					<canvas width="80px" height="28px" onclick="env.f.challenge.new()" ></canvas>
-				</div>
+	<para>
+		<h3>留言</h3>
+		<hr />
+		<div class="post" >
+			<div class="user" data-icon="" ></div>
+			<div class="ui" >
+				<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.setAttribute('maxlength', (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(this.value.split('\n')[0])) ? 126 : 200)" ></textarea>
+				<mat></mat>
+				<mat></mat>
+				<mat></mat>
+				<textarea autocomplete="off" placeholder="昵称" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
+				<a onclick="env.f.submit()" style="float: right;" >留言</a>
+				<mat></mat>
+				<mat></mat>
+				<mat></mat>
+				<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
+				<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=留言板')`, document.domain ? '/' : '*')">使用须知</span>
+				<canvas width="80px" height="28px" onclick="env.f.challenge.new()" ></canvas>
 			</div>
+		</div>
+		共 <tag>0</tag> 留言
+		<hr />
+		<div class="list" ><span>hemiyo danto, hoer semila oomo.</span><br /><br class="f-1" /></div>
+		<footer></footer>
+	</para>
 
-			共 <tag>0</tag> 留言
-			<hr />
-			<div class="list" ><span>hemiyo danto, hoer semila oomo.</span><br /><br class="f-1" /></div>
-			<footer></footer>
-		</para>
-	</div>
-
-	<script>
-		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
-		window.addEventListener('message', function(event) {
-			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-		})
-
-	</script>
-	<script src="script.js" ></script>
-
+</div>
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
+</script>
+<script src="script.js" ></script>
 </body>
 </html>

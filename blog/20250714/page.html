@@ -1,18 +1,12 @@
-﻿<!DOCTYPE HTML>
-<html lang="zh">
-
+﻿<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
 	<link rel="stylesheet" type="text/css" href="../default.css">
-
-</head>
-
-<body>
-<style>
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
+	<style>
 	h3 {
 		margin-bottom: 5px;
 	}
@@ -27,43 +21,40 @@
 			width: 100%;
 		}
 	}
+	</style>
+</head>
 
+<body>
+<div class="main" >
 
-</style>
+	<para>
+		<h1>记录</h1>
+		<note>总比什么都没有强 ...</note>
+	</para>
 
-	<!-- Mian -->
-	<div class="main" >
+	<para>
+		<h3>2025-07-14</h3>
+		hai，今天我开通了这个页面，用来记录一些生活中的小事。emm... emm... 有一点像日记的样子，不定期更新。
+	</para>
 
-		<para>
-			<h1>记录</h1>
-			<note>总比什么都没有强 ...</note>
-		</para>
+</div>
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
 
-		<para>
-			<h3>2025-07-14</h3>
-			hai，今天我开通了这个页面，用来记录一些生活中的小事。emm... emm... 有一点像日记的样子，不定期更新。
-		</para>
-	</div>
+	var music = JSON.stringify({0: true, 1: true, 2: [
+		{
+			name: 'Twilight Breeze',
+			artist: 'C418',
+			src: '2676406609',
+			img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+			lrc: false,
+		}
+	]})
 
-	<script>
-		window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
-		window.addEventListener('message', function(event) {
-			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
-		})
-
-		var music = JSON.stringify({0: true, 1: true, 2: [
-			{
-				name: 'Twilight Breeze',
-				artist: 'C418',
-				src: '2676406609',
-				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
-				lrc: false,
-			}
-		]})
-
-		window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
-
-	</script>
-
+	window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+</script>
 </body>
 </html>

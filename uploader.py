@@ -133,12 +133,12 @@ def table1(a):
     for i in range(0, len(r1)):
         r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S").replace("T", " ").replace("Z", " ")
 
-    wprint("----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\nTime\t\tCountry\t\tAction\t\tIP\t\t\tUA\t\t\t\t\t\t\tRequestPath\n----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
+    wprint("-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\nTime\t\tMethod\t\tCountry\t\tAction\t\tIP\t\t\tUA\t\t\t\t\t\t\tRequestPath\n-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
     r = ""
     for i in range(0, len(r1)):
-        r = r + r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + r1[i]["securityAction"].replace("unknown", "") + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + (r1[i]["clientRequestPath"][:70]).ljust(50)+ "\n"
+        r = r + r1[i]["datetime"][11:19] + "\t\t" + r1[i]["clientRequestHTTPMethodName"] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + r1[i]["securityAction"].replace("unknown", "") + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t\t\t" + (r1[i]["userAgent"][:50]).ljust(50)  + "\t\t\t\t\t\t\t" + (r1[i]["clientRequestPath"][:70]).ljust(50)+ "\n"
 
-    wprint(r + "----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
+    wprint(r + "-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n", 0)
 
 
 
@@ -244,9 +244,9 @@ git "string"\t\t\t执行原生 git 命令
                                 clientCountryName
                                 clientIP
                                 clientRequestHTTPHost
+                                clientRequestHTTPMethodName
                                 clientRequestHTTPProtocol
                                 clientRequestPath
-                                clientRequestScheme
                                 userAgent
                                 securityAction
                                 securitySource

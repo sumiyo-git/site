@@ -1,4 +1,5 @@
-﻿<!--
+﻿<!DOCTYPE html>
+<!--
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠋⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠇⢸⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⡟⠀⢸⡆⠀⠀⠀⠀⠀⠀⡼⠁⠀⠀⡜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -18,24 +19,18 @@
 
 -->
 
-<!DOCTYPE HTML>
-<html lang="zh">
-
+<html lang="zh-CN">
 <head>
-	<meta charset="UTF-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta charset="UTF-8" >
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+	<title>sumiyo ~</title>
 
+	<link rel="shortcut icon" href="src/icon.png?ver=10" />
 	<link rel="stylesheet" type="text/css" href="css/root.css" />
+	<link rel="stylesheet" type="text/css" href="css/player.css"  />
 	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins Regular.woff2" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/icomoon.woff2" />
-	<link rel="shortcut icon" href="src/icon.png?ver=10" />
-	<link rel="stylesheet" type="text/css" href="css/player.css"  />
-
 </head>
-
-
-
 <body>
 <script>
 	// 定义核心变量
@@ -43,7 +38,7 @@
 		'd': {
 			'visitors': 0,
 			'domain': 'sumiyo.link',
-			'title': 'sumiyo ~',
+			'title': document.title,
 			'isNew': null,
 			'isNetwork': (document.domain ? true : false),
 			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
@@ -218,7 +213,7 @@
 
 
 
-<!-- Javascript -->
+<!-- 脚本 -->
 <script src="blog/registry.db.js" ></script>
 <script src="js/root.js" ></script>
 <script src="js/player.js"></script>
@@ -240,6 +235,4 @@
 	}, 30000)
 </script>
 </body>
-
-
 </html>

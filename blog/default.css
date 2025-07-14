@@ -27,23 +27,17 @@
 	src: url('../src/font/Poppins Regular.woff2');
 }
 
-html {
-	height: 100%;
-	width: 100%;
-}
-
 body {
-	position: absolute;
-	height: 100%;
-	width: 100%;
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	overflow: overlay;
 	margin: 0;
 	line-height: 30px;
 	min-width: 380px;
+	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 }
 
-
+::selection {
+	background: rgba(var(--t-c5), 0.3) !important;
+}
 
 /* 滚动条 */
 
@@ -81,13 +75,6 @@ body {
 	background-color: transparent !important;
 	box-shadow: none !important;
 }
-
-
-
-::selection {
-	background: rgba(var(--t-c5), 0.3) !important;
-}
-
 
 
 /* 预设样式 */

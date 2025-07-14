@@ -194,8 +194,8 @@ env.f.player.load = function(e, autoplay = true){
 			album: '',
 			artwork: [{
 				src: `https://p1.music.126.net/${img}.jpg?param=800y800`,
-				sizes: '',
-				type: 'image/jpg'
+				 sizes: '',
+				 type: 'image/jpg'
 			}]
 		})
 	}
@@ -254,8 +254,9 @@ env.f.player.play = function(){
 
 env.f.player.add = function(str) {
 	// 更新播放器列表
-	env.d.player.id = str['0'] ? env.e.player.list[1].children.length : 0
-	env.f.player.playlist(str['1'], !str['0'])
+	// 0 = 是否询问; 1 = 是否替换原始列表;
+	env.d.player.id = !str['1'] ? env.e.player.list[1].children.length : 0
+	env.f.player.playlist(str['2'], str['1'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
 }
 
@@ -263,7 +264,7 @@ env.f.player.add = function(str) {
 		// 弹出询问框
 		setTimeout(function (){
 			if (str['0']) {
-				env.f.root.prompt(`发现 ${str['1'].length} 首隐藏的音乐！<br /><a onclick='env.f.player.add(${JSON.stringify(str)});'>播放</a>`, 20000)
+				env.f.root.prompt(`发现 ${str['2'].length} 首隐藏的音乐！<br /><a onclick='env.f.player.add(${JSON.stringify(str)});'>播放</a>`, 20000)
 			} else {
 				env.f.player.add(JSON.stringify(str))
 			}

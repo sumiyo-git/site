@@ -46,7 +46,8 @@ textarea::placeholder {
 
 .post .link {
 	position: absolute;
-	margin-left: -80px;
+	margin-left: -75px;
+	font-size: 14px;
 }
 
 .post canvas {

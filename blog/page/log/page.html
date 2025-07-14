@@ -87,6 +87,34 @@
 		</para>
 
 		<para>
+			<h3>2025-07-14</h3>
+			<event type="F" >修复 CSS 中 .menu footer {} 导致主页菜单出现横向滚动条的问题</event>
+			<event type="O" >优化播放器 env.f.player.add() 函数</event>
+			<br class="f-1" />
+			歌曲添加
+			<br />
+			<note>
+				咱的播放器允许从博客页面中加载歌单。以下是一个栗子:
+			<br />
+			<mat></mat>
+<code>// 0 = "是否使用 env.f.root.prompt() 弹窗";
+// 1 = "是否替换原始歌单";
+var music = JSON.stringify({0: true, 1: false, 2: [
+	{
+		name: 'Welcome to my World',
+		artist: 'Kevin Penkin',
+		src: '509098790',
+		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+		lrc: false,
+	}
+]})
+
+window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+</code>
+			</note>
+		</para>
+
+		<para>
 			<h3>2025-07-10</h3>
 			<event type="A" >
 				添加你现在看得到这个页面！
@@ -448,7 +476,7 @@ export async function onRequest(context) {
 				Then God said, "Let there be ligth," and there was light.‌ ‌
 			</event>
 			<br class="f-1" />
-			最初版本的截图:
+			The first screenshot:
 			<br />
 			<mat></mat>
 			<mat></mat>

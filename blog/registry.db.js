@@ -6,6 +6,12 @@ env.d.list.blog = [
 		des: '以前的作品',
 		type: ['', 'pin'],
 	},
+	{
+		name: '记录',
+		src: '20250714',
+		des: '...',
+		type: ['', 'pin'],
+	},
 
 	{
 		name: 'PE 系统制作',

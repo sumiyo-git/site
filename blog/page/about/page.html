@@ -16,7 +16,7 @@
 	.ibox0 {
 		aspect-ratio: 5 / 7;
 		width: 20%;
-		margin-right: 10px;
+		margin: 0 10px 10px 0;
 	}
 
 	.ibox0 span {
@@ -33,7 +33,7 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 		opacity: 0;
-		transition: 0.5s;
+		transition: 0.3s;
 	}
 
 	.ibox0 span note {
@@ -46,6 +46,12 @@
 
 	.ibox0 img {
 		border: none !important;
+	}
+
+	.anime {
+		display: flex;
+		flex-wrap: wrap;
+		align-content: flex-start;
 	}
 
 	@media (orientation: portrait) {
@@ -106,20 +112,22 @@
 			<br />
 			<mat></mat>
 			<mat></mat>
-			<a class="ibox0" >
-				<img src="img/葬送のフリーレン.webp" onload="this.setAttribute('class', 'fade')" />
-				<span>葬送のフリーレン<br /><note>2020</note></span>
-			</a>
+			<div class="anime" >
+				<a class="ibox0" >
+					<img src="img/葬送のフリーレン.webp" onload="this.setAttribute('class', 'fade')" />
+					<span>葬送のフリーレン<br /><note>2020</note></span>
+				</a>
 
-			<a class="ibox0" >
-				<img src="img/メイドインアビス.webp" onload="this.setAttribute('class', 'fade')" />
-				<span>メイドインアビス<br /><note>2017</note></span>
-			</a>
+				<a class="ibox0" >
+					<img src="img/メイドインアビス.webp" onload="this.setAttribute('class', 'fade')" />
+					<span>メイドインアビス<br /><note>2017</note></span>
+				</a>
 
-			<a class="ibox0" >
-				<img src="img/少女終末旅行.webp" onload="this.setAttribute('class', 'fade')" />
-				<span>少女終末旅行<br /><note>2017</note></span>
-			</a>
+				<a class="ibox0" >
+					<img src="img/少女終末旅行.webp" onload="this.setAttribute('class', 'fade')" />
+					<span>少女終末旅行<br /><note>2017</note></span>
+				</a>
+			</div>
 
 			<br class="f-1" />
 			<br class="f-1" />
@@ -153,7 +161,7 @@
 			if (event.origin == 'null' || event.origin.includes('https://sumiyo.link')) {eval(event.data)}
 		})
 
-		var music = JSON.stringify({0: true, 1: [
+		var music = JSON.stringify({0: true, 1: false, 2: [
 			{
 				name: 'Welcome to my World',
 				artist: 'Kevin Penkin',

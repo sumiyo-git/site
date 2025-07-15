@@ -229,7 +229,7 @@ env.f.root.blog = {}
 
 		setTimeout(function (){
 			env.f.root.url.set('id', id)
-			e.src = `blog/${id}/page${env.d.isNetwork ? '' : '.html'}`
+			e.src = `blog/${id}${env.d.isNetwork ? '' : '.html'}`
 		}, 1000)
 	}
 

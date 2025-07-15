@@ -1,6 +1,5 @@
 ﻿// 定期删除过期的 Pages 部署
 
-const endpoint = `https://api.cloudflare.com/client/v4/accounts/${env.ACCOUNT_ID}/pages/projects/${PROJECT}/deployments`;
 const expirationDays = 1;
 
 export default {
@@ -12,6 +11,7 @@ export default {
       },
     };
 
+    const endpoint = `https://api.cloudflare.com/client/v4/accounts/${env.ACCOUNT_ID}/pages/projects/sumiyo/deployments`;
     const response = await fetch(endpoint, init);
     const deployments = await response.json();
 

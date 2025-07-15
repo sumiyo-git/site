@@ -1,4 +1,4 @@
-﻿# Top-level configuration
+# Top-level configuration
 name = "mayflower"
 main = "worker.js"
 compatibility_date = "2025-07-15"

@@ -109,9 +109,8 @@ i {
 
 hr {
 	display: block;
-	height: 10px;
+	margin-block: 0;
 	width: 100%;
-	margin-top: 10px;
 	border: none;
 	border-top: 1px rgba(var(--t-t1), 0.2) solid;
 }
@@ -151,9 +150,9 @@ code {
 	display: block;
 	background-color: rgba(var(--t-c1), 0.1);
 	color: rgba(var(--t-c1), 0.6);
-	padding: 6px 12px 6px 12px;
+	padding: 10px 12px 0px 12px;
 	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
-	line-height: 28px;
+	line-height: 26px;
 	font-size: 16px;
 	tab-size: 20;
 	border-radius: 5px;

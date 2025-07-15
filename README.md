@@ -9,7 +9,7 @@
 |	ITEM					|	DESCRIPTION					|
 |:--------						|:---------							|
 |	[Cloudflare](https://www.cloudflare.com/)		|	Connect, protect, and build everywhere			|
-|	[Github](https://github.com/)			|	Let's build from here					|
+|	[GitHub](https://github.com/)			|	Let's build from here					|
 |	[IcoMoon](https://icomoon.io/)			|	SVG icon font organizer				|
 |	[Paint.NET](https://www.getpaint.net/)		|	Free software for digital photo editing			|
 |	[Poppins](https://github.com/itfoundry/Poppins)	|	Poppins, a Devanagari + Latin family for Google Fonts.	|

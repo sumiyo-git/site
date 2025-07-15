@@ -72,7 +72,33 @@
 
 	<para>
 		<h3>2025-07-15</h3>
+		<event type="A" >Hoo ! 居然可以在一个仓库上同时绑定 Cloudflare Pages 和 Workers 集成</event>
 		<event type="O" >将博客中的图像全部转移至 https://sumiyo.link/src/img/ 目录</event>
+		<br class="f-1" />
+		手动编写 wrangler.toml
+		<br />
+		<note>
+			简单来说，wrangler.toml 就是 worker 的配置文件。以下是相关文档: （真的是写给懂的人看的）
+			<br />
+			<mat></mat>
+			https://developers.cloudflare.com/workers/get-started/guide/
+			<br />
+			https://developers.cloudflare.com/workers/wrangler/configuration/
+			<br />
+			<mat></mat>
+			<mat></mat>
+			<mat></mat>
+			没有安装 Wrangler，我不得不手动编写了 wrangler.toml，另存为 utf-8。部署时报错:
+			<mat></mat>
+			<code>✘ [ERROR] Unknown character "65279"
+</code>
+			<mat></mat>
+			<mat></mat>
+			翻遍了网上的资料后，才发现罪魁祸首是 utf-8 编码的 BOM 标记。用十六进制编辑器删去文件开头的 "EF BB BF" 字节即可解决问题。
+			<mat></mat>
+			<code>✨ Success! Build completed.
+</code>
+		<br />
 	</para>
 
 	<para>
@@ -338,6 +364,13 @@ export async function onRequest(context) {
 			<br />
 			<note>
 				んなあ～ 这方面的技术细节恐怕不能透露，不然会被黑客拍扁 ...
+			</note>
+		</event>
+		<event type="O" >
+			开始使用模块化博客元素
+			<br />
+			<note>
+				使用 root/css/default.css 中的模块化样式，简化博客页面制作。
 			</note>
 		</event>
 		<event type="O" >重写音乐播放器样式</event>

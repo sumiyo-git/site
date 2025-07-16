@@ -632,7 +632,7 @@ backdrop {
 		line-height: 46px;
 	}
 	.main .des span:nth-child(2) {
-		margin-top: 0px;
+		margin-top: 6px;
 		margin-left: 3px;
 		font-size: 16px;
 	}

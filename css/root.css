@@ -257,6 +257,7 @@ backdrop {
 	right: 0;
 	z-index: 0;
 	height: 100%;
+	aspect-ratio: 1 / 1;
 	opacity: 0.4;
 	pointer-events: none;
 	filter: saturate(1.2);
@@ -634,21 +635,21 @@ backdrop {
 		margin-top: 0px;
 		margin-left: 3px;
 		font-size: 16px;
-		font-weight: bolder;
-		-webkit-text-stroke: 1px rgba(var(--t-b1), 1);
 	}
+	.main .des span:nth-child(2),
 	.main header a {
-		font-weight: bolder;
-		-webkit-text-stroke: 1px rgba(var(--t-b1), 1);
+		text-shadow: 
+			0 0 2px rgba(var(--t-b1), 1),
+			0 0 2px rgba(var(--t-b1), 1),
+			0 0 2px rgba(var(--t-b1), 1),
+			0 0 2px rgba(var(--t-b1), 1);
 	}
 	.menu {
 		padding-right: 30px;
 	}
 	.main .avatar {
-		aspect-ratio: 1 / 1;
 		height: 100%;
-		left: -20%;
-		transform: none !important;
+		left: -15%;
 	}
 }
 

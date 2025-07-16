@@ -1,6 +1,7 @@
 root:
 	50	.main .loading
 	40	.prompt
+	30	.player-ui
 	20	.main .blog
 	15	.menu
 	10	header
@@ -8,13 +9,4 @@ root:
 	5	.main footer
 	0	.main .avatar
 
-
-
-player:
-	50	.player-ui
-	35	.player-ui header
-	30	.player-ui backdrop
-	30	.player-ui .ui
-	25	.player-ui .wallpaper
-	10	.blog .player-blog
 

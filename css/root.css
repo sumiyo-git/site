@@ -1,4 +1,4 @@
-﻿
+
 :root {
 	/* 主题颜色 */
 	--t-c1: 186, 138, 219;
@@ -18,28 +18,43 @@
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
-
-/*
-	.f-1 无效元素
-	.f-2 仅在电脑端显示
-	.f-3 仅在移动端显示
-
-	|	
-	| 零宽换行符
-					*/
-
 }
-
-
 
 @font-face{
 	font-family: Poppins Regular;
 	src: url('../src/font/Poppins Regular.woff2');
 }
-
 @font-face{
 	font-family: icomoon;
 	src: url('../src/font/icomoon.woff2');
+}
+
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+	background-color: transparent;
+}
+::-webkit-scrollbar-track {
+	background-color: transparent;
+	box-shadow: none;
+}
+::-webkit-scrollbar-thumb {
+	background-color: rgba(var(--t-b2), 0.1);
+	border-radius: 100px;
+	border: 4px solid transparent;
+	background-clip: content-box;
+	box-shadow: none;
+}
+::-webkit-scrollbar-thumb:hover {
+	background-color: rgba(var(--t-b2), 0.2);
+}
+::-webkit-scrollbar-corner {
+	background-color: transparent;
+	box-shadow: none;
+}
+
+::selection {
+	background: rgba(var(--t-c5), 0.3);
 }
 
 
@@ -71,7 +86,7 @@ header {
 	position: absolute;
 	top: 25px;
 	left: 25px;
-	z-index: 3;
+	z-index: 10;
 	font-size: 22px;
 	color: rgba(var(--t-t1), 0.1);
 	transition: 0.3s;
@@ -109,57 +124,9 @@ backdrop {
 
 
 
-::-webkit-scrollbar {
-
-	width: 12px !important;
-	height: 12px !important;
-	background-color: transparent !important;
-}
-
-
-::-webkit-scrollbar-track {
-
-	background-color: transparent !important;
-	box-shadow: none !important;
-}
-
-
-::-webkit-scrollbar-thumb {
-
-	background-color: rgba(var(--t-b2), 0.1) !important;
-	border-radius: 100px !important;
-	border: 4px solid transparent !important;
-	background-clip: content-box !important;
-	box-shadow: none !important;
-}
-
-
-::-webkit-scrollbar-thumb:hover {
-
-	background-color: rgba(var(--t-b2), 0.2) !important;
-}
-
-::-webkit-scrollbar-corner {
-	background-color: transparent !important;
-	box-shadow: none !important;
-}
-
-
-
-::selection {
-	background: rgba(var(--t-c5), 0.3) !important;
-}
-
-
-
-
-
 /* 主页 */
 
 .main {
-	position: absolute;
-	top: 0;
-	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: rgba(var(--t-b1), 1);
@@ -170,14 +137,6 @@ backdrop {
 	cursor: pointer;
 	transition: 0.3s;
 	color: rgba(var(--t-t1), 0.4);
-	text-shadow:	-2px -2px 0 rgba(var(--t-b1), 1),
-			-2px 2px 0 rgba(var(--t-b1), 1),
-			2px -2px 0 rgba(var(--t-b1), 1),
-			2px 2px 0 rgba(var(--t-b1), 1),
-			0 -2px 0 rgba(var(--t-b1), 1),
-			0 2px 0 rgba(var(--t-b1), 1),
-			2px 0 0 rgba(var(--t-b1), 1),
-			-2px 0 0 rgba(var(--t-b1), 1);
 }
 
 .main header a:hover {
@@ -186,7 +145,6 @@ backdrop {
 
 .main header backdrop {
 	background-color: rgba(var(--t-b2), 0.6);
-	z-index: 5;
 }
 
 .main header btn {
@@ -200,16 +158,16 @@ backdrop {
 
 
 .main .loading {
-	z-index: 30;
-	background-color: rgba(var(--t-b1), 1);
+	z-index: 50;
 	opacity: 0;
+	background-color: rgba(var(--t-b1), 1);
 	transition: 1s;
 }
 
 .main .loading::after {
 	position: fixed;
 	bottom: 20px;
-	right: 40px;
+	right: 30px;
 	content: attr(data-text);
 	font-size: 24px;
 	color: rgba(var(--t-b2), 0.6);
@@ -221,7 +179,7 @@ backdrop {
 	position: fixed;
 	bottom: 0;
 	left: 0;
-	z-index: 1;
+	z-index: 5;
 	height: 40px;
 	width: 100%;
 	background-color: rgba(var(--t-b3), 1);
@@ -242,9 +200,20 @@ backdrop {
 	transition: 0.3s;
 }
 
+.main footer a {
+	color: rgba(var(--t-c1), 0.8);
+	text-decoration: underline;
+	cursor: help;
+	transition: 0.1s;
+}
+
+.main footer a:hover {
+	color: rgba(var(--t-c2), 0.8);
+}
+
 .main .blog {
 	position: fixed;
-	z-index: 40;
+	z-index: 20;
 	top: 0;
 	left: 0;
 	bottom: 0;
@@ -262,12 +231,7 @@ backdrop {
 	user-select: none;
 }
 
-.main .blog header {
-	z-index: 20;
-}
-
 .main .blog backdrop {
-	z-index: 15;
 	background-color: rgba(var(--t-b1), 1);
 }
 
@@ -291,12 +255,12 @@ backdrop {
 	position: fixed;
 	top: 0;
 	right: 0;
+	z-index: 0;
 	height: 100%;
 	opacity: 0.4;
 	pointer-events: none;
 	filter: saturate(1.2);
 }
-
 
 .main .des {
 	position: absolute;
@@ -304,11 +268,11 @@ backdrop {
 	height: 150px;
 	bottom: 120px;
 	left: 240px;
-	z-index: 2;
+	z-index: 5;
 	white-space: nowrap;
 }
 
-.main .des :first-child {
+.main .des span:nth-child(1) {
 	font-size: 80px;
 	line-height: 70px;
 	font-weight: bold;
@@ -317,23 +281,12 @@ backdrop {
 	-webkit-background-clip: text;
 }
 
-.main .des :last-child {
+.main .des span:nth-child(2) {
 	display: block;
 	margin-top: 25px;
 	color: rgba(var(--t-t1), 0.5);
 	font-size: 30px;
-
-	text-shadow:	-2px -2px 0 rgba(var(--t-b1), 1),
-			-2px 2px 0 rgba(var(--t-b1), 1),
-			2px -2px 0 rgba(var(--t-b1), 1),
-			2px 2px 0 rgba(var(--t-b1), 1),
-			0 -2px 0 rgba(var(--t-b1), 1),
-			0 2px 0 rgba(var(--t-b1), 1),
-			2px 0 0 rgba(var(--t-b1), 1),
-			-2px 0 0 rgba(var(--t-b1), 1);
 }
-
-
 
 
 
@@ -345,7 +298,7 @@ backdrop {
 	width: 250px;
 	height: 100%;
 	padding: 0px 40px;
-	z-index: 10;
+	z-index: 15;
 	background-color: rgba(var(--t-b3), 1);
 	overflow: scroll;
 	transition: 0.3s ease-out;
@@ -447,25 +400,6 @@ backdrop {
 
 .menu .menu-c3 a:hover {
 	background-color: rgba(var(--t-b4), 0.1);
-}
-
-.menu footer {
-	position: sticky;
-	bottom: 0;
-	top: calc(100% - 40px);
-	margin-left: -40px;
-	height: 20px;
-	width: calc(100% + 40px);
-	padding: 10px 0 10px 0;
-	line-height: 24px;
-	font-size: 16px;
-	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-b3), 0.6);
-	backdrop-filter: blur(5px);
-}
-
-.menu footer a {
-	color: rgba(var(--t-c1), 0.8);
 }
 
 
@@ -578,7 +512,7 @@ backdrop {
 	top: 20px;
 	right: -340px;
 	width: 320px;
-	z-index: 50;
+	z-index: 40;
 }
 
 .prompt prompt {
@@ -587,7 +521,6 @@ backdrop {
 	padding: 10px 50px 10px 10px;
 	margin-bottom: 10px;
 	max-width: 320px;
-	z-index: 40;
 	font-size: 16px;
 	line-height: 24px;
 	color: rgba(var(--t-t1), 0.6);
@@ -668,10 +601,10 @@ backdrop {
 		bottom: 60px;
 		left: 100px;
 	}
-	.main .des :first-child {
+	.main .des span:nth-child(1) {
 		font-size: 50px;
 	}
-	.main .des :last-child {
+	.main .des span:nth-child(2) {
 		font-size: 26px;
 		margin-top: 3px;
 	}
@@ -693,23 +626,28 @@ backdrop {
 		border-left: none;
 		padding-left: 0;
 	}
-	.main .des :first-child {
+	.main .des span:nth-child(1) {
 		font-size: 46px;
 		line-height: 46px;
 	}
-	.main .des :last-child {
-		font-size: 16px;
+	.main .des span:nth-child(2) {
 		margin-top: 0px;
 		margin-left: 3px;
+		font-size: 16px;
+		font-weight: bolder;
+		-webkit-text-stroke: 1px rgba(var(--t-b1), 1);
+	}
+	.main header a {
+		font-weight: bolder;
+		-webkit-text-stroke: 1px rgba(var(--t-b1), 1);
 	}
 	.menu {
 		padding-right: 30px;
 	}
 	.main .avatar {
-		position: fixed;
-		width: 90%;
-		object-fit: cover;
-		object-position: -90px 0px;
+		aspect-ratio: 1 / 1;
+		height: 100%;
+		left: -20%;
 		transform: none !important;
 	}
 }

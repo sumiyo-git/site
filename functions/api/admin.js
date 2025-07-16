@@ -1,4 +1,4 @@
-﻿export async function onRequest(context) {
+export async function onRequest(context) {
 	var m = context.request.headers.get('Token')
 	var r = {success: false, meta: {}, results: [], msg: "Invalid Input"}
 

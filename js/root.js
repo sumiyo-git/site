@@ -1,4 +1,4 @@
-﻿
+
 
 
 /*	root.js
@@ -15,13 +15,12 @@ env.f.root = {}
 env.e = {...env.e, ...{
 	root: {
 		'prompt': document.querySelector('.prompt'),
-		'menu': document.querySelectorAll('.menu btn'),
-		'avatar': document.querySelectorAll('.avatar'),
-		'load1': document.querySelector('.main .loading'),
-		'counter': document.querySelectorAll('.main footer tag'),
 		'blog': document.querySelector('.main .blog'),
 		'btn1': document.querySelector('.main header btn'),
-		'btn2': document.querySelector('.main header backdrop'),
+		'backdrop': document.querySelectorAll('.main backdrop'),
+		'menu': document.querySelectorAll('.menu btn'),
+		'avatar': document.querySelectorAll('.avatar'),
+		'counter': document.querySelectorAll('.main footer tag'),
 	}
 }}
 
@@ -210,7 +209,7 @@ env.f.root.url = {}
 		// 读取参数并打开
 		var id = env.f.root.url.get('id')
 		if (id) {
-			if (env.d.init.root != 1) {env.e.root.load1.removeAttribute('data-text'); setTimeout(function (){env.e.root.load1.style.display = 'none'}, 500)}
+			if (env.d.init.root != 1) {env.e.root.backdrop[0].removeAttribute('data-text'); setTimeout(function (){env.e.root.backdrop[0].style.display = 'none'}, 500)}
 			env.f.root.blog.open(id)
 		} else {
 			env.f.root.url.clear()
@@ -223,7 +222,7 @@ env.f.root.blog = {}
 	env.f.root.blog.open = function(id) {
 		// 打开博客
 		var e = document.createElement('iframe')
-		env.e.root.blog.appendChild(e)
+		env.e.root.blog.prepend(e)
 		env.f.root.page.load()
 		env.f.root.fade(env.e.root.blog, 300)
 
@@ -241,7 +240,7 @@ env.f.root.blog = {}
 
 		setTimeout(function (){
 			env.f.root.prompt.close()
-			env.e.root.blog.children[3].remove()
+			env.e.root.blog.children[0].remove()
 		}, 600)
 	}
 
@@ -249,11 +248,11 @@ env.f.root.page = {}
 	env.f.root.page.load = function() {
 		// 博客加载动画
 		clearInterval(env.tmp.root.t2)
-		env.e.root.blog.children[2].style.display = 'block'
+		env.e.root.backdrop[2].style.display = 'block'
 
 		env.tmp.root.d5 = new Date()
 		env.tmp.root.t2 = setInterval(() => {
-			env.e.root.blog.children[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d5) / 1000).toFixed(2))
+			env.e.root.backdrop[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d5) / 1000).toFixed(2))
 		}, 100)
 	}
 		env.f.root.page.load.stop = function() {
@@ -261,7 +260,7 @@ env.f.root.page = {}
 			clearInterval(env.tmp.root.t2)
 			env.tmp.root.d5 = null
 			delete env.tmp.root.d5
-			env.f.root.fade(env.e.root.blog.children[2], -500)
+			env.f.root.fade(env.e.root.backdrop[2], -500)
 
 			setTimeout(function (){
 				env.e.root.blog.children[2].removeAttribute('data-timer')
@@ -313,7 +312,7 @@ env.f.root.menu = {}
 		// 打开菜单
 		if (env.d.init.menu) {
 			document.querySelector('.menu').classList.add('menu-active')
-			env.f.root.fade(env.e.root.btn2, 300)
+			env.f.root.fade(env.e.root.backdrop[1], 300)
 		} else {
 			// 初始化
 			env.e.root.btn1.setAttribute('style', 'pointer-events: none')
@@ -323,7 +322,7 @@ env.f.root.menu = {}
 
 	env.f.root.menu.close = function() {
 		document.querySelector('.menu').classList.remove('menu-active')
-		env.f.root.fade(env.e.root.btn2, -300)
+		env.f.root.fade(env.e.root.backdrop[1], -300)
 	}
 
 	env.f.root.menu.folder = function(e) {

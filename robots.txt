@@ -1,4 +1,4 @@
-﻿User-agent: *
+User-agent: *
 Crawl-delay: 5
 Disallow: /blog/
 Disallow: /src/

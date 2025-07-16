@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <!--
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣴⣦⠀⠀⠀⠀⠀⠀⠀⠀⠀⣰⠋⠀⡇⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
 ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢰⠇⢸⠀⠀⠀⠀⠀⠀⠀⠀⡼⠁⠀⢰⠃⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
@@ -54,7 +54,7 @@
 		'f': {},
 		'e': {},
 		'tmp': {
-			root: {
+			'root': {
 				'd1': new Date(),
 				'd2': null,
 				'd3': null,
@@ -76,14 +76,13 @@
 					env.e.root.avatar[1].removeAttribute('style')
 				}, 4000)
 				setTimeout(function (){
-					env.e.root.load1?.remove()
-					env.e.root.load1 = null
+					env.e.root.backdrop[0]?.remove()
 					env.e.root.avatar[1].style.opacity = '0.4'
 					env.d.init.root = 1
 				}, 600)
 
 				env.e.root.avatar[0].style.opacity = '0.4'
-				env.e.root.load1?.removeAttribute('style')
+				env.e.root.backdrop[0]?.removeAttribute('style')
 
 				clearInterval(env.tmp.root.t1)
 			}, 1000)
@@ -92,23 +91,21 @@
 
 </script>
 
-
-
-<!-- 主页 -->
 <div class="main" >
-	<backdrop class="loading" style="opacity: 1" data-text="hemiyo danto, uramu semila omaku." ></backdrop>
+	<backdrop class="loading" style="opacity: 1" data-text="hoer heyato sia san: erando-na, yato-na, merai-na." ></backdrop>
+	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.init.root ++" src="src/mio-draft.webp" />
+	<img class="avatar" style="opacity: 0; transition: 3.5s;" onload="env.d.init.root ++" src="src/mio.webp" />
+
 	<header>
 		<btn onclick="env.f.root.menu.open()" ></btn>
 		<a onclick="env.f.root.blog.open('page/square')" >网站广场</a>|<a onclick="env.f.root.blog.open('page/about')" >关于</a>
 		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
 	</header>
+
 	<div class="des" >
 		<span>sumiyo</span>
 		<span>私のサイト、私一人の世界です。</span>
 	</div>
-
-	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.init.root ++" src="src/mio-draft.webp" />
-	<img class="avatar" style="opacity: 0; transition: 3.5s;" onload="env.d.init.root ++" src="src/mio.webp" />
 
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
@@ -117,8 +114,76 @@
 		<backdrop style="display: none;" ></backdrop>
 	</div>
 
+	<!-- 菜单 -->
+	<div class="menu" >
+		<h1>MENU</h1>
+		<hr />
+
+		<!-- 博客 -->
+		<div style="margin-top: 10px;" >
+			<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
+			<div class="search" >
+				<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="20" autocomplete="off" ></textarea>
+				<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
+			</div>
+		</div>
+
+		<!-- 通知 -->
+		<div>
+			<btn onclick="env.f.root.menu.folder(this)" class="active" >通知</btn>
+			<div class="menu-c2" ></div>
+		</div>
+
+		<hr style="margin-top: 80px;" />
+
+		<!-- 其他 -->
+		<div style="margin-top: 10px;" >
+			<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
+			<div class="menu-c3" >
+				<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
+				<a onclick="env.f.root.blog.open('page/policy')" title="隐私政策 & 使用协议" ></a>
+				<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
+				<a onclick="env.f.player.lrc.ui()" title="歌曲" ></a>
+			</div>
+		</div>
+	</div>
+
+	<!-- 播放器  -->
+	<div class="player-ui backdrop" style="display: none;" tabindex="0" >
+		<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
+		<backdrop></backdrop>
+
+		<header><btn onclick="env.f.player.lrc.ui()" ></btn1></header>
+		<div class="ui" >
+			<aside>
+				<div class="cover" ><img /></div>
+				<div class="ctrl" >
+					<bar><div><div></div></div></bar>
+					<div style="margin-top: 10px; user-select: none;" >
+						<a onclick="env.f.player.play()" title="播放 / 暂停 (Space)" >00:00</a>
+						<a onclick="env.f.player.list()" >歌单</a>
+						<a onclick="env.f.player.reset()" >重置</a>｜ 
+						<a onclick="env.f.player.mode()" title="列表循环" ></a>
+						<a onclick="env.f.player.kana()" title="假名注音" style="display: none;" >あ</a>
+						<a title="音量 ( ↑ / ↓ )" ><div></div></a>
+					</div>	
+				</div>		
+			</aside>
+			<aside>
+				<list class="no-kana" ></list>
+				<list style="display: none" ></list>
+			</aside>
+		</div>
+	</div>
+
+	<!-- 弹窗 -->
+	<div class="prompt" ></div>
+
 	<!-- 页脚 -->
 	<footer>
+		<div class="f-2" >
+			技术支持: <a onclick="window.open('https://www.cloudflare.com/')" >Cloudflare</a>
+		</div>
 		<div style="opacity: 0;">
 			<!-- 网站统计 -->
 			 | <tag>0</tag> 天 & <tag>0</tag> 访客
@@ -126,85 +191,6 @@
 	</footer>
 
 </div>
-
-
-
-<!-- 菜单 -->
-<div class="menu" >
-	<h1>MENU</h1>
-	<hr />
-
-	<!-- 博客 -->
-	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
-		<div class="search" >
-			<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="20" autocomplete="off" ></textarea>
-			<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
-		</div>
-	</div>
-
-	<!-- 通知 -->
-	<div>
-		<btn onclick="env.f.root.menu.folder(this)" class="active" >通知</btn>
-		<div class="menu-c2" ></div>
-	</div>
-
-	<hr style="margin-top: 80px;" />
-
-	<!-- 其他 -->
-	<div style="margin-top: 10px;" >
-		<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
-		<div class="menu-c3" >
-			<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
-			<a onclick="env.f.root.blog.open('page/policy')" title="隐私政策 & 使用协议" ></a>
-			<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
-			<a onclick="env.f.player.lrc.ui()" title="歌曲" ></a>
-		</div>
-	</div>
-
-	<!-- 页脚 -->
-	<footer>
-		<div style="margin-left: 40px;">
-			<!-- 简短但真挚的感谢 -->
-			项目支持: <a onclick="window.open('https://www.cloudflare.com/')" target="_blank" style="cursor: help;" >Cloudflare </a>
-		</div>
-	</footer>
-</div>
-
-
-
-<!-- 播放器  -->
-<div class="player-ui" style="display: none;" tabindex="0" >
-	<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
-	<backdrop></backdrop>
-
-	<header><btn onclick="env.f.player.lrc.ui()" ></btn1></header>
-	<div class="frame" >
-		<aside>
-			<div class="cover" ><img /></div>
-			<div class="ctrl" >
-				<bar><div><div></div></div></bar>
-				<div style="margin-top: 10px; user-select: none;" >
-					<a onclick="env.f.player.play()" title="播放 / 暂停 (Space)" >00:00</a>
-					<a onclick="env.f.player.list()" >歌单</a>
-					<a onclick="env.f.player.reset()" >重置</a>｜ 
-					<a onclick="env.f.player.mode()" title="列表循环" ></a>
-					<a onclick="env.f.player.kana()" title="假名注音" style="display: none;" >あ</a>
-					<a title="音量 ( ↑ / ↓ )" ><div></div></a>
-				</div>	
-			</div>		
-		</aside>
-		<aside>
-			<list class="no-kana" ></list>
-			<list style="display: none" ></list>
-		</aside>
-	</div>
-</div>
-
-
-
-<!-- 弹窗 -->
-<div class="prompt" ></div>
 
 
 

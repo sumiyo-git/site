@@ -1,4 +1,4 @@
-﻿
+
 
 
 /*	player.js
@@ -30,8 +30,8 @@ env.e = {...env.e, ...{
 		ui1: document.querySelector('.player-blog'),
 		img: document.querySelectorAll('.player-ui img'),
 		list: document.querySelectorAll('.player-ui list'),
-		bar: [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
 		ctrl: document.querySelectorAll('.player-ui .ctrl a'),
+		bar: [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
 	}
 }}
 

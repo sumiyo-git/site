@@ -1,4 +1,4 @@
-// 定期删除过期的 Pages 部署
+// 定期清理过期的 Pages 部署
 
 export default {
 	async scheduled(_, env) {
@@ -9,8 +9,8 @@ export default {
 			},
 		};
 
-		const expirationDays = 1;
 		const endpoint = `https://api.cloudflare.com/client/v4/accounts/${env.ACCOUNT_ID}/pages/projects/sumiyo/deployments`;
+		const expirationDays = 1;
 		const response = await fetch(endpoint, init);
 		const deployments = await response.json();
 

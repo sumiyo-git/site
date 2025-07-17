@@ -70,6 +70,22 @@
 		<note>记录本站的开发过程 ＆ 技术细节</note>
 	</para>
 
+
+	<para>
+		<h3>2025-07-15</h3>
+		<event type="A" >添加了主页头像的动画效果</event>
+		<event type="F" >修复了播放器 env.f.player.lrc.load() 函数内变量 info content 造成的全局域污染问题</event>
+		<event type="O" >降低 icomoon.woff2 加载的优先级</event>
+		<br class="f-1" />
+		全局域污染检查
+		<br />
+		<note>
+			检查函数运行前后 Object.keys(window) 的变化。
+		</note>
+	</para>
+
+
+
 	<para>
 		<h3>2025-07-15</h3>
 		<event type="A" >Hoo ! 居然可以在一个仓库上同时绑定 Cloudflare Pages 和 Workers 集成</event>
@@ -98,7 +114,7 @@
 			翻遍了网上的资料后，才发现罪魁祸首是 utf-8 编码的 BOM 标记。用十六进制编辑器删去文件开头的 "EF BB BF" 字节即可解决问题。
 			<mat></mat>
 			<code>✨ Success! Build completed.</code>
-		<br />
+		</note>
 	</para>
 
 	<para>

@@ -8,7 +8,7 @@
 
 
 
-env.d.version.root = '1.0.243'
+env.d.version.root = '1.0.244'
 env.f.root = {}
 
 // 初始化元素列表
@@ -17,9 +17,10 @@ env.e = {...env.e, ...{
 		'prompt': document.querySelector('.prompt'),
 		'blog': document.querySelector('.main .blog'),
 		'btn1': document.querySelector('.main header btn'),
+		'des': document.querySelector('.des'),
+		'canvas': document.querySelectorAll('.main .avatar'),
 		'backdrop': document.querySelectorAll('.main backdrop'),
 		'menu': document.querySelectorAll('.menu btn'),
-		'avatar': document.querySelectorAll('.avatar'),
 		'counter': document.querySelectorAll('.main footer tag'),
 	}
 }}
@@ -31,6 +32,11 @@ env.d.init = {...env.d.init, ...{
 
 // 通知列表
 env.d.list.news = [
+	{
+		date: '7.14',
+		title: '此处不再显示更新信息',
+		des: '未来的更新将会显示在这里:\n https://sumiyo.link/?id=page/history',
+	},
 	{
 		date: '6.29',
 		title: '主题优化',
@@ -45,11 +51,6 @@ env.d.list.news = [
 		date: '4.13',
 		title: '后台爆破攻击',
 		des: '部分地区的访问已被屏蔽',
-	},
-	{
-		date: '4.03',
-		title: '主题优化',
-		des: 'Ｏ 播放器样式调整\nＯ 调整网站 env 框架',
 	},
 	{
 		date: '11.21',
@@ -78,7 +79,7 @@ env.f.root.fade = function(e, t, style = 'display: none;') {
 		if (p < t0) {
 			requestAnimationFrame(anime)
 		} else {
-			e.setAttribute('style', (t > 0) ? '' : style)
+			t > 0 ? e.removeAttribute('style') : e.setAttribute('style', style)
 		}
 	}
 	requestAnimationFrame(anime)
@@ -103,6 +104,76 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 	}
 	requestAnimationFrame(anime)
 }
+
+env.f.root.avatar = function() {
+	// 头像动画
+	let x, y, xa, ya, p, s, i, w, h, timer
+	x = y = xa = ya = p = s = i = 0
+
+	const canvas = env.e.root.canvas[1]
+	const ctx = canvas.getContext('2d')
+	const img = env.e.root.canvas[0]
+	w = h = window.innerHeight
+	canvas.height = canvas.width = w
+
+	const waypoint = [
+		[0.40, 0.00, 0.00, 0.65, 9],
+		[0.00, 0.85, 0.50, 0.00, 9],
+		[0.60, 0.00, 0.00, 1.00, 9],
+		[0.10, 1.00, 0.70, 0.00, 12],
+		[0.80, 0.00, 0.20, 1.00, 12],
+		[0.30, 1.00, 0.90, 0.00, 14],
+		[1.00, 0.00, 0.40, 1.00, 14],
+		[0.50, 1.00, 1.00, 0.15, 14],
+		[1.00, 0.30, 0.60, 1.00, 14],
+		[0.70, 1.00, 1.00, 0.50, 14],
+		[1.00, 0.65, 0.80, 1.00, 20],
+		[0.90, 1.00, 1.00, 0.85, 20],
+	]
+
+	function paint(x, y, r) {
+		// 绘制圆形图片
+		ctx.save()
+		ctx.beginPath()
+		ctx.arc(x, y, r, 0, Math.PI * 2)
+		ctx.closePath()
+		ctx.clip()
+		ctx.drawImage(img, 0, 0, w, h)
+		ctx.restore()
+	}
+
+	function reset() {
+		// 准备下一次划线
+		if (i >= waypoint.length) {
+			clearInterval(timer)
+			env.e.root.canvas[0].removeAttribute('style')
+			env.e.root.canvas[1].remove()
+			env.f.root.fade(env.e.root.des, 500)
+			return
+		}
+
+		var line = waypoint[i]
+		p = 0
+		s = Math.ceil(500 / line[4])
+		x = line[0] * w
+		y = line[1] * h
+		xa = (line[2] - line[0]) * w / s
+		ya = (line[3] - line[1]) * h / s
+	}
+
+	timer = setInterval(() => {
+		paint(x + xa * p, y + ya * p, 50)
+		if (s < p) {
+			i ++
+			reset()
+		}	
+		p ++
+	}, 3)
+
+	reset()
+}
+
+
 
 env.f.root.cookie = {}
 	env.f.root.cookie.set = function(value) {

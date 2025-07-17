@@ -306,7 +306,8 @@ env.f.player.lrc = {}
 
 		// 歌词信息
 		env.d.player.lrc.raw = str
-		var p = [info = null, content] = str.split('\n------------------------------\n')
+		var [info = null, content] = str.split('\n------------------------------\n')
+		var p = [info, content]
 		var lrc = p[1].split('\n')
 		lrc.push('[59:59.999]')
 

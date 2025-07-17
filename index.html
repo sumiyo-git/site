@@ -29,10 +29,10 @@
 	<link rel="stylesheet" type="text/css" href="css/root.css" />
 	<link rel="stylesheet" type="text/css" href="css/player.css"  />
 	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins Regular.woff2" />
-	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/icomoon.woff2" />
 </head>
 <body>
 <script>
+	a = Object.keys(window)
 	// 定义核心变量
 	const env = {
 		'd': {
@@ -69,21 +69,14 @@
 	}
 
 	env.tmp.root.t1 = setInterval(() => {
-		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 2) {
+		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 1) {
 			setTimeout(function (){
 				setTimeout(function (){
-					env.e.root.avatar[0].removeAttribute('style')
-					env.e.root.avatar[1].removeAttribute('style')
-				}, 4000)
-				setTimeout(function (){
+					env.f.root.avatar()
 					env.e.root.backdrop[0]?.remove()
-					env.e.root.avatar[1].style.opacity = '0.4'
-					env.d.init.root = 1
 				}, 600)
 
-				env.e.root.avatar[0].style.opacity = '0.4'
 				env.e.root.backdrop[0]?.removeAttribute('style')
-
 				clearInterval(env.tmp.root.t1)
 			}, 1000)
 		}
@@ -93,8 +86,8 @@
 
 <div class="main" >
 	<backdrop class="loading" style="opacity: 1" data-text="hoer heyato sia san: erando-na, yato-na, merai-na." ></backdrop>
-	<img class="avatar" style="opacity: 0; transition: 1.5s;" onload="env.d.init.root ++" src="src/mio-draft.webp" />
-	<img class="avatar" style="opacity: 0; transition: 3.5s;" onload="env.d.init.root ++" src="src/mio.webp" />
+	<img class="avatar" onload="env.d.init.root ++" src="src/mio.webp" style="display: none;" />
+	<canvas class="avatar" ></canvas>
 
 	<header>
 		<btn onclick="env.f.root.menu.open()" ></btn>
@@ -102,7 +95,7 @@
 		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
 	</header>
 
-	<div class="des" >
+	<div class="des" style="display: none;" >
 		<span>sumiyo</span>
 		<span>私のサイト、私一人の世界です。</span>
 	</div>

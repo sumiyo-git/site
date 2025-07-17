@@ -258,9 +258,7 @@ backdrop {
 	z-index: 0;
 	height: 100%;
 	aspect-ratio: 1 / 1;
-	opacity: 0.4;
 	pointer-events: none;
-	filter: saturate(1.2);
 }
 
 .main .des {

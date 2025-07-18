@@ -25,13 +25,13 @@ env.d.player = {
 
 env.e = {...env.e, ...{
 	player: {
-		audio: new Audio(),
-		ui0: document.querySelector('.player-ui'),
-		ui1: document.querySelector('.player-blog'),
-		img: document.querySelectorAll('.player-ui img'),
-		list: document.querySelectorAll('.player-ui list'),
-		ctrl: document.querySelectorAll('.player-ui .ctrl a'),
-		bar: [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
+		'audio': new Audio(),
+		'ui0': document.querySelector('.player-ui'),
+		'ui1': document.querySelector('.player-blog'),
+		'img': document.querySelectorAll('.player-ui img'),
+		'list': document.querySelectorAll('.player-ui list'),
+		'ctrl': document.querySelectorAll('.player-ui .ctrl a'),
+		'bar': [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
 	}
 }}
 
@@ -355,6 +355,7 @@ env.f.player.lrc = {}
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
 			env.f.root.fade(env.e.player.ui0, 160)
 
+			if (env.e.player.list[1].children[0]) env.f.root.scroll(env.e.player.list[1], env.e.player.list[1].children[env.d.player.id].offsetTop - env.d.player.offsetTop, 5)
 			if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 			if (!env.d.init.playerUI) {
 				// 初始化歌词页面

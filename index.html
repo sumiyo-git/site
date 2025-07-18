@@ -32,23 +32,20 @@
 </head>
 <body>
 <script>
-	a = Object.keys(window)
 	// 定义核心变量
 	const env = {
 		'd': {
 			'visitors': 0,
 			'domain': 'sumiyo.link',
 			'title': document.title,
+			'lang': navigator.language || navigator.userLanguage,
 			'isNew': null,
 			'isNetwork': (document.domain ? true : false),
 			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
 			'version': {},
+			'list': {},
 			'init': {
 				'root': 0,
-			},
-			'list': {
-				'blog': [],
-				'news': [],
 			},
 		},
 		'f': {},
@@ -69,11 +66,12 @@
 	}
 
 	env.tmp.root.t1 = setInterval(() => {
-		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 1) {
+		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 2) {
 			setTimeout(function (){
 				setTimeout(function (){
 					env.f.root.avatar()
 					env.e.root.backdrop[0]?.remove()
+					env.d.init.root = 1
 				}, 600)
 
 				env.e.root.backdrop[0]?.removeAttribute('style')
@@ -86,7 +84,7 @@
 
 <div class="main" >
 	<backdrop class="loading" style="opacity: 1" data-text="hoer heyato sia san: erando-na, yato-na, merai-na." ></backdrop>
-	<img class="avatar" onload="env.d.init.root ++" src="src/mio.webp" style="display: none;" />
+	<img class="avatar" onload="env.d.init.root = 2" src="src/mio.webp" style="display: none;" />
 	<canvas class="avatar" ></canvas>
 
 	<header>
@@ -103,7 +101,7 @@
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
 		<header><btn onclick="env.f.root.blog.close()" ></btn></header>
-		<div class="player-blog" onclick="env.f.player.lrc.ui()" ></div>
+		<div class="player-blog" onclick="env.f.player.lrc.ui()" >音乐播放器</div>
 		<backdrop style="display: none;" ></backdrop>
 	</div>
 
@@ -116,8 +114,8 @@
 		<div style="margin-top: 10px;" >
 			<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
 			<div class="search" >
-				<textarea type="text" oninput="this.value = this.value.replace(/\n/g, '')" onfocus="this.select();" maxlength="20" autocomplete="off" ></textarea>
-				<list><div style="display: none;" class="null" >没有找到指定内容...</div></list>
+				<textarea type="text" oninput="this.value = this.value.replace(/\n/g, ''); env.f.root.search()" maxlength="20" autocomplete="off" ></textarea>
+				<list><div style="display: none;" class="none" >没有找到指定内容...</div></list>
 			</div>
 		</div>
 

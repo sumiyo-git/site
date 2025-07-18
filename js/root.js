@@ -16,7 +16,7 @@ env.e = {...env.e, ...{
 	root: {
 		'prompt': document.querySelector('.prompt'),
 		'blog': document.querySelector('.main .blog'),
-		'btn1': document.querySelector('.main header btn'),
+		'btn': document.querySelector('.main header btn'),
 		'des': document.querySelector('.des'),
 		'canvas': document.querySelectorAll('.main .avatar'),
 		'backdrop': document.querySelectorAll('.main backdrop'),
@@ -326,17 +326,18 @@ env.f.root.page = {}
 			env.e.root.backdrop[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d5) / 1000).toFixed(2))
 		}, 100)
 	}
-		env.f.root.page.load.stop = function() {
-			// 停止加载动画
-			clearInterval(env.tmp.root.t2)
-			env.tmp.root.d5 = null
-			delete env.tmp.root.d5
-			env.f.root.fade(env.e.root.backdrop[2], -500)
 
-			setTimeout(function (){
-				env.e.root.blog.children[2].removeAttribute('data-timer')
-			}, 500)
-		}
+	env.f.root.page.load.stop = function() {
+		// 停止加载动画
+		clearInterval(env.tmp.root.t2)
+		env.tmp.root.d5 = null
+		delete env.tmp.root.d5
+		env.f.root.fade(env.e.root.backdrop[2], -500)
+
+		setTimeout(function (){
+			env.e.root.blog.children[2].removeAttribute('data-timer')
+		}, 500)
+	}
 
 	env.f.root.page.ok = function(title) {
 		// 博客加载完成
@@ -361,11 +362,8 @@ env.f.root.init = function() {
 		if (d[i].type[1] == 'pin') {div.setAttribute('class', 'pin')}
 	}
 
-	// 搜索引擎
+	// 检索引擎
 	document.querySelector('.search').setAttribute('style', `height: ${Math.min(5, d.length) * 22 + 55}px`)
-	document.querySelector('.search textarea').addEventListener('keyup', function(e) {
-		env.f.root.search()
-	})
 
 	// 通知
 	var d = env.d.list.news
@@ -375,7 +373,7 @@ env.f.root.init = function() {
 			document.querySelector('.menu-c2').appendChild(div)
 	}
 
-	setTimeout(function (){env.e.root.btn1.removeAttribute('style'); env.f.root.menu.open()}, 1000)
+	setTimeout(function (){env.e.root.btn.removeAttribute('style'); env.f.root.menu.open()}, 1000)
 }
 
 env.f.root.menu = {}
@@ -386,7 +384,7 @@ env.f.root.menu = {}
 			env.f.root.fade(env.e.root.backdrop[1], 300)
 		} else {
 			// 初始化
-			env.e.root.btn1.setAttribute('style', 'pointer-events: none')
+			env.e.root.btn.setAttribute('style', 'pointer-events: none')
 			env.f.root.init()
 		}
 	}
@@ -465,7 +463,7 @@ env.f.root.search = function() {
 
 	env.e.root.menu[0].setAttribute('data-item', r.length)
 	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(5, r.length), 1) * 22 + 55}px`)
-	document.querySelector('.search .null').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
+	document.querySelector('.search .none').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
 }
 
 

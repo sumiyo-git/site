@@ -68,13 +68,11 @@ body {
 	width: 800px;
 }
 
-img {
-	user-select: none;
-	-webkit-user-drag: none;
-}
-
+img,
 a {
+	user-select: none;
 	text-decoration: none;
+	-webkit-user-drag: none;
 }
 
 para {
@@ -91,7 +89,6 @@ i {
 }
 
 hr {
-	display: block;
 	margin-block: 0;
 	width: 100%;
 	border: none;
@@ -143,12 +140,8 @@ code {
 	overflow: scroll;
 }
 
-
-
 code note {
 	color: rgba(var(--t-c1), 1);
-	user-select: none;
-	pointer-events: none;
 }
 
 code attention {
@@ -159,15 +152,16 @@ code attention {
 
 
 /* 标题 */
+h1, h2 {
+	color: rgba(var(--t-t1), 0.8);
+}
 
 h1 {
-	color: rgba(var(--t-t1), 0.8);
 	font-size: 40px;
 	line-height: 45px;
 }
 
 h2 {
-	color: rgba(var(--t-t1), 0.8);
 	font-size: 25px;
 	height: 45px;
 	border-bottom: 1px rgba(var(--t-t1), 0.2) solid;
@@ -209,6 +203,7 @@ a[class^='ibox'] {
 	display: inline-block;
 	background-color: rgba(var(--t-t1), 0.08);
 	border-radius: 10px;
+	box-sizing: border-box;
 	overflow: hidden;
 }
 
@@ -231,32 +226,28 @@ list {
 	margin-left: 25px;
 }
 
-list[type="1"]::before {
-	content: '-';
-	margin-left: -20px;
-	margin-right: 11px;
-	color: rgba(var(--t-t1), 0.4);
-}
-
+list[type="1"]::before,
 list[type="2"]::before {
 	content: '-';
 	margin-left: -20px;
 	margin-right: 11px;
-	color: rgba(var(--t-c1), 1);
 }
 
-list[type="3"]::before {
-	content: '•';
-	margin-left: -20px;
-	margin-right: 13px;
-	color: rgba(var(--t-t1), 0.4);
-}
-
+list[type="3"]::before,
 list[type="4"]::before {
 	content: '•';
 	margin-left: -20px;
 	margin-right: 13px;
-	color: rgba(var(--t-c1), 1);
+}
+
+list[type="1"]::before,
+list[type="3"]::before {
+	color: rgba(var(--t-t1), 0.4);
+}
+
+list[type="2"]::before,
+list[type="4"]::before {
+	color: rgba(var(--t-c1), 0.8);
 }
 
 list[type="5-reset"] {
@@ -279,64 +270,39 @@ list[type="5"]::before {
 /* 表格 */
 
 thead tr th {
-
 	background-color: rgba(var(--t-c1), 0.5);
 	color: rgba(var(--t-b1), 1);
 	min-width: 80px;
 	text-align: left;
 	font-weight: lighter;
 }
-
-
 table {
 	border-collapse: collapse;
 	border: 1px rgba(var(--t-t1), 0.1) solid;
 	border-radius: 8px;
 	overflow: hidden;
 }
-
-
-td,
-th {
+td, th {
 	vertical-align: top;
 	padding: 5px 10px;
 	color: rgba(var(--t-t1), 0.6);
 }
-
-
 tr:nth-child(even) {
-
-	background-color: rgb(237, 243, 247);
+	background-color: rgba(var(--t-b3), 0.5);
 }
-
-
 tr:nth-child(odd) {
-
-	background-color: rgb(249, 251, 252);
-}
-
-.table-side {
-	background-color: rgba(var(--t-c1), 0.6);
-	color: white;
-	font-weight: bolder;
+	background-color: rgba(var(--t-b3), 0.1);
 }
 
 
 
-/* 淡出动画 */
+/* 动画 */
 
 @keyframes fade {
-	0% {
-		opacity: 0;
-	}
-	50% {
-		opacity: 0;
-	}
-	100% {
-		opacity: 1;
-	}
+	0% {opacity: 0;}
+	50% {opacity: 0;}
+	100% {opacity: 1;}
 }
-
 .fade {
 	animation: fade 1s ease-in;
 	animation-fill-mode:forwards;
@@ -347,7 +313,7 @@ tr:nth-child(odd) {
 /* 功能样式 */
 
 .f-1 {
-	-webkit-user-select: none;
+	user-select: none;
 	pointer-events: none;
 }
 

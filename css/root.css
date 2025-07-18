@@ -28,7 +28,9 @@
 	font-family: icomoon;
 	src: url('../src/font/icomoon.woff2');
 }
-
+::selection {
+	background: rgba(var(--t-c5), 0.3);
+}
 ::-webkit-scrollbar {
 	width: 12px;
 	height: 12px;
@@ -51,10 +53,6 @@
 ::-webkit-scrollbar-corner {
 	background-color: transparent;
 	box-shadow: none;
-}
-
-::selection {
-	background: rgba(var(--t-c5), 0.3);
 }
 
 
@@ -123,8 +121,6 @@ backdrop {
 }
 
 
-
-/* 主页 */
 
 .main {
 	width: 100%;
@@ -312,15 +308,14 @@ backdrop {
 }
 
 .menu h1 {
-	height: 40px;
-	margin: 30px 0 0 0;
+	margin: 30px 0 15px 0;
 	font-size: 35px;
 	font-weight: normal;
 	color: rgba(var(--t-t1), 0.8);
 }
 
 .menu hr {
-	margin-left: 0;
+	margin: 0;
 	width: 230px;
 	border: none;
 	border-top: 1px solid rgba(var(--t-t1), 0.3);
@@ -486,7 +481,7 @@ backdrop {
 	color: rgba(var(--t-c1), 1);
 }
 
-.menu .search list .null {
+.menu .search list .none {
 	cursor: text;
 	user-select: auto;
 }
@@ -523,7 +518,7 @@ backdrop {
 	font-size: 16px;
 	line-height: 24px;
 	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-b1), 0.6);
+	background-color: rgba(var(--t-b1), 0.8);
 	backdrop-filter: blur(10px);
 	box-sizing: border-box;
 	border: 1px solid rgba(var(--t-b2), 0.1);
@@ -539,7 +534,6 @@ backdrop {
 
 .prompt .active {
 	transform: translateX(-360px);
-	float: right;
 }
 
 .prompt prompt * {
@@ -547,8 +541,8 @@ backdrop {
 }
 
 .prompt prompt::after {
-	content: '';
 	position: absolute;
+	content: '';
 	height: 30px;
 	width: 30px;
 	top: calc(50% - 15px);
@@ -556,7 +550,6 @@ backdrop {
 	text-align: center;
 	line-height: 30px;
 	color: rgba(var(--t-r), 0.4);
-	border-radius: 0 5px 5px 0;
 	font-size: 24px;
 	pointer-events: auto !important;
 	cursor: pointer;

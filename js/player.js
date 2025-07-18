@@ -37,6 +37,7 @@ env.e = {...env.e, ...{
 
 env.d.init = {...env.d.init, ...{
 	'playerUI': 0,
+	'playerLD': 0,
 }}
 
 
@@ -269,6 +270,10 @@ env.f.player.play = function(){
 env.f.player.add = function(str) {
 	// 更新播放器列表
 	// 0 = 是否询问; 1 = 是否替换原始列表;
+	if (!env.d.init.playerUI) {
+		env.f.player.playlist(env.f.player.album(), true)
+	}
+	env.d.init.playerLD = 1
 	env.d.player.id = !str['1'] ? env.e.player.list[1].children.length : 0
 	env.f.player.playlist(str['2'], str['1'])
 	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
@@ -287,11 +292,11 @@ env.f.player.add = function(str) {
 
 env.f.player.reset = function() {
 	// 重置歌单
+	env.d.player.id = 0
+	env.f.player.mode.set(0)
 	env.f.player.playlist(env.f.player.album(), true)
 	env.f.player.load(env.e.player.list[1].children[0], false)
 	env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
-	env.d.player.id = 0
-	env.f.player.mode.set(0)
 }
 
 env.f.player.lrc = {}
@@ -350,10 +355,23 @@ env.f.player.lrc = {}
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
 			env.f.root.fade(env.e.player.ui0, 160)
 
+			if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 			if (!env.d.init.playerUI) {
+				// 初始化歌词页面
 				env.d.init.playerUI = 1
 				env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
-				if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
+				if (!env.e.player.list[1].children[0]) {
+					env.f.player.playlist(env.f.player.album(), true)
+				}
+			}
+			if (!env.d.init.playerLD) {
+				// 加载歌曲
+				env.d.init.playerLD = 1
+				if (env.d.lang == 'zh-CN') {
+					env.f.player.load(env.e.player.list[1].children[0], false)
+				} else {
+					env.f.root.prompt(`Our music player may not work properly in your region !<br /><br /><a>forget about it</a> | <a onclick='env.f.player.load(env.e.player.list[1].children[0], false)'>force loading</a>`, -1)
+				}
 			}
 		}
 	}
@@ -379,9 +397,7 @@ env.f.player.lrc = {}
 		var div = document.createElement('div')
 			div.setAttribute('style', 'position: fixed; z-index: 50; bottom: 0;')
 			div.innerHTML = `
-				<pre style="background: white; margin: 0; font-family: 'Microsoft YaHei'; overflow: scroll; max-height: 500px;" >preview</pre>
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
-				<button onclick="document.querySelector('.player-ui pre').innerHTML = document.querySelector('.player-ui textarea').value" >preview</button>
 				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans><trans></trans></line>'; env.f.player.lrc.load(document.querySelector('.player-ui textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
 			`
 			document.querySelector('.player-ui').appendChild(div)
@@ -431,9 +447,6 @@ env.f.player.next = function(n){
 env.e.player.audio.preload = 'metadata'
 env.e.player.audio.volume = 0.5
 
-env.f.player.playlist(env.f.player.album(), true)
-env.f.player.load(env.e.player.list[1].children[0], false)
-
 
 
 // 进度条
@@ -479,9 +492,8 @@ env.e.player.audio.addEventListener('ended', function () {
 
 // 若无法加载音频，则抛出错误
 env.e.player.audio.addEventListener('error', function(event) {
-	var d = env.e.player.list[1].children[env.d.player.id].dataset
-	console.error(`音频加载失败:`, event, `\n	at env.e.player.audio\n	at https://music.163.com/song/media/outer/url?id=${env.e.player.list[1].children[env.d.player.id].dataset.id}`)
-	console.warn('可能原因:\n	1. 当前歌曲重定向后的资源链接超时（似乎是 30 min），请重新播放该歌曲\n	2. 该歌曲已升为会员专享\n	3. 您所在地区不支持网易云音乐 https://music.163.com/ 的服务')
+	console.error(`音频加载失败:`, event, `\n	at env.e.player.audio\n	at https://music.163.com/song/media/outer/url?id=${env.e.player.list[1].children[env.d.player.id].dataset}`)
+	console.warn('可能原因:\n	1. 当前歌曲资源链接超时（似乎是 30 min），请重新加载该歌曲\n	2. 该歌曲被会员掉了\n	3. 您所在地区不支持网易云音乐 https://music.163.com/ 的服务')
 	env.f.root.prompt('当前歌曲播放失败<br />打开控制台以获取详情', -1)
 })
 
@@ -499,7 +511,6 @@ if ('mediaSession' in navigator) {
 		env.f.player.next(-1)
 	})
 	navigator.mediaSession.setActionHandler('nexttrack', () => {
-
 		// 下一首
 		env.f.player.next(1)
 	})

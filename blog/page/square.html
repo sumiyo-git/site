@@ -8,14 +8,10 @@
 	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/icomoon.woff2" />
 	<style>
-
-
 @font-face{
 	font-family: icomoon;
 	src: url('../../../src/font/icomoon.woff2');
 }
-
-
 
 textarea {
 	display: inline-block;
@@ -30,15 +26,16 @@ textarea {
 	color: rgba(var(--t-t1), 0.8);
 	border: 1px solid rgba(var(--t-t1), 0.4);
 	font-size: 16px;
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	line-height: 24px;
 	border-radius: 5px;
 }
-
 textarea::placeholder {
 	color: rgba(var(--t-t1), 0.4);
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	user-select: none;
+}
+textarea::placeholder,
+textarea {
+	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 }
 
 .tbox {
@@ -68,6 +65,12 @@ textarea::placeholder {
 	cursor: help;
 }
 
+.post .user {
+	background-color: rgba(var(--t-t1), 0.4);
+}
+.post .ui {
+	width: calc(100% - 160px);
+}
 .post div {
 	display: inline-block;
 	vertical-align: top;
@@ -86,7 +89,6 @@ footer a {
 	cursor: pointer;
 	transition: 0.3s;
 }
-
 footer a {
 	min-width: 24px;
 	padding: 0px 2px;
@@ -94,12 +96,13 @@ footer a {
 	color: rgba(var(--t-c1), 0.8);
 	border: 1px solid rgba(var(--t-c1), 0.2);
 }
-
+footer a:hover {
+	border: 1px solid rgba(var(--t-c1), 0.6);
+}
 footer .active {
 	color: rgba(var(--t-b1), 1);
 	background-color: rgba(var(--t-c1), 0.8);
 }
-
 .post a {
 	width: 55px;
 	padding: 3px 5px;
@@ -107,17 +110,8 @@ footer .active {
 	color: rgba(var(--t-b1), 1);
 	background-color: rgba(var(--t-c1), 0.8);
 }
-
-footer a:hover {
-	border: 1px solid rgba(var(--t-c1), 0.6);
-}
-
 .post a:hover {
 	background-color: rgba(var(--t-c1), 1);
-}
-
-.post .ui {
-	width: calc(100% - 160px);
 }
 
 footer .disabled,
@@ -130,75 +124,65 @@ footer .disabled,
 	font-size: 16px;
 	line-height: 24px;
 }
+.list .user {
+	margin-top: 5px;
+	background-color: rgba(var(--t-c1), 0.6);
+}
 
 comment {
 	display: block;
 	margin-bottom: 50px;
 	user-select: none;
 }
-
 comment .user,
 comment .content {
 	display: inline-block;
 	vertical-align: top;
 }
-
 comment .comment-footer {
 	margin-top: 20px;
 }
-
 comment .comment-header {
 	display: block;
 	font-size: 18px;
 	color: rgba(var(--t-t1), 0.8);
 	user-select: text;
 }
-
 comment .content {
 	width: calc(100% - 100px);
 }
-
 comment .comment-header span {
 	color: rgba(var(--t-t1), 0.2);
 	font-size: 16px;
 }
-
-
-
 comment .comment-body {
 	overflow: hidden;
 	white-space: pre-wrap;
 	user-select: text;
 }
-
 comment .comment-body a {
 	user-select: text !important;
 }
-
 comment .comment-reply .comment-header a,
 comment .comment-footer a {
 	color: rgba(var(--t-t1), 0.4);
 	font-size: 16px;
 	cursor: pointer;
 }
-
 comment .comment-reply {
 	width: calc(100% - 45px);
 	margin-top: 20px;
 	margin-left: 45px;
 }
-
 comment .comment-reply .reply {
 	margin-bottom: 30px;
 }
-
 comment .unfold {
 	color: rgba(var(--t-c1), 1);
 	text-decoration: underline;
 	cursor: pointer;
 	user-select: none;
 }
-
 comment .op:after {
 	content: '博主';
 	margin-left: 10px;
@@ -215,22 +199,12 @@ comment .op:after {
 	overflow: hidden;
 	text-align: center;
 }
-
 .user::after {
 	content: attr(data-icon);
 	font-family: icomoon;
 	font-size: 32px;
 	line-height: 60px;
 	color: rgba(var(--t-b1), 0.8);
-}
-
-.post .user {
-	background-color: rgba(var(--t-t1), 0.4);
-}
-
-.list .user {
-	margin-top: 5px;
-	background-color: rgba(var(--t-c1), 0.6);
 }
 
 @media (orientation: portrait) {
@@ -288,6 +262,7 @@ comment .op:after {
 
 	<para>
 		<h3>留言</h3>
+		<mat></mat>
 		<hr />
 		<mat></mat>
 		<mat></mat>
@@ -310,6 +285,7 @@ comment .op:after {
 			</div>
 		</div>
 		共 <tag>0</tag> 留言
+		<mat></mat>
 		<hr />
 		<mat></mat>
 		<mat></mat>
@@ -337,12 +313,12 @@ const env = {
 	},
 	'f': {},
 	'e': {
+		'can': document.querySelector('canvas'),
+		'footer': document.querySelector('footer'),		
 		'content': document.querySelectorAll('textarea')[0],
 		'name': document.querySelectorAll('textarea')[1],
 		'challenge': document.querySelectorAll('textarea')[2],
-		'can': document.querySelector('canvas'),
 		'user': document.querySelectorAll('.user')[0],
-		'footer': document.querySelector('footer'),
 		'tag': document.querySelectorAll('tag'),
 	},
 	'tmp': {
@@ -450,7 +426,6 @@ env.f.load = function() {
 
 	for (var i = 0; i < d.length; i++) {
 		var com = document.createElement('comment')
-
 			com.innerHTML = `
 <div class="user" data-icon="` + env.f.user(null, d[i].name.replace(/\n/g, '')) + `" ></div>
 <div class="content" >
@@ -526,7 +501,6 @@ env.f.load = function() {
 				if (parseInt(j.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
 					header.querySelector('a').remove()
 				}
-
 			}
 		}
 	}
@@ -569,9 +543,7 @@ env.f.submit = function() {
 		return
 	}
 
-	if (n.length == 0 || n.length > 16 || c.length == 0 || c.length > 200) {return}
-	if (/^[ \t]+$/.test(n)) {return}
-
+	if (n.length == 0 || n.length > 16 || c.length == 0 || c.length > 200 || /^[ \t]+$/.test(n)) return
 	env.f.wait()
 
 	fetch(`https://${env.d.domain}/api/comments`, {
@@ -585,8 +557,9 @@ env.f.submit = function() {
 			"content": c,
 		})
 	})
-	.then(response => {
-		if (response.ok) {
+	.then(response => {return response.json()})
+	.then(json => {
+		if (json.success) {
 			e2.value = ''
 			e2.setAttribute('maxlength', 200)
 			env.f.challenge.new()
@@ -600,6 +573,8 @@ env.f.submit = function() {
 			} else {
 				env.f.connect("env.f.root.prompt('回复成功', 5000)")
 			}
+		} else {
+			env.f.connect("env.f.root.prompt('操作失败', 5000)")
 		}
 	})
 	.catch(err => {
@@ -621,19 +596,19 @@ env.f.zoltraak = function(id, at) {
 			"at": at,
 		})
 	})
-	.then(response => {
-		if (response.ok) {
-			return response.json()
-		}
-	})
+	.then(response => {return response.json()})
 	.then(json => {
-		if (at == -1) {
-			env.d.cn --
-			env.d.pn = Math.ceil(env.d.cn / 5)
-			env.e.tag[0].innerHTML = env.d.cn
+		if (json.success) {
+			if (at == -1) {
+				env.d.cn --
+				env.d.pn = Math.ceil(env.d.cn / 5)
+				env.e.tag[0].innerHTML = env.d.cn
+			}
+			env.f.get(env.d.p)
+			env.f.connect("env.f.root.prompt('看起来应该是删掉了', 3000)")
+		} else {
+			env.f.connect("env.f.root.prompt('操作失败', 5000)")	
 		}
-		env.f.get(env.d.p)
-		env.f.connect("env.f.root.prompt('看起来应该是删掉了', 3000)")
 	})
 	.catch(err => {
 		console.error(err)
@@ -659,13 +634,6 @@ env.f.debug = function() {
 			"name": "user",
 			"content": "这是一条普通的留言，\nhttps://www.baidu.com/",
 			"reply": '{"id":"2025-01-01 00:00:00","op":"1","name":"debug","content":"测试\n1\n2\n3\n4"}​{"id":"2025-01-01 00:00:00","op":"0","name":"debug","content":"2"}​'
-		},
-		{
-			"id": "2024-01-01 00:00:00",
-			"op": "1",
-			"name": "sumiyo",
-			"content": "测试\n1\n2\n3\n4\n5\n6\n7",
-			"reply": "null"
 		}
 		],
 		"msg": {
@@ -786,9 +754,6 @@ env.f.reply = function(e, id) {
 
 env.f.challenge.new()
 env.f.init()
-
-
-
 </script>
 </body>
 </html>

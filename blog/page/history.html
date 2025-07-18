@@ -47,12 +47,10 @@
 	.ibox0 {
 		aspect-ratio: 16 / 9;
 		width: 50%;
-		box-sizing: border-box;
 	}
 	.ibox1 {
 		aspect-ratio: 207 / 101;
 		width: 50%;
-		box-sizing: border-box;
 	}
 	@media (orientation: portrait) {
 		.ibox1,
@@ -70,12 +68,12 @@
 		<note>记录本站的开发过程 ＆ 技术细节</note>
 	</para>
 
-
 	<para>
-		<h3>2025-07-15</h3>
+		<h3>2025-07-17</h3>
 		<event type="A" >添加了主页头像的动画效果</event>
 		<event type="F" >修复了播放器 env.f.player.lrc.load() 函数内变量 info content 造成的全局域污染问题</event>
 		<event type="O" >降低 icomoon.woff2 加载的优先级</event>
+		<event type="O" >优化播放器初始化逻辑</event>
 		<br class="f-1" />
 		全局域污染检查
 		<br />
@@ -83,8 +81,6 @@
 			检查函数运行前后 Object.keys(window) 的变化。
 		</note>
 	</para>
-
-
 
 	<para>
 		<h3>2025-07-15</h3>

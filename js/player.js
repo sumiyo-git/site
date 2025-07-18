@@ -352,8 +352,8 @@ env.f.player.lrc = {}
 			env.f.root.fade(env.e.player.ui0, -160)
 		} else {
 			env.d.player.ui = true
-			env.f.player.lrc.find(env.e.player.audio.currentTime)
 			env.f.root.fade(env.e.player.ui0, 160)
+			env.f.player.lrc.find(env.e.player.audio.currentTime)
 
 			if (env.e.player.list[1].children[0]) env.f.root.scroll(env.e.player.list[1], env.e.player.list[1].children[env.d.player.id].offsetTop - env.d.player.offsetTop, 5)
 			if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'

@@ -10,7 +10,7 @@
 	<style>
 @font-face{
 	font-family: icomoon;
-	src: url('../../../src/font/icomoon.woff2');
+	src: url('../../src/font/icomoon.woff2');
 }
 
 textarea {
@@ -24,18 +24,22 @@ textarea {
 	outline: none;
 	background-color: rgba(var(--t-b1), 0.6);
 	color: rgba(var(--t-t1), 0.8);
-	border: 1px solid rgba(var(--t-t1), 0.4);
 	font-size: 16px;
 	line-height: 24px;
-	border-radius: 5px;
 }
 textarea::placeholder {
-	color: rgba(var(--t-t1), 0.4);
+	color: rgba(var(--t-t1), 0.2);
 	user-select: none;
 }
 textarea::placeholder,
 textarea {
 	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
+}
+
+textarea,
+.post canvas {
+	border: 1px solid rgba(var(--t-t1), 0.2);
+	border-radius: 5px;
 }
 
 .tbox {
@@ -47,7 +51,6 @@ textarea {
 }
 
 .post {
-	margin-bottom: 100px;
 	white-space: nowrap;
 	user-select: none;
 }
@@ -60,8 +63,6 @@ textarea {
 
 .post canvas {
 	margin-left: 5px;
-	border: 1px solid rgba(var(--t-t1), 0.4);
-	border-radius: 5px;
 	cursor: help;
 }
 
@@ -144,51 +145,38 @@ comment .comment-footer {
 }
 comment .comment-header {
 	display: block;
-	font-size: 18px;
 	color: rgba(var(--t-t1), 0.8);
 	user-select: text;
 }
 comment .content {
 	width: calc(100% - 100px);
 }
+comment .comment-reply .content {
+	width: 100%;
+}
 comment .comment-header span {
 	color: rgba(var(--t-t1), 0.2);
-	font-size: 16px;
 }
 comment .comment-body {
 	overflow: hidden;
 	white-space: pre-wrap;
 	user-select: text;
 }
-comment .comment-body a {
-	user-select: text !important;
-}
 comment .comment-reply .comment-header a,
 comment .comment-footer a {
 	color: rgba(var(--t-t1), 0.4);
-	font-size: 16px;
 	cursor: pointer;
 }
 comment .comment-reply {
 	width: calc(100% - 45px);
-	margin-top: 20px;
-	margin-left: 45px;
+	margin: 30px 0 0 45px;
 }
 comment .comment-reply .reply {
 	margin-bottom: 30px;
 }
-comment .unfold {
-	color: rgba(var(--t-c1), 1);
-	text-decoration: underline;
-	cursor: pointer;
-	user-select: none;
-}
 comment .op:after {
-	content: '博主';
-	margin-left: 10px;
-	font-size: 16px;
+	content: ' 博主';
 	color: rgba(var(--t-c2), 0.8);
-	pointer-events: none;
 }
 
 .user {
@@ -255,7 +243,7 @@ comment .op:after {
 		透过冬天的薄雾，夕阳依旧朦胧。
 		<br />
 		<br class="f-1" />
-		绿藤缠绕，野花装点着古老的「留言板」
+		绿藤缠绕，野花装点着古老的留言板。
 		<br />
 		留下些什么吧！ 来自远方的朋友 ...
 	</para>
@@ -267,7 +255,7 @@ comment .op:after {
 		<mat></mat>
 		<mat></mat>
 		<mat></mat>
-		<div class="post" >
+		<para class="post" >
 			<div class="user" data-icon="" ></div>
 			<div class="ui" >
 				<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.setAttribute('maxlength', (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(this.value.split('\n')[0])) ? 126 : 200)" ></textarea>
@@ -281,25 +269,25 @@ comment .op:after {
 				<mat></mat>
 				<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
 				<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=留言板')`, document.domain ? '/' : '*')">使用须知</span>
-				<canvas width="80px" height="28px" onclick="env.f.challenge.new()" ></canvas>
+				<canvas width="80px" height="28px" title="看不清 ? 换 !" onclick="env.f.challenge.new()" ></canvas>
 			</div>
-		</div>
+		</para>
 		共 <tag>0</tag> 留言
 		<mat></mat>
 		<hr />
 		<mat></mat>
 		<mat></mat>
 		<mat></mat>
-		<div class="list" ><span>hemiyo danto, hoer semila oomo.</span><br /><br class="f-1" /></div>
+		<div class="list" ><span>hemiyo-na omuo, semiru semila omaku ...</span><br /><br class="f-1" /></div>
 		<footer></footer>
 	</para>
 
 </div>
 <script>
-	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
-	})
+window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+window.addEventListener('message', function(event) {
+	if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+})
 
 const env = {
 	'd': {
@@ -330,12 +318,9 @@ const env = {
 
 env.f.time = function() {
 	// 获取标准时间
-	var now = new Date()
-	var options = {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false }
-	var formatter = new Intl.DateTimeFormat('en-US', options)
-	var parts = formatter.formatToParts(now).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-
-	return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}:${parts.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
+	var f = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false})
+	var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
+	return `${t.year}-${t.month}-${t.day} ${t.hour}:${t.minute}:${t.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
 }
 
 env.f.wait = function() {
@@ -402,11 +387,7 @@ env.f.get = function(n) {
 			"page": (n - 1) * 5,
 		})
 	})
-	.then(response => {
-		if (response.ok) {
-			return response.json()
-		}
-	})
+	.then(response => {return response.json()})
 	.then(json => {
 		env.d.db = json
 		env.f.load()
@@ -421,89 +402,69 @@ env.f.load = function() {
 	// 加载留言
 	var d = env.d.db.results
 	var e = document.querySelector('.list')
-
 	e.innerHTML = ''
 
 	for (var i = 0; i < d.length; i++) {
-		var com = document.createElement('comment')
-			com.innerHTML = `
-<div class="user" data-icon="` + env.f.user(null, d[i].name.replace(/\n/g, '')) + `" ></div>
-<div class="content" >
-	<div class="comment-header" >` + d[i].name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '') + ` <span>` + d[i].id.substring(0, 16) + `</span></div>
-	<div class="comment-body" >` + d[i].content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, " <br/>").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
-	<div class="comment-footer" ><a onclick="env.f.reply(this, '` + d[i].id + `')" >回复</a> | </div>
-	<div class="comment-reply" ></div>
-</div>
-`
-			e.appendChild(com)
-
-		var body = com.querySelector('.comment-body')
-		var header = com.querySelector('.comment-header')
-		var footer = com.querySelector('.comment-footer')
-		var reply= com.querySelector('.comment-reply')
-
-		if (body.offsetHeight>145) {
-			body.setAttribute('style', 'height: 145px')
-			var u = document.createElement('a')
-				u.innerHTML = '[展开]'
-				u.setAttribute('class', 'unfold')
-				u.setAttribute('onclick', "this.parentNode.querySelector('.comment-body').removeAttribute('style'); this.remove()")
-				body.parentNode.insertBefore(u, footer)
-		}
-
-		var a = document.createElement('a')
-			a.innerHTML = '删除'
-			a.setAttribute('title', '删除这条留言')
-			a.setAttribute('onclick', 'env.f.zoltraak("' + env.d.db['results'][i]['id'] + '", -1)')
-			footer.appendChild(a)
-
-		if (parseInt(d[i].id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
-			a.setAttribute('title', '嗯？ 竟然删不掉')
-			a.setAttribute('style', 'cursor: not-allowed;')
-			a.removeAttribute('onclick')
-		}
-
-		if (d[i].op == '1') {
-			header.setAttribute('class', 'comment-header op')
-		}
-
+		var com = env.f.comment(0, e, d[i])
 		if (d[i].reply != "null") {
-			var l = d[i].reply.replace(/\n/g, "‍").split('​')
+			var l = d[i].reply.replace(/\n/g, "\\n").split('​')
 			l.pop()
 			for (var i2 = 0; i2 < l.length; i2++) {
-				var j = JSON.parse(l[i2])
-				var r = document.createElement('div')
-					r.innerHTML = `
-<div class="comment-header" >` + j.name.replace(/</g, "&lt;").replace(/>/g, "&gt;") + ` <span>` + j.id.substring(0, 16) + `</span> <a title="删除这条回复" onclick="env.f.zoltraak('` + d[i].id + `', ` + (i2 + 1) + `)" >删除</a></div>
-<div class="comment-body" >` + j.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").split("‍").join("\n").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>') + `</div>
-`
-					r.setAttribute('class', 'reply')
-					reply.appendChild(r)
-
-				var body = r.querySelector('.comment-body')
-				var header = r.querySelector('.comment-header')
-
-				if (body.offsetHeight>75) {
-					body.setAttribute('style', 'height: 75px')
-					var u = document.createElement('a')
-						u.innerHTML = '[展开]'
-						u.setAttribute('class', 'unfold')
-						u.setAttribute('onclick', "this.parentNode.querySelector('.comment-body').removeAttribute('style'); this.remove()")
-						r.appendChild(u)
-				}
-
-				if (j.op == '1') {
-					header.setAttribute('class', 'comment-header op')
-					header.querySelector('a').remove()
-					continue
-				}
-
-				if (parseInt(j.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
-					header.querySelector('a').remove()
-				}
+				env.f.comment(i2 + 1, com.querySelector('.comment-reply'), JSON.parse(l[i2]))
 			}
 		}
 	}
+}
+
+env.f.comment = function(n, e, d) {
+	console.log(d)
+	// 渲染留言
+	var com = document.createElement('comment')
+		com.id = d.id
+		com.innerHTML = `
+<div class="user" data-icon="${env.f.user(null, d.name.replace(/\n/g, ''))}" ></div>
+<div class="content" >
+<div class="comment-header" >${d.name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '')} <span>${d.id.substring(0, 16)}</span></div>
+<div class="comment-body" >${d.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')}</div>
+<div class="comment-footer" ><a onclick="env.f.reply(this, '${d.id}')" >回复</a> | <a title="删除这条留言" onclick="env.f.zoltraak('${d.id}', -1)" >删除</a></div>
+<div class="comment-reply" ></div>
+</div>`
+
+	e.appendChild(com)
+
+	var body = com.querySelector('.comment-body')
+	var header = com.querySelector('.comment-header')
+	var footer = com.querySelector('.comment-footer')
+
+	if (d.op == 1) header.classList.add('op')
+	if (n) {
+		// 回复
+		var h = 75
+
+		footer.remove()
+		com.children[0].remove()
+		com.querySelector('.comment-reply').remove()
+		if (d.op == 0 && parseInt(d.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 > parseInt(env.f.time())) {
+			header.innerHTML = `${header.innerHTML} <a title="删除这条回复" onclick="env.f.zoltraak('${com.parentNode.parentNode.parentNode.id}', ${n})" >删除</a>`
+		}
+
+	} else {
+		// 留言
+		var h = 145
+
+		if (d.op == 1 || parseInt(d.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
+			footer.children[1].setAttribute('title', '嗯 ? 居然删不掉 ?!')
+			footer.children[1].setAttribute('style', 'cursor: not-allowed;')
+			footer.children[1].removeAttribute('onclick')
+		}
+	}
+
+	if (body.offsetHeight > h) {
+		body.setAttribute('style', `height: ${h}px`)
+		body.insertAdjacentHTML('afterend', `<a class="link" onclick="this.previousElementSibling.removeAttribute('style'); this.remove()" >[展开]</a>`)
+	}
+
+	return com
 }
 
 env.f.submit = function() {
@@ -513,24 +474,19 @@ env.f.submit = function() {
 
 	var n = e1.value.replace(/\n/g, '')
 	var c = e2.value
-	var ban = ["​", "‍"]
+	var ban = ["​"]
+	var id = null
 
 	if (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(c.split('\n')[0])) {
 		var id = c.split('\n')[0].slice(7, 26)
 		var c = c.slice(27)
-	} else {
-		var id = null
 	}
 
 	if (!env.f.challenge.try()) {
 		env.f.connect("env.f.root.prompt('验证码输错了哦', 3000)")
 		return
 	}
-	if (ban.some(item => n.includes(item))) {
-		env.f.connect("env.f.root.prompt('检测到非法字符', 3000)")
-		return
-	}
-	if (ban.some(item => c.includes(item))) {
+	if (ban.some(item => n.includes(item)) || ban.some(item => c.includes(item))) {
 		env.f.connect("env.f.root.prompt('检测到非法字符', 3000)")
 		return
 	}
@@ -543,7 +499,7 @@ env.f.submit = function() {
 		return
 	}
 
-	if (n.length == 0 || n.length > 16 || c.length == 0 || c.length > 200 || /^[ \t]+$/.test(n)) return
+	if (n.length > 16 || c.length > 200 || /^[ \t]+$/.test(n)) return
 	env.f.wait()
 
 	fetch(`https://${env.d.domain}/api/comments`, {
@@ -564,17 +520,18 @@ env.f.submit = function() {
 			e2.setAttribute('maxlength', 200)
 			env.f.challenge.new()
 			env.f.get(env.d.p)
+			env.f.pagination(1)
 
-			if (id == null) {
+			if (id) {
+				env.f.connect("env.f.root.prompt('回复 ! 回复 !', 5000)")
+			} else {
 				env.d.cn ++
 				env.d.pn = Math.ceil(env.d.cn / 5)
 				env.e.tag[0].innerHTML = env.d.cn
-				env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言哦', 5000)")
-			} else {
-				env.f.connect("env.f.root.prompt('回复成功', 5000)")
+				env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言 !', 5000)")
 			}
 		} else {
-			env.f.connect("env.f.root.prompt('操作失败', 5000)")
+			env.f.connect("env.f.root.prompt('操作失败 :(', 5000)")
 		}
 	})
 	.catch(err => {
@@ -605,9 +562,9 @@ env.f.zoltraak = function(id, at) {
 				env.e.tag[0].innerHTML = env.d.cn
 			}
 			env.f.get(env.d.p)
-			env.f.connect("env.f.root.prompt('看起来应该是删掉了', 3000)")
+			env.f.connect("env.f.root.prompt('看起来应该是删掉了吧 ...', 3000)")
 		} else {
-			env.f.connect("env.f.root.prompt('操作失败', 5000)")	
+			env.f.connect("env.f.root.prompt('操作失败 :(', 5000)")	
 		}
 	})
 	.catch(err => {
@@ -630,9 +587,9 @@ env.f.debug = function() {
 		"results": [
 		{
 			"id": "2025-01-01 00:00:00",
-			"op": "0",
+			"op": "1",
 			"name": "user",
-			"content": "这是一条普通的留言，\nhttps://www.baidu.com/",
+			"content": "这是一条普通的留言，\nhttps://example.com/\n1\n2\n3\n4\n5\n6",
 			"reply": '{"id":"2025-01-01 00:00:00","op":"1","name":"debug","content":"测试\n1\n2\n3\n4"}​{"id":"2025-01-01 00:00:00","op":"0","name":"debug","content":"2"}​'
 		}
 		],
@@ -656,7 +613,7 @@ env.f.connect = function(str) {
 env.f.challenge = {}
 	env.f.challenge.new = function() {
 		env.e.challenge.value = ''
-		var l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'K', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'Y', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+		var l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 		var a = ''
 		var e = env.e.can
 		var c = getComputedStyle(document.documentElement).getPropertyValue('--t-c1')
@@ -664,14 +621,13 @@ env.f.challenge = {}
 		ctx.font = '18px Poppins Regular'
 		ctx.clearRect(0, 0, 100, 100)
 
-		for (var i = 0; i < 4; i++) {
-			var r = env.f.random(0, l.length - 1)
-			var a = a + l[r]
-			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(60, 100) / 100 + ')' 
-			ctx.fillText(l[r], 12 + 16 * i, 20 + env.f.random(-5, 5))
-		}
-
 		for (var i = 0; i < 20; i++) {
+			if (i < 4) {
+				var r = env.f.random(0, l.length - 1)
+				var a = a + l[r]
+				ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(60, 100) / 100 + ')' 
+				ctx.fillText(l[r], 12 + 16 * i, 20 + env.f.random(-5, 5))
+			}
 			ctx.beginPath()
 			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(20, 40) / 100 + ')' 
 			ctx.arc(env.f.random(0, e.width), env.f.random(0, e.height), env.f.random(1, 3) * 2, 0, Math.PI * 2)
@@ -749,8 +705,6 @@ env.f.reply = function(e, id) {
  		 behavior: 'smooth'
 	})
 }
-
-
 
 env.f.challenge.new()
 env.f.init()

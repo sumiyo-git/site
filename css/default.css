@@ -188,7 +188,7 @@ h3 {
 	text-decoration-color: rgba(var(--t-t1), 0.2);
 	cursor: pointer;
 	transition: 0.3s;
-
+	user-select: text !important;
 }
 
 .link:hover {

@@ -1,4 +1,5 @@
 root:
+	60	body::before
 	50	.main .loading
 	40	.prompt
 	30	.player-ui

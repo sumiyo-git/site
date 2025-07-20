@@ -65,7 +65,7 @@ export async function onRequest(context) {
 
 		if (body.id == null) {
 			// 留言
-			if (body.content.length > 200 || body.name.length > 20 || (body.name + body.content).includes('​') || (body.name + body.content).includes('‍')) {return Response.json(r)}
+			if (body.content.length > 200 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
 
 			await context.env.MetaDB.prepare('INSERT INTO pool (id, op, name, content, reply) VALUES (?, ?, ?, ?, ?)').bind(id, '0', body.name.replace(/\n/g, ''), body.content, 'null').first()
 			await context.env.MetaDB.prepare('UPDATE root set data=data+1 where name="comment"').first()
@@ -74,7 +74,7 @@ export async function onRequest(context) {
 			r.msg = {add: id}
 		} else {
 			// 回复
-			if (body.content.length > 100 || body.name.length > 20 || (body.name + body.content).includes('​') || (body.name + body.content || body.id.length != 19).includes('‍')) {return Response.json(r)}
+			if (body.content.length > 100 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
 
 			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
 			r = r.reply

@@ -318,7 +318,7 @@ backdrop {
 	margin: 0;
 	width: 230px;
 	border: none;
-	border-top: 1px solid rgba(var(--t-t1), 0.3);
+	border-top: 1px solid rgba(var(--t-t1), 0.2);
 }
 
 .menu btn {
@@ -424,14 +424,14 @@ backdrop {
 	font-family: 'Poppins Regular', 'Microsoft YaHei';
 	color: rgba(var(--t-t1), 0.8);
 	background-color: rgba(var(--t-b1), 0.6);
-	border: 1px solid rgba(var(--t-t1), 0.4);
+	border: 1px solid rgba(var(--t-t1), 0.2);
 	transition: 0.3s ease;
 	overflow: hidden;
 }
 
 .menu .search textarea:hover,
 .menu .search textarea:focus {
-	border: 1px solid rgba(var(--t-t1), 0.8);
+	border: 1px solid rgba(var(--t-t1), 0.6);
 }
 
 .menu .search list {
@@ -472,7 +472,7 @@ backdrop {
 	float: right;
 	margin-right: 5px;
 	content: '';
-	color: rgba(var(--t-t1), 0.3);
+	color: rgba(var(--t-t1), 0.2);
 	font-size: 14px;
 }
 

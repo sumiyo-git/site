@@ -292,9 +292,9 @@ window.addEventListener('message', function(event) {
 const env = {
 	'd': {
 		'db': null,
-		'p': 1,
+		'p': 1,			// 当前页数
 		'cn': null,
-		'pn': 1,
+		'pn': 1,		// 总页数
 		'domain': 'sumiyo.link',
 		'isNetwork': (document.domain ? true :false),
 		'version': '1.0.102',
@@ -417,7 +417,6 @@ env.f.load = function() {
 }
 
 env.f.comment = function(n, e, d) {
-	console.log(d)
 	// 渲染留言
 	var com = document.createElement('comment')
 		com.id = d.id
@@ -430,7 +429,7 @@ env.f.comment = function(n, e, d) {
 <div class="comment-reply" ></div>
 </div>`
 
-	e.appendChild(com)
+		e.appendChild(com)
 
 	var body = com.querySelector('.comment-body')
 	var header = com.querySelector('.comment-header')
@@ -520,16 +519,16 @@ env.f.submit = function() {
 			e2.setAttribute('maxlength', 200)
 			env.f.challenge.new()
 			env.f.get(env.d.p)
-			env.f.pagination(1)
 
 			if (id) {
-				env.f.connect("env.f.root.prompt('回复 ! 回复 !', 5000)")
+				env.f.connect("env.f.root.prompt('回复 ! 又一条回复 !', 5000)")
 			} else {
 				env.d.cn ++
 				env.d.pn = Math.ceil(env.d.cn / 5)
 				env.e.tag[0].innerHTML = env.d.cn
 				env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言 !', 5000)")
 			}
+			env.f.pagination(env.d.p)
 		} else {
 			env.f.connect("env.f.root.prompt('操作失败 :(', 5000)")
 		}

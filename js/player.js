@@ -184,6 +184,9 @@ env.f.player.load = function(e, autoplay = true){
 		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=800y800`
 	}, 500)
 
+	// 寻找当前 id
+	env.d.player.id = Array.from(env.e.player.list[1].children).indexOf(e)
+
 	// 歌词
 	env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans><trans></trans></line>`
 	env.e.player.ctrl[4].style.display = 'none'
@@ -197,9 +200,6 @@ env.f.player.load = function(e, autoplay = true){
 			l.innerHTML = '<trans>没有找到这首歌的歌词 ...</trans>'
 			env.e.player.list[0].appendChild(l)
 	}
-
-	// 寻找当前 id
-	env.d.player.id = Array.from(env.e.player.list[1].children).indexOf(e)
 
 	// 更新 Media Session API 信息
 	if ('mediaSession' in navigator) {
@@ -302,6 +302,7 @@ env.f.player.reset = function() {
 env.f.player.lrc = {}
 	env.f.player.lrc.get = function(id) {
 		// 下载歌词
+		var n = env.d.player.id
 		fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
 		.then(response => {
 			if (response.ok) {
@@ -309,7 +310,9 @@ env.f.player.lrc = {}
 			}
 		})
 		.then(lrc => {
-			env.f.player.lrc.load(lrc)
+			if (n == env.d.player.id) {
+				env.f.player.lrc.load(lrc)
+			}
 		})
 		.catch(error => {
 			console.error('歌词加载异常')

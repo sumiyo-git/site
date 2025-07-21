@@ -90,7 +90,6 @@
 }
 
 .player-ui .ctrl a:last-child::-webkit-scrollbar {
-
 	display: none;
 }
 
@@ -113,7 +112,6 @@
 }
 
 .player-ui list:nth-child(1)::-webkit-scrollbar {
-
 	display: none;
 }
 
@@ -246,7 +244,6 @@
 
 
 @media (orientation: portrait) {
-	.player-ui list::-webkit-scrollbar,
 	.player-ui .cover {
 		display: none;
 	}

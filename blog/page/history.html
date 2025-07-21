@@ -46,11 +46,14 @@
 	}
 	.ibox0 {
 		aspect-ratio: 16 / 9;
-		width: 50%;
 	}
 	.ibox1 {
 		aspect-ratio: 207 / 101;
+	}
+	.ibox0,
+	.ibox1 {
 		width: 50%;
+		border: rgba(var(--t-t1), 0.1) 1px solid;
 	}
 	@media (orientation: portrait) {
 		.ibox1,
@@ -65,7 +68,20 @@
 
 	<para>
 		<h1>开发记录</h1>
-		<note>记录本站的开发过程 ＆ 技术细节</note>
+		<note>记录本站的开发历史 ＆ 技术细节</note>
+	</para>
+
+	<para>
+		<h3>2025-07-20</h3>
+		<event type="F" >
+			修复播放器因曲目快速切换导致歌词匹配错误的问题
+			<br />
+			<note>
+				添加歌词 id 校验机制，检验异步的歌词下载任务。
+			</note>
+		</event>
+		<event type="O" >重命名主程序: しろい花 => snowyfox</event>
+		<event type="O" >优化留言板代码</event>
 	</para>
 
 	<para>
@@ -210,7 +226,7 @@ window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/
 			问了 AI 才知道，原来叫这个名字。怪不得这么多在线播放器都没调用这个 ...
 			<mat></mat>
 			<mat></mat>
-			<a class="ibox1"  target="_blank" href="../../src/img/page.history.3.webp" style="border: rgba(var(--t-t1), 0.1) 1px solid;" >
+			<a class="ibox1"  target="_blank" href="../../src/img/page.history.3.webp" >
 				<img src="../../src/img/page.history.3.webp" onload="this.setAttribute('class', 'fade')" />
 			</a>
 		</note>
@@ -404,7 +420,7 @@ export async function onRequest(context) {
 		<br />
 		<mat></mat>
 		<mat></mat>
-		<a class="ibox0"  target="_blank" href="../../src/img/page.history.2.webp" style="border: rgba(var(--t-t1), 0.1) 1px solid;" >
+		<a class="ibox0"  target="_blank" href="../../src/img/page.history.2.webp" >
 			<img src="../../src/img/page.history.2.webp" onload="this.setAttribute('class', 'fade')" />
 		</a>
 	</para>
@@ -517,7 +533,7 @@ export async function onRequest(context) {
 		<event type="A" >
 			In the beginning, there was nothing.
 			<br />
-				Then God said, "Let there be ligth," and there was light.‌ ‌
+				Then God said, "Let there be light," and there was light.
 		</event>
 		<br class="f-1" />
 		The first screenshot:

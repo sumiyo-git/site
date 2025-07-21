@@ -55,35 +55,32 @@
 				'd1': new Date(),
 				'd2': null,
 				'd3': null,
-				'd5': null,
 
 				't1': null,
 				't2': null,
-				't3': null,
-				't4': null,
 			}
 		}
 	}
 
 	env.tmp.root.t1 = setInterval(() => {
 		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 2) {
+			env.d.init.root = 1
 			setTimeout(function (){
 				setTimeout(function (){
 					env.f.root.avatar()
 					env.e.root.backdrop[0]?.remove()
-					env.d.init.root = 1
-				}, 600)
+				}, 500)
 
 				env.e.root.backdrop[0]?.removeAttribute('style')
 				clearInterval(env.tmp.root.t1)
 			}, 1000)
 		}
-	}, 1500)
+	}, 1000)
 
 </script>
 
 <div class="main" >
-	<backdrop class="loading" style="opacity: 1" data-text="hoer heyato sia san: erando-na, yato-na, merai-na." ></backdrop>
+	<backdrop class="loading" style="opacity: 1" ></backdrop>
 	<img class="avatar" onload="env.d.init.root = 2" src="src/mio.webp" style="display: none;" />
 	<canvas class="avatar" ></canvas>
 

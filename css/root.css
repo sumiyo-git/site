@@ -346,22 +346,12 @@ backdrop {
 	transform: rotate(90deg);
 }
 
-.menu news {
-	display: block;
-	height: 24px;
+.menu .menu-c2 {
+	height: 70px;
+	width: 230px;
 	font-size: 16px;
 	line-height: 24px;
 	color: rgba(var(--t-t1), 0.4);
-}
-
-.menu news time {
-	width: 50px;
-	display: inline-block;
-	color: rgba(var(--t-t1), 0.6);
-}
-
-.menu .menu-c2 {
-	height: 120px;
 	transition: all 0.3s ease-out 0s;
 }
 
@@ -401,6 +391,9 @@ backdrop {
 /* 搜索栏 */
 
 .menu .search {
+	display: flex;
+	flex-wrap: wrap;
+	align-content: flex-start;
 	overflow: hidden;
 	transition: 0.3s ease-out 0s;
 }
@@ -436,10 +429,9 @@ backdrop {
 
 .menu .search list {
 	display: block;
-	margin: -3px 0;
-	height: 110px;
-	width: 224px;
-	padding: 0;
+	margin-top: 8px;
+	height: 175px;
+	width: 222px;
 	overflow: scroll;
 }
 
@@ -645,3 +637,9 @@ backdrop {
 }
 
 
+/* firefox */
+@-moz-document url-prefix() {
+	body {
+ 		scrollbar-width: none;
+	}
+}

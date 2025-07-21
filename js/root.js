@@ -30,35 +30,8 @@ env.d.init = {...env.d.init, ...{
 	'menu': 0,
 }}
 
-// 通知列表
-env.d.list.news = [
-	{
-		date: '7.14',
-		title: '此处不再显示更新信息',
-		des: '未来的更新将会显示在这里:\n https://sumiyo.link/?id=page/history',
-	},
-	{
-		date: '6.29',
-		title: '主题优化',
-		des: 'Ａ 属性访问链 env.d.init，用于记录初始化状态\nＡ 播放器错误处理逻辑\nＦ 浏览器历史记录中本站 title 与 url 不匹配的问题\nＦ 播放器界面未初始化时，Media Session API 曲目切换导致音乐暂停\nＯ 修改 audio preload 为 metadata\nＯ 优化 root.js\nＯ 优化 player.js\nＯ 优化 url 参数的处理逻辑\nＤ 移除 url 中的 blog/ 路径',
-	},
-	{
-		date: '6.17',
-		title: '主题优化',
-		des: 'Ｆ 留言板回复功能权限问题\nＯ 播放器滚动歌词 (又要重做时间轴了... 呜呜呜)\nＯ 响应式页面布局\nＯ 美化页面元素',
-	},
-	{
-		date: '4.13',
-		title: '后台爆破攻击',
-		des: '部分地区的访问已被屏蔽',
-	},
-	{
-		date: '11.21',
-		title: '注册 <ins>sumiyo.link/</ins>',
-		des: '新的域名，新的开始！',
-	},
-
-]
+// 通知
+env.d.list.news = `欢迎来到 sumiyo 的个人网站！这里仍在缓慢更新中 ...`
 
 
 
@@ -149,6 +122,7 @@ env.f.root.avatar = function() {
 			env.e.root.canvas[0].removeAttribute('style')
 			env.e.root.canvas[1].remove()
 			env.f.root.fade(env.e.root.des, 500)
+			delete env.f.root.avatar
 			return
 		}
 
@@ -241,6 +215,17 @@ env.f.root.getUptime = function() {
 	return Math.floor((new Date() -  new Date('2023-02-03')) / (1000 * 60 * 60 * 24))
 }
 
+env.f.root.getText = function() {
+	// 开屏页随机标语
+	var l = [
+		"hoer heyato sia san: erando-na, yato-na, merai-na.",
+		"oer-miite semimila hola oer-eramutu dekowa.",
+		"haze i milecaze, miite mirano enkade suzerala.",
+	]
+	env.e.root.backdrop[0]?.setAttribute('data-text', l[env.f.root.getRandom(0, l.length - 1)])
+	delete env.f.root.getText
+}
+
 env.f.root.post = function(event) {
 	// 页面通信
 	env.e.root.blog.children[3].contentWindow.postMessage(event, env.d.isNetwork ? '/' : '*')
@@ -305,12 +290,12 @@ env.f.root.blog = {}
 
 	env.f.root.blog.close = function() {
 		// 关闭博客
-		env.f.root.fade(env.e.root.blog, -300)
 		env.f.root.url.clear()
 		document.title = env.d.title
+		env.f.root.fade(env.e.root.blog, -300)
+		env.f.root.prompt.close()
 
 		setTimeout(function (){
-			env.f.root.prompt.close()
 			env.e.root.blog.children[0].remove()
 		}, 600)
 	}
@@ -321,17 +306,16 @@ env.f.root.page = {}
 		clearInterval(env.tmp.root.t2)
 		env.e.root.backdrop[2].style.display = 'block'
 
-		env.tmp.root.d5 = new Date()
+		env.tmp.root.d3 = new Date()
 		env.tmp.root.t2 = setInterval(() => {
-			env.e.root.backdrop[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d5) / 1000).toFixed(2))
+			env.e.root.backdrop[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d3) / 1000).toFixed(2))
 		}, 100)
 	}
 
 	env.f.root.page.load.stop = function() {
 		// 停止加载动画
 		clearInterval(env.tmp.root.t2)
-		env.tmp.root.d5 = null
-		delete env.tmp.root.d5
+		delete env.tmp.root.d3
 		env.f.root.fade(env.e.root.backdrop[2], -500)
 
 		setTimeout(function (){
@@ -363,15 +347,10 @@ env.f.root.init = function() {
 	}
 
 	// 检索引擎
-	document.querySelector('.search').setAttribute('style', `height: ${Math.min(5, d.length) * 22 + 55}px`)
+	document.querySelector('.search').setAttribute('style', `height: ${Math.min(8, d.length) * 22 + 55}px`)
 
 	// 通知
-	var d = env.d.list.news
-	for (var i = 0; i < 5; i++) {
-		var div = document.createElement('news')
-			div.innerHTML = `<time>${d[i].date}</time><span title="${d[i].des}" >${d[i].title}</span>`
-			document.querySelector('.menu-c2').appendChild(div)
-	}
+	document.querySelector('.menu-c2').innerHTML = env.d.list.news
 
 	setTimeout(function (){env.e.root.btn.removeAttribute('style'); env.f.root.menu.open()}, 1000)
 }
@@ -402,7 +381,7 @@ env.f.root.menu = {}
 			e.classList.add('active')
 			if (e == env.e.root.menu[0]) {
 				// 配合检索栏
-				e.nextElementSibling.setAttribute('style', `opacity: 1; height: ${Math.min(5, (Number(env.e.root.menu[0].dataset.item) || 1)) * 22 + 55}px;`)
+				e.nextElementSibling.setAttribute('style', `opacity: 1; height: ${Math.min(8, (Number(env.e.root.menu[0].dataset.item) || 1)) * 22 + 55}px;`)
 			} else {
 				e.nextElementSibling.removeAttribute('style')
 			}
@@ -462,7 +441,7 @@ env.f.root.search = function() {
 	}
 
 	env.e.root.menu[0].setAttribute('data-item', r.length)
-	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(5, r.length), 1) * 22 + 55}px`)
+	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(8, r.length), 1) * 22 + 55}px`)
 	document.querySelector('.search .none').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
 }
 
@@ -471,6 +450,7 @@ env.f.root.search = function() {
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
 env.f.root.url.read()
+env.f.root.getText()
 
 
 
@@ -483,13 +463,12 @@ window.addEventListener('message', function(event) {
 window.addEventListener('load',function(){
 	// 计算页面加载时间
 	env.d.load = env.f.root.conv.c0(((new Date() - new Date(env.tmp.root.d1)) / 1000).toFixed(3) * 1000)
-	env.tmp.root.d1 = null
 	delete env.tmp.root.d1
 
 	// 获取访问量
 	if (env.d.isNetwork) {
 		// 重复访问不计数
-		env.d.isNew = (env.f.root.cookie.get('Cookie') ? false : true)
+		env.d.isNew = env.f.root.cookie.get('Cookie') ? false : true
 		fetch(`https://${env.d.domain}/api/counter`, {
 			method: "POST",
 			headers: {
@@ -512,7 +491,7 @@ window.addEventListener('load',function(){
 env.tmp.root.d2 = 1
 setTimeout(console.log.bind(
 	console, 
-	`\n%c THEME %c しろい花 %c		${env.d.version.root}\n`,
+	`\n%c %c snowyfox %c		${env.d.version.root}\n`,
 	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
 	'background-color: rgba(186, 138, 219, 0.5); color: white;',
 	'color: rgba(192, 194, 194, 1);',

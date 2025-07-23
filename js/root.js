@@ -449,8 +449,8 @@ env.f.root.search = function() {
 
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
-env.f.root.url.read()
 env.f.root.getText()
+env.f.root.url.read()
 
 
 

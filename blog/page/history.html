@@ -321,7 +321,7 @@ window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/
 		root/blog.html
 		<br />
 		<note>
-			是的，尽管有更新 2025-07-09 中提到的机制，第 3 代界面自诞生 2024-04-05 至 2025-01-28 的版本都带有 root/blog.html，一个精简版的 index.html（主要砍掉了一些图片），用于加快博客页面的访问速度。后因怀疑对缓存不利而移除。
+			是的，尽管有更新 2025-07-09 中提到的机制，第 3 代界面自诞生 2024-04-05 至 2025-01-28 的版本都带有 root/blog.html，一个精简版的 index.html（主要砍掉了一些图片），用于加快博客页面的访问速度。后因怀疑不利于缓存而移除。
 		</note>
 	</para>
 
@@ -358,7 +358,7 @@ env = {
 			添加留言时，改用请求体传递留言的昵称和内容
 			<br />
 			<note>
-				试了不下 50 次，才发现读取请求体的写法是 context.request.json() ... 原来要先把这些数据 Base64 编码后（header 仅支持英文和数字），挂到请求头上发送，再用 Cloudflare 的官方文档里的 context.request.headers.get() 方法读取参数。
+				试了不下 50 次，才发现读取请求体的写法是 context.request.json() ... 原先要把数据 Base64 编码后（header 仅支持英文、数字和部分字符），挂到请求头上发送，再用 Cloudflare 的官方文档里的 context.request.headers.get() 方法读取参数。
 			</note>
 		</event>
 		<br class="f-1" />
@@ -373,11 +373,11 @@ env = {
 // 文件: root/functions/debug.js
 
 export async function onRequest(context) {
-	// 严格模式下，禁止隐式创建全局变量‌，也就是说直接写 token = 1 会报错
+	// 严格模式下，禁止隐式创建全局变量，也就是说直接写 token = 1 会报错
 
 	// 获取 header 中的 'Token' 值
 	var token = context.request.headers.get('Token')
-	// 获取整个 body
+	// 获取整个 body（结果直接是 json 对象）
 	var body = context.request.json()
 	// 获取 body 中以 ArrayBuffer 形式传递的单个文件
 	var file = context.request.arrayBuffer()

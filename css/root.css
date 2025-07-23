@@ -157,7 +157,7 @@ backdrop {
 	z-index: 50;
 	opacity: 0;
 	background-color: rgba(var(--t-b1), 1);
-	transition: 1s;
+	transition: 0.5s;
 }
 
 .main .loading::after {

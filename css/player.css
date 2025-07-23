@@ -244,6 +244,7 @@
 
 
 @media (orientation: portrait) {
+	.player-ui list::-webkit-scrollbar,
 	.player-ui .cover {
 		display: none;
 	}
@@ -262,6 +263,14 @@
 		width: calc(100% - 40px);
 		height: calc(100% - 162px);
 		padding: 0 20px 0 20px;
+	}
+	.player-ui list:nth-child(2) line {
+		margin-left: 0;
+	}
+	.player-ui .ctrl a:nth-child(2) {
+		position: fixed;
+		top: 33px;
+		left: 80px;
 	}
 	.player-ui .ui {
 		width: 100%;

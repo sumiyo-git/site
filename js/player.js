@@ -158,6 +158,13 @@ env.f.player.album = function(){
 		src: '1417133244',
 		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
 		lrc: false,
+	},
+	{
+		name: 'Tozo Hanoline ft. Úyanga Bold',
+		artist: 'Kevin Penkin',
+		src: '1417145735',
+		img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+		lrc: false,
 	}]
 }
 

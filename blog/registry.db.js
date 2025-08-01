@@ -6,15 +6,13 @@ env.d.list.blog = [
 		des: '以前的作品',
 		type: ['', 'pin'],
 	},
+
 	{
-		name: '记录',
-		src: '20250714',
-		des: '...',
-		type: ['', 'pin'],
+		name: 'メイドインアビス 字幕',
+		src: '20250801',
+		des: '字幕发布页 ...',
+		type: ['', null],
 	},
-
-
-
 	{
 		name: 'Chrome "假死" 现象',
 		src: '20250721',

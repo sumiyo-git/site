@@ -228,7 +228,7 @@ env.f.root.getText = function() {
 
 env.f.root.post = function(event) {
 	// 页面通信
-	env.e.root.blog.children[3].contentWindow.postMessage(event, env.d.isNetwork ? '/' : '*')
+	env.e.root.blog.children[0].contentWindow.postMessage(event, env.d.isNetwork ? '/' : '*')
 }
 
 env.f.root.linkto = function(id) {

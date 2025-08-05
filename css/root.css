@@ -597,7 +597,6 @@ backdrop {
 
 /* phone */
 @media (orientation: portrait) {
-	.main .loading::after,
 	.f-2 {
 		display: none !important;
 	}
@@ -628,11 +627,11 @@ backdrop {
 			0 0 2px rgba(var(--t-b1), 1);
 	}
 	.main .header-box {
-		width: calc(100% - 45px);
+		width: calc(100% - 40px);
 		height: 42px;
 		left: 15px;
 		top: 0;
-		padding: 20px 5px;
+		padding: 20px 5px 15px 5px;
 		background-color: rgba(var(--t-b1), 1);
 		border-bottom: 1px solid rgba(var(--t-t1), 0.08);
 	}
@@ -642,6 +641,9 @@ backdrop {
 	.main .avatar {
 		height: 100%;
 		left: -15%;
+	}
+	.main .loading::after {
+		content: 'ロード中';
 	}
 }
 

@@ -263,7 +263,7 @@
 		position: fixed;
 		top: 75px;
 		width: calc(100% - 40px);
-		height: calc(100% - 165px);
+		height: calc(100% - 160px);
 		padding: 0 20px 0 20px;
 	}
 	.player-ui list:nth-child(2) line {
@@ -275,7 +275,7 @@
 	}
 	.player-ui .ctrl {
 		position: fixed;
-		bottom: 44px;
+		bottom: 39px;
 		left: 0;
 		width: calc(100% - 40px);
 		padding: 0 20px 0 20px;
@@ -294,11 +294,20 @@
 		max-width: 50%;
 	}
 	.player-ui list:nth-child(1) line {
+		padding: 5px 10px 5px 10px;
+		width: calc(100% - 40px);
+		margin-left: 10px;
+	}
+	.player-ui list line {
 		font-size: 18px;
 		line-height: 25px;
 	}
 	.player-ui trans {
 		font-size: 14px;
+	}
+	.player-ui .cover {
+		width: calc(100% - 20px);
+		margin-left: 10px;
 	}
 }
 

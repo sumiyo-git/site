@@ -376,12 +376,12 @@ env.f.player.lrc = {}
 			if (env.d.init.playerUI_fo) {
 				env.d.init.playerUI_fo = 0
 				if (env.d.isMobile) {
-					env.d.player.offsetTop = Number(env.f.root.getCSS(env.e.player.list[0].parentNode, 'width').slice(0, -2)) + 90
+					env.d.player.offsetTop = Number(env.f.root.getCSS(env.e.player.list[0].parentNode, 'width').slice(0, -2))
 					env.e.player.list[0].innerHTML = `<span class="cover" ><img src="${env.e.player.img[1].src}" ></img></span>` + env.e.player.list[0].innerHTML
 					env.e.player.list_in = document.querySelectorAll('.player-ui list div')
 					env.e.player.img[1].parentNode.remove()
 					env.e.player.img[1] = env.e.player.list[0].querySelector('img')
-					env.e.player.list_in[0].style.height = env.f.root.getCSS(env.e.player.list[0].parentNode, 'height').slice(0, -2) - env.f.root.getCSS(env.e.player.list[0].parentNode, 'width').slice(0, -2) + 'px'
+					env.e.player.list_in[0].style.height = env.f.root.getCSS(env.e.player.list[0].parentNode, 'height').slice(0, -2) - env.f.root.getCSS(env.e.player.list[0].parentNode, 'width').slice(0, -2) + 20 + 'px'
 				} else {
 					env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 				}

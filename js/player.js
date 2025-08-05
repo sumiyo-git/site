@@ -7,7 +7,7 @@
 	*/
 
 
-env.d.version.player = '1.0.243'
+env.d.version.player = '1.0.244'
 env.d.player = {
 	'id': 0,
 	'mode': 0,
@@ -28,7 +28,8 @@ env.e = {...env.e, ...{
 		'audio': new Audio(),
 		'ui0': document.querySelector('.player-ui'),
 		'ui1': document.querySelector('.player-blog'),
-		'img': document.querySelectorAll('.player-ui img'),
+		'img': [...document.querySelectorAll('.player-ui img')],
+		'list_in': document.querySelectorAll('.player-ui list div'),
 		'list': document.querySelectorAll('.player-ui list'),
 		'ctrl': document.querySelectorAll('.player-ui .ctrl a'),
 		'bar': [document.querySelector('.player-ui bar'), document.querySelector('.player-ui bar div div')],
@@ -37,7 +38,7 @@ env.e = {...env.e, ...{
 
 env.d.init = {...env.d.init, ...{
 	'playerUI': 0,
-	'playerLD': 0,
+	'playerUI_fo': 1,
 }}
 
 
@@ -185,17 +186,17 @@ env.f.player.load = function(e, autoplay = true){
 	// 为当前播放歌曲添加样式
 	document.querySelector('.player-ui .active')?.removeAttribute('class')
 	e.setAttribute('class', 'active')
-	env.f.root.scroll(env.e.player.list[1], e.offsetTop - env.d.player.offsetTop, 500)
+	env.f.root.scroll(env.e.player.list_in[1], e.offsetTop - 240, 500)
 
 	setTimeout(function (){
 		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=800y800`
 	}, 500)
 
 	// 寻找当前 id
-	env.d.player.id = Array.from(env.e.player.list[1].children).indexOf(e)
+	env.d.player.id = Array.from(env.e.player.list_in[1].children).indexOf(e)
 
 	// 歌词
-	env.e.player.list[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans><trans></trans></line>`
+	env.e.player.list_in[0].innerHTML = `<line>${name}<lrc></lrc><trans>${artist}</trans><trans></trans></line>`
 	env.e.player.ctrl[4].style.display = 'none'
 	env.d.player.lrc.now = 0
 	env.d.player.lrc.timeline = []
@@ -205,7 +206,7 @@ env.f.player.load = function(e, autoplay = true){
 		env.d.player.lrc.raw = null
 		var l = document.createElement('line')
 			l.innerHTML = '<trans>没有找到这首歌的歌词 ...</trans>'
-			env.e.player.list[0].appendChild(l)
+			env.e.player.list_in[0].appendChild(l)
 	}
 
 	// 更新 Media Session API 信息
@@ -216,8 +217,8 @@ env.f.player.load = function(e, autoplay = true){
 			album: '',
 			artwork: [{
 				src: `https://p1.music.126.net/${img}.jpg?param=800y800`,
-				 sizes: '',
-				 type: 'image/jpg'
+				sizes: '',
+				type: 'image/jpg'
 			}]
 		})
 	}
@@ -251,7 +252,7 @@ env.f.player.mode = function(){
 
 env.f.player.playlist = function(a, replace = false){
 	// 初始化播放列表
-	if (replace) env.e.player.list[1].innerHTML = ''
+	if (replace) env.e.player.list_in[1].innerHTML = ''
 	for (var i = 0; i < a.length; i++) {
 		var l = document.createElement('line')
 			l.setAttribute('onclick', "env.f.player.load(this)")
@@ -261,7 +262,7 @@ env.f.player.playlist = function(a, replace = false){
 			l.setAttribute('data-name', a[i].name)
 			l.setAttribute('data-artist', a[i].artist)
 			l.innerHTML = `<lrc>${a[i].name}</lrc><trans>${a[i].artist}</trans>`
-			env.e.player.list[1].appendChild(l)
+			env.e.player.list_in[1].appendChild(l)
 	}
 }
 
@@ -277,13 +278,11 @@ env.f.player.play = function(){
 env.f.player.add = function(str) {
 	// 更新播放器列表
 	// 0 = 是否询问; 1 = 是否替换原始列表;
-	if (!env.d.init.playerUI) {
-		env.f.player.playlist(env.f.player.album(), true)
-	}
-	env.d.init.playerLD = 1
-	env.d.player.id = !str['1'] ? env.e.player.list[1].children.length : 0
+
+	if (!env.d.init.playerUI) env.f.player.init(!str['1'])
 	env.f.player.playlist(str['2'], str['1'])
-	env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+	env.d.player.id = !str['1'] ? env.e.player.list_in[1].children.length - 1 : 0
+	env.f.player.load(env.e.player.list_in[1].children[env.d.player.id])
 }
 
 	env.f.player.add.ask = function(str) {
@@ -302,7 +301,7 @@ env.f.player.reset = function() {
 	env.d.player.id = 0
 	env.f.player.mode.set(0)
 	env.f.player.playlist(env.f.player.album(), true)
-	env.f.player.load(env.e.player.list[1].children[0], false)
+	env.f.player.load(env.e.player.list_in[1].children[0], false)
 	env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 }
 
@@ -312,20 +311,16 @@ env.f.player.lrc = {}
 		var n = env.d.player.id
 		fetch(`https://${env.d.domain}/src/lrc/${id}.lrc`)
 		.then(response => {
-			if (response.ok) {
-				return response.text();
-			}
+			if (response.ok) return response.text()
 		})
 		.then(lrc => {
-			if (n == env.d.player.id) {
-				env.f.player.lrc.load(lrc)
-			}
+			if (n == env.d.player.id) env.f.player.lrc.load(lrc)
 		})
 		.catch(error => {
 			console.error('歌词加载异常')
 			var l = document.createElement('line')
 				l.innerHTML = `<trans>歌词加载异常: ${error}</trans>`
-				env.e.player.list[0].appendChild(l)
+				env.e.player.list_in[0].appendChild(l)
 		})
 	}
 
@@ -338,6 +333,7 @@ env.f.player.lrc = {}
 		var [info = null, content] = str.split('\n------------------------------\n')
 		var p = [info, content]
 		var lrc = p[1].split('\n')
+		var e = env.e.player.list_in[0]
 		lrc.push('[59:59.999]')
 
 		if (str.includes('<ruby>')) {
@@ -346,12 +342,23 @@ env.f.player.lrc = {}
 			env.e.player.ctrl[4].style.display = 'none'
 		}
 
-		if (p[0]) env.e.player.list[0].querySelectorAll('trans')[1].innerHTML = '<br class="f-1" >' + p[0]
+		if (p[0]) e.querySelectorAll('trans')[1].innerHTML = '<br class="f-1" >' + p[0]
 		for (var i = 0; i < lrc.length; i++) {
 			env.d.player.lrc.timeline.push(env.f.root.conv.c2(lrc[i].slice(1, 10)))
 			var l = document.createElement('line')
 				l.innerHTML = `<lrc>${lrc[i].split('#')[0].slice(12) || ''}</lrc><trans>${lrc[i].split('#')[1] || ''}</trans>`
-				env.e.player.list[0].appendChild(l)
+				e.appendChild(l)
+		}
+	}
+
+	env.f.player.init = function(bool) {
+		// 初始化歌词页面
+		env.d.init.playerUI = 1
+		if (!env.e.player.list_in[1].children[0]) env.f.player.playlist(env.f.player.album(), true)
+		if (env.d.lang == 'zh-CN') {
+			if (bool) env.f.player.load(env.e.player.list_in[1].children[0], false)
+		} else {
+			env.f.root.prompt(`Our music player may not work properly in your region !<br /><br /><a>forget about it</a> | <a onclick='env.f.player.load(env.e.player.list[1].children[0], false)'>force loading</a>`, -1)
 		}
 	}
 
@@ -365,25 +372,23 @@ env.f.player.lrc = {}
 			env.f.root.fade(env.e.player.ui0, 160)
 			env.f.player.lrc.find(env.e.player.audio.currentTime)
 
-			if (env.e.player.list[1].children[0]) env.f.root.scroll(env.e.player.list[1], env.e.player.list[1].children[env.d.player.id].offsetTop - env.d.player.offsetTop, 5)
-			if (!env.d.isMobile) env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
-			if (!env.d.init.playerUI) {
-				// 初始化歌词页面
-				env.d.init.playerUI = 1
-				env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
-				if (!env.e.player.list[1].children[0]) {
-					env.f.player.playlist(env.f.player.album(), true)
-				}
-			}
-			if (!env.d.init.playerLD) {
-				// 加载歌曲
-				env.d.init.playerLD = 1
-				if (env.d.lang == 'zh-CN') {
-					env.f.player.load(env.e.player.list[1].children[0], false)
+			// 一些初始化过程必须在界面打开时进行
+			if (env.d.init.playerUI_fo) {
+				env.d.init.playerUI_fo = 0
+				if (env.d.isMobile) {
+					env.d.player.offsetTop = Number(env.f.root.getCSS(env.e.player.list[0].parentNode, 'width').slice(0, -2)) + 90
+					env.e.player.list[0].innerHTML = `<span class="cover" ><img src="${env.e.player.img[1].src}" ></img></span>` + env.e.player.list[0].innerHTML
+					env.e.player.list_in = document.querySelectorAll('.player-ui list div')
+					env.e.player.img[1].parentNode.remove()
+					env.e.player.img[1] = env.e.player.list[0].querySelector('img')
+					env.e.player.list_in[0].style.height = env.f.root.getCSS(env.e.player.list[0].parentNode, 'height').slice(0, -2) - env.f.root.getCSS(env.e.player.list[0].parentNode, 'width').slice(0, -2) + 'px'
 				} else {
-					env.f.root.prompt(`Our music player may not work properly in your region !<br /><br /><a>forget about it</a> | <a onclick='env.f.player.load(env.e.player.list[1].children[0], false)'>force loading</a>`, -1)
+					env.e.player.list[1].parentNode.style.height = env.e.player.img[1].parentNode.parentNode.clientHeight + 'px'
 				}
+				env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
 			}
+
+			if (!env.d.init.playerUI) env.f.player.init(1)
 		}
 	}
 
@@ -392,11 +397,12 @@ env.f.player.lrc = {}
 		if (env.d.player.lrc.raw) {
 			for (var i = 0; i < 100; i++) {
 				if (env.e.player.audio.currentTime <= env.d.player.lrc.timeline[i]) {
-					env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
+					var l = env.e.player.list_in[0]
+					var e = l.children[i]
+					l.children[env.d.player.lrc.now].removeAttribute('class')
 					env.d.player.lrc.now = i
-					var e = env.e.player.list[0].children[i]
 					if (i && e.children[0].innerHTML) e.setAttribute('class', 'highlight')
-					env.f.root.scroll(env.e.player.list[0], e.offsetTop - env.d.player.offsetTop, 500)
+					env.f.root.scroll(l, e.offsetTop - env.d.player.offsetTop, 500)
 					break
 				}
 			}
@@ -441,15 +447,14 @@ env.f.player.next = function(n){
 	// 切换歌曲
 	if (n == -1) {
 		// 上一首
-		if (env.d.player.id == 0) env.d.player.id = env.e.player.list[1].childElementCount
+		if (env.d.player.id == 0) env.d.player.id = env.e.player.list_in[1].childElementCount
 		env.d.player.id --
-
-		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+		env.f.player.load(env.e.player.list_in[1].children[env.d.player.id])
 	} else {
 		// 下一首
-		if (env.d.player.id == env.e.player.list[1].childElementCount - 1) env.d.player.id = -1
+		if (env.d.player.id == env.e.player.list_in[1].childElementCount - 1) env.d.player.id = -1
 		env.d.player.id ++
-		env.f.player.load(env.e.player.list[1].children[env.d.player.id])
+		env.f.player.load(env.e.player.list_in[1].children[env.d.player.id])
 	}
 }
 
@@ -481,12 +486,13 @@ env.e.player.bar[0].addEventListener('click', function(event) {
 // 歌词显示
 env.e.player.audio.addEventListener('timeupdate', function () {
 	if (env.d.player.lrc.raw && env.d.player.lrc.timeline[env.d.player.lrc.now] <= env.e.player.audio.currentTime) {
-		env.e.player.list[0].children[env.d.player.lrc.now].removeAttribute('class')
+		var l = env.e.player.list_in[0]
+		l.children[env.d.player.lrc.now].removeAttribute('class')
 		env.d.player.lrc.now ++
 
-		var e = env.e.player.list[0].children[env.d.player.lrc.now]
+		var e = l.children[env.d.player.lrc.now]
 		if (e.children[0].innerHTML) e.setAttribute('class', 'highlight')
-		env.f.root.scroll(env.e.player.list[0], e.offsetTop - env.d.player.offsetTop, 500)
+		env.f.root.scroll(l, e.offsetTop - env.d.player.offsetTop, 500)
 	}
 })
 

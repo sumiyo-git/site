@@ -324,9 +324,6 @@ tr:nth-child(odd) {
 }
 
 @media (orientation: portrait) {
-	::-webkit-scrollbar {
-		display: none;
-	}
 	.main {
 		margin: 0px auto;
 		padding: 200px 0px 80px 0px;

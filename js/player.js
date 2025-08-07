@@ -358,7 +358,7 @@ env.f.player.lrc = {}
 		if (env.d.lang == 'zh-CN') {
 			if (bool) env.f.player.load(env.e.player.list_in[1].children[0], false)
 		} else {
-			env.f.root.prompt(`Our music player may not work properly in your region !<br /><br /><a>forget about it</a> | <a onclick='env.f.player.load(env.e.player.list[1].children[0], false)'>force loading</a>`, -1)
+			env.f.root.prompt(`Our music player may not work properly in your region !<br /><br /><a onclick='env.f.player.load(env.e.player.list_in[1].children[0], false)'>[force loading]</a>`, -1)
 		}
 	}
 

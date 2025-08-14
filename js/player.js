@@ -415,7 +415,7 @@ env.f.player.lrc = {}
 			div.setAttribute('style', 'position: fixed; z-index: 50; bottom: 0;')
 			div.innerHTML = `
 				<textarea type="text" autocomplete="off" style="font-family: 'Microsoft YaHei';" ></textarea>
-				<button onclick="env.e.player.list[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans><trans></trans></line>'; env.f.player.lrc.load(document.querySelector('.player-ui textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
+				<button onclick="env.e.player.list_in[0].innerHTML = '<line><lrc>null</lrc><trans>null</trans><trans></trans></line>'; env.f.player.lrc.load(document.querySelector('.player-ui textarea').value); env.f.player.lrc.find(env.e.player.audio.currentTime)" >load</button>
 			`
 			document.querySelector('.player-ui').appendChild(div)
 	}

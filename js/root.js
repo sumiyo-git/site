@@ -80,7 +80,7 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 
 env.f.root.avatar = function() {
 	// 头像动画
-	let x, y, xa, ya, p, s, i, w, h, timer
+	let x, y, xa, ya, p, s, i, w, h, l, timer
 	x = y = xa = ya = p = s = i = 0
 
 	const canvas = env.e.root.canvas[1]
@@ -126,13 +126,13 @@ env.f.root.avatar = function() {
 			return
 		}
 
-		var line = waypoint[i]
+		l = waypoint[i]
 		p = 0
-		s = Math.ceil(500 / line[4])
-		x = line[0] * w
-		y = line[1] * h
-		xa = (line[2] - line[0]) * w / s
-		ya = (line[3] - line[1]) * h / s
+		s = Math.ceil(500 / l[4])
+		x = l[0] * w
+		y = l[1] * h
+		xa = (l[2] - l[0]) * w / s
+		ya = (l[3] - l[1]) * h / s
 	}
 
 	timer = setInterval(() => {

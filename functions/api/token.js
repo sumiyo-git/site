@@ -4,32 +4,38 @@ export async function onRequest(context) {
 	var k = (t.year * t.month + t.day).slice(-6)
 
     var html = `<!DOCTYPE html>
-<head>
-	<title>Token</title>
-	<style>
-		div {
-			position: absolute;
-			width: 300px;
-			height: 60px;
-			top: calc(50% - 30px);
-			left: calc(50% - 150px);
-			font-size: 45px;
-			font-weight: bolder;
-			text-align: center;
-			opacity: 0.5;
-			user-select: none;
-			cursor: pointer;
-			transition: 0.5s;
-		}
-		div:active {
-			opacity: 0.7;
-			transform: translateY(-20px);
-		}
-	</style>
-</head>
-<body>
-	<div onclick="navigator.clipboard.writeText(this.innerHTML)" >${k}</div>
-</body>`
+<html>
+	<head>
+		<title>Token</title>
+		<style>
+			div {
+				position: absolute;
+				width: 300px;
+				height: 60px;
+				top: calc(50% - 30px);
+				left: calc(50% - 150px);
+				font-size: 80px;
+				font-weight: bolder;
+				text-align: center;
+				opacity: 0.5;
+				user-select: none;
+				cursor: pointer;
+				transition: 0.5s;
+			}
+			.animate {
+				animation: jump 0.5s cubic-bezier(0.58, 0.11, 0.63, 1.62);
+				animation-fill-mode: forwards;
+			}
+			@keyframes jump {
+				0%, 100% { transform: translateY(0)}
+				50% { transform: translateY(-20px)}
+			}
+		</style>
+	</head>
+	<body>
+		<div onclick="this.classList.add('animate'); setTimeout(() => this.classList.remove('animate'), 500); navigator.clipboard.writeText(this.innerHTML);" >${k}</div>
+	</body>
+</html>`
 
     return new Response(html, {
 		headers: {

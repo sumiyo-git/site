@@ -3,16 +3,37 @@ export async function onRequest(context) {
 	var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
 	var k = (t.year * t.month + t.day).slice(-6)
 
-    const html = `
-    	<!DOCTYPE html>
-		<body>
-			<div>${k}</div>
-		</body>
-	`
+    var html = `<!DOCTYPE html>
+<head>
+	<title>Token</title>
+	<style>
+		div {
+			position: absolute;
+			width: 300px;
+			height: 60px;
+			top: calc(50% - 30px);
+			left: calc(50% - 150px);
+			font-size: 45px;
+			font-weight: bolder;
+			text-align: center;
+			opacity: 0.5;
+			user-select: none;
+			cursor: pointer;
+			transition: 0.5s;
+		}
+		div:active {
+			opacity: 0.7;
+			transform: translateY(-20px);
+		}
+	</style>
+</head>
+<body>
+	<div onclick="navigator.clipboard.writeText(this.innerHTML)" >${k}</div>
+</body>`
 
     return new Response(html, {
 		headers: {
-			"content-type": "text/html;charset=UTF-8",
+			"content-type": "text/html; charset=UTF-8",
 		},
     })
 }

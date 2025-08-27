@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="../css/default.css">
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<style>
+	.ibox0 {
+		aspect-ratio: 1 / 1;
+		width: 50%;
+		border: rgba(var(--t-t1), 0.1) 1px solid;
+	}
+
+	@media (orientation: portrait) {
+		.ibox0 {
+			width: 100%;
+		}
+	}
+
+	</style>
+</head>
+<body>
+<div class="main" >
+
+	<para>
+		<h1>标题</h1>
+		<note>介绍</note>
+	</para>
+
+	<para>
+		<quote>
+			引述内容
+			<br />
+			<note style="display: block; text-align: right;" >—— 未知出处</note>
+		</quote>
+		<br />
+
+		<attention>强调</attention>
+		<br />
+		<br />
+
+		<note>注释</note>
+		<br />
+		<br />
+
+		<tag>js 控制标签</tag>
+		<br />
+		<br />
+
+		<span class="f-1" >无效标签</span>
+		<br />
+		<span class="f-2" >仅 PC 显示标签</span>
+		<br />
+		<span class="f-3" >仅移动设备显示标签</span>
+		<br />
+		<br />
+
+		<a class="link" href="https://sumiyo.link/" target="_blank">sumiyo.link/</a>
+		<br />
+		<br />
+
+		<list type="1" >列表 1</list>
+		<list type="2" >列表 2</list>
+		<list type="3" >列表 3</list>
+		<list type="4" >列表 4</list>
+		<list type="5-reset" >
+			<list type="5" >列表 5</list>
+		</list>
+		<br />
+		<br />
+
+		<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/about')`, document.domain ? '/' : '*')" >20240917/</span>
+		<br />
+		<br />
+
+		<table border="1">
+			<thead>
+				<tr>
+					<th>list 1</th>
+					<th>list 2</th>
+					<th>list 3</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>1</td>
+					<td>1</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>2</td>
+					<td>2</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>3</td>
+					<td>3</td>
+				</tr>
+			</tbody>
+		</table>
+		<br />
+		<br />
+
+<code><attention>js/script.js</attention>
+
+<note># 注释</note>
+Hello world!
+
+</code>
+		<br />
+		<br />
+		<hr />
+
+		<br />
+		<br />
+		<a class="ibox0" target="_blank" href="../src/mio.webp" >
+			<img src="../src/mio.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+	</para>
+</div>
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
+	var music = JSON.stringify({0: true, 1: false, 2: [
+		{
+			name: 'Moon Child',
+			artist: '西原健一郎 & Nina Vidal',
+			src: '456041',
+			img: '6sITOoZ2LgK3YrB1xAnr_Q==/109951170067990253',
+			lrc: true,
+		}
+	]})
+
+	window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+</script>
+</body>
+</html>

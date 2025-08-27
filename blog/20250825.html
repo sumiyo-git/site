@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="../css/default.css">
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<style>
+	.ibox0 {
+		aspect-ratio: 108 / 227;
+		width: 30%;
+		border: rgba(var(--t-t1), 0.1) 1px solid;
+	}
+
+	@media (orientation: portrait) {
+		.ibox0 {
+			width: 40%;
+		}
+	}
+
+	</style>
+</head>
+<body>
+<div class="main" >
+
+	<para>
+		<h1>将 InstallerX 设为默认安装器</h1>
+		<note>最近转战手机了，分享一下这几天的玩机心得 ...</note>
+	</para>
+
+	<para>
+		<a class="ibox0" target="_blank" href="../src/img/20250825.1.webp" >
+			<img src="../src/img/20250825.1.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<a class="ibox0" target="_blank" href="../src/img/20250825.2.webp" style="margin-left: 5px;" >
+			<img src="../src/img/20250825.2.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<br class="f-1" />
+		小米的安装器用起来真的是一言难尽。是时候换用更简洁美观的 InstallerX 了！
+		<br />
+		<note>右图版本: 预览版 [1.7-20241102]</note>
+	</para>
+
+	<para>
+			开发者选项 → Shizuku → Dhizuku → InstallerX，
+			<br class="f-2" />
+			无需 root，断网 / 重启后仍能存活。
+			<br />
+			<br class="f-1" />
+			<note>可能会用到的链接:</note>
+			<br />
+			<a class="link" href="https://github.com/RikkaApps/Shizuku" target="_blank" >https://github.com/RikkaApps/Shizuku</a>
+			<br />
+			<a class="link" href="https://github.com/iamr0s/Dhizuku" target="_blank" >https://github.com/iamr0s/Dhizuku</a>
+			<br />
+			<a class="link" href="https://github.com/iamr0s/InstallerX" target="_blank" >https://github.com/iamr0s/InstallerX</a>
+			<br />
+			<a class="link" href="https://github.com/aistra0528/Hail" target="_blank" >https://github.com/aistra0528/Hail</a>
+			<br />
+			<a class="link" href="../src/download/20250825.apps.zip" target="_blank" download="Apps.zip" >https://sumiyo.link/src/download/20250825.apps.zip</a>
+			<br />
+			<note>
+				包含 Accounts_v1.5.1 + InstallerX_1.7-20241102 + LADB-2.1-s-39，非官方来源，请谨慎使用。
+				<br class="f-2" />
+				托管在咱的网站上，下载速度可能会有点慢 ...
+			</note>
+	</para>
+
+	<para>
+		<h2>Shizuku</h2>
+		可选用 root、无线调试（Android 11+）、ADB 激活（需要连接电脑），方法请参考 B 站上的教程。
+		<br class="f-2" />
+		临时使用，可以考虑直接用无线调试激活 Shizuku。
+		<br />
+		<br class="f-1" />
+		长期使用的话，个人比较推荐 LADB（Android 11+），可以按照这个视频操作：
+		<br />
+		<a class="link" href="https://www.bilibili.com/video/BV15sZoYKEMg/" target="_blank" >https://www.bilibili.com/video/BV15sZoYKEMg/</a>
+		<br />
+		<br class="f-3" />
+		<mat></mat>
+		某些系统能直接用 LADB 激活 Shizuku，可以跳过视频里的 SystemUI Tuner。这里 LADB 配对可能会出点问题，尝试刷新一下 开发者模式 - USB 调试 选项吧。
+	</para>
+
+	<para>
+		<h2>Dhizuku</h2>
+		<ins>Shizuku 激活不稳定，断 wifi 会导致无线调试激活失效，重启会导致 ADB 激活失效</ins>，激活期间还必须打开 USB 调试、无线调试 中的一个。这就是咱为什么不直接用 Shizuku 授权 InstallerX 的原因。
+		<br />
+		<br class="f-1" />
+		与 Shizuku 不同，Dhizuku 利用了 DeviceOwner。简单来说，就是把一个极高权限的 "设备所有者" 设为手机自己（准确来说是 Dhizuku），然后让手机自己管理自己。一次激活，长期有效（可以完全关闭 USB 调试、无线调试等危险选项）。
+		<br />
+		<br class="f-1" />
+		激活 Dhizuku 的方法请参考 B 站上的教程。激活 Dhizuku 前，需要用 Shizuku 授权 Dhizuku、Accounts（可选，这是用来显示当前用户全部登录信息的）、应用冻结软件（可选，小黑屋、冰箱、雹 三选一，推荐用雹，后期可以直接用 Dhizuku 授权）。<ins>若激活 Dhizuku 时报错，请确保完全退出 / 冻结手机上的账号。若仍报错，试试重启一下手机。</ins>
+	</para>
+
+	<para>
+		<h2>InstallerX</h2>
+		配置页，授权器选择 Dhizuku，保存配置。在设置页，选择之前保存的配置，清除锁定默认安装器 后再 锁定为默认安装器 即可。现在绝大多数 app 都会将 InstallerX 作为安装器啦。
+		<br />
+		<br class="f-1" />
+		<ins>不同设备效果不同</ins>。测试了 InstallerX 正式版 1.2 ~ 1.7 后，发现只有这个 "预览版" 在咱的手机上能正常工作。
+	</para>
+
+	<para>
+		<h2>FAQ</h2>
+		<list type="5-reset" >
+			<list type="5" >
+				为什么严格按教程操作都还是失败了？
+				<mat></mat>
+				<note>小米 / 红米 / 华为 不同操作系统（甚至同一系统的不同版本）间都可能有很大差异，咱不能保证此方法适用所有的设备。</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				使用这些程序会有什么安全隐患吗？
+				<mat></mat>
+				<note>Shizuku / Dhizuku 本身仅作为 "中间人"，功能几乎由其他扩展软件（比如小黑屋）提供。请尽量到官方仓库下载这类软件，使用时禁止联网，使用后撤销授权、冻结应用、关闭开发者选项中的设置。安全至上，毕竟，危险无处不在。</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				为啥不用安卓的原生安装器呢？
+				<mat></mat>
+				<note>试过了，安装提取出的安装包后，MIUI 优化一打开他就直接给咱卸了 ...</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				为什么我的锁屏 / 下拉菜单上会有 "此设备归贵公司所有" 的提示呢？
+				<mat></mat>
+				<note>这是激活 Dhizuku 后的正常副作用（设备被设备所有者接管）。停止 Dhizuku 后，该提示自动消失。目前咱没有找到关闭这个提示的方法，但在应用 OwnDroid（Dhizuku 授权） 或 AndroidAdministrator（Shizuku 授权）中可修改提示中的 "贵公司"。</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				操作完成！之前的更改可以动嘛？
+				<mat></mat>
+				<note>可以考虑停止 Shizuku: 关闭 开发者选项 - USB 调试 / 无线调试。激活 Dhizuku 时冻结的应用 / 退出的账号可以重新启用。Dhizuku 直接放后台不管就行（重启会自启动的）。</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				Shizuku / Dhizuku 哪一个权限更大呢？
+				<mat></mat>
+				<note>Shizuku 使用 ADB，Dhizuku 使用 DeviceOwner。在对不同的场景中，两者权限高低不同（比如 Shizuku 授权的 MT 管理器可以看到更多系统文件；但用户可以直接卸载 Shizuku，而 Dhizuku 不行）。网上说法很多，但咱们认为是: root ≫ Shizuku > Dhizuku > 普通用户。Shizuku 更有用，Dhizuku 更稳定。</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				如果关闭了 Shizuku / Dhizuku，先前被冻的应用会解冻吗？
+				<mat></mat>
+				<note>一般不会。所以说最好不要拿系统应用开刀。</note>
+			</list>
+			<br class="f-1" />
+			<list type="5" >
+				为什么有时 InstallerX 安装应用会报错？
+				<mat></mat>
+				<note>Dhizuku 的后台挂掉了。重新打开 Dhizuku，再给他加个锁就应该就可以解决。</note>
+			</list>
+		</list>
+	</para>
+
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
+</script>
+</body>
+</html>

@@ -1,0 +1,6 @@
+# Top-level configuration
+name = "mayflower"
+main = "mayflower.js"
+compatibility_date = "2025-07-16"
+keep_vars = true
+workers_dev = false

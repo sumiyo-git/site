@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="../css/default.css">
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<style>
+
+	a[class^='ibox'] {
+		border: rgba(var(--t-t1), 0.1) 1px solid;
+	}
+
+	.ibox0 {
+		aspect-ratio: 361 / 250;
+		width: 80%;
+	}
+
+	.ibox1 {
+		aspect-ratio: 19 / 27;
+		width: 80%;
+	}
+
+	.ibox2 {
+		aspect-ratio: 287 / 200;
+		width: 80%;
+	}
+
+	.ibox3 {
+		aspect-ratio: 195 / 270;
+		width: 80%;
+	}
+
+	@media (orientation: portrait) {
+		a[class^='ibox'] {
+			width: 100%;
+		}
+	}
+	</style>
+</head>
+<body>
+<div class="main" >
+
+	<para>
+		<h1>画室</h1>
+		<note>收录一些自己的作品 ...</note>
+	</para>
+
+	<para>
+		还是很喜欢画画的。无奈没有平板，没有老师，更没有基础，只能自己画来练练手。
+		<br class="f-2" />
+		水平有限，请多谅解！
+		<br />
+		<br class="f-1"  />
+		如果想要使用咱的作品，这里是 <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=画室')`, document.domain ? '/' : '*')">使用协议</span> 。
+	</para>
+
+	<para>
+		<a class="ibox0"  target="_blank" href="../src/img/20231002.sen_to_chihiro_no_kamikakushi.png" >
+			<img src="../src/img/20231002.sen_to_chihiro_no_kamikakushi.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<mat></mat>
+		<mat></mat>
+		<h3>千と千尋の神隠し</h3>
+		<note>2023.8.16</note>
+		<mat></mat>
+		<mat></mat>
+		选了一幅最簡単的。
+	</para>
+
+	<para>
+		<a class="ibox1"  target="_blank" href="../src/img/20231002.naraku_no_nanachi.png" >
+			<img src="../src/img/20231002.naraku_no_nanachi.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<mat></mat>
+		<mat></mat>
+		<h3>奈落のナナチ</h3>
+		<note>2025.7.5</note>
+		<mat></mat>
+		<mat></mat>
+		拖了 3 个月才完成的奈落至宝 ...
+		<br />
+		<br class="f-1"  />
+		<note>
+			图像参考:
+			<br />
+			https://www.pixiv.net/artworks/101372793
+			<br />
+			https://safebooru.org/index.php?page=post&s=view&id=2847879
+		</note>
+	</para>
+
+	<para>
+		<a class="ibox2"  target="_blank" href="../src/img/20231002.rekishi_no_mattanni_kizamu_hikouda.png" >
+			<img src="../src/img/20231002.rekishi_no_mattanni_kizamu_hikouda.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<mat></mat>
+		<mat></mat>
+		<h3>歴史の末端に刻む飛行だ</h3>
+		<note>2025.7.8</note>
+		<mat></mat>
+		<mat></mat>
+		ちーちゃん　あれ見て　あれ
+		<br />
+		飛行機ってやつ？
+		<br />
+		<br class="f-1"  />
+		<note>
+			图像参考: 少女終末旅行 S01E06
+		</note>
+	</para>
+
+	<para>
+		<a class="ibox3"  target="_blank" href="../src/img/20231002.abyss_shinkou.png" >
+			<img src="../src/img/20231002.abyss_shinkou.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<mat></mat>
+		<mat></mat>
+		<h3>アビス信仰</h3>
+		<note>2025.8.18</note>
+		<mat></mat>
+		<mat></mat>
+		いいな
+		<br />
+		神様
+		<br />
+		同じ地の底なら
+		<br />
+		オイラここに行きたいです
+		<br />
+		<br class="f-1"  />
+		<note>
+			图像参考: メイドインアビス「奈落見取図」
+		</note>
+	</para>
+
+	<para>
+		<h2>未来</h2>
+		还没想好接下来要画啥嘞 ...
+	</para>
+
+</div>
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
+	var music = JSON.stringify({0: true, 1: false, 2: [
+		{
+			name: 'To the Moon - Piano (Ending Version)',
+			artist: 'Kan R. Gao',
+			src: '33415403',
+			img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
+			lrc: false,
+		}
+	]})
+
+	window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/' : '*')
+</script>
+</body>
+</html>

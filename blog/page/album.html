@@ -1,0 +1,1619 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="../../css/default.css">
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
+	<style>
+	img {
+		vertical-align: middle;
+		margin-right: 10px;
+		border-radius: 10px;
+	}
+	album {
+		display: block;
+		width: calc(65% - 80px);
+		background-color: rgba(var(--t-b3), 0.4);
+		padding: 10px 80px 10px 10px;
+		margin-bottom: 20px;
+		border-radius: 10px;
+		color: rgba(var(--t-t1), 0.8);
+		font-size: 20px;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		cursor: pointer;
+		transition: 0.5s;
+	}
+	album:hover {
+		background-color: rgba(var(--t-b3), 0.8);
+	}
+	album tag {
+		float: right;
+		width: 50px;
+		margin: 32px -60px;
+		text-align: center;
+		color: rgba(var(--t-t1), 0.2);
+		pointer-events: none;
+		user-select: none;
+	}
+	@media (orientation: portrait) {
+		album {
+			width: calc(100% - 90px);
+		}
+	}
+	</style>
+</head>
+<body>
+<div class="main" >
+
+	<para>
+		<h1>歌集</h1>
+		<note>网站都要有那么一两个所谓的 "隐藏页面"，对吧？<br class="f-2" />这是咱们自己用的 ...</note>
+	</para>
+
+	<para>
+		收录 <tag>0</tag> 列表，<tag>0</tag> 曲目
+		<br />
+		<br class="f-1" />
+
+		<album onclick="addmusic(3)" >
+			<img src="../../src/img/page.album.others.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>未分卷
+		</album>
+
+		<album onclick="addmusic(5)" >
+			<img src="../../src/img/page.album.chillhop.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>Chillhop
+		</album>
+
+		<album onclick="addmusic(2)" >
+			<img src="../../src/img/page.album.c418.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>C418
+		</album>
+
+		<album onclick="addmusic(0)" >
+			<img src="../../src/img/page.album.made_in_abyss.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>TVアニメ「メイドインアビス」オリジナルサウンドトラック
+		</album>
+
+		<album onclick="addmusic(6)" >
+			<img src="../../src/img/page.album.shoujo_shuumatsu_ryokou.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>TVアニメ「少女終末旅行」オリジナルサウンドトラック
+		</album>
+
+		<album onclick="addmusic(1)" >
+			<img src="../../src/img/page.album.sousou_no_frieren.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>TVアニメ『葬送のフリーレン』Original Soundtrack
+		</album>
+
+		<album onclick="addmusic(8)" >
+			<img src="../../src/img/page.album.original_sound_track.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>OST 合并卷
+		</album>
+
+		<album onclick="addmusic(4)" >
+			<img src="../../src/img/page.album.ghibli.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>STUDIO GHIBLI
+		</album>
+
+		<album onclick="addmusic(7)" >
+			<img src="../../src/img/page.album.blue.webp" onload="this.setAttribute('class', 'fade')" /><tag>0</tag>BLUE
+		</album>
+
+	</para>
+
+</div>
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
+
+	function addmusic(n) {
+	var list = {
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// メイドインアビス
+		0: {0: false, 1: true, 2: [
+			{
+				name: 'Rafters',
+				artist: 'Kevin Penkin',
+				src: '509098781',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'To the Abyss!',
+				artist: 'Kevin Penkin',
+				src: '509106626',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Those Everyday Feels',
+				artist: 'Kevin Penkin',
+				src: '509106627',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: '2 Months',
+				artist: 'Kevin Penkin',
+				src: '509098787',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Underground River (opening version ft.Raj Ramayya)',
+				artist: 'Kevin Penkin',
+				src: '509098783',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: true,
+			},
+			{
+				name: 'Hanezeve Caradhina (ft.Takeshi Saito)',
+				artist: 'Kevin Penkin',
+				src: '509098792',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: true,
+			},
+			{
+				name: 'Welcome to my World',
+				artist: 'Kevin Penkin',
+				src: '509098790',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Forest of the Abyss',
+				artist: 'Kevin Penkin',
+				src: '509098791',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'The First Layer',
+				artist: 'Kevin Penkin',
+				src: '509106635',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Outside',
+				artist: 'Kevin Penkin',
+				src: '509106637',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Tour the Abyss',
+				artist: 'Kevin Penkin',
+				src: '509098800',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Tomorrow',
+				artist: 'Kevin Penkin',
+				src: '509098809',
+				img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+				lrc: false,
+			},
+			{
+				name: 'Field of Eternal Fortunes',
+				artist: 'Kevin Penkin',
+				src: '1417637277',
+				img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+				lrc: false,
+			},
+			{
+				name: 'You talk too much',
+				artist: 'Kevin Penkin',
+				src: '1417144514',
+				img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+				lrc: false,
+			},
+			{
+				name: 'The Return of Made in Abyss',
+				artist: 'Kevin Penkin',
+				src: '1417133244',
+				img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+				lrc: false,
+			},
+			{
+				name: 'Tozo Hanoline ft. Úyanga Bold',
+				artist: 'Kevin Penkin',
+				src: '1417145735',
+				img: 'srpaNYLLl_pK5-xprM9txQ==/109951164637587239',
+				lrc: false,
+			},
+			{
+				name: 'Reg & his Interference Unit',
+				artist: 'Kevin Penkin',
+				src: '1992686306',
+				img: 'bt3xlEuCuWEFTSagldyJ-A==/109951168005661915',
+				lrc: false,
+			},
+			{
+				name: 'ベラフの子守歌',
+				artist: 'Kevin Penkin',
+				src: '1992689070',
+				img: 'bt3xlEuCuWEFTSagldyJ-A==/109951168005661915',
+				lrc: false,
+			},
+			{
+				name: 'bgm016.ogg (深界二层)',
+				artist: '???',
+				src: '2017457805',
+				img: 'rEXxgy0qSQeG1ZmloQjkoA==/109951168262035429',
+				lrc: false,
+			},
+			{
+				name: 'bgm024.ogg (监视基地)',
+				artist: '???',
+				src: '2017446501',
+				img: 'rEXxgy0qSQeG1ZmloQjkoA==/109951168262035429',
+				lrc: false,
+			},
+			{
+				name: 'bgm019 .ogg (深界三层底部)',
+				artist: '???',
+				src: '2017451268',
+				img: 'rEXxgy0qSQeG1ZmloQjkoA==/109951168262035429',
+				ps: '对于咱来说，这已经是绝界行了 ...',
+				lrc: false,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 葬送のフリーレン
+		1: {0: false, 1: true, 2: [
+			{
+				name: 'One Last Adventure',
+				artist: 'Evan Call',
+				src: '2116382384',
+				img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
+				lrc: false,
+			},
+			{
+				name: 'For 1000 Years',
+				artist: 'Evan Call',
+				src: '2116382383',
+				img: '8RdmkeoexrTxI7PdasUkhA==/109951169761664617',
+				lrc: false,
+			},
+			{
+				name: 'The Precious Moments We Share',
+				artist: 'Evan Call',
+				src: '2146702250',
+				img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+				lrc: false,
+			},
+			{
+				name: 'Goodbye for Now, Eisen',
+				artist: 'Evan Call',
+				src: '2146700515',
+				img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+				lrc: false,
+			},
+			{
+				name: 'Magical Defense Training',
+				artist: 'Evan Call',
+				src: '2146700512',
+				img: 'n21kvn_4tw2AFdVHJX4bjg==/109951169594833348',
+				lrc: false,
+			},
+			{
+				name: 'bliss',
+				artist: 'milet',
+				src: '2122535814',
+				img: 'b66bKUxVNZlC_S_3u7UCaA==/109951169268030489',
+				lrc: true,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// C418
+		2: {0: false, 1: true, 2: [
+			{
+				name: 'Twilight Breeze',
+				artist: 'C418',
+				src: '2676406609',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Wanderstop Part 1',
+				artist: 'C418',
+				src: '2676407314',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Waterwheel',
+				artist: 'C418',
+				src: '2676406611',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Photogrammetry',
+				artist: 'C418',
+				src: '2676406638',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Fence Height Apparitions',
+				artist: 'C418',
+				src: '2676407317',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Patience',
+				artist: 'C418',
+				src: '2676406642',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'The Everything',
+				artist: 'C418',
+				src: '2676406649',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Downward Dog',
+				artist: 'C418',
+				src: '2676406633',
+				img: 'weyYXo-YJbm09WRaO0qlmQ==/109951170496337977',
+				lrc: false,
+			},
+			{
+				name: 'Loading',
+				artist: 'C418',
+				src: '1849946906',
+				img: 'yivbVC4x7N6rPglbOB3aIg==/109951166053286877',
+				lrc: false,
+			},
+			{
+				name: 'hover',
+				artist: 'C418',
+				src: '1870062807',
+				img: 'Z-RTZgHOh9qKhTDUPdch9A==/109951166290535770',
+				lrc: false,
+			},
+			{
+				name: 'click',
+				artist: 'C418',
+				src: '1870062809',
+				img: 'Z-RTZgHOh9qKhTDUPdch9A==/109951166290535770',
+				lrc: false,
+			},
+			{
+				name: '0x10c',
+				artist: 'C418',
+				src: '29387877',
+				img: '9hdXMwuyxugNe4QEtWKG5Q==/109951163858906970',
+				lrc: false,
+			},
+			{
+				name: 'Alive',
+				artist: 'C418',
+				src: '4010151',
+				img: 'uBD53FwK6C3Y2iGxLjV65Q==/109951167552384035',
+				lrc: false,
+			},
+			{
+				name: 'Atlantis',
+				artist: 'C418',
+				src: '1821801881',
+				img: 'jvvpe73H_RCL0Z58lP294w==/109951165744998194',
+				lrc: false,
+			},
+			{
+				name: 'cliffside hinson',
+				artist: 'C418',
+				src: '32358280',
+				img: 'LshRe2pLPDJ9Ud7AIxWCFw==/109951163733665983',
+				lrc: false,
+			},
+			{
+				name: 'surface pension',
+				artist: 'C418',
+				src: '32358281',
+				img: 'LshRe2pLPDJ9Ud7AIxWCFw==/109951163733665983',
+				lrc: false,
+			},
+			{
+				name: 'total drag',
+				artist: 'C418',
+				src: '32358292',
+				img: 'LshRe2pLPDJ9Ud7AIxWCFw==/109951163733665983',
+				lrc: false,
+			},
+			{
+				name: 'tsuki no koibumi',
+				artist: 'C418 & Laura Shigihara',
+				src: '32358310',
+				img: 'LshRe2pLPDJ9Ud7AIxWCFw==/109951163733665983',
+				lrc: true,
+			},
+			{
+				name: 'Door',
+				artist: 'C418',
+				src: '2737626601',
+				img: 'f23Ik50Hc6R69eKnImqXNw==/109951167552381622',
+				lrc: false,
+			},
+			{
+				name: 'Cat',
+				artist: 'C418',
+				src: '1431594695',
+				img: 'f23Ik50Hc6R69eKnImqXNw==/109951167552381622',
+				lrc: false,
+			},
+			{
+				name: 'Axolotl',
+				artist: 'C418',
+				src: '1431635137',
+				img: 'SeXtt1Y06q7JUEPaWiBFOg==/109951169069316679',
+				lrc: false,
+			},
+			{
+				name: 'Alpha',
+				artist: 'C418',
+				src: '1431589965',
+				img: 'yWGWC5bU09lXNKGJm8xMKQ==/109951167354263334',
+				lrc: false,
+			},
+			{
+				name: 'Alpha',
+				artist: 'Sheet Music Boss',
+				src: '1822638761',
+				img: 'a75IwGjKzukb3rQ3qHHLgw==/109951165612558136',
+				lrc: false,
+			},
+			{
+				name: 'Aria Math',
+				artist: 'C418',
+				src: '1431589884',
+				img: 'yWGWC5bU09lXNKGJm8xMKQ==/109951167354263334',
+				lrc: false,
+			},
+			{
+				name: 'Aria Math',
+				artist: 'Sheet Music Boss',
+				src: '1822638474',
+				img: 'a75IwGjKzukb3rQ3qHHLgw==/109951165612558136',
+				lrc: false,
+			},
+			{
+				name: 'Sä Oot Olemassa (C418 Remix)',
+				artist: 'C418',
+				src: '1440850382',
+				img: 'VxAxZZjJhQYkInRo2dS21A==/109951164908638878',
+				lrc: false,
+			},
+			{
+				name: 'The Sea (C418 Remix)',
+				artist: 'Tomas Dvorak & C418',
+				src: '1390328325',
+				img: 'QMRLhnQVcSmXA1u9E69iug==/109951164357197364',
+				lrc: false,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 未分卷
+		3: {0: false, 1: true, 2: [
+			{
+				name: 'Turtle Swim',
+				artist: 'Johannes Bornlöf',
+				src: '2022748660',
+				img: '_ezsKhb-ZGEx4v6V42nM9w==/109951168312540567',
+				lrc: false,
+			},
+			{
+				name: 'Dóchas',
+				artist: 'Aaron Dolan & Florian Bur',
+				src: '2636245550',
+				img: 'sMtYDaEmC2VGAsjGPaKZdg==/109951169674040753',
+				lrc: false,
+			},
+			{
+				name: 'Lifelike',
+				artist: 'Porter Robinson',
+				src: '1839140772',
+				img: '2qW-OYZod7SgrzxTwtyBqA==/109951165911363831',
+				lrc: false,
+			},
+			{
+				name: 'like water',
+				artist: 'Park Bird & Chance Thrash',
+				src: '1847674461',
+				img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
+				lrc: false,
+			},
+			{
+				name: 'leaving home',
+				artist: 'Park Bird & Chance Thrash',
+				src: '1847674458',
+				img: 'FPZrJuBWnJKtR9_4zXmMOQ==/109951166009136375',
+				lrc: false,
+			},
+			{
+				name: 'One Day',
+				artist: 'KISNOU',
+				src: '448316625',
+				img: '9QkYHkN8UCiybMg-qHempw==/109951168047707020',
+				lrc: false,
+			},
+			{
+				name: '午後の街角',
+				artist: '我々楽',
+				src: '28684484',
+				img: 'a3Z71ZA4f993JfQcsFh42A==/5947258394943592',
+				lrc: false,
+			},
+			{
+				name: 'Calling (feat. marok)',
+				artist: 'MAROK & mamomo',
+				src: '1944649836',
+				img: 'vrXsouN6rhgah68sHv4Akg==/109951169530454564',
+				lrc: false,
+			},
+			{
+				name: 'Monochrome Re.Surgence',
+				artist: 'Feryquitous & F9',
+				src: '504685303',
+				img: 'mH5QqviyB1SDKDymb44vmQ==/109951169528362009',
+				lrc: true,
+			},
+			{
+				name: 'End Credits (Xeuphoria Piano Ver.)',
+				artist: 'Xeuphoria',
+				src: '2097901074',
+				img: 'Jy81HDZgl9CeU8AKm7IjWg==/109951169041245037',
+				lrc: false,
+			},
+			{
+				name: '星の寿命',
+				artist: 'whoo',
+				src: '34999786',
+				img: '0B1PBp9g5l_Fl12Qwspw8Q==/3261151489004368',
+				lrc: false,
+			},
+			{
+				name: '春弦',
+				artist: '横山克 & 塞壬唱片-MSR',
+				src: '1436614177',
+				img: 'UXMjt2DLm7N2NCuW1NbXoA==/109951164860965324',
+				lrc: false,
+			},
+			{
+				name: 'Friend',
+				artist: 'Kozoro',
+				src: '33004707',
+				img: 'FR7zKYB8ujNRoWQuGCHbGg==/109951163288692527',
+				lrc: false,
+			},
+			{
+				name: 'Remember Me',
+				artist: 'Kozoro',
+				src: '34834953',
+				img: 'ohiUS2KuY6t3EdKR3acq-g==/109951163288680440',
+				lrc: false,
+			},
+			{
+				name: 'Maverick',
+				artist: 'FM-84',
+				src: '1483021439',
+				img: '0fJbbKoElgR6K2OSSaOd-A==/109951165350778131',
+				lrc: false,
+			},
+			{
+				name: 'Miyazaki Mountain',
+				artist: 'Philter',
+				src: '1399123309',
+				img: 'zwS3usGXPbTeOHimZ7mkCw==/109951166723652923',
+				lrc: true,
+			},
+			{
+				name: '定番BGM',
+				artist: '横山克',
+				src: '32857723',
+				img: 'KILNEiCLFCUGGfNiii2ERw==/7937374441615279',
+				lrc: false,
+			},
+			{
+				name: '書店ガール',
+				artist: '横山克',
+				src: '32857721',
+				img: 'KILNEiCLFCUGGfNiii2ERw==/7937374441615279',
+				lrc: false,
+			},
+			{
+				name: 'Mizlecca (feat. 木下珠子)',
+				artist: 'Hagali & 木下珠子',
+				src: '2149080951',
+				img: 'ZXyajKL8NFG8W6NsCbJ9Iw==/109951169527938432',
+				lrc: true,
+			},
+			{
+				name: 'カメリア',
+				artist: '大神ミオ',
+				src: '2110680224',
+				img: 'JlxHCRJi7i4OjvxsqhImog==/109951169195605007',
+				lrc: true,
+			},
+			{
+				name: 'Snowflakes',
+				artist: '佐々木恵梨',
+				src: '2107925574',
+				img: 'Hf2sKfCVb91e1BtFncKe_w==/109951169156986673',
+				lrc: false,
+			},
+			{
+				name: 'The Door',
+				artist: '小瀬村晶 & NIKIIE',
+				src: '416554200',
+				img: '0m0LZSNVwdQh3XMmb80iUg==/109951169695469948',
+				lrc: true,
+			},
+			{
+				name: 'お天道様は笑ってる',
+				artist: 'KOKIA',
+				src: '2101452195',
+				img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
+				lrc: false,
+			},
+			{
+				name: 'ワタリドリ',
+				artist: 'KOKIA',
+				src: '2101452199',
+				img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
+				lrc: true,
+			},
+			{
+				name: '星のうた',
+				artist: 'KOKIA',
+				src: '2101451382',
+				img: 'rLHKvau26Wt2KA5DJc_u6A==/109951169067925149',
+				lrc: true,
+			},
+			{
+				name: '変わり行く世界のために',
+				artist: '茶太',
+				src: '697291',
+				img: 'eiR5oFPitGtu1hzka4Vm5g==/814738116182197',
+				lrc: true,
+			},
+			{
+				name: 'この空であなたを待ってる',
+				artist: 'KOKIA',
+				src: '1830163710',
+				img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
+				lrc: true,
+			},
+			{
+				name: 'この空であなたを待ってる (Instrumental)',
+				artist: 'KOKIA',
+				src: '1830163712',
+				img: 'resCPZ3quIJPxdn1HDt3ww==/109951165811423814',
+				lrc: true,
+			},
+			{
+				name: '嘆きの音',
+				artist: 'KOKIA',
+				src: '22701748',
+				img: 'LeABoC2Hl8FxDGuekzeIiw==/842225906899948',
+				lrc: false,
+			},
+			{
+				name: 'かたわれ時',
+				artist: 'RADWIMPS',
+				src: '1838276200',
+				img: 'sSxbRt9RpC6s_MaewyDJfA==/18597139672292692',
+				lrc: false,
+			},
+			{
+				name: 'The Flowers There… Are Always in Full Bloom',
+				artist: 'Kokoro-Igusa',
+				src: '1925804203',
+				img: 'XjClmq8HEGd9oTKrdRgNFg==/109951167119893965',
+				lrc: false,
+			},
+			{
+				name: '切ない恋心',
+				artist: '加藤達也',
+				src: '489970556',
+				img: 'PFu_Fb_sYULwkoJ87mHDmA==/19023750184014421',
+				lrc: false,
+			},
+			{
+				name: 'Beyond the Sky',
+				artist: 'Sarah Àlainn',
+				src: '31889622',
+				img: '6XZR8pyCtugkyl8S7oUVew==/2890616070680055',
+				lrc: true,
+			},
+			{
+				name: 'Shelter (Piano version)',
+				artist: 'Porter Robinson & Madeon',
+				src: '461347460',
+				img: 'nEaSbkg_Cn8gN9vLoSz0gQ==/18494885092595843',
+				lrc: false,
+			},
+			{
+				name: '海底、月明かり',
+				artist: 'ヨルシカ',
+				src: '1387098939',
+				img: 'oH-hPC-coG6spFpbaA4xjw==/109951164327687331',
+				lrc: false,
+			},
+			{
+				name: 'Afterlife',
+				artist: 'Resonance',
+				src: '407677350',
+				img: 'ULY7CJ5oAigHVaC7Aru0_A==/1395280259219612',
+				lrc: false,
+			},
+			{
+				name: 'Rusty Lake Theme',
+				artist: 'Victor Butzelaar',
+				src: '1346748603',
+				img: 'bVpFAuL4PJVkLNOUuADnlQ==/109951165535519118',
+				lrc: false,
+			},
+			{
+				name: 'Troughts',
+				artist: 'Tom Day',
+				src: '408440585',
+				img: 'Qmd4Md1p91NZIc4ZCHDulA==/1413971957496498',
+				lrc: false,
+			},
+			{
+				name: 'Gusts of Wind Blowing in Different Directions',
+				artist: 'The Last Dinosaur',
+				src: '19498811',
+				img: 'f3exPjEKfsnrQbsUqUlb2w==/109951169557730207',
+				lrc: false,
+			},
+			{
+				name: 'Shenandoah',
+				artist: 'Goldmund',
+				src: '2640546',
+				img: 'tS_y-3xB-BjWuYU-tZGcEQ==/109951163678759858',
+				lrc: false,
+			},
+			{
+				name: 'Summer Memories',
+				artist: 'Gavin Luke',
+				src: '1398332007',
+				img: 'Hs0G4jk3tAZsfR3QCRyv9g==/109951164441149835',
+				lrc: false,
+			},
+			{
+				name: 'Raising The Bar',
+				artist: 'X-Ray Dog',
+				src: '4436607',
+				img: 'L0PY2mH1L-VkMO4JVVWTHw==/602532372067542',
+				lrc: false,
+			},
+			{
+				name: 'Figlia del cielo III',
+				artist: 'Roberto Cacciapaglia & Royal Philharmonic Orchestra',
+				src: '18495513',
+				img: '174ug-Xg_-IJ4aRxWs8SxQ==/109951167699550669',
+				lrc: false,
+			},
+			{
+				name: 'Flight of the Inner Bird',
+				artist: 'Sivan Talmor & Yehezkel Raz',
+				src: '1807891944',
+				img: 'fvX-PBuiZthCkZi6yZ6WnQ==/109951167146867364',
+				lrc: false,
+			},
+			{
+				name: 'Loom',
+				artist: 'Ólafur Arnalds & Reykjavík Recording Orchestra',
+				src: '1938197721',
+				img: '4tJkgqiQck7wjcVKPbTygw==/109951170184922860',
+				lrc: false,
+			},
+			{
+				name: 'Transformation-G',
+				artist: 'Saiakoup',
+				src: '1893666145',
+				img: 'PoYLqNHavxsEcDMaoG-oiQ==/109951166604469613',
+				lrc: false,
+			},
+			{
+				name: 'Ashakiran',
+				artist: 'Yatao & Malte Marten',
+				src: '1881048027',
+				img: 'dMPgnnvToh1gtRT6Sxv2bA==/109951166452622160',
+				lrc: false,
+			},
+			{
+				name: 'Runaway',
+				artist: 'AURORA',
+				src: '1817629883',
+				img: 'f_otsXMzeg0bXqHEkHtUqw==/109951168146148707',
+				lrc: true,
+			},
+			{
+				name: 'Imbere Yanje',
+				artist: 'Judah Earl and Odeta',
+				src: '1486160238',
+				img: 'KfrfXFwNDOvnDX8fyOE1nw==/109951165381998012',
+				lrc: true,
+			},
+			{
+				name: 'Airplane Mode',
+				artist: 'Hayd',
+				src: '1878810567',
+				img: 'NQ6pIqUwA0NdRh6szqyQsQ==/109951166421319018',
+				lrc: true,
+			},
+			{
+				name: 'All of the Stars',
+				artist: 'Hayd',
+				src: '2121389822',
+				img: 'dvogIOdCjw4Eallzt1UdiA==/109951169290186306',
+				lrc: true,
+			},
+			{
+				name: 'Peter Pan Was Right',
+				artist: 'Anson Seabra',
+				src: '2128639834',
+				img: 'yhS80cYs4vpWf_xwwKbufA==/109951167353556368',
+				lrc: true,
+			},
+			{
+				name: 'Broken Boy',
+				artist: 'Anson Seabra',
+				src: '2052678035',
+				img: 'j4HybzxJm32YfywdCaEvGg==/109951168606179052',
+				lrc: false,
+			},
+			{
+				name: 'Shut Up and Dance (Acoustic)',
+				artist: ' Jada Facer',
+				src: '1924483974',
+				img: 'VSMDbw37G_6GKxJt9UwKXg==/109951170519068171',
+				lrc: false,
+			},
+			{
+				name: 'There Is Still Wonder Left To Behold',
+				artist: 'reche',
+				src: '2017419119',
+				img: 'b4dFvmdWVTmHv6gKgdgzEQ==/109951168261721978',
+				lrc: true,
+			},
+			{
+				name: 'Fantasy',
+				artist: 'Jodie Comer',
+				src: '1873458832',
+				img: 'PeY2r8By21ZBU4pQRmUeJA==/109951166501097520',
+				lrc: false,
+			},
+			{
+				name: 'Like Blue',
+				artist: 'Backdrop',
+				src: '1316843188',
+				img: 'mgr7kZyX6A5a6fE6LlYFUQ==/109951170941044779',
+				lrc: false,
+			},
+			{
+				name: 'Woods',
+				artist: 'Magnolian',
+				src: '2716973256',
+				img: 'Z_E3aVJqkX_vcJJXHzqIPA==/109951171345539476',
+				lrc: false,
+			},
+			{
+				name: 'Moon Child',
+				artist: '西原健一郎 & Nina Vidal',
+				src: '456041',
+				img: '6sITOoZ2LgK3YrB1xAnr_Q==/109951170067990253',
+				lrc: true,
+			},
+			{
+				name: 'Moon Without The Stars',
+				artist: 'Quiana',
+				src: '415593799',
+				img: '-KzM268fE8W3kq71LTmxyw==/3420580681668140',
+				lrc: true,
+			},
+			{
+				name: "Heart Don't Work Like That (feat. Casey Cook)",
+				artist: 'SABAI & Afinity & Casey Cook',
+				src: '2603318319',
+				img: '7v7rSopZ5ItScubsFfvE6Q==/109951169733050592',
+				lrc: false,
+			},
+			{
+				name: 'Titanic',
+				artist: 'Harlow',
+				src: '1808884710',
+				img: 'o4C2lk7O8y8ulZelWDGruw==/109951165601291912',
+				lrc: true,
+			},
+			{
+				name: 'KAINA',
+				artist: '澤野弘之',
+				src: '2013651748',
+				img: '1oPqrNYuiW7P6JYZY2NX0g==/109951168251154184',
+				lrc: false,
+			},
+			{
+				name: 'Blue[3-6]',
+				artist: '澤野弘之',
+				src: '1954233199',
+				img: 'BFHjILQp1VV23VkMczKP-Q==/109951167475804664',
+				lrc: false,
+			},
+			{
+				name: 'c-RUSH',
+				artist: '澤野弘之',
+				src: '1954226578',
+				img: 'BFHjILQp1VV23VkMczKP-Q==/109951167475804664',
+				lrc: false,
+			},
+			{
+				name: 'Dandelion (Tribute to a Legend)',
+				artist: 'Ivan Torrent',
+				src: '29823216',
+				img: 'EjggP1HggroIbimCMLzh9w==/2533274792971007',
+				lrc: false,
+			},
+			{
+				name: 'Avid',
+				artist: 'SawanoHiroyuki[nZk] & 瑞葵(mizuki)',
+				src: '1862822901',
+				img: 'oV0XyFTXoSO_ZViai_KuYg==/109951166198105959',
+				ps: '别躲了泽野，咱知道是你...',
+				lrc: false,
+			},
+			{
+				name: 'RADICAL DREAMERS',
+				artist: 'Sarah Alainn',
+				src: '35437037',
+				img: 'wo6d4ZMu4PM7dSjWAfQcZA==/3373301675232173',
+				lrc: false,
+			},
+			{
+				name: 'BLUE DRAGON',
+				artist: '澤野弘之',
+				src: '498657',
+				img: 'Vzv5LDnU9bjTQPs9jWqx1Q==/2520080650878509',
+				lrc: false,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// STUDIO GHIBLI
+		4: {0: false, 1: true, 2: [
+			{
+				name: '大崩壊',
+				artist: '久石譲',
+				src: '2078005474',
+				img: 'J4Valzeag8161ZsYAWXGpA==/109951168881263258',
+				lrc: false,
+			},
+			{
+				name: '花園',
+				artist: '久石譲',
+				src: '442539',
+				img: 'agi2WJGDqZHjItfvkKBFZw==/109951164728040610',
+				lrc: false,
+			},
+			{
+				name: '荒れた庭',
+				artist: 'Cécile Corbel',
+				src: '2324420',
+				img: 'vsjjVbsE5v1rIGnDVviM3Q==/1716337650959823',
+				lrc: false,
+			},
+			{
+				name: "主題歌Arrietty's Song",
+				artist: 'Cécile Corbel',
+				src: '2324487',
+				img: 'vsjjVbsE5v1rIGnDVviM3Q==/1716337650959823',
+				lrc: false,
+			},
+			{
+				name: "風",
+				artist: '久石譲',
+				src: '26902994',
+				img: 'TggOUInyfox6O9i7C2d0eQ==/109951164727996332',
+				lrc: false,
+			},
+			{
+				name: '深海牧場',
+				artist: '久石譲',
+				src: '441369',
+				img: 'c53wHvvHbigLJHr1pGl-fg==/109951164728043837',
+				lrc: false,
+			},
+			{
+				name: 'あの夏へ',
+				artist: '久石譲',
+				src: '443794',
+				img: '0dym_keDqAbqYlOiQmUjiw==/109951164728012307',
+				lrc: false,
+			},
+			{
+				name: '竜の少年',
+				artist: '久石譲',
+				src: '443807',
+				img: '0dym_keDqAbqYlOiQmUjiw==/109951164728012307',
+				lrc: false,
+			},
+			{
+				name: '神さま達',
+				artist: '久石譲',
+				src: '443814',
+				img: '0dym_keDqAbqYlOiQmUjiw==/109951164728012307',
+				lrc: false,
+			},
+			{
+				name: '６番目の駅',
+				artist: '久石譲',
+				src: '443842',
+				img: '0dym_keDqAbqYlOiQmUjiw==/109951164728012307',
+				lrc: false,
+			},
+			{
+				name: 'ふたたび',
+				artist: '久石譲',
+				src: '443854',
+				img: '0dym_keDqAbqYlOiQmUjiw==/109951164728012307',
+				lrc: false,
+			},
+			{
+				name: 'もののけ姫 ヴォーカル',
+				artist: '米良美一',
+				src: '444773',
+				img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
+				lrc: true,
+			},
+			{
+				name: 'もののけ姫 〜インストゥルメンタル バージョン〜',
+				artist: '久石譲',
+				src: '444769',
+				img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
+				lrc: false,
+			},
+			{
+				name: '東から来た少年',
+				artist: '久石譲',
+				src: '444761',
+				img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
+				lrc: false,
+			},
+			{
+				name: 'アシタカとサン',
+				artist: '久石譲',
+				src: '444805',
+				img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
+				lrc: false,
+			},
+			{
+				name: 'タタラ踏む女達―エボシ タタラうた―',
+				artist: '久石譲',
+				src: '444757',
+				img: 'ssLtfKomzOOqn_e26E802w==/109951164728014642',
+				lrc: false,
+			},
+			{
+				name: 'ルージュの伝言',
+				artist: '松任谷由実',
+				src: '445012',
+				img: 'Ok1rt3Ka_owixH5IsvGS2g==/109951164728031188',
+				lrc: true,
+			},
+			{
+				name: 'やさしさに包まれたなら',
+				artist: '松任谷由実',
+				src: '445015',
+				img: 'Ok1rt3Ka_owixH5IsvGS2g==/109951164728031188',
+				lrc: false,
+			},
+			{
+				name: '真紅の翼',
+				artist: '久石譲',
+				src: '27090183',
+				img: '8uwduTJ7dzO7kybGmA_-iA==/109951164728011563',
+				lrc: false,
+			},
+			{
+				name: '月光の雲海',
+				artist: '久石譲',
+				src: '442760',
+				img: 'afGMbOf7SauRBMYlzLRBMg==/109951164728026153',
+				lrc: false,
+			},
+			{
+				name: 'オープニング「風の谷のナウシカ」',
+				artist: '久石譲',
+				src: '22656604',
+				img: 'rMpmAxd87ZXv9l7ymvYQHA==/109951164728022158',
+				lrc: false,
+			},
+			]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// Chillhop
+		5: {0: false, 1: true, 2: [
+			{
+				name: 'Star Sailing',
+				artist: 'Mondo Loops & softy',
+				src: '1816958345',
+				img: 'Km5_35mMkEt437pXhZzqXA==/109951168734889423',
+				lrc: false,
+			},
+			{
+				name: 'Snug',
+				artist: 'Aso',
+				src: '525225261',
+				img: 'XRPWt8cskD1c79sp4NRDTQ==/109951165052905851',
+				lrc: false,
+			},
+			{
+				name: 'Together',
+				artist: 'Bcalm & Purrple Cat',
+				src: '1916742663',
+				img: 'zJBR2s3mTC06Z-v4npw2Jw==/109951168736565471',
+				lrc: false,
+			},
+			{
+				name: 'Something Warm',
+				artist: 'No Spirit',
+				src: '1407890393',
+				img: 'WqQjUvk-vGvb-y0mCz3tnA==/109951165070072781',
+				lrc: false,
+			},
+			{
+				name: 'Have You Ever',
+				artist: 'Darsena & eugenio izzi',
+				src: '1980987766',
+				img: 'rrUDhlEJKRBdz-1JcsUAFw==/109951169990022823',
+				lrc: false,
+			},
+			{
+				name: 'Sea Forest',
+				artist: 'Ambulo',
+				src: '1922473245',
+				img: 'qYAFoJgLrLydEhTjiz2FDg==/109951168736591760',
+				lrc: false,
+			},
+			{
+				name: 'Glistening',
+				artist: 'Loafy Building',
+				src: '1926435161',
+				img: 'oyLj6GCf3OoH-zNUzPi66g==/109951168736774876',
+				lrc: false,
+			},
+			{
+				name: 'drifting into the sunset',
+				artist: 'S N U G & Mondo Loops & Rook1e',
+				src: '1880557850',
+				img: 'StDLfPlre2Sns_sx9BFtLA==/109951168735945058',
+				lrc: false,
+			},
+			{
+				name: 'air chair',
+				artist: 'ldst & fragile',
+				src: '488641583',
+				img: 'ggW2vWK9xtr2JdatxbvYyQ==/19153492556082776',
+				lrc: true,
+			},
+			{
+				name: 'Patience',
+				artist: 'TRA$H',
+				src: '1334295035',
+				img: 'Sc3wx1BGHRz5mqw7NnCAhg==/109951163737194148',
+				lrc: false,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// 少女終末旅行
+		6: {0: false, 1: true, 2: [
+			{
+				name: '少女終末旅行 -Main Theme-',
+				artist: '末廣健一郎',
+				src: '524148934',
+				img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+				lrc: false,
+			},
+			{
+				name: 'あの瓦礫の向こうへ',
+				artist: '末廣健一郎',
+				src: '524149922',
+				img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+				lrc: false,
+			},
+			{
+				name: 'ケッテンクラート',
+				artist: '末廣健一郎',
+				src: '524149923',
+				img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+				lrc: false,
+			},
+			{
+				name: '優シイ日々',
+				artist: '末廣健一郎',
+				src: '524150910',
+				img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+				lrc: false,
+			},
+			{
+				name: '瞳ニ映ル景色',
+				artist: '末廣健一郎',
+				src: '524148941',
+				img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+				lrc: false,
+			},
+			{
+				name: '動く、動く -Piano version-',
+				artist: '末廣健一郎',
+				src: '524149929',
+				img: 'GyWW8zS2wZ3uUxnIV5pkug==/109951163088147184',
+				lrc: false,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// BLUE
+		7: {0: false, 1: true, 2: [
+			{
+				name: 'Calme',
+				artist: 'Ever So Blue',
+				src: '1831476858',
+				img: '-4ptsgdYha2tYXoDfb0OcA==/109951165825601611',
+				lrc: false,
+			},
+			{
+				name: 'Home',
+				artist: 'Ever So Blue',
+				src: '1948032680',
+				img: 'oQJFqrlMeR32Zzcvt8miXA==/109951167427687947',
+				lrc: false,
+			},
+			{
+				name: 'Lamb',
+				artist: 'French Teen Idol',
+				src: '1346504',
+				img: 'xm07YduhbyMvKnbyWSCowg==/1653665488175145',
+				lrc: false,
+			},
+			{
+				name: 'Bathroom Dance',
+				artist: 'Hildur Guðnadóttir',
+				src: '2033648170',
+				img: 'R6_RxqB-VsWa7VF9Ea65Mw==/109951164400415697',
+				lrc: false,
+			},
+			{
+				name: 'Đ ɾ ℴ Ꮃ ɳ',
+				artist: '4-ever',
+				src: '485347810',
+				img: 'PvJpk-Ge64vFEQSNffRFCw==/18646617697427597',
+				lrc: true,
+			},
+			{
+				name: 'Runaway',
+				artist: 'AURORA',
+				src: '1817629883',
+				img: 'f_otsXMzeg0bXqHEkHtUqw==/109951168146148707',
+				lrc: true,
+			},
+			{
+				name: 'Lost',
+				artist: 'Hayd',
+				src: '2048532704',
+				img: '7xZ1jhV05OyFdArZvcDhEg==/109951167858338215',
+				lrc: true,
+			},
+			{
+				name: 'Best Day Of My Life',
+				artist: 'Tom Odell',
+				src: '1983124488',
+				img: '9EkY1xtASInTfHf5CSplAw==/109951168728407995',
+				lrc: true,
+			},
+		]},
+		//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////// ORIGINAL SOUNDTRACK
+		8: {0: false, 1: true, 2: [
+			{
+				name: 'Greenpath',
+				artist: 'Christopher Larkin',
+				src: '1309394491',
+				img: 'a806-d9dPYrFmUt5-rKwZA==/109951164331645970',
+				lrc: false,
+			},
+			{
+				name: 'Crystal Peak',
+				artist: 'Christopher Larkin',
+				src: '1309394497',
+				img: 'a806-d9dPYrFmUt5-rKwZA==/109951164331645970',
+				lrc: false,
+			},
+			{
+				name: 'City of Tears',
+				artist: 'Christopher Larkin',
+				src: '1309394495',
+				img: 'a806-d9dPYrFmUt5-rKwZA==/109951164331645970',
+				lrc: false,
+			},
+			{
+				name: 'Quiet Water',
+				artist: 'Toby Fox',
+				src: '39224624',
+				img: 'mQcab-6L7D-w1lRxmYB7MQ==/109951168015051713',
+				lrc: false,
+			},
+			{
+				name: 'Waterfall',
+				artist: 'Toby Fox',
+				src: '39224623',
+				img: 'mQcab-6L7D-w1lRxmYB7MQ==/109951168015051713',
+				lrc: false,
+			},
+			{
+				name: 'Fallen Down',
+				artist: 'Toby Fox',
+				src: '39227586',
+				img: 'mQcab-6L7D-w1lRxmYB7MQ==/109951168015051713',
+				lrc: false,
+			},
+			{
+				name: 'Undertale',
+				artist: 'Toby Fox',
+				src: '39227624',
+				img: 'mQcab-6L7D-w1lRxmYB7MQ==/109951168015051713',
+				lrc: false,
+			},
+			{
+				name: 'The Furnace',
+				artist: 'Floex',
+				src: '1368612',
+				img: 'eaPYwTRYjNpHKZm690QZ1Q==/803742999955093',
+				lrc: false,
+			},
+			{
+				name: 'The Robot Band Tune',
+				artist: 'Floex',
+				src: '1368561',
+				img: 'dQeZtNdQbCnzBNbHPHcRRg==/834529325532217',
+				lrc: false,
+			},
+			{
+				name: 'Mr. Handagote',
+				artist: 'Floex',
+				src: '1368608',
+				img: 'eaPYwTRYjNpHKZm690QZ1Q==/803742999955093',
+				lrc: false,
+			},
+			{
+				name: 'The Glasshouse With Butterfly',
+				artist: 'Floex',
+				src: '1368622',
+				img: 'eaPYwTRYjNpHKZm690QZ1Q==/803742999955093',
+				lrc: false,
+			},
+			{
+				name: 'By The Wall',
+				artist: 'Floex',
+				src: '1368575',
+				img: 'dQeZtNdQbCnzBNbHPHcRRg==/834529325532217',
+				lrc: false,
+			},
+			{
+				name: 'Born a Stranger',
+				artist: 'Kan R. Gao',
+				src: '33413386',
+				img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
+				lrc: false,
+			},
+			{
+				name: 'To the Moon - Piano (Ending Version)',
+				artist: 'Kan R. Gao',
+				src: '33415403',
+				img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
+				lrc: false,
+			},
+			{
+				name: 'Launch',
+				artist: 'Kan R. Gao',
+				src: '33415377',
+				img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
+				lrc: false,
+			},
+			{
+				name: 'Prelude',
+				artist: 'Re-Logic & Jeff Broadbent',
+				src: '1464319324',
+				img: '7ZR005fc2FEXkmRCQdb75A==/109951165155790193',
+				lrc: false,
+			},
+			{
+				name: 'Postlude',
+				artist: 'Re-Logic & James Hannigan',
+				src: '1464318719',
+				img: '7ZR005fc2FEXkmRCQdb75A==/109951165155790193',
+				lrc: false,
+			},
+			{
+				name: 'Otherworld-Space',
+				artist: '???',
+				src: '2015280199',
+				img: '7ZR005fc2FEXkmRCQdb75A==/109951165155790193',
+				lrc: false,
+			},
+			{
+				name: 'Porth Wen',
+				artist: '???',
+				src: '462141432',
+				img: 'T7WTzWqFGI6QHpByVE05fQ==/18923694625654581',
+				lrc: false,
+			},
+			{
+				name: 'Dead End',
+				artist: '???',
+				src: '1403831980',
+				img: 'f4eiFu0bqINSCMv1t5Vy1g==/109951164490157396',
+				lrc: false,
+			},
+			{
+				name: 'Samsara Main Menu',
+				artist: 'Victor Butzelaar',
+				src: '1444364269',
+				img: 'G6Gdi0A2C0DsBaPrseqLhQ==/109951164947779296',
+				lrc: false,
+			},
+			{
+				name: 'Pheasant Room',
+				artist: 'Victor Butzelaar',
+				src: '1346744270',
+				img: '9e2OY76yIDRrQ8Dh-QrfcA==/109951165535653532',
+				lrc: false,
+			},
+			{
+				name: 'The Cave Theme (Piano)',
+				artist: 'Victor Butzelaar',
+				src: '1346754297',
+				img: 'B7_4k4OyNkFA8HP6Np-KGw==/109951165535653548',
+				lrc: false,
+			},
+			{
+				name: 'Paradox Main Theme',
+				artist: 'Victor Butzelaar',
+				src: '1346745849',
+				img: 'ZPNbOurXMl2cvMHXMF5sOw==/109951163870712850',
+				lrc: false,
+			},
+			{
+				name: 'Rusty Lake Family Tune',
+				artist: 'Victor Butzelaar',
+				src: '459954253',
+				img: 'HgKhAhPYteJfleS8jail1g==/109951165535640475',
+				lrc: false,
+			},
+			{
+				name: 'Into The Unknown',
+				artist: 'The Blasting Company',
+				src: '1496208590',
+				img: 'zmCk_Xg2TX_rIUGctbxj6A==/109951165477713858',
+				lrc: true,
+			},
+			{
+				name: 'The Highwayman',
+				artist: 'The Blasting Company',
+				src: '1496209354',
+				img: 'zmCk_Xg2TX_rIUGctbxj6A==/109951165477713858',
+				lrc: true,
+			},
+			{
+				name: 'Old North Wind',
+				artist: 'The Blasting Company',
+				src: '1496209358',
+				img: 'zmCk_Xg2TX_rIUGctbxj6A==/109951165477713858',
+				lrc: true,
+			},
+			{
+				name: 'Song of Growth',
+				artist: 'Max LL',
+				src: '2634860458',
+				img: 'V-UmV3CP0lM8viiFGERE7Q==/109951165251614519',
+				lrc: false,
+			},
+			{
+				name: 'The Ellie Badge',
+				artist: 'Michael Giacchino',
+				src: '1709353',
+				img: '_6nbA8iNAHo0mlws5Y4qtA==/6665239487801689',
+				lrc: false,
+			},
+			{
+				name: 'Falling (From "Soul"/Score)',
+				artist: 'Trent Reznor & Atticus Ross',
+				src: '1805265944',
+				img: 'xB60M3jdfP2xn-bM-g-Qrg==/109951165549115123',
+				lrc: false,
+			},
+			{
+				name: 'The Great Before/U Seminar (From "Soul"/Score)',
+				artist: 'Trent Reznor & Atticus Ross',
+				src: '1805265582',
+				img: 'xB60M3jdfP2xn-bM-g-Qrg==/109951165549115123',
+				lrc: false,
+			},
+			{
+				name: 'Epiphany (From "Soul"/Score)',
+				artist: 'Trent Reznor & Atticus Ross',
+				src: '1805265598',
+				img: 'xB60M3jdfP2xn-bM-g-Qrg==/109951165549115123',
+				lrc: false,
+			},
+			{
+				name: 'Farewell, light the night',
+				artist: 'Berlinist',
+				src: '2629227390',
+				img: '1oBp-o2z9qNJMyEDUgj57A==/109951169978199372',
+				lrc: false,
+			},
+			{
+				name: 'The Awakening',
+				artist: 'David Wise',
+				src: '29426172',
+				img: 'Sb7zkh4QoKHUpIDsjkgGhQ==/6660841441725662',
+				lrc: false,
+			},
+			{
+				name: 'Ocean Breeze',
+				artist: 'David Wise',
+				src: '29426181',
+				img: 'Sb7zkh4QoKHUpIDsjkgGhQ==/6660841441725662',
+				lrc: false,
+			},
+			{
+				name: '14.3 Billion Years',
+				artist: 'Andrew Prahlow',
+				src: '1423675117',
+				img: 'MmzJiU8aTJIKggreKtyiRA==/109951166726773143',
+				lrc: false,
+			},
+			{
+				name: 'Outer Wilds (Traveller)',
+				artist: '???',
+				src: '2030028610',
+				img: 'JZ-pOV8BS7wpjcK6K0mnnA==/109951168468034110',
+				lrc: false,
+			},
+			{
+				name: 'The River',
+				artist: 'Andrew Prahlow',
+				src: '1883130939',
+				img: 'uQhyI1ltAXY2wgdyd5MbwA==/109951166426723051',
+				lrc: false,
+			},
+			{
+				name: 'Theme of ONE PUNCH MAN ～sadness～',
+				artist: '宮崎誠',
+				src: '41632439',
+				img: '5q0WkBe4c_k--mnPCYmgqw==/109951171009626532',
+				lrc: false,
+			},
+		]},
+		}
+		if (n != null) {
+			window.parent.postMessage('env.f.player.add(' + JSON.stringify(list[n]) + ')', document.domain ? '/' : '*')
+		} else {
+			return list
+		}
+	}
+
+	function counter() {
+		var j = addmusic()
+		var l = Object.keys(j).length
+		var n = 0
+		var e = document.querySelectorAll('tag')
+		for (var i = 0; i < l; i++) {
+			n += j[i][2].length
+			document.querySelector(`[onclick="addmusic(${i})"]`).children[1].innerHTML = j[i][2].length
+		}
+
+		e[0].innerHTML = l
+		e[1].innerHTML = n
+	}
+
+	counter()
+</script>
+</body>
+</html>

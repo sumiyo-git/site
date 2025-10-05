@@ -21,15 +21,9 @@ env.d.list.blog = [
 		type: ['', null],
 	},
 	{
-		name: 'Chrome "假死" 现象',
+		name: 'Chrome 假死现象',
 		src: '20250721',
-		des: '发现一个使用谷歌浏览器的小技巧 ...',
-		type: ['', null],
-	},
-	{
-		name: '压缩包密码破解',
-		src: '20250720',
-		des: '压缩包密码破解，亲测无用 ...',
+		des: '使用谷歌浏览器的小技巧 ...',
 		type: ['', null],
 	},
 	{
@@ -45,4 +39,4 @@ env.d.list.blog = [
 		type: ['', null],
 	},
 
-];
+]

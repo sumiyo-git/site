@@ -464,7 +464,7 @@ git "string"\t\t\t执行原生 git 命令
 root = tk.Tk()
 
 root.title("uploader.py (commit: {})".format(str(env["cmt"])))
-root.geometry("600x380")
+root.geometry("900x570")
 root.resizable(True, True)
 root.configure(bg="#000000")
 

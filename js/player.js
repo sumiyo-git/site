@@ -458,7 +458,7 @@ env.f.player.next = function(n){
 
 
 env.e.player.audio.preload = 'metadata'
-env.e.player.audio.volume = 0.5
+env.e.player.audio.volume = 0.125
 
 
 
@@ -516,7 +516,7 @@ env.e.player.audio.addEventListener('error', function(event) {
 env.e.player.ctrl[5].addEventListener('scroll', () => {
 	var s = Math.round(Math.max(Math.min(100 - (env.e.player.ctrl[5].scrollTop / 10).toFixed(0), 100), 0) / 10) * 10
 	env.e.player.ctrl[5].setAttribute('volume', s + '%')
-	env.e.player.audio.volume = env.d.player.vol = s / 100
+	env.e.player.audio.volume = env.d.player.vol = (s * 0.25) / 100
 })
 
 // 监听 Media Session API 按钮事件

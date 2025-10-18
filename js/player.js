@@ -174,23 +174,26 @@ env.f.player.load = function(e, autoplay = true){
 	var id = e.dataset.id
 	var name = e.dataset.name
 	var artist = e.dataset.artist
-	var img = e.dataset.img
+	var img = `https://p1.music.126.net/${e.dataset.img}.jpg?param=800y800`
 
 	env.e.player.ui1.innerHTML = name
 	env.e.player.audio.src = `https://music.163.com/song/media/outer/url?id=${id}.mp3`
 	env.e.player.bar[1].style.width = '0%'
 	env.e.player.ctrl[0].innerHTML = '00:00'
-	env.f.root.fade(env.e.player.img[0], -300)
-	env.f.root.fade(env.e.player.img[1], -300)
+
+	if (env.e.player.img[0].src != img) {
+		env.f.root.fade(env.e.player.img[0], -300)
+		env.f.root.fade(env.e.player.img[1], -300)
+
+		setTimeout(function (){
+			env.e.player.img[0].src = env.e.player.img[1].src = img
+		}, 500)
+	}
 
 	// 为当前播放歌曲添加样式
 	document.querySelector('.player-ui .active')?.removeAttribute('class')
 	e.setAttribute('class', 'active')
 	env.f.root.scroll(env.e.player.list_in[1], e.offsetTop - 240, 500)
-
-	setTimeout(function (){
-		env.e.player.img[0].src = env.e.player.img[1].src = `https://p1.music.126.net/${img}.jpg?param=800y800`
-	}, 500)
 
 	// 寻找当前 id
 	env.d.player.id = Array.from(env.e.player.list_in[1].children).indexOf(e)
@@ -214,7 +217,7 @@ env.f.player.load = function(e, autoplay = true){
 			artist: artist,
 			album: '',
 			artwork: [{
-				src: `https://p1.music.126.net/${img}.jpg?param=800y800`,
+				src: img,
 				sizes: '',
 				type: 'image/jpg'
 			}]

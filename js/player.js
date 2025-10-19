@@ -79,7 +79,7 @@ env.f.player.album = function(){
 	{
 		name: 'Dóchas',
 		artist: 'Aaron Dolan & Florian Bur',
-		src: '2165170302',
+		src: '2636245550',
 		img: 'sMtYDaEmC2VGAsjGPaKZdg==/109951169674040753',
 		lrc: false,
 	},
@@ -181,14 +181,12 @@ env.f.player.load = function(e, autoplay = true){
 	env.e.player.bar[1].style.width = '0%'
 	env.e.player.ctrl[0].innerHTML = '00:00'
 
-	if (env.e.player.img[0].src != img) {
-		env.f.root.fade(env.e.player.img[0], -300)
-		env.f.root.fade(env.e.player.img[1], -300)
+	env.f.root.fade(env.e.player.img[0], -300)
+	env.f.root.fade(env.e.player.img[1], -300)
 
-		setTimeout(function (){
-			env.e.player.img[0].src = env.e.player.img[1].src = img
-		}, 500)
-	}
+	setTimeout(function (){
+		env.e.player.img[0].src = env.e.player.img[1].src = img
+	}, 500)
 
 	// 为当前播放歌曲添加样式
 	document.querySelector('.player-ui .active')?.removeAttribute('class')
@@ -475,7 +473,7 @@ setInterval(() => {
 
 // 进度调整
 env.e.player.bar[0].addEventListener('click', function(event) {
-	var p = ((event.clientX - env.e.player.bar[0].getBoundingClientRect().left) / env.e.player.bar[0].offsetWidth).toFixed(4)
+	var p = (Math.abs((event.clientX - env.e.player.bar[0].getBoundingClientRect().left) / env.e.player.bar[0].offsetWidth)).toFixed(4)
 	var now = Math.floor(env.e.player.audio.duration || 0) * p
 	env.e.player.bar[1].setAttribute('style', `width: ${p * 100}%`)
 

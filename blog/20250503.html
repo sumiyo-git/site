@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<link rel="stylesheet" type="text/css" href="../css/default.css">
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<style>
+	.ibox0 {
+		aspect-ratio: 16 / 9;
+		width: 90%;
+	}
+
+	@media (orientation: portrait) {
+		.ibox0 {
+			width: 100%;
+		}
+	}
+	</style>
+</head>
+<body>
+<div class="main" >
+
+	<para>
+		<h1>PE 系统的制作</h1>
+		<note>最初只是想给 U 盘换个纯净点的 PE 系统 ...</note>
+	</para>
+
+	<para>
+		本来不想写技术方面的文章的 :(
+		<br />
+		<br class="f-1" />
+		这篇文章使用了大神 <ins>深谷憂狼</ins> 的脚本。感谢各位大佬提供的技术支持！
+	</para>
+
+	<para>
+		<h2>准备</h2>
+		Windows11PE64一键制作21H2至Dev通用版工具-2025
+		<br />
+		<note>http://wuyou.net/forum.php?mod=viewthread&tid=435134&extra=&page=1</note>
+		<br />
+		<br class="f-1" />
+
+		Windows11 ISO 镜像文件（21H2 ~ 24H2）
+		<br />
+		<note>https://msdn.itellyou.cn/ （需要登录）</note>
+		<br />
+		<br class="f-1" />
+
+		ISO 挂载工具
+		<br />
+		<note>不太推荐 PowerISO 和 UltraISO，要有所谓的 “序列号” 才能正常使用。</note>
+		<br />
+		<br class="f-1" />
+
+		虚拟机（非必须）
+		<br />
+		<note>构建过程存在一定危险系数，强烈建议在虚拟机中进行构建和调试。</note>
+	</para>
+
+	<para>
+		<h2>开始</h2>
+		首先要说说这个 “面白い” 脚本。
+		<mat></mat>
+<code>[files]
+[MakeISO]		# 大致是最终生成的 ISO 文件的内容
+[OEM]
+[reg]		# PE 系统的注册表
+[temp]		# 构建时所用的临时文件
+[tools]		# 这是主程序运行所需的工具库
+[winpe]
+[zh-CN]		# PE 系统的核心文件
+WIN11PE64一键制作工具通用版.exe
+</code>
+		<br class="f-1" />
+		主程序由原始批处理文件（70KB 左右）经 BatchEncryption 22 层加密后再打包得来（830 KB） 。
+		<br />
+		<mat></mat>
+		<note>一气之下把 <a class="link" href="../src/download/20250503.source.zip" target="_blank" download="source.zip" >源代码</a> 解析出来了。方法放这里： <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('20250502')`, document.domain ? '/' : '*')" >20250502/</span></note>
+		<br />
+		<br class="f-1" />
+		<br class="f-1" />
+		工具本身还是挺不错的。制作过程非常简单，挂载原始 ISO 后（<ins>千万不要解压下载的 .iso 文件，不然可能会弄出删不掉的隐藏文件夹</ins>）运行主程序，几分钟后就可以看到 PE 系统的镜像文件了。这里以 Win11 22H2 版本为例进行构建。
+	</para>
+
+	<para>
+		<h2>个性化</h2>
+		列出几个可以 DIY 的地方，请大家自行参考。
+		<br />
+		<br class="f-1" />
+
+		<quote>WIN11PE64\MakeISO\MakeISOGD4.dll</quote>
+		<mat></mat>
+		想不到吧？ 这是个压缩包！
+		<br />
+		开机后的一个选择页面可以在其中的 MakeISO\boot\grub\MENU 中进行修改。如下代码可直接跳过该页面。
+		<br class="f-1" />
+		<mat></mat>
+		<mat></mat>
+<code><attention>MENU</attention>
+find --set-root /bootmgr
+clear
+chainloader /bootmgr
+clear</code>
+	</para>
+
+	<para>
+		<quote>WIN11PE64\zh-CN\zh-CN-22H2.dll</quote>
+		<mat></mat>
+		还是想不到吧？ 这个也是压缩包！
+		<br />
+		主程序会用这边的资源覆盖原始镜像中的部分系统文件。
+		<br class="f-1" />
+		<mat></mat>
+		<mat></mat>
+<code><attention>Program Files</attention>
+添加自己的软件（必须是免安装版）
+
+<attention>Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu</attention>
+开始菜单固定的快捷方式
+
+<attention>Windows\Cursors</attention>
+鼠标指针（注意文件命名）
+
+<attention>Windows\System32\winre.jpg</attention>
+壁纸
+
+<attention>Windows\System32\pecmd.ini</attention>
+这个是 pecmd.exe 在开机后自动执行的命令列表，可以执行显示文字、添加快捷键、修改屏幕分辨率等操作。
+启动页面 "但愿人长久，千里共婵娟" 等提示语就藏在这里。
+</code>
+	</para>
+
+	<para>
+		<quote>WIN11PE64\reg\22H2</quote>
+		<mat></mat>
+		这里就是 PE 系统的预设注册表了。有用的都在 pe-def.reg（主要是样式） 和 pe-soft.reg（主要是右键菜单）
+		<br class="f-1" />
+		<mat></mat>
+		<mat></mat>
+<code><attention>WIN11PE64\reg\22H2\import-def\pe-def.reg</attention>
+[HKEY_LOCAL_MACHINE\PE-DEF\Software\StartIsBack]
+任务栏居中、透明 开始菜单的颜色调整
+
+[HKEY_LOCAL_MACHINE\PE-DEF\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
+资源管理器的相关设置
+
+<attention>WIN11PE64\reg\22H2\import-soft\pe-soft.reg</attention>
+[HKEY_LOCAL_MACHINE\PE-SOFT\Microsoft\Windows NT\CurrentVersion]
+系统和制造商的名字
+
+[HKEY_LOCAL_MACHINE\PE-SOFT\Microsoft\Windows\CurrentVersion\OEMInformation]
+机型和制造商的名字
+</code>
+	</para>
+
+	<para>
+		<h2>制作 PE U 盘</h2>
+		其实很简单的啦！
+		<br />
+		<br class="f-1" />
+		随便找一个制作 PE 盘的工具，咱只用他 U 盘分区的功能。把 U 盘分区做好后，清空 EFI 分区文件。把之前生成的 ISO 文件解压后放到里面（<ins>这里是特例，PE 系统 .iso 和之前的系统 .iso 不同，可以解压</ins>）就大功告成啦。
+		<br />
+		<br class="f-1" />
+		建议实体机操作前先用虚拟机 debug 一下。
+	</para>
+
+	<para>
+		<h2>最终效果</h2>
+		安装了 Everything.exe 和 世界之窗浏览器（竟然看不了 B 站）总共 427 MB
+		<br />
+		别的都还不错，就是不知道为什么不能连接扬声器。
+		<br />
+		<mat></mat>
+		<mat></mat>
+		<mat></mat>
+		<a class="ibox0"  target="_blank" href="../src/img/20250503.1.webp" >
+			<img src="../src/img/20250503.1.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+	</para>
+
+</div>
+<script>
+	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.addEventListener('message', function(event) {
+		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
+	})
+</script>
+</body>
+</html>

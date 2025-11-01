@@ -8,18 +8,7 @@ env.d.list.blog = [
 	},
 
 
-	{
-		name: '小米默认安装器',
-		src: '20250825',
-		des: '将 InstallerX 设为默认安装器',
-		type: ['', null],
-	},
-	{
-		name: 'メイドインアビス 字幕',
-		src: '20250801',
-		des: '字幕发布页 ...',
-		type: ['', null],
-	},
+
 	{
 		name: 'Chrome 假死现象',
 		src: '20250721',

@@ -12,5 +12,6 @@
 |	[GitHub](https://github.com/)			|	Let's build from here					|
 |	[IcoMoon](https://icomoon.io/)			|	SVG icon font organizer				|
 |	[Paint.NET](https://www.getpaint.net/)		|	Free software for digital photo editing			|
+|	[Sublime Text](https://www.sublimetext.com/)		|	Text Editing, Done Right			|
 |	[Poppins](https://github.com/itfoundry/Poppins)	|	Poppins, a Devanagari + Latin family for Google Fonts.	|
 

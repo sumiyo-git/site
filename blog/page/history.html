@@ -23,7 +23,7 @@
 		height: 20px;
 		font-size: 16px;
 		font-weight: bolder;
-		line-height: 22px;
+		line-height: 21px;
 		color: rgba(var(--t-b1), 1);
 		text-align: center;
 		border-radius: 5px;
@@ -50,6 +50,9 @@
 	.ibox1 {
 		aspect-ratio: 207 / 101;
 	}
+	.ibox2 {
+		aspect-ratio: 40 / 23;
+	}
 	.ibox0,
 	.ibox1 {
 		width: 50%;
@@ -69,6 +72,23 @@
 	<para>
 		<h1>开发记录</h1>
 		<note>记录本站的开发历史 ＆ 技术细节</note>
+	</para>
+
+	<para>
+		<h3>2025-11-01</h3>
+		<event type="O" >
+			更新了 uploader.py (1.0.241 => 1.0.243)
+			<br />
+			<note>
+				在这一版本中，我们放弃了 thinker 界面，转而使用 window 原版命令行 + colorama 的方案。
+				<br class="f-2" />
+				此外，还添加了一些新的命令。
+			</note>
+		</event>
+		<br class="f-1" />
+		<a class="ibox2"  target="_blank" href="../../src/img/page.history.4.webp" style="border: rgba(var(--t-t1), 0.1) 1px solid;" >
+			<img src="../../src/img/page.history.4.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
 	</para>
 
 	<para>
@@ -568,7 +588,7 @@ export async function onRequest(context) {
 		<event type="A" >
 			In the beginning, there was nothing.
 			<br />
-				Then God said, "Let there be light," and there was light.
+			Then God said, "Let there be light," and there was light.
 		</event>
 		<br class="f-1" />
 		The first screenshot:

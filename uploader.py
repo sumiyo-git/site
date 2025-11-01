@@ -152,17 +152,18 @@ def command(string):
 删除指定部署\t\t\t\t-del "string" (ID)
 \t\t\t\tlog
 查询日志
-查询指定时间段的日志\t\t\t-t date0 date1
+查询指定时间段的日志\t\t\t-t "string" "string" (ts0 < ts1)
 生成当前时间戳\t\t\t\t-ts
 下载日志\t\t\t\t-save
-打开指定日志\t\t\t\t-read "string"
+打开指定日志\t\t\t\t-read "string" (file name)
 读取本地日志列表\t\t\t-list
 打开日志文件夹\t\t\t\t-open
 \t\t\t\tgit
 上传并部署更新\t\t\t\t-push
 当前 commit 次数的减少值\t\t-reduce 0
-压缩 .git 文件夹\t\t\t-clear
-执行原生 git 命令\t\t\t-run "string" (Git command)
+优化本地 Git 仓库\t\t\t-clean
+联网矫正 commit 次数\t\t\t-check
+执行原生 Git 命令\t\t\t-run "string" (Git command)
 ------------------------------------------------------------
 SQL 查询命令
 ------------------------------------------------------------
@@ -204,7 +205,7 @@ SQL 查询命令
 				leq = (datetime.now(timezone.utc) - timedelta(days=env["offset"] - 1)).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 			print(Style.NORMAL + Fore.WHITE + "正在下载日志数据")
-			print(Style.DIM + Fore.WHITE + "from:\t{}\nto:\t{}".format(leq, geq))
+			print(Style.DIM + Fore.WHITE + "from:\t{}\nto:\t{}".format(geq, leq))
 
 			body = {
 				"operationName": "GetSecuritySampledLogs",
@@ -360,20 +361,33 @@ SQL 查询命令
 			return "break"
 
 		# 压缩仓库
-		if (cmd1[1].lower() == "-clear"):
+		if (cmd1[1].lower() == "-clean"):
 			print(Style.NORMAL + Fore.WHITE + "开始优化本地仓库")
 			o_size = format_size(get_folder_size(".git"))
-			git("git gc --prune=now").stdout
+			git("git gc --aggressive --prune=now").stdout
 			n_size = format_size(get_folder_size(".git"))
 			print(Style.NORMAL + Fore.GREEN + "操作成功 ({} => {})".format(o_size, n_size))
+			return "break"
+
+		# 矫正 commit 值
+		if (cmd1[1].lower() == "-check"):
+			print(Style.NORMAL + Fore.WHITE + "正在从 github 获取 commit 的实际值")
+			env["cmt"] = int(git("git rev-list --all --count").stdout)
+			f = env["path"] + "config.ini"
+			c = ConfigParser()
+			c.read(f)
+			c.set("GIT", "commit", str(env["cmt"]))
+			with open(f, "w") as file:
+				c.write(file)
+
+			print(Style.DIM + Fore.WHITE + "commit:\t{}".format(env["cmt"]))
+			print(Style.NORMAL + Fore.GREEN + "操作成功")
 			return "break"
 
 		# 执行 git 命令
 		if (cmd1[1].lower() == "-run") and (cmd1[2].lower() != "null") and (cmd1[3].lower() == "null"):
 			print(Style.DIM + Fore.WHITE + git(cmd1[2]).stdout, end="")
 			return "break"
-
-
 
 	# 部署控制
 	if (cmd1[0].lower() == "dev"):
@@ -474,4 +488,5 @@ print(Fore.WHITE + Style.DIM + '键入 "?" 或 "help" 以查看帮助信息')
 
 while env != 0:
 	command(input(Fore.CYAN + Style.BRIGHT + "$ " + Fore.WHITE))
+
 

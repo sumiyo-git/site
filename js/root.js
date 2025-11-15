@@ -8,7 +8,7 @@
 
 
 
-env.d.version.root = '1.0.244'
+env.d.version.root = '1.0.245'
 env.f.root = {}
 
 // 初始化元素列表
@@ -18,7 +18,6 @@ env.e = {...env.e, ...{
 		'blog': document.querySelector('.main .blog'),
 		'btn': document.querySelector('.main header btn'),
 		'des': document.querySelector('.des'),
-		'canvas': document.querySelectorAll('.main .avatar'),
 		'backdrop': document.querySelectorAll('.main backdrop'),
 		'menu': document.querySelectorAll('.menu btn'),
 		'counter': document.querySelectorAll('.main footer tag'),
@@ -76,75 +75,6 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 		}
 	}
 	requestAnimationFrame(anime)
-}
-
-env.f.root.avatar = function() {
-	// 头像动画
-	let x, y, xa, ya, p, s, i, w, h, l, timer
-	x = y = xa = ya = p = s = i = 0
-
-	const canvas = env.e.root.canvas[1]
-	const ctx = canvas.getContext('2d')
-	const img = env.e.root.canvas[0]
-	w = h = window.innerHeight
-	canvas.height = canvas.width = w
-
-	const waypoint = [
-		[0.40, 0.00, 0.00, 0.65, 9],
-		[0.00, 0.85, 0.50, 0.00, 9],
-		[0.60, 0.00, 0.00, 1.00, 9],
-		[0.10, 1.00, 0.70, 0.00, 12],
-		[0.80, 0.00, 0.20, 1.00, 12],
-		[0.30, 1.00, 0.90, 0.00, 14],
-		[1.00, 0.00, 0.40, 1.00, 14],
-		[0.50, 1.00, 1.00, 0.15, 14],
-		[1.00, 0.30, 0.60, 1.00, 14],
-		[0.70, 1.00, 1.00, 0.50, 14],
-		[1.00, 0.65, 0.80, 1.00, 20],
-		[0.90, 1.00, 1.00, 0.85, 20],
-	]
-
-	function paint(x, y, r) {
-		// 绘制圆形图片
-		ctx.save()
-		ctx.beginPath()
-		ctx.arc(x, y, r, 0, Math.PI * 2)
-		ctx.closePath()
-		ctx.clip()
-		ctx.drawImage(img, 0, 0, w, h)
-		ctx.restore()
-	}
-
-	function reset() {
-		// 准备下一次划线
-		if (i >= waypoint.length) {
-			clearInterval(timer)
-			env.e.root.canvas[0].removeAttribute('style')
-			env.e.root.canvas[1].remove()
-			env.f.root.fade(env.e.root.des, 500)
-			delete env.f.root.avatar
-			return
-		}
-
-		l = waypoint[i]
-		p = 0
-		s = Math.ceil(500 / l[4])
-		x = l[0] * w
-		y = l[1] * h
-		xa = (l[2] - l[0]) * w / s
-		ya = (l[3] - l[1]) * h / s
-	}
-
-	timer = setInterval(() => {
-		paint(x + xa * p, y + ya * p, 50)
-		if (s < p) {
-			i ++
-			reset()
-		}	
-		p ++
-	}, 3)
-
-	reset()
 }
 
 
@@ -451,6 +381,9 @@ env.f.root.search = function() {
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
 env.f.root.getText()
 env.f.root.url.read()
+
+// script.js夜间模式
+document.body.classList.add(`theme-${env.d.isDark ? 0 : 1}`)
 
 
 

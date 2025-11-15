@@ -284,7 +284,7 @@ comment .op:after {
 
 </div>
 <script>
-window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 window.addEventListener('message', function(event) {
 	if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 })
@@ -615,7 +615,7 @@ env.f.challenge = {}
 		var l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9']
 		var a = ''
 		var e = env.e.can
-		var c = getComputedStyle(document.documentElement).getPropertyValue('--t-c1')
+		var c = getComputedStyle(document.body).getPropertyValue('--t-c1')
 		var ctx = e.getContext('2d')
 		ctx.font = '18px Poppins Regular'
 		ctx.clearRect(0, 0, 100, 100)
@@ -705,8 +705,8 @@ env.f.reply = function(e, id) {
 	})
 }
 
-env.f.challenge.new()
 env.f.init()
+setTimeout(function (){env.f.challenge.new()}, 1000)
 </script>
 </body>
 </html>

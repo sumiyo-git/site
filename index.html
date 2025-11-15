@@ -42,6 +42,7 @@
 			'isNew': null,
 			'isNetwork': (document.domain ? true : false),
 			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
+			'isDark': window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
 			'version': {},
 			'list': {},
 			'init': {
@@ -66,14 +67,11 @@
 		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 2) {
 			env.d.init.root = 1
 			setTimeout(function (){
-				setTimeout(function (){
-					env.f.root.avatar()
-					env.e.root.backdrop[0]?.remove()
-				}, 500)
+				env.e.root.backdrop[0]?.remove()
+			}, 500)
 
-				env.e.root.backdrop[0]?.removeAttribute('style')
-				clearInterval(env.tmp.root.t1)
-			}, 3000)
+			env.e.root.backdrop[0]?.removeAttribute('style')
+			clearInterval(env.tmp.root.t1)
 		}
 	}, 1000)
 
@@ -81,18 +79,19 @@
 
 <div class="main" >
 	<backdrop class="loading" style="opacity: 1" ></backdrop>
-	<img class="avatar" onload="env.d.init.root = 2" src="src/mio.webp" style="display: none;" />
-	<canvas class="avatar" ></canvas>
+	<img class="avatar" onload="env.d.init.root = 2" src="src/mio.webp" />
 
 	<header>
 		<btn onclick="env.f.root.menu.open()" ></btn>
-		<a onclick="env.f.root.blog.open('page/square')" >网站广场</a> | <a onclick="env.f.root.blog.open('page/about')" >关于</a>
 		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
 	</header>
 
-	<div class="des" style="display: none;" >
-		<span>sumiyo</span>
-		<span>私のサイト、私一人の世界です。</span>
+	<div class="des" >
+		Hello from <span>sumiyo</span>
+		<span class="f-2">这里是 <ins>sumiyo</ins> 的个人网站，主要分享有关生活、技术方面的文章。过去很是有趣，而我想把他们全部收集起来 ...</span>
+		<br class="f-1" />
+		<br class="f-1 f-2" />
+		<a onclick="env.f.root.blog.open('page/about')" >关于</a><a onclick="env.f.root.blog.open('page/square')" >网站广场</a>
 	</div>
 
 	<!-- 博客 -->

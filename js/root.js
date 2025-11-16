@@ -391,13 +391,13 @@ env.f.root.theme = function() {
 			env.e.root.dm_btn.innerHTML = ''
 			env.e.root.dm_btn.title = '浅色模式'
 			env.d.isDark = true
-			env.f.root.cookie.set("theme", 0)
+			env.f.root.cookie.set("theme", "0")
 			document.body.setAttribute('class', 'theme-0')
 		} else {
 			env.e.root.dm_btn.innerHTML = ''
 			env.e.root.dm_btn.title = '深色模式'
 			env.d.isDark = false
-			env.f.root.cookie.set("theme", 1)
+			env.f.root.cookie.set("theme", "1")
 			document.body.setAttribute('class', 'theme-1')
 		}
 	}
@@ -416,6 +416,11 @@ env.f.root.getText()
 env.f.root.url.read()
 env.f.root.theme.init()
 
+// 初始化 Cookie
+if (env.d.isNetwork) {
+	env.f.root.cookie.get() ? null : env.f.root.cookie("{}")
+}
+
 
 
 // 接受博客页面的信号
@@ -432,7 +437,7 @@ window.addEventListener('load',function(){
 	// 获取访问量
 	if (env.d.isNetwork) {
 		// 重复访问不计数
-		env.d.isNew = env.f.root.cookie.get() ? false : true
+		env.d.isNew = env.f.root.cookie.get("is_new") ? false : true
 		fetch(`https://${env.d.domain}/api/counter`, {
 			method: "POST",
 			headers: {
@@ -443,6 +448,7 @@ window.addEventListener('load',function(){
 		.then(json => {
 			env.d.visitors = Number(json.results[0].data)
 			env.f.root.cookie.set('date', env.f.root.fmt.date("YYYY-MM-DD"))
+			env.f.root.cookie.set('is_new', 0)
 
 			env.e.root.counter[1].innerHTML = env.d.visitors
 			env.e.root.counter[1].parentNode.removeAttribute('style')

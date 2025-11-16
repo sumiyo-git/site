@@ -79,6 +79,7 @@
 
 
 html {
+	position: fixed;
 	height: 100%;
 	width: 100%;
 }
@@ -659,6 +660,10 @@ backdrop {
 		border-left: none;
 		font-size: 30px;
 		line-height: 30px;
+	}
+	.main .des a {
+        margin-left: 10px;
+        margin-right: 5px;
 	}
 	.main header a {
 		text-shadow: 

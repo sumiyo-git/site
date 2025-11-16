@@ -78,6 +78,7 @@ body {
 	margin: 0;
 	line-height: 30px;
 	min-width: 380px;
+	background-color: rgba(var(--t-b1), 1);
 	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 }
 

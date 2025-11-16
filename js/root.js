@@ -21,6 +21,7 @@ env.e = {...env.e, ...{
 		'backdrop': document.querySelectorAll('.main backdrop'),
 		'menu': document.querySelectorAll('.menu btn'),
 		'counter': document.querySelectorAll('.main footer tag'),
+		'dm_btn': document.querySelectorAll('.menu .menu-c3 a')[4],
 	}
 }}
 
@@ -79,16 +80,22 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 
 
 
-env.f.root.cookie = {}
-	env.f.root.cookie.set = function(value) {
-		// 写入 Cookie
-		document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 7 * 24 * 60 * 60 * 1000).toUTCString()}`
+env.f.root.cookie = function(value) {
+	// 写入 Cookie
+	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toUTCString()}`
+}
+	env.f.root.cookie.set = function(key, value) {
+		// 写入
+		if (!env.d.isNetwork) return
+		var obj = JSON.parse(env.f.root.cookie.get())
+		value == "" ? (delete obj[key]) : (obj[key] = value)
+		env.f.root.cookie(JSON.stringify(obj))
 	}
 
-	env.f.root.cookie.get = function(name) {
-		// 读取 Cookie
-		var c = document.cookie.match(new RegExp(`(?:^|; )${name}=([^;]*)`))
-		return c ? decodeURIComponent(c[1]) : null
+	env.f.root.cookie.get = function(key) {
+		// 读取
+		var c = document.cookie.match(new RegExp(`(?:^|; )Cookie=([^;]*)`))
+		return c ? decodeURIComponent(key ? JSON.parse(c[1])[key] : c[1]) : null
 	}
 
 env.f.root.getRandom = function(min, max) {
@@ -348,12 +355,12 @@ env.f.root.prompt = {}
 	}
 
 env.f.root.search = function() {
-	//  站内检索引擎
+	// 站内检索引擎
 	var s = document.querySelector('.search textarea').value
 	var f = document.querySelector('.search')
 	var o = [...document.querySelectorAll('.search list div')].slice(1)
 
-	//  排除违禁词
+	// 排除违禁词
 	if ([].some(item => s.includes(item))) {return}
 	for (var i = 0; i < o.length; i++) {
 		o[i].setAttribute('style', 'display: none')
@@ -364,7 +371,7 @@ env.f.root.search = function() {
 		.map((item, index) => ({ name: item.name, index }))
 		.filter(item => item.name.toLowerCase().includes(s.toLowerCase()))
 
-	//  渲染结果
+	// 渲染结果
 	for (var i = 0; i < r.length; i++) {
 		o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), (match) => `<key>${match}</key>`)
 		o[r[i].index].setAttribute('style', 'display: block')
@@ -375,15 +382,39 @@ env.f.root.search = function() {
 	document.querySelector('.search .none').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
 }
 
+env.f.root.theme = function() {
+	// 深色模式
+	env.f.root.theme.set(env.d.isDark ? 0 : 1)
+}
+	env.f.root.theme.set = function(bool){
+		if (bool) {
+			env.e.root.dm_btn.innerHTML = ''
+			env.e.root.dm_btn.title = '浅色模式'
+			env.d.isDark = true
+			env.f.root.cookie.set("theme", 0)
+			document.body.setAttribute('class', 'theme-0')
+		} else {
+			env.e.root.dm_btn.innerHTML = ''
+			env.e.root.dm_btn.title = '深色模式'
+			env.d.isDark = false
+			env.f.root.cookie.set("theme", 1)
+			document.body.setAttribute('class', 'theme-1')
+		}
+	}
+
+	env.f.root.theme.init = function(){
+		var c = env.f.root.cookie.get("theme") || "undefined"
+		env.f.root.theme.set(c == "undefined" ? env.d.isDark : Number(c))
+		delete env.f.root.theme.init
+	}
+
 
 
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
 env.f.root.getText()
 env.f.root.url.read()
-
-// script.js夜间模式
-document.body.classList.add(`theme-${env.d.isDark ? 0 : 1}`)
+env.f.root.theme.init()
 
 
 
@@ -401,7 +432,7 @@ window.addEventListener('load',function(){
 	// 获取访问量
 	if (env.d.isNetwork) {
 		// 重复访问不计数
-		env.d.isNew = env.f.root.cookie.get('Cookie') ? false : true
+		env.d.isNew = env.f.root.cookie.get() ? false : true
 		fetch(`https://${env.d.domain}/api/counter`, {
 			method: "POST",
 			headers: {
@@ -411,7 +442,7 @@ window.addEventListener('load',function(){
 		.then(response => {return response.json()})
 		.then(json => {
 			env.d.visitors = Number(json.results[0].data)
-			env.f.root.cookie.set('Cookie !')
+			env.f.root.cookie.set('date', env.f.root.fmt.date("YYYY-MM-DD"))
 
 			env.e.root.counter[1].innerHTML = env.d.visitors
 			env.e.root.counter[1].parentNode.removeAttribute('style')

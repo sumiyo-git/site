@@ -59,6 +59,7 @@
 
 				't1': null,
 				't2': null,
+				't3': null,
 			}
 		}
 	}
@@ -70,7 +71,8 @@
 				env.e.root.backdrop[0]?.remove()
 			}, 500)
 
-			env.e.root.backdrop[0]?.removeAttribute('style')
+			document.querySelector(".des").removeAttribute("style")
+			env.f.root.fade(env.e.root.backdrop[0], -500)
 			clearInterval(env.tmp.root.t1)
 		}
 	}, 1000)
@@ -78,20 +80,21 @@
 </script>
 
 <div class="main" >
-	<backdrop class="loading" style="opacity: 1" ></backdrop>
-	<img class="avatar" onload="env.d.init.root = 2" src="src/mio.webp" />
+	<backdrop class="loading" ><i></i></backdrop>
 
 	<header>
 		<btn onclick="env.f.root.menu.open()" ></btn>
 		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
 	</header>
 
-	<div class="des" >
+	<div class="des" style="display: none;" >
 		Hello from <span>sumiyo</span>
-		<span class="f-2">这里是 <ins>sumiyo</ins> 的个人网站，主要分享有关生活、技术方面的文章。过去很是有趣，而我想把他们全部收集起来 ...</span>
+		<span class="f-2">这里是 mio 的个人网站，主要分享生活、技术和动漫方面的文章。回忆很是可贵，我想把他们全部收集起来 ...</span>
 		<br class="f-1" />
 		<br class="f-1 f-2" />
 		<a onclick="env.f.root.blog.open('page/about')" >关于</a><a onclick="env.f.root.blog.open('page/square')" >网站广场</a>
+
+		<img class="avatar" onload="env.d.init.root ++" src="src/mio.webp" />
 	</div>
 
 	<!-- 博客 -->

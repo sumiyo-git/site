@@ -31,7 +31,7 @@ env.d.init = {...env.d.init, ...{
 }}
 
 // 通知
-env.d.list.news = `欢迎来到 sumiyo 的个人网站！\n这里仍在缓慢更新中 ...`
+env.d.list.news = `欢迎来到 mio 的个人网站！<br />这里仍在缓慢更新中 ...`
 
 
 
@@ -154,13 +154,31 @@ env.f.root.getUptime = function() {
 
 env.f.root.getText = function() {
 	// 开屏页随机标语
-	var l = [
-		"hoer heyato sia san: erando-na, yato-na, merai-na.",
-		"oer-miite semimila hola oer-eramutu dekowa.",
-		"haze i milecaze, miite mirano enkade suzerala.",
-	]
-	env.e.root.backdrop[0]?.setAttribute('data-text', l[env.f.root.getRandom(0, l.length - 1)])
-	delete env.f.root.getText
+	var e = env.e.root.backdrop[0].children[0]
+	if (env.d.isMobile) {
+		e.innerHTML = "loading"
+		setTimeout(function (){env.d.init.root ++}, 500)
+	} else {
+		var l = [
+			"haze i  milecaze,    miite mirano  enkade  suzerala.",
+			"hoer  heyato  sia san:      erando-na,   yato-na,   merai-na.",
+		]
+
+		var t = l[env.f.root.getRandom(0, l.length - 1)].split("")
+		var i = 0
+		env.tmp.root.t3 = setInterval(() => {
+			e.innerHTML = e.innerHTML + t[i]
+			i ++
+			if (i == t.length) {
+				clearInterval(env.tmp.root.t3)
+				setTimeout(function (){
+					env.d.init.root ++
+					delete env.f.root.getText
+				}, 500)
+			}
+		}, 100)
+	}
+
 }
 
 env.f.root.post = function(event) {
@@ -202,7 +220,7 @@ env.f.root.url = {}
 		// 读取参数并打开
 		var id = env.f.root.url.get('id')
 		if (id) {
-			if (env.d.init.root != 1) {env.e.root.backdrop[0].removeAttribute('data-text'); setTimeout(function (){env.e.root.backdrop[0].style.display = 'none'}, 500)}
+			if (env.d.init.root != 1) {env.f.root.page.load.stop()}
 			env.f.root.blog.open(id)
 		} else {
 			env.f.root.url.clear()
@@ -415,14 +433,14 @@ env.f.root.theme = function() {
 
 // 初始化 Cookie
 if (env.d.isNetwork) {
-	env.f.root.cookie.get() ? null : env.f.root.cookie("{}")
+	(env.f.root.cookie.get()?.startsWith('{') ?? false) ? null : env.f.root.cookie("{}")
 }
 
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
-env.f.root.getText()
 env.f.root.url.read()
 env.f.root.theme.init()
+env.f.root.getText()
 
 
 

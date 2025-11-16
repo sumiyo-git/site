@@ -46,9 +46,9 @@
 	display: block;
 	aspect-ratio: 1 / 1;
 	width: 100%;
-	background-color: rgba(var(--t-b1), 0.05);
+	background-color: rgba(var(--t-b6), 0.05);
 	border-radius: 10px;
-	border: 1px solid rgba(var(--t-b1), 0.1);
+	border: 1px solid rgba(var(--t-b6), 0.1);
 	box-sizing: border-box;
 	overflow: hidden;
 }
@@ -60,7 +60,7 @@
 .player-ui .ctrl {
 	height: 50px;
 	margin-top: 25px;
-	color: rgba(var(--t-b1), 0.1);
+	color: rgba(var(--t-b6), 0.1);
 }
 
 .player-ui .ctrl a {
@@ -69,7 +69,7 @@
 	height: 30px;
 	padding-right: 5px;
 	font-size: 24px;
-	color: rgba(var(--t-b1), 0.2);
+	color: rgba(var(--t-b6), 0.2);
 	cursor: pointer;
 }
 
@@ -100,15 +100,15 @@
 }
 
 .player-ui header btn {
-	color: rgba(var(--t-b1), 0.2);
+	color: rgba(var(--t-b6), 0.2);
 }
 
 .player-ui header btn:hover {
-	color: rgba(var(--t-b1), 0.6);
+	color: rgba(var(--t-b6), 0.6);
 }
 
 .player-ui header span {
-	color: rgba(var(--t-b1), 0.2);
+	color: rgba(var(--t-b6), 0.2);
 	margin-left: 10px;
 }
 
@@ -117,7 +117,7 @@
 }
 
 .player-ui list:nth-child(1) line {
-	background-color: rgba(var(--t-b1), 0);
+	background-color: rgba(var(--t-b6), 0);
 }
 
 .player-ui list:nth-child(2) line {
@@ -127,8 +127,8 @@
 
 .player-ui list .active,
 .player-ui list:nth-child(2) line:hover {
-	background-color: rgba(var(--t-b1), 0.1);
-	color: rgba(var(--t-b1), 0.8);
+	background-color: rgba(var(--t-b6), 0.1);
+	color: rgba(var(--t-b6), 0.8);
 }
 
 .player-ui list .active {
@@ -143,10 +143,10 @@
 	min-width: 100px;
 	min-height: 30px;
 	line-height: 31px;
-	background-color: rgba(var(--t-b1), 0.05);
+	background-color: rgba(var(--t-b6), 0.05);
 	border-radius: 5px;
 	font-size: 22px;
-	color: rgba(var(--t-b1), 0.6);
+	color: rgba(var(--t-b6), 0.6);
 	white-space: break-spaces;
 	transition: 0.3s;
 }
@@ -154,16 +154,16 @@
 .player-ui trans {
 	display: block;
 	font-size: 16px;
-	color: rgba(var(--t-b1), 0.2);
+	color: rgba(var(--t-b6), 0.2);
 }
 
 .player-ui .highlight {
-	background-color: rgba(var(--t-b1), 0.2) !important;
-	color: rgba(var(--t-b1), 1);
+	background-color: rgba(var(--t-b6), 0.2) !important;
+	color: rgba(var(--t-b6), 1);
 }
 
 .player-ui .highlight trans {
-	color: rgba(var(--t-b1), 0.6);
+	color: rgba(var(--t-b6), 0.6);
 }
 
 .player-ui rt {
@@ -184,8 +184,8 @@
 	border-radius: 20px;
 	overflow: hidden;
 	height: 5px;
-	background-color: rgba(var(--t-b1), 0.1);
-	border: 1px solid rgba(var(--t-b1), 0.1);
+	background-color: rgba(var(--t-b6), 0.1);
+	border: 1px solid rgba(var(--t-b6), 0.1);
 	transition: 0.5s;
 }
 
@@ -200,8 +200,8 @@
 	display: block;
 	height: 100%;
 	overflow: scroll;
-	border-bottom: 1px solid rgba(var(--t-b1), 0.1);
-	border-top: 1px solid rgba(var(--t-b1), 0.1);
+	border-bottom: 1px solid rgba(var(--t-b6), 0.1);
+	border-top: 1px solid rgba(var(--t-b6), 0.1);
 }
 
 .player-ui list div::-webkit-scrollbar:horizontal {
@@ -218,7 +218,7 @@
 	max-width: 300px;
 	font-size: 16px;
 	line-height: 24px;
-	color: rgba(var(--t-b1), 0.8);
+	color: rgba(var(--t-b6), 0.8);
 	background-color: rgba(var(--t-b2), 0.6);
 	border-radius: 5px;
 	backdrop-filter: blur(5px);

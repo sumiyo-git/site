@@ -14,6 +14,7 @@
 	--t-b3: 40, 40, 40;
 	--t-b4: 220, 220, 220;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -33,6 +34,7 @@
 	--t-b3: 244, 243, 241;
 	--t-b4: 40, 40, 40;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -123,7 +125,7 @@ hr {
 quote {
 	display: block;
 	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-c1), 0.15);
+	background-color: rgba(var(--t-b5), 0.1);
 	padding: 10px 15px 10px 10px;
 	border-left: rgba(var(--t-c1), 0.6) solid 5px;
 	border-radius: 0px 7px 7px 0px;
@@ -133,8 +135,8 @@ quote {
 
 attention {
 	display: inline-block;
-	background-color: rgba(var(--t-c1), 0.15);
-	color: rgba(var(--t-c1), 1);
+	background-color: rgba(var(--t-c3), 0.2);
+	color: rgba(var(--t-c3), 1);
 	padding: 0px 8px 0px 8px;
 	line-height: 27px;
 	border-radius: 5px;
@@ -153,8 +155,8 @@ mat {
 
 code {
 	display: block;
-	background-color: rgba(var(--t-c1), 0.1);
-	color: rgba(var(--t-c1), 0.6);
+	background-color: rgba(var(--t-b5), 0.1);
+	color: rgba(var(--t-c3), 0.5);
 	padding: 10px 12px 0px 12px;
 	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
 	line-height: 26px;
@@ -166,11 +168,11 @@ code {
 }
 
 code note {
-	color: rgba(var(--t-c1), 1);
+	color: rgba(var(--t-c3), 1);
 }
 
 code attention {
-	background-color: rgba(var(--t-c1), 0.6);
+	background-color: rgba(var(--t-c3), 0.6);
 	color: rgba(var(--t-b1), 0.8);
 }
 
@@ -208,9 +210,9 @@ h3 {
 /* 链接 */
 
 .link {
-	color: rgba(var(--t-c1), 1);
+	color: rgba(var(--t-c3), 1);
 	text-decoration: underline;
-	text-decoration-color: rgba(var(--t-t1), 0.2);
+	text-decoration-color: rgba(var(--t-b4), 0.2);
 	cursor: pointer;
 	transition: 0.3s;
 	user-select: text !important;
@@ -295,11 +297,11 @@ list[type="5"]::before {
 /* 表格 */
 
 thead tr th {
-	background-color: rgba(var(--t-c1), 0.5);
+	background-color: rgba(var(--t-c3), 0.6);
 	color: rgba(var(--t-b1), 1);
 	min-width: 80px;
 	text-align: left;
-	font-weight: lighter;
+	font-weight: bolder;
 }
 table {
 	border-collapse: collapse;

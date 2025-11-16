@@ -14,6 +14,7 @@
 	--t-b3: 40, 40, 40;
 	--t-b4: 220, 220, 220;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -34,6 +35,7 @@
 	--t-b3: 244, 243, 241;
 	--t-b4: 40, 40, 40;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -174,16 +176,13 @@ backdrop {
 
 .main .loading {
 	z-index: 50;
-	opacity: 0;
 	background-color: rgba(var(--t-b1), 1);
-	transition: 0.5s;
 }
 
-.main .loading::after {
+.main .loading i {
 	position: fixed;
 	bottom: 20px;
 	right: 30px;
-	content: attr(data-text);
 	font-size: 24px;
 	color: rgba(var(--t-t1), 0.8);
 }
@@ -557,7 +556,7 @@ backdrop {
 	background-color: rgba(var(--t-b1), 0.8);
 	backdrop-filter: blur(10px);
 	box-sizing: border-box;
-	border: 1px solid rgba(var(--t-t1), 0.1);
+	border: 1px solid rgba(var(--t-t1), 0.2);
 	border-radius: 10px;
 	box-shadow: rgba(var(--t-b2), 0.05) 10px 10px 20px -3px;
 	pointer-events: none;
@@ -619,22 +618,27 @@ backdrop {
 
 @media (orientation: landscape) and (max-width: 1200px) and (min-width: 900px) {
 	.main .des {
-		bottom: 100px;
-		left: 100px;
+		top: 20%;
+		left: 5%;
+	}
+	.main .avatar {
+		right: 0;
 	}
 }
 
 @media (orientation: landscape) and (max-width: 900px) and (min-width: 500px) {
 	.main .des {
-		bottom: 60px;
-		left: 100px;
-	}
-	.main .des span:nth-child(1) {
-		font-size: 50px;
+		font-size: 40px;
+		top: 20%;
+		left: 5%;
 	}
 	.main .des span:nth-child(2) {
-		font-size: 26px;
-		margin-top: 3px;
+		font-size: 16px;
+		line-height: 26px;
+		width: 300px;
+	}
+	.main .avatar {
+		right: 5%;
 	}
 }
 
@@ -651,6 +655,7 @@ backdrop {
 		width: 80%;
 		bottom: 80px;
 		left: 10%;
+		text-align: right;
 		border-left: none;
 		font-size: 30px;
 		line-height: 30px;
@@ -678,9 +683,6 @@ backdrop {
 		height: 60%;
 		right: -10%;
 	}
-	.main .loading::after {
-		content: 'ロード中';
-	}
 }
 
 
@@ -698,7 +700,7 @@ backdrop {
 .theme-0 .menu .search list div a:hover,
 .theme-0 .menu .search list key,
 .theme-0 .main footer a {
-    color: rgba(var(--t-c2), 0.6);
+	color: rgba(var(--t-c2), 0.6);
 }
 
 

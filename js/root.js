@@ -404,22 +404,25 @@ env.f.root.theme = function() {
 
 	env.f.root.theme.init = function(){
 		var c = env.f.root.cookie.get("theme") || "undefined"
-		env.f.root.theme.set(c == "undefined" ? env.d.isDark : Number(c))
+		env.f.root.theme.set(c == "undefined" ? env.d.isDark : !Number(c))
 		delete env.f.root.theme.init
 	}
 
 
+
+
+
+
+// 初始化 Cookie
+if (env.d.isNetwork) {
+	env.f.root.cookie.get() ? null : env.f.root.cookie("{}")
+}
 
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
 env.f.root.getText()
 env.f.root.url.read()
 env.f.root.theme.init()
-
-// 初始化 Cookie
-if (env.d.isNetwork) {
-	env.f.root.cookie.get() ? null : env.f.root.cookie("{}")
-}
 
 
 
@@ -437,7 +440,7 @@ window.addEventListener('load',function(){
 	// 获取访问量
 	if (env.d.isNetwork) {
 		// 重复访问不计数
-		env.d.isNew = env.f.root.cookie.get("is_new") ? false : true
+		env.d.isNew = env.f.root.cookie.get("is_new") == "undefined" ? true : false
 		fetch(`https://${env.d.domain}/api/counter`, {
 			method: "POST",
 			headers: {

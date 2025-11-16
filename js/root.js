@@ -88,7 +88,7 @@ env.f.root.cookie = function(value) {
 		// 写入
 		if (!env.d.isNetwork) return
 		var obj = JSON.parse(env.f.root.cookie.get())
-		value == "" ? (delete obj[key]) : (obj[key] = value)
+		value == "delete" ? (delete obj[key]) : (obj[key] = value)
 		env.f.root.cookie(JSON.stringify(obj))
 	}
 
@@ -391,13 +391,13 @@ env.f.root.theme = function() {
 			env.e.root.dm_btn.innerHTML = ''
 			env.e.root.dm_btn.title = '浅色模式'
 			env.d.isDark = true
-			env.f.root.cookie.set("theme", "0")
+			env.f.root.cookie.set("theme", 0)
 			document.body.setAttribute('class', 'theme-0')
 		} else {
 			env.e.root.dm_btn.innerHTML = ''
 			env.e.root.dm_btn.title = '深色模式'
 			env.d.isDark = false
-			env.f.root.cookie.set("theme", "1")
+			env.f.root.cookie.set("theme", 1)
 			document.body.setAttribute('class', 'theme-1')
 		}
 	}
@@ -450,8 +450,8 @@ window.addEventListener('load',function(){
 		.then(response => {return response.json()})
 		.then(json => {
 			env.d.visitors = Number(json.results[0].data)
-			env.f.root.cookie.set('date', env.f.root.fmt.date("YYYY-MM-DD"))
-			env.f.root.cookie.set('is_new', 0)
+			env.f.root.cookie.set("date", env.f.root.fmt.date("YYYY-MM-DD"))
+			env.f.root.cookie.set("is_new", false)
 
 			env.e.root.counter[1].innerHTML = env.d.visitors
 			env.e.root.counter[1].parentNode.removeAttribute('style')

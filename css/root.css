@@ -270,6 +270,7 @@ backdrop {
 	height: 80%;
 	aspect-ratio: 1 / 1;
 	pointer-events: none;
+	filter: opacity(0.8);
 }
 
 .main .des {

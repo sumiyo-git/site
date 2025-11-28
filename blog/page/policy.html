@@ -17,7 +17,7 @@
 
 	<para>
 		<h2 id="网站" >网站</h2>
-		网站 <a class="link" href="https://sumiyo.link/" target="_blank">sumiyo.link/</a> 由唯一管理员 <ins>sumiyo</ins> 运营。
+		网站 <a class="link" href="https://sumiyo.link/" target="_blank">sumiyo.link/</a> 由唯一管理员 <ins>mio</ins> / <ins>sumiyo</ins> 运营。
 		<mat></mat>
 		<mat></mat>
 		<mat></mat>
@@ -136,19 +136,34 @@
 				Cookie 🍪
 				<br />
 				<mat></mat>
-				网站共使用 1 个 Cookie，内容: "Cookie!"，有效期 1 周，有效期内的再次访问会自动续期。
-				<br />
-				该 Cookie 仅用于访问量统计:
-				<br />
-				<note>
-					有 → 旧访客 → 读取当前数据库中的访问量数据
-					<br />
-					无 → 新访客 → 写入数据库: 访问量数据 + 1，再读取当前数据库中的访问量数据
-				</note>
+				网站共使用 1 个 Cookie，内容为一个可存储多个键值对的 json ，有效期 15 天，有效期内的再次访问会自动续期。以下是已被占用的键值列表：
 				<br />
 				<mat></mat>
 				<mat></mat>
 				<mat></mat>
+				<table border="1">
+					<thead>
+						<tr>
+							<th>键值</th>
+							<th>作用</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>date</td>
+							<td>记录该 Cookie 生成 / 续期的时间</td>
+						</tr>
+						<tr>
+							<td>is_new</td>
+							<td>用于网站访问量统计</td>
+						</tr>
+						<tr>
+							<td>theme</td>
+							<td>记录当前深色模式开关</td>
+						</tr>
+					</tbody>
+				</table>
+				<br class="f-1" />
 				<note>备注: 本站因网易云的外链服务，可能会受其 Cookie 污染。这些 Cookie 与本站无关，用户可随意删除。</note>
 				<br />
 				<br class="f-1" />

@@ -82,7 +82,7 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 
 env.f.root.cookie = function(value) {
 	// 写入 Cookie
-	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toUTCString()}`
+	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 15 * 24 * 60 * 60 * 1000).toUTCString()}`
 }
 	env.f.root.cookie.set = function(key, value) {
 		// 写入
@@ -482,7 +482,7 @@ window.addEventListener('load',function(){
 env.tmp.root.d2 = 1
 setTimeout(console.log.bind(
 	console, 
-	`\n%c %c snowyfox %c		${env.d.version.root}\n`,
+	`\n%c %c Soba  %c		${env.d.version.root}\n`,
 	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
 	'background-color: rgba(186, 138, 219, 0.5); color: white;',
 	'color: rgba(192, 194, 194, 1);',

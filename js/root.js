@@ -280,7 +280,7 @@ env.f.root.page = {}
 
 	env.f.root.page.ok = function(title) {
 		// 博客加载完成
-		document.title = `${title} | ${env.d.title}`
+		document.title = `${title}`
 		setTimeout(function (){env.f.root.page.load.stop()}, 2000)
 	}
 

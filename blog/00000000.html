@@ -129,13 +129,12 @@ Hello world!
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})
-	var music = JSON.stringify({0: true, 1: false, 2: [
+	var music = JSON.stringify({0: true, 1: [
 		{
 			name: 'Moon Child',
 			artist: '西原健一郎 & Nina Vidal',
 			src: '456041',
 			img: '6sITOoZ2LgK3YrB1xAnr_Q==/109951170067990253',
-			lrc: true,
 		}
 	]})
 

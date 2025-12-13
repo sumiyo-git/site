@@ -166,13 +166,12 @@
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})
-	var music = JSON.stringify({0: true, 1: false, 2: [
+	var music = JSON.stringify({0: true, 1: [
 		{
 			name: 'To the Moon - Piano (Ending Version)',
 			artist: 'Kan R. Gao',
 			src: '33415403',
 			img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
-			lrc: false,
 		}
 	]})
 

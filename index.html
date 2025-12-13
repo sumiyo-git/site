@@ -99,7 +99,6 @@
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
 		<header class="header-box" ><btn onclick="env.f.root.blog.close()" ></btn></header>
-		<div class="player-blog" onclick="env.f.player.lrc.ui()" >音乐播放器</div>
 		<backdrop style="display: none;" ></backdrop>
 	</div>
 
@@ -132,37 +131,16 @@
 				<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
 				<a onclick="env.f.root.blog.open('page/policy')" title="隐私政策 & 使用协议" ></a>
 				<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
-				<a onclick="env.f.player.lrc.ui()" title="歌曲" ></a>
 				<a onclick="env.f.root.theme()" ></a>
 			</div>
 		</div>
 	</div>
 
 	<!-- 播放器  -->
-	<div class="player-ui backdrop" style="display: none;" tabindex="0" >
-		<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
-		<backdrop></backdrop>
-		<header><btn onclick="env.f.player.lrc.ui()" ></btn></header>
-		<div class="ui" >
-			<aside>
-				<div class="cover" ><img /></div>
-				<div class="ctrl" >
-					<bar><div><div></div></div></bar>
-					<div style="margin-top: 10px; user-select: none;" >
-						<a onclick="env.f.player.play()" title="播放 / 暂停 (Space)" >00:00</a>
-						<a onclick="env.f.player.list()" >歌单</a>
-						<a onclick="env.f.player.reset()" >重置</a>｜ 
-						<a onclick="env.f.player.mode()" title="列表循环" ></a>
-						<a onclick="env.f.player.kana()" title="假名注音" style="display: none;" >あ</a>
-						<a title="音量 ( ↑ / ↓ )" ><div></div></a>
-					</div>	
-				</div>		
-			</aside>
-			<aside>
-				<list class="no-kana" ><div></div></list>
-				<list style="display: none" ><div></div></list>
-			</aside>
-		</div>
+	<div class="player" tabindex="0" style="display: none;" >
+		<img onload="env.f.root.fade(this, 300)" />
+		<div style="margin: 8px 6px;" ><span onclick="env.f.player.play()" ></span><span></span></div>
+		<bar><div><div></div></div></bar>
 	</div>
 
 	<!-- 弹窗 -->

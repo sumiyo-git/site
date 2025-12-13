@@ -21,7 +21,7 @@ env.e = {...env.e, ...{
 		'backdrop': document.querySelectorAll('.main backdrop'),
 		'menu': document.querySelectorAll('.menu btn'),
 		'counter': document.querySelectorAll('.main footer tag'),
-		'dm_btn': document.querySelectorAll('.menu .menu-c3 a')[4],
+		'dm_btn': document.querySelectorAll('.menu .menu-c3 a')[3],
 	}
 }}
 
@@ -274,7 +274,7 @@ env.f.root.page = {}
 		env.f.root.fade(env.e.root.backdrop[2], -500)
 
 		setTimeout(function (){
-			env.e.root.blog.children[2].removeAttribute('data-timer')
+			env.e.root.blog.children[1].removeAttribute('data-timer')
 		}, 500)
 	}
 

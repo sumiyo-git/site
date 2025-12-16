@@ -40,7 +40,7 @@
 			'lang': navigator.language || navigator.userLanguage,
 			'isNew': null,
 			'isNetwork': (document.domain ? true : false),
-			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
+			'isHandyNAVI': (window.innerWidth < window.innerHeight ? true : false),
 			'isDark': window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
 			'version': {},
 			'list': {},
@@ -93,7 +93,7 @@
 		<br class="f-1 f-2" />
 		<a onclick="env.f.root.blog.open('page/about')" >关于</a><a onclick="env.f.root.blog.open('page/square')" >网站广场</a>
 
-		<img class="avatar" onload="env.d.init.root ++" src="src/mio.webp" />
+		<img class="avatar" onload="env.d.init.root ++" src="src/img/mio.webp" />
 	</div>
 
 	<!-- 博客 -->

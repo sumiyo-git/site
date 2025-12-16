@@ -155,7 +155,7 @@ env.f.root.getUptime = function() {
 env.f.root.getText = function() {
 	// 开屏页随机标语
 	var e = env.e.root.backdrop[0].children[0]
-	if (env.d.isMobile) {
+	if (env.d.isHandyNAVI) {
 		e.innerHTML = "loading"
 		setTimeout(function (){env.d.init.root ++}, 500)
 	} else {
@@ -249,6 +249,9 @@ env.f.root.blog = {}
 		document.title = env.d.title
 		env.f.root.fade(env.e.root.blog, -300)
 		env.f.root.prompt.close()
+		if (env.d.player.list) {
+			env.d.isHandyNAVI ? env.f.root.fade(env.e.player.player, -300) : env.e.player.player.setAttribute("style", "bottom: 10%; right: 80px; z-index: 8;")
+		}
 
 		setTimeout(function (){
 			env.e.root.blog.children[0].remove()
@@ -260,6 +263,9 @@ env.f.root.page = {}
 		// 博客加载动画
 		clearInterval(env.tmp.root.t2)
 		env.e.root.backdrop[2].style.display = 'block'
+		if (env.d.player.list) {
+			env.e.player.player.removeAttribute("style")
+		}
 
 		env.tmp.root.d3 = new Date()
 		env.tmp.root.t2 = setInterval(() => {
@@ -272,6 +278,9 @@ env.f.root.page = {}
 		clearInterval(env.tmp.root.t2)
 		delete env.tmp.root.d3
 		env.f.root.fade(env.e.root.backdrop[2], -500)
+		if (env.d.player.list && env.d.isHandyNAVI) {
+			env.f.root.fade(env.e.player.player, 300)
+		}
 
 		setTimeout(function (){
 			env.e.root.blog.children[1].removeAttribute('data-timer')

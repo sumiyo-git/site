@@ -8,7 +8,7 @@
 
 
 
-env.d.version.root = '1.0.245'
+env.d.version.root = '1.0.246'
 env.f.root = {}
 
 // 初始化元素列表
@@ -249,7 +249,7 @@ env.f.root.blog = {}
 		document.title = env.d.title
 		env.f.root.fade(env.e.root.blog, -300)
 		env.f.root.prompt.close()
-		if (env.d.player.list) {
+		if (env.d.player?.list) {
 			env.d.isHandyNAVI ? env.f.root.fade(env.e.player.player, -300) : env.e.player.player.setAttribute("style", "bottom: 10%; right: 80px; z-index: 8;")
 		}
 
@@ -263,7 +263,7 @@ env.f.root.page = {}
 		// 博客加载动画
 		clearInterval(env.tmp.root.t2)
 		env.e.root.backdrop[2].style.display = 'block'
-		if (env.d.player.list) {
+		if (env.d.player?.list) {
 			env.e.player.player.removeAttribute("style")
 		}
 
@@ -278,7 +278,7 @@ env.f.root.page = {}
 		clearInterval(env.tmp.root.t2)
 		delete env.tmp.root.d3
 		env.f.root.fade(env.e.root.backdrop[2], -500)
-		if (env.d.player.list && env.d.isHandyNAVI) {
+		if (env.d.player?.list && env.d.isHandyNAVI) {
 			env.f.root.fade(env.e.player.player, 300)
 		}
 
@@ -492,8 +492,8 @@ env.tmp.root.d2 = 1
 setTimeout(console.log.bind(
 	console, 
 	`\n%c %c Soba  %c		${env.d.version.root}\n`,
-	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
-	'background-color: rgba(186, 138, 219, 0.5); color: white;',
+	'background-color: rgba(40, 158, 214, 0.9); color: white; font-weight: bolder;',
+	'background-color: rgba(40, 158, 214, 0.5); color: white;',
 	'color: rgba(192, 194, 194, 1);',
 ));
 

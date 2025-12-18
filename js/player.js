@@ -7,7 +7,7 @@
 	*/
 
 
-env.d.version.player = '1.0.244'
+env.d.version.player = '1.0.245'
 env.d.player = {
 	'id': 0,
 	'mode': 0,

@@ -655,7 +655,7 @@ backdrop {
 		position: fixed;
 		top: 130px;
 		width: 80%;
-		left: 10%;
+		left: 30px;
 		border-left: none;
 		font-size: 20px;
 		line-height: 30px;
@@ -690,6 +690,8 @@ backdrop {
 		padding-right: 30px;
 	}
 	.main .avatar {
+		top: unset;
+		bottom: 10px;
 		right: -56%;
 	}
 }

@@ -156,7 +156,8 @@ env.f.root.getText = function() {
 	// 开屏页随机标语
 	var e = env.e.root.backdrop[0].children[0]
 	if (env.d.isHandyNAVI) {
-		e.innerHTML = "loading"
+		e.innerHTML = "ロード"
+		e.setAttribute("style", "font-style: normal;")
 		setTimeout(function (){env.d.init.root ++}, 500)
 	} else {
 		var l = [

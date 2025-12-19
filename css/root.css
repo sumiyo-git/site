@@ -653,7 +653,7 @@ backdrop {
 	}
 	.main .des {
 		position: fixed;
-		top: 130px;
+		top: 110px;
 		width: 80%;
 		left: 30px;
 		border-left: none;
@@ -669,6 +669,7 @@ backdrop {
 		margin-right: 10px;
 		margin-top: 20px;
 		font-size: 16px;
+		padding: 0px 5px;
 	}
 	.main header a {
 		text-shadow: 
@@ -691,7 +692,7 @@ backdrop {
 	}
 	.main .avatar {
 		top: unset;
-		bottom: 10px;
+		bottom: 20px;
 		right: -56%;
 	}
 }

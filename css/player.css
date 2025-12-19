@@ -16,7 +16,7 @@
 	text-overflow: ellipsis;
 	border-radius: 5px;
 	box-shadow: rgba(var(--t-b2), 0.1) 10px 10px 20px -3px;
-    box-sizing: border-box;
+	box-sizing: border-box;
 	border: 1px solid rgba(var(--t-b6), 0.2);
 	border-bottom: none;
 	user-select: none;
@@ -43,7 +43,7 @@
 	position: absolute;
 	margin: -50% -25%;
 	filter: blur(20px) brightness(0.5);
-    pointer-events: none;
+	pointer-events: none;
 }
 
 .player bar {
@@ -55,11 +55,11 @@
 }
 
 .player bar div {
-    margin-top: 4px;
-    overflow: hidden;
-    height: 6px;
-    background-color: rgba(var(--t-b6), 0.2);
-    transition: 0.5s;
+	margin-top: 4px;
+	overflow: hidden;
+	height: 6px;
+	background-color: rgba(var(--t-b6), 0.2);
+	transition: 0.5s;
 }
 
 .player bar div div {

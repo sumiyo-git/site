@@ -121,7 +121,7 @@ header btn {
 	border-radius: 100%;
 	padding: 8px 5px;
 	font-size: 34px;
-	line-height: 28px;
+	line-height: 30px;
 	cursor: pointer;
 	user-select: none;
 	backdrop-filter: blur(3px);
@@ -166,7 +166,8 @@ backdrop {
 }
 
 .main header btn {
-	color: rgba(var(--t-t1), 0.3);
+	color: rgba(var(--t-t1), 0.8);
+	background-color: rgba(var(--t-b1), 0.8);
 }
 
 .main header btn:hover {
@@ -670,22 +671,6 @@ backdrop {
 		margin-top: 20px;
 		font-size: 16px;
 		padding: 0px 5px;
-	}
-	.main header a {
-		text-shadow: 
-			0 0 2px rgba(var(--t-b1), 1),
-			0 0 2px rgba(var(--t-b1), 1),
-			0 0 2px rgba(var(--t-b1), 1),
-			0 0 2px rgba(var(--t-b1), 1);
-	}
-	.main .header-box {
-		width: calc(100% - 40px);
-		height: 42px;
-		left: 15px;
-		top: 0;
-		padding: 20px 5px 15px 5px;
-		background-color: rgba(var(--t-b1), 1);
-		border-bottom: 1px solid rgba(var(--t-t1), 0.08);
 	}
 	.menu {
 		padding-right: 30px;

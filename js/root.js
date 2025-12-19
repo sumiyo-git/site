@@ -221,7 +221,6 @@ env.f.root.url = {}
 		// 读取参数并打开
 		var id = env.f.root.url.get('id')
 		if (id) {
-			if (env.d.init.root != 1) {env.f.root.page.load.stop()}
 			env.f.root.blog.open(id)
 		} else {
 			env.f.root.url.clear()
@@ -235,8 +234,11 @@ env.f.root.blog = {}
 		// 打开博客
 		var e = document.createElement('iframe')
 		env.e.root.blog.prepend(e)
-		env.f.root.page.load()
 		env.f.root.fade(env.e.root.blog, 300)
+		env.f.root.fade(env.e.root.backdrop[2], 300)
+		if (env.d.player?.list) {
+			env.d.isHandyNAVI ? env.f.root.fade(env.e.player.player, 300) : env.e.player.player.removeAttribute("style")
+		}
 
 		setTimeout(function (){
 			env.f.root.url.set('id', id)
@@ -260,38 +262,10 @@ env.f.root.blog = {}
 	}
 
 env.f.root.page = {}
-	env.f.root.page.load = function() {
-		// 博客加载动画
-		clearInterval(env.tmp.root.t2)
-		env.e.root.backdrop[2].style.display = 'block'
-		if (env.d.player?.list) {
-			env.e.player.player.removeAttribute("style")
-		}
-
-		env.tmp.root.d3 = new Date()
-		env.tmp.root.t2 = setInterval(() => {
-			env.e.root.backdrop[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d3) / 1000).toFixed(2))
-		}, 100)
-	}
-
-	env.f.root.page.load.stop = function() {
-		// 停止加载动画
-		clearInterval(env.tmp.root.t2)
-		delete env.tmp.root.d3
-		env.f.root.fade(env.e.root.backdrop[2], -500)
-		if (env.d.player?.list && env.d.isHandyNAVI) {
-			env.f.root.fade(env.e.player.player, 300)
-		}
-
-		setTimeout(function (){
-			env.e.root.blog.children[1].removeAttribute('data-timer')
-		}, 500)
-	}
-
 	env.f.root.page.ok = function(title) {
 		// 博客加载完成
 		document.title = `${title}`
-		setTimeout(function (){env.f.root.page.load.stop()}, 2000)
+		env.f.root.fade(env.e.root.backdrop[2], -500)
 	}
 
 env.f.root.init = function() {

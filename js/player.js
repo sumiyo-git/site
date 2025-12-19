@@ -7,6 +7,7 @@
 	*/
 
 
+
 env.d.version.player = '1.0.245'
 env.d.player = {
 	'id': 0,
@@ -32,11 +33,6 @@ env.e = {...env.e, ...{
 		'img': document.querySelector('.player img'),
 		'bar': [document.querySelector('.player bar'), document.querySelector('.player div div')],
 	}
-}}
-
-env.d.init = {...env.d.init, ...{
-	'playerUI': 0,
-	'playerUI_fo': 1,
 }}
 
 
@@ -105,7 +101,6 @@ env.f.player.play = function(){
 
 env.f.player.init = function(bool) {
 	// 初始化歌词页面
-	env.d.init.playerUI = 1
 	if (env.d.lang == 'zh-CN') {
 		if (bool) env.f.player.load()
 	} else {
@@ -140,14 +135,6 @@ env.f.player.add = function(str) {
 			}
 		}, 3000)
 	}
-
-env.f.player.reset = function() {
-	// 重置歌单
-	env.d.player.id = 0
-	env.f.player.mode.set(0)
-	env.f.player.load()
-	env.f.root.scroll(env.e.player.ctrl[5], 500, 1)
-}
 
 env.f.player.next = function(n){
 	// 切换歌曲

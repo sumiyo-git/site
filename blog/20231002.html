@@ -37,6 +37,16 @@
 		width: 80%;
 	}
 
+	.ibox5 {
+		aspect-ratio: 11 / 7;
+		width: 80%;
+	}
+
+	.break-word {
+		word-break: keep-all;
+		word-wrap: break-word;
+	}
+
 	@media (orientation: portrait) {
 		a[class^='ibox'] {
 			width: 100%;
@@ -150,19 +160,35 @@
 		<note>2025.10.26</note>
 		<mat></mat>
 		<mat></mat>
-		真不错呐，终于开始学习用软件画画了。这是第一幅像样的作品。
-		<br class="f-2" />
-		没老师带，只能自己慢慢摸索了。
+		真不错呐，终于能用软件画画了。这是第一幅像样的作品。
+	</para>
+
+	<para>
+		<a class="ibox5" target="_blank" href="../src/img/20231002.mio_1.webp" >
+			<img src="../src/img/20231002.mio_1.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<mat></mat>
+		<mat></mat>
+		<h3>mio_1</h3>
+		<note>2025.12.20</note>
+		<mat></mat>
+		<mat></mat>
+		key words:
+		<list type="5-reset" >
+			<list type="5" class="break-word" >ears: hide them from being discovered.</list>
+			<list type="5" class="break-word" >clothing: greek style.</list>
+			<list type="5" class="break-word" >amulet: forged from an abyssal crystal received from a depth of 3700 ft, it's very powerful. <br class="f-2" />(This item is also recorded in the "oi haze i agademusu")</list>
+		</list>
 	</para>
 
 	<para>
 		<h2>未来</h2>
-		还没想好接下来要画啥嘞 ...
+		mio 还没想好接下来要画啥呐 ...
 	</para>
 
 </div>
 <script>
-	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
+	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})

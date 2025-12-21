@@ -163,6 +163,7 @@ env.f.root.getText = function() {
 		var l = [
 			"haze i  milecaze,    miite mirano  enkade  suzerala.",
 			"hoer  heyato  sia san:      erando-na,   yato-na,   merai-na.",
+			"hazemoi sia  ihono      he   sorie.",
 		]
 
 		var t = l[env.f.root.getRandom(0, l.length - 1)].split("")
@@ -261,8 +262,7 @@ env.f.root.blog = {}
 		}, 600)
 	}
 
-env.f.root.page = {}
-	env.f.root.page.ok = function(title) {
+	env.f.root.blog.show = function(title) {
 		// 博客加载完成
 		document.title = `${title}`
 		env.f.root.fade(env.e.root.backdrop[2], -500)

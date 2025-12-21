@@ -60,7 +60,7 @@
 
 
 	} else {
-		window.parent.postMessage("env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "'); env.f.root.post(`document.querySelectorAll('tag')[0].innerHTML = '${document.location.href}'; document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`)", document.domain ? '/' : '*')
+		window.parent.postMessage("env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "'); env.f.root.post(`document.querySelectorAll('tag')[0].innerHTML = '${document.location.href}'; document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`)", document.domain ? '/' : '*')
 	}
 </script>
 </body>

@@ -125,7 +125,7 @@ Hello world!
 	</para>
 </div>
 <script>
-	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
+	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})

@@ -12,15 +12,8 @@ env.d.version.player = '1.0.245'
 env.d.player = {
 	'id': 0,
 	'mode': 0,
-	'offsetTop': 240,
 	'pause': true,
 	'loop': false,
-	'ui': false,
-	'lrc': {
-		'timeline': [],
-		'raw': null,
-		'now': 0,
-	},
 	'list': null,
 }
 

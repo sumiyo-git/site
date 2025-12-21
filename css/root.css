@@ -166,12 +166,12 @@ backdrop {
 }
 
 .main header btn {
-	color: rgba(var(--t-t1), 0.8);
+	color: rgba(var(--t-t1), 0.6);
 	background-color: rgba(var(--t-b1), 0.8);
 }
 
 .main header btn:hover {
-	color: rgba(var(--t-t1), 0.6);
+	color: rgba(var(--t-t1), 0.8);
 }
 
 

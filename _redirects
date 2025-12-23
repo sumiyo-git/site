@@ -1,1 +1,1 @@
-/blog/* /?id=:splat 302
+/blog/error/* /?id=:splat 302

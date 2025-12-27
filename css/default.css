@@ -71,8 +71,8 @@
 /* 预设样式 */
 
 @font-face{
-	font-family: Poppins Regular;
-	src: url('../src/font/Poppins Regular.woff2');
+	font-family: Poppins-Regular;
+	src: url('../src/font/Poppins-Regular.woff2');
 }
 
 body {
@@ -81,7 +81,7 @@ body {
 	line-height: 30px;
 	min-width: 380px;
 	background-color: rgba(var(--t-b1), 1);
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
+	font-family: 'Poppins-Regular', 'Microsoft YaHei'; 
 }
 
 .main {
@@ -95,11 +95,6 @@ a {
 	user-select: none;
 	text-decoration: none;
 	-webkit-user-drag: none;
-}
-
-ins {
-	text-decoration: none;
-	border-bottom: 2px rgba(var(--t-c1), 0.8) solid;
 }
 
 para {
@@ -133,7 +128,40 @@ quote {
 	line-height: 26px;
 }
 
-attention {
+mat {
+	display: block;
+	width: 100%;
+	height: 5px;
+	pointer-events: none;
+}
+
+
+
+/* 缩进文本 */
+
+i1 {
+	display: block;
+	word-break: break-all;
+	margin-left: 25px;
+}
+
+i2 {
+	display: block;
+	word-break: break-all;
+	margin-left: 50px;
+}
+
+i3 {
+	display: block;
+	word-break: break-all;
+	margin-left: 75px;
+}
+
+
+
+/* 强调 */
+
+att1 {
 	display: inline-block;
 	background-color: rgba(var(--t-c3), 0.2);
 	color: rgba(var(--t-c3), 1);
@@ -142,11 +170,17 @@ attention {
 	border-radius: 5px;
 }
 
-mat {
-	display: block;
-	width: 100%;
-	height: 5px;
-	pointer-events: none;
+att2 {
+    display: inline-block;
+    background-color: rgba(var(--t-c3), 0.6);
+    color: rgba(var(--t-b1), 1);
+    line-height: 27px;
+    font-weight: bolder;
+}
+
+att3 {
+	text-decoration: none;
+	border-bottom: 2px rgba(var(--t-c1), 0.8) solid;
 }
 
 
@@ -158,7 +192,7 @@ code {
 	background-color: rgba(var(--t-b5), 0.1);
 	color: rgba(var(--t-c3), 0.5);
 	padding: 10px 12px 0px 12px;
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
+	font-family: 'Poppins-Regular', 'Microsoft YaHei'; 
 	line-height: 26px;
 	font-size: 16px;
 	tab-size: 20;
@@ -171,7 +205,7 @@ code note {
 	color: rgba(var(--t-c3), 1);
 }
 
-code attention {
+code att1 {
 	background-color: rgba(var(--t-c3), 0.6);
 	color: rgba(var(--t-b1), 0.8);
 }
@@ -179,6 +213,7 @@ code attention {
 
 
 /* 标题 */
+
 h1, h2 {
 	color: rgba(var(--t-t1), 0.8);
 }

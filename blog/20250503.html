@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins-Regular.woff2" />
 	<style>
 	.ibox0 {
 		aspect-ratio: 16 / 9;
@@ -28,7 +28,7 @@
 	</para>
 
 	<para>
-		这篇文章使用了大神 <ins>深谷憂狼</ins> 的脚本。感谢各位大佬提供的技术支持！
+		这篇文章使用了大神 <att3>深谷憂狼</att3> 的脚本。感谢各位大佬提供的技术支持！
 	</para>
 
 	<para>
@@ -77,7 +77,7 @@ WIN11PE64一键制作工具通用版.exe
 		主程序由原始批处理文件（70KB 左右）经 BatchEncryption 22 层加密后再打包得来（830 KB）。 mio 一气之下把 <a class="link" href="../src/download/20250503.source.zip" target="_blank" download="source.zip" >源代码</a> 解析出来了。
 		<br />
 		<br class="f-1" />
-		制作过程非常简单，挂载原始 ISO 后（<ins>是挂载，不是解压</ins>）运行主程序，几分钟后就可以看到 PE 系统的镜像文件了。这里以 Win11 22H2 版本为例进行构建。
+		制作过程非常简单，挂载原始 ISO 后（<att3>是挂载，不是解压</att3>）运行主程序，几分钟后就可以看到 PE 系统的镜像文件了。这里以 Win11 22H2 版本为例进行构建。
 	</para>
 
 	<para>
@@ -94,7 +94,7 @@ WIN11PE64一键制作工具通用版.exe
 		<br class="f-1" />
 		<mat></mat>
 		<mat></mat>
-<code><attention>MENU</attention>
+<code><att1>MENU</att1>
 find --set-root /bootmgr
 clear
 chainloader /bootmgr
@@ -110,19 +110,19 @@ clear</code>
 		<br class="f-1" />
 		<mat></mat>
 		<mat></mat>
-<code><attention>Program Files</attention>
+<code><att1>Program Files</att1>
 添加自己的软件（必须是免安装版）
 
-<attention>Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu</attention>
+<att1>Users\Default\AppData\Roaming\Microsoft\Windows\Start Menu</att1>
 开始菜单固定的快捷方式
 
-<attention>Windows\Cursors</attention>
+<att1>Windows\Cursors</att1>
 鼠标指针（注意文件命名）
 
-<attention>Windows\System32\winre.jpg</attention>
+<att1>Windows\System32\winre.jpg</att1>
 壁纸
 
-<attention>Windows\System32\pecmd.ini</attention>
+<att1>Windows\System32\pecmd.ini</att1>
 这个是 pecmd.exe 在开机后自动执行的命令列表，可以执行显示文字、添加快捷键、修改屏幕分辨率等操作。
 </code>
 	</para>
@@ -134,14 +134,14 @@ clear</code>
 		<br class="f-1" />
 		<mat></mat>
 		<mat></mat>
-<code><attention>WIN11PE64\reg\22H2\import-def\pe-def.reg</attention>
+<code><att1>WIN11PE64\reg\22H2\import-def\pe-def.reg</att1>
 [HKEY_LOCAL_MACHINE\PE-DEF\Software\StartIsBack]
 任务栏居中、透明 开始菜单的颜色调整
 
 [HKEY_LOCAL_MACHINE\PE-DEF\Software\Microsoft\Windows\CurrentVersion\Explorer\Advanced]
 资源管理器的相关设置
 
-<attention>WIN11PE64\reg\22H2\import-soft\pe-soft.reg</attention>
+<att1>WIN11PE64\reg\22H2\import-soft\pe-soft.reg</att1>
 [HKEY_LOCAL_MACHINE\PE-SOFT\Microsoft\Windows NT\CurrentVersion]
 系统和制造商的名字
 
@@ -155,7 +155,7 @@ clear</code>
 		其实很简单的啦！
 		<br />
 		<br class="f-1" />
-		随便找一个制作 PE 盘的工具，咱只用他 U 盘分区的功能。把 U 盘分区做好后，清空 EFI 分区文件。把之前生成的 ISO 文件解压后放到里面（<ins>这里是特例，PE 系统 .iso 和之前的系统 .iso 不同，可以解压</ins>）就大功告成啦。
+		随便找一个制作 PE 盘的工具，咱只用他 U 盘分区的功能。把 U 盘分区做好后，清空 EFI 分区文件。把之前生成的 ISO 文件解压后放到里面（<att3>这里是特例，PE 系统 .iso 和之前的系统 .iso 不同，可以解压</att3>）就大功告成啦。
 		<br />
 		<br class="f-1" />
 		建议实体机操作前先用虚拟机 debug 一下。

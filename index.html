@@ -27,38 +27,39 @@
 
 	<link rel="stylesheet" type="text/css" href="css/root.css" />
 	<link rel="stylesheet" type="text/css" href="css/player.css"  />
-	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins-Regular.woff2" />
 </head>
 <body>
 <script>
 	// 定义核心变量
 	const env = {
-		'd': {
-			'visitors': 0,
-			'domain': 'sumiyo.link',
-			'title': document.title,
-			'lang': navigator.language || navigator.userLanguage,
-			'isNew': null,
-			'isNetwork': (document.domain ? true : false),
-			'isHandyNAVI': (window.innerWidth < window.innerHeight ? true : false),
-			'isDark': window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-			'version': {},
-			'list': {},
-			'init': {
-				'root': 0,
+		"d": {
+			"sys": "阿呆鳥",
+			"domain": "sumiyo.link",
+			"title": document.title,
+			"lang": navigator.language || navigator.userLanguage,
+			"isNew": null,
+			"isNetwork": (document.domain ? true : false),
+			"isHandyNAVI": (window.innerWidth < window.innerHeight ? true : false),
+			"isDark": window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+			"visitors": 0,
+			"version": {},
+			"list": {},
+			"init": {
+				"root": 0,
 			},
 		},
-		'f': {},
-		'e': {},
-		'tmp': {
-			'root': {
-				'd1': new Date(),
-				'd2': null,
-				'd3': null,
+		"f": {},
+		"e": {},
+		"tmp": {
+			"root": {
+				"d1": new Date(),
+				"d2": null,
+				"d3": null,
 
-				't1': null,
-				't2': null,
-				't3': null,
+				"t1": null,
+				"t2": null,
+				"t3": null,
 			}
 		}
 	}
@@ -129,7 +130,7 @@
 			<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
 			<div class="menu-c3" >
 				<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
-				<a onclick="env.f.root.blog.open('page/policy')" title="隐私政策 & 使用协议" ></a>
+				<a onclick="env.f.root.blog.open('page/policy')" title="政策 & 授权" ></a>
 				<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
 				<a onclick="env.f.root.theme()" ></a>
 			</div>
@@ -163,7 +164,7 @@
 
 
 <!-- 脚本 -->
-<script src="blog/registry.db.js" ></script>
+<script src="blog/list.db.js" ></script>
 <script src="js/root.js" ></script>
 <script src="js/player.js"></script>
 

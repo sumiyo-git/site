@@ -1,6 +1,6 @@
 
 ## INTRO
->Soba, A responsive blog theme based on Cloudflare Pages.<br /><br />Currently, compatibility **CAN NOT** be guaranteed on mobile device, as it has only been tested on the PC Chrome and Firefox.<br />**UNAUTHORIZED USE IS NOT PERMITTED**
+>阿呆鳥「Ahoudori」, A responsive blog theme based on Cloudflare Pages.<br /><br />**UNAUTHORIZED USE IS NOT PERMITTED**
 
 <br />
 

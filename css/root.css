@@ -42,8 +42,8 @@
 }
 
 @font-face {
-	font-family: Poppins Regular;
-	src: url('../src/font/Poppins Regular.woff2');
+	font-family: Poppins-Regular;
+	src: url('../src/font/Poppins-Regular.woff2');
 }
 @font-face {
 	font-family: icomoon;
@@ -85,7 +85,7 @@ html {
 }
 
 body {
-	font-family: 'Poppins Regular', 'icomoon', 'Microsoft YaHei';
+	font-family: 'Poppins-Regular', 'icomoon', 'Microsoft YaHei';
 	overflow: overlay;
 	margin: 0;
 	line-height: 30px;
@@ -460,7 +460,7 @@ backdrop {
 	border-radius: 5px;
 	font-size: 16px;
 	line-height: 16px;
-	font-family: 'Poppins Regular', 'Microsoft YaHei';
+	font-family: 'Poppins-Regular', 'Microsoft YaHei';
 	color: rgba(var(--t-t1), 0.8);
 	background-color: rgba(var(--t-b1), 0.6);
 	border: 1px solid rgba(var(--t-t1), 0.2);

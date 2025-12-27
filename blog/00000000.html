@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins-Regular.woff2" />
 	<style>
 	.ibox0 {
 		aspect-ratio: 1 / 1;
@@ -40,7 +40,9 @@
 		</quote>
 		<br />
 
-		<attention>强调</attention>
+		<att1>强调 1</att1>
+		<att2>强调 2</att2>
+		<att3>强调 3</att3>
 		<br />
 		<br />
 
@@ -62,6 +64,8 @@
 
 		<a class="link" href="https://sumiyo.link/" target="_blank">sumiyo.link/</a>
 		<br />
+		<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/about')`, document.domain ? '/' : '*')" >20240917/</span>
+		<br />
 		<br />
 
 		<list type="1" >列表 1</list>
@@ -74,7 +78,10 @@
 		<br />
 		<br />
 
-		<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/about')`, document.domain ? '/' : '*')" >20240917/</span>
+		正常文本
+		<i1>缩进 1</i1>
+		<i2>缩进 2</i2>
+		<i3>缩进 3</i3>
 		<br />
 		<br />
 
@@ -107,7 +114,7 @@
 		<br />
 		<br />
 
-<code><attention>js/script.js</attention>
+<code><att1>js/script.js</att1>
 
 <note># 注释</note>
 Hello world!

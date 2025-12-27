@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins-Regular.woff2" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/icomoon.woff2" />
 	<style>
 @font-face{
@@ -617,13 +617,13 @@ env.f.challenge = {}
 		var e = env.e.can
 		var c = getComputedStyle(document.body).getPropertyValue('--t-c1')
 		var ctx = e.getContext('2d')
-		ctx.font = '18px Poppins Regular'
 		ctx.clearRect(0, 0, 100, 100)
 
 		for (var i = 0; i < 20; i++) {
 			if (i < 4) {
 				var r = env.f.random(0, l.length - 1)
 				var a = a + l[r]
+				ctx.font = env.f.random(14, 24) + 'px Poppins Regular'
 				ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(50, 80) / 100 + ')' 
 				ctx.fillText(l[r], 12 + 16 * i + env.f.random(-5, 5), 20 + env.f.random(-5, 5))
 			}

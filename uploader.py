@@ -447,7 +447,7 @@ SQL 查询命令
 			print(Style.NORMAL + Fore.WHITE + "开始备份当前数据库")
 
 			url0 = "https://api.cloudflare.com/client/v4/accounts/{}/d1/database/{}/export".format(env["aid"], env["bid"])
-			body = { "output_format": "polling" }
+			body = {"output_format": "polling"}
 			headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
 
 			response = requests.post(url0, headers=headers, data=json.dumps(body))
@@ -457,13 +457,13 @@ SQL 查询命令
 				print(Style.DIM + Fore.WHITE + "bookmark: " + r1["result"]["at_bookmark"])
 				print(Style.NORMAL + Fore.WHITE + "请求下载链接")
 
-				body =  { "current_bookmark": r1["result"]["at_bookmark"] }
+				body =  {"output_format": "polling", "current_bookmark": r1["result"]["at_bookmark"]}
 				response = requests.post(url0, headers=headers, data=json.dumps(body))
 				r2 = response.json()
 
 				if (len(r2["errors"]) == 0):
-					print(Style.DIM + Fore.WHITE + "signed_url: " + r2["result"]["signed_url"])
-					url2 = r2["result"]["signed_url"]
+					url2 = r2["result"]["result"]["signed_url"]
+					print(Style.DIM + Fore.WHITE + "signed_url: " + url2)
 					f = env["path"] + "database\\" + datetime.now(timezone.utc).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H-%M-%S") + ".sql"
 					response = requests.get(url2)
 					with open(f, "wb") as file:

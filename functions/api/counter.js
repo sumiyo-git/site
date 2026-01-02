@@ -1,19 +1,25 @@
 export async function onRequest(context) {
-	var m = context.request.headers.get('Token')
-	var r = {success: false, meta: {}, results: [], msg: "Invalid Input"}
+	var token = context.request.headers.get('Token')
+	var result = {success: false, results: []}
 
-	// 只读
-	if (m == 0) {
-		r = await context.env.MetaDB.prepare('SELECT * from root where name="visits"').all()
+	// 读取访客数
+	if (token === "0") {
+		result = await context.env.Xanadu
+			.prepare('SELECT * FROM root WHERE name="visits"')
+			.all()
 	}
 
-	// 读写
-	if (m == 1) {
-		await context.env.MetaDB.prepare('UPDATE root set data=data+1 where name="visits"').first()
-		r = await context.env.MetaDB.prepare('SELECT * from root where name="visits"').all()
+	// 读取并增加访客数
+	if (token === "1") {
+		await context.env.Xanadu
+			.prepare('UPDATE root SET data=data+1 WHERE name="visits"')
+			.run()
+
+		result = await context.env.Xanadu
+			.prepare('SELECT * FROM root WHERE name="visits"')
+			.all()
 	}
 
-
-
-	return Response.json(r)
+	delete result.meta
+	return Response.json(result)
 }

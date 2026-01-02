@@ -6,6 +6,7 @@ import json
 import os
 import pytz
 import subprocess
+import tabulate
 
 from configparser import ConfigParser
 from datetime import datetime, timezone, timedelta
@@ -94,15 +95,39 @@ def table1(a):
 	r1 = a["data"]["viewer"]["scope"][0]["logs"]
 	print(Style.NORMAL + Fore.WHITE + "正在生成表格")
 	print(Style.DIM + Fore.WHITE + "lines:\t" + str(len(r1)))
-	for i in range(0, len(r1)):
-		r1[i]["datetime"] = datetime.strptime(r1[i]["datetime"], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S").replace("T", " ").replace("Z", " ")
 
-	print("-----------------------------------------------------------------------------------------------------------------------------------------------------\nTime\t\tMethod\t\tCountry\t\tAction\t\tIP\t\t\tUA                                      RequestPath\n-----------------------------------------------------------------------------------------------------------------------------------------------------")
-	r = ""
-	for i in range(0, len(r1)):
-		r = r + r1[i]["datetime"][11:19] + "\t" + r1[i]["clientRequestHTTPMethodName"] + "\t\t" + r1[i]["clientCountryName"] + "\t\t" + r1[i]["securityAction"].replace("unknown", "").replace("jschallenge", Back.YELLOW + Fore.BLACK + "质询" + Back.RESET + Fore.RESET).replace("block", Back.RED + Fore.BLACK + "阻止" + Back.RESET + Fore.RESET) + "\t\t" + (r1[i]["clientIP"][:20]).ljust(20) + "\t" + (r1[i]["userAgent"][:32]).ljust(40) + (r1[i]["clientRequestPath"][:40]).ljust(40).replace("/api/counter", Back.GREEN + Fore.BLACK + "/api/counter" + Back.RESET + Fore.RESET) + "\n"
+	for item in r1:
+		item.pop("__typename", None)
+		item.pop("clientASNDescription", None)
+		item.pop("clientAsn", None)
+		item.pop("clientRequestHTTPHost", None)
+		item.pop("clientRequestHTTPProtocol", None)
+		item.pop("leakedCredentialCheckResult", None)
+		item.pop("securitySource", None)
 
-	print(r + "-----------------------------------------------------------------------------------------------------------------------------------------------------")
+		for key in item:
+			if key == "securityAction":
+				item[key] = item[key].replace("unknown", "").replace("jschallenge", Back.YELLOW + Fore.BLACK + "质询" + Back.RESET + Fore.RESET).replace("block", Back.RED + Fore.BLACK + "阻止" + Back.RESET + Fore.RESET)
+			if key == "clientRequestPath":
+				item[key] = item[key].replace("/api/counter", Back.GREEN + Fore.BLACK + "/api/counter" + Back.RESET + Fore.RESET)
+			if key == "datetime":
+				item[key] = datetime.strptime(item[key], "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=pytz.UTC).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H:%M:%S").replace("T", " ").replace("Z", " ")[8:20]
+			if key == "userAgent":
+				item[key] = item[key][:30]
+			if key == "clientRequestPath":
+				item[key] = item[key][:70]
+			if key == "clientIP":
+				item[key] = item[key][:20]
+
+	# 重排
+	r1 = [
+	    {key: d[key] for key in ["datetime", "clientCountryName", "securityAction", "clientIP", "clientRequestHTTPMethodName", "userAgent", "clientRequestPath"]}
+	    for d in r1
+	]
+
+	print(Style.DIM + Fore.WHITE + tabulate.tabulate(r1, headers={"datetime": "时间", "clientCountryName": "地区", "securityAction": "行为", "clientIP": "IP", "clientRequestHTTPMethodName": "请求方式", "userAgent": "用户代理", "clientRequestPath": "请求路径"}, tablefmt="simple_outline"))
+
+
 
 # 调用 git
 def git(string):
@@ -110,21 +135,21 @@ def git(string):
 
 # 文件大小转换
 def format_size(bytes):
-    for unit in ['bytes', 'KB', 'MB', 'GB', 'TB']:
-        if bytes < 1024.0:
-            return f"{bytes:.2f} {unit}"
-        bytes /= 1024.0
-    return f"{bytes:.2f} PB"
+	for unit in ['bytes', 'KB', 'MB', 'GB', 'TB']:
+		if bytes < 1024.0:
+			return f"{bytes:.2f} {unit}"
+		bytes /= 1024.0
+	return f"{bytes:.2f} PB"
 
 # 获取目录大小
 def get_folder_size(path):
-    sum_size = 0
-    for dirpath, dirnames, filenames in os.walk(path):
-        for f in filenames:
-            fp = os.path.join(dirpath, f)
-            # 获取文件大小并累加
-            sum_size += os.path.getsize(fp)
-    return sum_size
+	sum_size = 0
+	for dirpath, dirnames, filenames in os.walk(path):
+		for f in filenames:
+			fp = os.path.join(dirpath, f)
+			# 获取文件大小并累加
+			sum_size += os.path.getsize(fp)
+	return sum_size
 
 # 执行命令
 def command(string):
@@ -137,9 +162,9 @@ def command(string):
 	# 帮助
 	if (cmd1[0] == "?") or (cmd1[0].lower() == "help"):
 		print(Fore.WHITE + Style.DIM + '''hello from sumiyo. this program is the backend console of the website sumiyo.link/
-------------------------------------------------------------
+─────────────────────────────────────────────────────────────
 控制台命令
-------------------------------------------------------------
+─────────────────────────────────────────────────────────────
 显示帮助信息\t\t\t? / help
 清空控制台\t\t\tcls
 关闭控制台\t\t\texit
@@ -164,18 +189,25 @@ def command(string):
 优化本地 Git 仓库\t\t\t-clean
 联网矫正 commit 次数\t\t\t-check
 执行原生 Git 命令\t\t\t-run "string" (Git command)
-------------------------------------------------------------
-SQL 查询命令
-------------------------------------------------------------
+\t\t\t\tcf
+清除 Cloudflare 边缘缓存\t\t-cache -clean
+启用开发模式 (绕过缓存)\t\t\t-cache 0 / 1
+─────────────────────────────────────────────────────────────
+SQL 查询命令 (尽量小写，只能用双引号包裹)
+─────────────────────────────────────────────────────────────
 查询所有表名\t\t\tselect name from sqlite_schema where type='table' and name != '_cf_KV' ORDER BY name
+查询总体信息\t\t\tselect * from sqlite_master
 查询指定表的全部数据\t\tselect * from 表名
 查询指定表指定行的数据\t\tselect * from 表名 where 列名='数据'
+创建索引\t\t\tcreate index 索引名 on 表名 (列名)
 修改指定位置的数据\t\tupdate 表名 set 列名='新数据' where 列名='数据'
 重命名表\t\t\talter table 旧表名 rename to 新表名
 重命名列\t\t\talter table 表名 rename column 旧列名 to 新列名
 写入新数据\t\t\tinsert into 表名 (列名1, 列名2) VALUES (数据1, 数据2)
 删除指定行\t\t\tdelete from 表名 where 列名='数据'
-------------------------------------------------------------''')
+删除指定表\t\t\tdrop table 表名
+删除指定索引\t\t\tdrop index 索引名
+─────────────────────────────────────────────────────────────''')
 		return "break"
 
 	# 清屏
@@ -294,14 +326,10 @@ SQL 查询命令
 			e = os.listdir(p)
 			print(Style.NORMAL + Fore.WHITE + '正在扫描本地文件: "' + env["path"] + "logs\\*" + '"')
 			files = [f for f in e if not os.path.isdir(os.path.join(p, f))]
-			r = ""
-
+			files = files = [{"name": '"' + f + '"', "size": f"{os.path.getsize(os.path.join(p, f)) / 1024:.1f}KB"} for f in files]
 			print(Style.NORMAL + Fore.WHITE + "正在生成表格")
 			print(Style.DIM + Fore.WHITE + "lines:\t{}".format(len(files)))
-			for i in range(0, len(files)):
-				r = r + '"' + files[i] + '"\n'
-
-			print(Style.DIM + Fore.WHITE + "------------------------------------------------------------\n文件名\n------------------------------------------------------------\n" +  r + "------------------------------------------------------------")
+			print(Style.DIM + Fore.WHITE + tabulate.tabulate(files, headers={"name": "文件名", "sizez": "大小"}, tablefmt="simple_outline", colalign = ("left","right")))
 			return "break"
 
 	# git
@@ -397,16 +425,15 @@ SQL 查询命令
 
 			headers = {"Content-Type": "application/json;charset=UTF-8", "Authorization": "Bearer {}".format(env["token"])}
 			response = requests.get("https://api.cloudflare.com/client/v4/accounts/{}/pages/projects/{}/deployments".format(env["aid"], env["project"]), headers=headers)
-			data = response.json()["result"]
-			r = ""
+			d = response.json()["result"]
+			r = []
+
+			for item in d:
+				r.append({"date": item["created_on"][5:16].replace("T", " "),"id": item["id"], "status": item["latest_stage"]["status"]})
 
 			print(Style.NORMAL + Fore.WHITE + "正在生成表格")
-			print(Style.DIM + Fore.WHITE + "lines:\t{}".format(len(data)))
-			for i in range(0, len(data)):
-				r = r + data[i]["created_on"][5:16].replace("T", " ") + "\t" + data[i]["id"] + "\t" + data[0]["stages"][1]["status"] + "\n"
-
-			print(Style.NORMAL + Fore.WHITE + "------------------------------------------------------------\n时间\t\tID\t\t\t\t\t状态\n------------------------------------------------------------")
-			print(Style.NORMAL + Fore.WHITE + r + "------------------------------------------------------------")
+			print(Style.DIM + Fore.WHITE + "lines:\t{}".format(len(r)))
+			print(Style.DIM + Fore.WHITE + tabulate.tabulate(r, headers={"date": "时间", "id": "ID", "status": "状态"}, tablefmt="simple_outline"))
 			return "break"
 
 		# 删除部署
@@ -426,7 +453,7 @@ SQL 查询命令
 			print(Style.NORMAL + Fore.WHITE + "开始备份当前数据库")
 
 			url0 = "https://api.cloudflare.com/client/v4/accounts/{}/d1/database/{}/export".format(env["aid"], env["bid"])
-			body = { "output_format": "polling" }
+			body = {"output_format": "polling"}
 			headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
 
 			response = requests.post(url0, headers=headers, data=json.dumps(body))
@@ -436,13 +463,13 @@ SQL 查询命令
 				print(Style.DIM + Fore.WHITE + "bookmark: " + r1["result"]["at_bookmark"])
 				print(Style.NORMAL + Fore.WHITE + "请求下载链接")
 
-				body =  { "current_bookmark": r1["result"]["at_bookmark"] }
+				body =  {"output_format": "polling", "current_bookmark": r1["result"]["at_bookmark"]}
 				response = requests.post(url0, headers=headers, data=json.dumps(body))
 				r2 = response.json()
 
 				if (len(r2["errors"]) == 0):
-					print(Style.DIM + Fore.WHITE + "signed_url: " + r2["result"]["signed_url"])
-					url2 = r2["result"]["signed_url"]
+					url2 = r2["result"]["result"]["signed_url"]
+					print(Style.DIM + Fore.WHITE + "signed_url: " + url2)
 					f = env["path"] + "database\\" + datetime.now(timezone.utc).astimezone(pytz.timezone("Asia/Shanghai")).strftime("%Y-%m-%d %H-%M-%S") + ".sql"
 					response = requests.get(url2)
 					with open(f, "wb") as file:
@@ -465,9 +492,46 @@ SQL 查询命令
 				"sql": cmd1[2]
 			}
 			response = requests.post("https://api.cloudflare.com/client/v4/accounts/{}/d1/database/{}/query".format(env["aid"], env["bid"]), headers=headers, data=json.dumps(body))
-			print(Style.NORMAL + Fore.WHITE + "响应值:")
+
+			# 截断超长字符
+			r = response.json()["result"][0]["results"]
+			if len(r) != 0:
+				for item in r:
+					for key in item:
+						if isinstance(item[key], str) and len(item[key]) > 20:
+							item[key] = item[key][:20].replace('\\n', '').replace('\n', '')
+
+				print(Style.DIM + Fore.WHITE + tabulate.tabulate(r, headers="keys", tablefmt="simple_outline"))
+
+			print(Style.NORMAL + Fore.WHITE + "raw:")
 			print(Style.DIM + Fore.WHITE + str(response.json()))
 			return "break"
+
+	# Cloudflare 互交
+	if (cmd1[0].lower() == "cf"):
+		# 缓存
+		if (cmd1[3] == "null") and (cmd1[1].lower() == "-cache"):
+			# 清除边缘缓存
+			if (cmd1[2].lower() == "-clean"):
+				headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
+				body = {
+					"purge_everything": True
+				}
+				response = requests.post("https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(env["zid"]), headers=headers, data=json.dumps(body))
+				print(Style.NORMAL + Fore.WHITE + "raw:")
+				print(Style.DIM + Fore.WHITE + str(response.json()))
+				return "break"
+
+			# 控制开发模式
+			if (cmd1[2] == "0" or cmd1[2] == "1"):
+				headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
+				body = {
+					"value": "on" if cmd1[2] == "1" else "off"
+				}
+				response = requests.patch("https://api.cloudflare.com/client/v4/zones/{}/settings/development_mode".format(env["zid"]), headers=headers, data=json.dumps(body))
+				print(Style.NORMAL + Fore.WHITE + "raw:")
+				print(Style.DIM + Fore.WHITE + str(response.json()))
+				return "break"
 
 
 
@@ -481,7 +545,7 @@ init(autoreset=True)
 # 读取配置文件
 config()
 
-print(Fore.WHITE + Style.NORMAL + "uploader.py 1.0.243")
+print(Fore.WHITE + Style.NORMAL + "uploader.py 1.0.244")
 print(Fore.WHITE + Style.DIM + '键入 "?" 或 "help" 以查看帮助信息')
 
 

@@ -2,7 +2,7 @@ root:
 	60	body::before
 	50	.main .loading
 	40	.prompt
-	30	.player-ui
+	30	.player
 	20	.main .blog
 	15	.menu
 	10	header

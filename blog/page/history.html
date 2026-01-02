@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins-Regular.woff2" />
 	<style>
 	event {
 		display: block;
@@ -75,15 +75,123 @@
 	</para>
 
 	<para>
+		<h3>2026-01-01</h3>
+		<event type="A" >启用 Cloudflare 边缘缓存</event>
+		<event type="A" >添加彩蛋</event>
+		<event type="O" >优化网站的部分代码</event>
+		<event type="O" >
+			优化彩蛋
+			<br />
+			<note>
+				fetch() -> context.env.ASSETS.fetch()
+			</note>
+		</event>
+	</para>
+
+	<para>
+		<h3>2025-12-27</h3>
+		<event type="A" >添加网站图标</event>
+		<event type="D" >
+			移除位于 <ins>https://sumiyo.link/admin</ins> 的后台管理系统
+			<br />
+			<note>
+				mio 认为，优化后的 uploader.py 已经足以实现后台管理系统的全部功能。
+			</note>
+		</event>
+		<event type="F" >
+			修复无 BOM 文件的中文乱码问题
+			<br />
+			<note>
+				又蠢又坏的 Cloudflare 居然把 *.css 的默认 Content-Type 设成 application/css
+			</note>
+		</event>
+		<event type="O" >优化 uploader.py 的表格显示功能 (1.0.243 => 1.0.244)</event>
+		<event type="O" >
+			优化数据库查询
+			<br />
+			<note>
+				通过新建数据库索引，极大地提升了查询效率。以访问量统计 API 的查询为例：
+				<br />
+				读取: 2r, 0w, 1a -> 1r, 0w, 1a
+				<br />
+				读取并增加: 4r, 1w, 2a -> 2r, 1w, 2a
+			</note>
+		</event>
+		<event type="O" >优化网站 API 代码</event>
+		<event type="O" >优化留言板数据缓存机制</event>
+		<event type="O" >重命名主程序: Soba => 阿呆鳥 Ahoudori</event>	
+		<br class="f-1" />
+		<note>
+				<ins>https://developers.cloudflare.com/pages/configuration/headers/</ins>
+		</note>
+	</para>
+	</para>
+
+	<para>
+		<h3>2025-12-23</h3>
+		<event type="A" >
+			添加博客页面重定向规则
+			<br />
+			<note>/blog/* -> /?id=*</note>
+		</event>
+		<br class="f-1" />
+		<note>
+				<ins>https://developers.cloudflare.com/rules/transform/url-rewrite/reference/fields-functions/</ins>
+				<br />
+				<ins>https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/</ins>
+		</note>
+	</para>
+
+	<para>
+		<h3>2025-12-14</h3>
+		<event type="D" >
+			移除播放器次要功能
+			<br />
+			<note>
+				歌词显示、播放模式切换什么的都太花里胡哨了，干脆全部删掉吧！
+			</note>
+		</event>
+		<event type="O" >优化手机版网站主页样式</event>
+		<event type="O" >
+			优化播放器样式
+			<br />
+			<note>
+				最后感觉还是简洁一点比较好 ...
+			</note>
+		</event>
+	</para>
+
+	<para>
+		<h3>2025-11-16</h3>
+		<event type="A" >
+			ミオ !
+			<br />
+			<note>
+				用了一上午时间才画完 ...
+			</note>
+		</event>
+		<event type="A" >添加 "夜间模式"</event>
+		<event type="O" >修改主页 UI 样式</event>
+		<event type="O" >重命名主程序: snowyfox => Soba</event>
+		<event type="O" >
+			优化网站 Cookie 功能
+			<br />
+			<note>
+				现在，Cookie 将以 json 的形式存储更多数据。
+			</note>
+		</event>
+		<event type="D" >移除网站图标</event>
+	</para>
+
+	<para>
 		<h3>2025-11-01</h3>
 		<event type="A" >
 			Googlebots are banned for good.
 			<br />
 			<note>
-				被谷歌的反人类设计彻彻底底地惹恼了 ...
+				被谷歌的反人类设计彻底惹恼了 ...
 			</note>
 		</event>
-
 		<event type="O" >
 			更新了 uploader.py (1.0.241 => 1.0.243)
 			<br />
@@ -164,23 +272,15 @@
 	<para>
 		<h3>2025-07-15</h3>
 		<event type="A" >Hoo ! 居然可以在一个仓库上同时绑定 Cloudflare Pages 和 Workers 集成</event>
-		<event type="O" >将博客中的图像全部转移至 https://sumiyo.link/src/img/ 目录</event>
+		<event type="O" >将博客中的图像全部转移至 <ins>https://sumiyo.link/src/img/</ins> 目录</event>
 		<event type="O" >删除服务器上所有 utf-8 编码文件的 BOM 标记</event>
 		<event type="O" >优化主页元素 z-index 参数</event>
 		<br class="f-1" />
 		手动编写 wrangler.toml
 		<br />
 		<note>
-			简单来说，wrangler.toml 就是 worker 的配置文件。附上相关文档: （真的是写给懂的人看的）
+			简单来说，wrangler.toml 就是 worker 的配置文件。
 			<br />
-			<mat></mat>
-			https://developers.cloudflare.com/workers/get-started/guide/
-			<br />
-			https://developers.cloudflare.com/workers/wrangler/configuration/
-			<br />
-			<mat></mat>
-			<mat></mat>
-			<mat></mat>
 			没有 Wrangler，咱得自己写 wrangler.toml，另存为 utf-8。部署时报错:
 			<mat></mat>
 			<code>✘ [ERROR] Unknown character "65279"</code>
@@ -189,6 +289,10 @@
 			翻遍了网上的资料后，才发现罪魁祸首是 utf-8 编码的 BOM 标记。用十六进制编辑器删去文件开头的 "EF BB BF" 字节即可解决问题。
 			<mat></mat>
 			<code>✨ Success! Build completed.</code>
+			<br class="f-1" />
+			<ins>https://developers.cloudflare.com/workers/get-started/guide/</ins>
+			<br />
+			<ins>https://developers.cloudflare.com/workers/wrangler/configuration/</ins>
 		</note>
 	</para>
 
@@ -200,7 +304,7 @@
 			<note>
 				访客因网站维护、使用上古时期的浏览器等原因会被重定向至这些页面。
 				<br class="f-2" />
-				你可以在 https://sumiyo.link/src/file/warn/ 中打开它们。
+				你可以在 <ins>https://sumiyo.link/src/file/warn/</ins> 中打开它们。
 			</note>
 		</event>
 		<event type="F" >修复 CSS 中 .menu footer {} 导致主页菜单出现横向滚动条的问题</event>
@@ -258,10 +362,10 @@ window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/
 		blog/ 路径
 		<br />
 		<note>
-			当未找到资源时，Cloudflare 会试图发送 index.html 或 404.html（并非简单的重定向）。本项目中，不存在 root/blog.html、root/blog/index.html 和 root/404.html文件，对于所有 https://sumiyo.link/blog 请求，服务器实则发送 root/index.html，这就是 blog/ 路径的工作原理。
+			当未找到资源时，Cloudflare 会试图发送 index.html 或 404.html（并非简单的重定向）。本项目中，不存在 root/blog.html、root/blog/index.html 和 root/404.html文件，对于所有 <ins>https://sumiyo.link/blog</ins> 请求，服务器实则发送 root/index.html，这就是 blog/ 路径的工作原理。
 			<br />
 			<br class="f-1" />
-			相关文档: https://developers.cloudflare.com/pages/configuration/serving-pages/
+			<ins>https://developers.cloudflare.com/pages/configuration/serving-pages/</ins>
 		</note>
 	</para>
 
@@ -368,7 +472,7 @@ window.parent.postMessage(`env.f.player.add.ask(${music})`, document.domain ? '/
 		博客 404
 		<br />
 		<note>
-			之前的版本中，博客页面 404 通过以下逻辑实现: 页面打开时，启动 1 个计时器。60s 内，若 iframe 子页面未通过通信桥执行 env.f.root.page.ok() 函数，则判定为 404，展示 root/blog/error.html 。
+			之前的版本中，博客页面 404 通过以下逻辑实现: 页面打开时，启动 1 个计时器。60s 内，若 iframe 子页面未通过通信桥执行 env.f.root.blog.show() 函数，则判定为 404，展示 root/blog/error.html 。
 		</note>
 	</para>
 
@@ -454,7 +558,7 @@ export async function onRequest(context) {
 			添加 网站广场 - 留言板 功能
 			<br />
 			<note>
-				んなあ～ 这方面的技术细节恐怕不能透露，不然会被黑客拍扁 ...
+				mio 觉得这方面的技术细节不可以透露，不然会被黑客拍扁 ...
 			</note>
 		</event>
 		<event type="O" >
@@ -498,7 +602,7 @@ export async function onRequest(context) {
 			第一次成功使用 Cloudflare Functions 控制 D1 数据库！最终咱把开发范围控制在: 访问量统计、留言系统、文件上传和下载功能（这个会藏得比较深）。
 			<br />
 			<br class="f-1" />
-			相关文档: https://developers.cloudflare.com/pages/functions/bindings/#d1-databases
+			<ins>https://developers.cloudflare.com/pages/functions/bindings/#d1-databases</ins>
 		</note>
 	</para>
 
@@ -529,10 +633,10 @@ export async function onRequest(context) {
 		url 参数
 		<br />
 		<note>
-			鹅，那时还不知道有 new URL() 这种东西，就直接拿了大佬的代码。
+			还不知道有 new URL() 这种东西，就直接拿了大佬的代码。
 			<br />
 			<br class="f-1" />
-			相关文档: https://blog.csdn.net/weixin_42403306/article/details/105861346
+			<ins>https://blog.csdn.net/weixin_42403306/article/details/105861346</ins>
 		</note>
 	</para>
 
@@ -556,7 +660,7 @@ export async function onRequest(context) {
 			添加 SweetAlert 插件
 			<br />
 			<note>
-				一款前端弹窗插件，这是他的官网: https://sweetalert.js.org/
+				一款前端弹窗插件，这是他的官网: <ins>https://sweetalert.js.org/</ins>
 			</note>
 		</event>
 		<event type="D" >
@@ -609,7 +713,7 @@ export async function onRequest(context) {
 	</para>
 </div>
 <script>
-	window.parent.postMessage(`env.f.root.page.ok("${document.querySelectorAll('h1')[0].innerText}")`, document.domain ? '/' : '*')
+	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})

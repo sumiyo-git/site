@@ -8,42 +8,42 @@
 
 
 
-env.d.version.root = '1.0.245'
+env.d.version.root = "1.0.246"
 env.f.root = {}
 
 // 初始化元素列表
 env.e = {...env.e, ...{
 	root: {
-		'prompt': document.querySelector('.prompt'),
-		'blog': document.querySelector('.main .blog'),
-		'btn': document.querySelector('.main header btn'),
-		'des': document.querySelector('.des'),
-		'backdrop': document.querySelectorAll('.main backdrop'),
-		'menu': document.querySelectorAll('.menu btn'),
-		'counter': document.querySelectorAll('.main footer tag'),
-		'dm_btn': document.querySelectorAll('.menu .menu-c3 a')[4],
+		"prompt": document.querySelector(".prompt"),
+		"blog": document.querySelector(".main .blog"),
+		"btn": document.querySelector(".main header btn"),
+		"des": document.querySelector(".des"),
+		"backdrop": document.querySelectorAll(".main backdrop"),
+		"menu": document.querySelectorAll(".menu btn"),
+		"counter": document.querySelectorAll(".main footer tag"),
+		"dm_btn": document.querySelectorAll(".menu .menu-c3 a")[3],
 	}
 }}
 
 // 初始化初始化列表
 env.d.init = {...env.d.init, ...{
-	'menu': 0,
+	"menu": 0,
 }}
 
 // 通知
-env.d.list.news = `欢迎来到 sumiyo 的个人网站！\n这里仍在缓慢更新中 ...`
+env.d.list.news = `欢迎来到 mio 的个人网站！<br />这里仍在缓慢更新中 ...`
 
 
 
 // 注册函数
 
-env.f.root.fade = function(e, t, style = 'display: none;') {
+env.f.root.fade = function(e, t, style = "display: none") {
 	// 淡入淡出动画
 	var n = null
 	var i = (t > 0) ? 0 : 1
-	var o = parseFloat(env.f.root.getCSS(e, 'opacity'))
+	var o = parseFloat(env.f.root.getCSS(e, "opacity"))
 	var t0 = Math.abs(t)
-	e.setAttribute('style', 'transition: none;')
+	e.style = "transition: none"
 
 	function anime(t1) {
 		if (n == null) {n = t1}
@@ -52,7 +52,7 @@ env.f.root.fade = function(e, t, style = 'display: none;') {
 		if (p < t0) {
 			requestAnimationFrame(anime)
 		} else {
-			t > 0 ? e.removeAttribute('style') : e.setAttribute('style', style)
+			t > 0 ? e.removeAttribute("style") : e.style = style
 		}
 	}
 	requestAnimationFrame(anime)
@@ -82,7 +82,7 @@ env.f.root.scroll = function(e, y, t = 300, abs = true) {
 
 env.f.root.cookie = function(value) {
 	// 写入 Cookie
-	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 14 * 24 * 60 * 60 * 1000).toUTCString()}`
+	document.cookie = `Cookie=${value}; expires=${new Date(new Date().getTime() + 15 * 24 * 60 * 60 * 1000).toUTCString()}`
 }
 	env.f.root.cookie.set = function(key, value) {
 		// 写入
@@ -111,7 +111,7 @@ env.f.root.getCSS = function(e, style) {
 env.f.root.fmt = {}
 	env.f.root.fmt.date = function(formatter, date = new Date()) {
 		// 日期格式化
-		var pad = n => n.toString().padStart(2, '0')
+		var pad = n => n.toString().padStart(2, "0")
 		return formatter
 			.replace(/YYYY|yyyy/g, date.getFullYear())
 			.replace(/MM/g, pad(date.getMonth() + 1))
@@ -125,14 +125,14 @@ env.f.root.fmt = {}
 	env.f.root.fmt.size = function(n = 0) {
 		// 文件大小转换
 		var i = parseInt(Math.floor(Math.log(n || 1) / Math.log(1024)), 10)
-		return (n / Math.pow(1024, i)).toFixed(2) + ' ' + ['B', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', '你够了'][i]
+		return (n / Math.pow(1024, i)).toFixed(2) + " " + ["B", "KB", "MB", "GB", "TB", "PB", "EB", "你够了"][i]
 	}
 
 env.f.root.conv = {}
 	env.f.root.conv.c0 = function(n = 0) {
 		// 转换 ms --> mm:ss.fff
 		var t = Math.floor(n / 1000)
-		return `${String(Math.floor(t / 60)).padStart(2, '0')}:${String(t % 60).padStart(2, '0')}.${String(n % 1000).padStart(3, '0')}`.substring(0, 9)
+		return `${String(Math.floor(t / 60)).padStart(2, "0")}:${String(t % 60).padStart(2, "0")}.${String(n % 1000).padStart(3, "0")}`.substring(0, 9)
 	}
 
 	env.f.root.conv.c1 = function(str) {
@@ -144,36 +144,54 @@ env.f.root.conv = {}
 	env.f.root.conv.c2 = function(str) {
 		// 转换 mm:ss.fff --> s
 		var t = str.split(/[:.]/)
-		return parseFloat((parseInt(t[0] * 60) + parseInt(t[1])) + '.' + t[2])
+		return parseFloat((parseInt(t[0] * 60) + parseInt(t[1])) + "." + t[2])
 	}
 
 env.f.root.getUptime = function() {
 	// 计算网站上线时间
-	return Math.floor((new Date() -  new Date('2023-02-03')) / (1000 * 60 * 60 * 24))
+	return Math.floor((new Date() -  new Date("2023-02-01")) / (1000 * 60 * 60 * 24))
 }
 
 env.f.root.getText = function() {
 	// 开屏页随机标语
+	var e = env.e.root.backdrop[0].children[0]
 	var l = [
-		"hoer heyato sia san: erando-na, yato-na, merai-na.",
-		"oer-miite semimila hola oer-eramutu dekowa.",
-		"haze i milecaze, miite mirano enkade suzerala.",
+		// 世界的边缘，白花遍野。
+		"haze i  milecaze,    miite mirano  enkade  suzerala.",
+
+		// 聆听，视物，沉默。
+		"erilo,     miranka,      utarii.",
+
+		// 全在即神明。
+		"hazemoi sia  ihono      he   sorie.",
 	]
-	env.e.root.backdrop[0]?.setAttribute('data-text', l[env.f.root.getRandom(0, l.length - 1)])
-	delete env.f.root.getText
+
+	var t = l[env.f.root.getRandom(0, l.length - 1)].split("")
+	var i = 0
+	env.tmp.root.t3 = setInterval(() => {
+		e.innerHTML = e.innerHTML + t[i]
+		i ++
+		if (i == t.length) {
+			clearInterval(env.tmp.root.t3)
+			setTimeout(function (){
+				env.d.init.root = 1
+				delete env.f.root.getText
+			}, 500)
+		}
+	}, 100)
 }
 
 env.f.root.post = function(event) {
 	// 页面通信
-	env.e.root.blog.children[0].contentWindow.postMessage(event, env.d.isNetwork ? '/' : '*')
+	env.e.root.blog.children[0].contentWindow.postMessage(event, env.d.isNetwork ? "/" : "*")
 }
 
 env.f.root.linkto = function(id) {
 	// 博客文章重定向
 	env.f.root.blog.close()
 	setTimeout(function (){
-		env.f.root.url.set('id', id)
-		env.f.root.blog.open(env.f.root.url.get('id'))
+		env.f.root.url.set("id", id)
+		env.f.root.blog.open(env.f.root.url.get("id"))
 	}, 600)
 }
 
@@ -181,28 +199,27 @@ env.f.root.url = {}
 	env.f.root.url.clear = function(name) {
 		// 清除参数
 		var url = new URL(window.location.href)
-		name ? (url.searchParams.delete(name)) : (url.search = '')
-		history.replaceState(null, '', decodeURIComponent(url))
+		name ? (url.searchParams.delete(name)) : (url.search = "")
+		history.replaceState(null, "", decodeURIComponent(url))
 	}
 
 	env.f.root.url.set = function(name, value) {
 		// 修改参数
 		var url = new URL(window.location.href)
 		url.searchParams.set(name, value)
-		history.replaceState(null, '', decodeURIComponent(url))
+		history.replaceState(null, "", decodeURIComponent(url))
 	}
 
 	env.f.root.url.get = function(name) {
 		// 读取参数
-		var d = window.location.search.substr(1).match(new RegExp(`(^|&)${name}=([^&]*)(&|$)`, 'i'))
+		var d = window.location.search.substr(1).match(new RegExp(`(^|&)${name}=([^&]*)(&|$)`, "i"))
 		return d ? decodeURIComponent(d[2]) : null
 	}
 
 	env.f.root.url.read = function() {
 		// 读取参数并打开
-		var id = env.f.root.url.get('id')
+		var id = env.f.root.url.get("id")
 		if (id) {
-			if (env.d.init.root != 1) {env.e.root.backdrop[0].removeAttribute('data-text'); setTimeout(function (){env.e.root.backdrop[0].style.display = 'none'}, 500)}
 			env.f.root.blog.open(id)
 		} else {
 			env.f.root.url.clear()
@@ -214,14 +231,17 @@ env.f.root.url = {}
 env.f.root.blog = {}
 	env.f.root.blog.open = function(id) {
 		// 打开博客
-		var e = document.createElement('iframe')
+		var e = document.createElement("iframe")
 		env.e.root.blog.prepend(e)
-		env.f.root.page.load()
 		env.f.root.fade(env.e.root.blog, 300)
+		env.f.root.fade(env.e.root.backdrop[2], 300)
+		if (env.d.player?.list) {
+			env.d.isHandyNAVI ? env.f.root.fade(env.e.player.player, 300) : env.e.player.player.removeAttribute("style")
+		}
 
 		setTimeout(function (){
-			env.f.root.url.set('id', id)
-			e.src = `blog/${id}${env.d.isNetwork ? '' : '.html'}`
+			env.f.root.url.set("id", id)
+			e.src = `blog/${id}${env.d.isNetwork ? "" : ".html"}`
 		}, 1000)
 	}
 
@@ -231,39 +251,19 @@ env.f.root.blog = {}
 		document.title = env.d.title
 		env.f.root.fade(env.e.root.blog, -300)
 		env.f.root.prompt.close()
+		if (env.d.player?.list) {
+			env.d.isHandyNAVI ? env.f.root.fade(env.e.player.player, -300) : env.e.player.player.setAttribute("style", "bottom: 10%; right: 80px; z-index: 8;")
+		}
 
 		setTimeout(function (){
 			env.e.root.blog.children[0].remove()
 		}, 600)
 	}
 
-env.f.root.page = {}
-	env.f.root.page.load = function() {
-		// 博客加载动画
-		clearInterval(env.tmp.root.t2)
-		env.e.root.backdrop[2].style.display = 'block'
-
-		env.tmp.root.d3 = new Date()
-		env.tmp.root.t2 = setInterval(() => {
-			env.e.root.backdrop[2].setAttribute('data-timer', ((new Date() - env.tmp.root.d3) / 1000).toFixed(2))
-		}, 100)
-	}
-
-	env.f.root.page.load.stop = function() {
-		// 停止加载动画
-		clearInterval(env.tmp.root.t2)
-		delete env.tmp.root.d3
-		env.f.root.fade(env.e.root.backdrop[2], -500)
-
-		setTimeout(function (){
-			env.e.root.blog.children[2].removeAttribute('data-timer')
-		}, 500)
-	}
-
-	env.f.root.page.ok = function(title) {
+	env.f.root.blog.show = function(title) {
 		// 博客加载完成
-		document.title = `${title} | ${env.d.title}`
-		setTimeout(function (){env.f.root.page.load.stop()}, 2000)
+		document.title = `${title}`
+		env.f.root.fade(env.e.root.backdrop[2], -500)
 	}
 
 env.f.root.init = function() {
@@ -272,55 +272,59 @@ env.f.root.init = function() {
 
 	// 文章
 	var d = env.d.list.blog
-	env.e.root.menu[0].setAttribute('data-item', d.length)
+	env.e.root.menu[0].setAttribute("data-item", d.length)
 	for (var i = 0; i < d.length; i++) {
-		var div = document.createElement('div')
-			div.setAttribute('style', 'display: block')
-			div.setAttribute('data-icon', d[i].type[0])
+		var div = document.createElement("div")
+			div.setAttribute("data-icon", d[i].type[0])
+			div.style = "display: block"
 			div.innerHTML = `<a onclick="env.f.root.blog.open('${d[i].src}')" title="${d[i].des}" >${d[i].name}</a>`
-			document.querySelector('.search list').appendChild(div)
+			document.querySelector(".search list").appendChild(div)
 
-		if (d[i].type[1] == 'pin') {div.setAttribute('class', 'pin')}
+		if (d[i].type[1] == "pin") {div.className = "pin"}
 	}
 
 	// 检索引擎
-	document.querySelector('.search').setAttribute('style', `height: ${Math.min(8, d.length) * 22 + 55}px`)
+	document.querySelector(".search").style = `height: ${Math.min(8, d.length) * 22 + 55}px;`
 
 	// 通知
-	document.querySelector('.menu-c2').innerHTML = env.d.list.news
+	document.querySelector(".menu-c2").innerHTML = env.d.list.news
 
-	setTimeout(function (){env.e.root.btn.removeAttribute('style'); env.f.root.menu.open()}, 1000)
+	// 打开菜单
+	setTimeout(function (){
+		env.e.root.btn.removeAttribute("style")
+		env.f.root.menu.open()
+	}, 1000)
 }
 
 env.f.root.menu = {}
 	env.f.root.menu.open = function() {
 		// 打开菜单
 		if (env.d.init.menu) {
-			document.querySelector('.menu').classList.add('menu-active')
+			document.querySelector(".menu").classList.add("menu-active")
 			env.f.root.fade(env.e.root.backdrop[1], 300)
 		} else {
 			// 初始化
-			env.e.root.btn.setAttribute('style', 'pointer-events: none')
+			env.e.root.btn.style = "pointer-events: none"
 			env.f.root.init()
 		}
 	}
 
 	env.f.root.menu.close = function() {
-		document.querySelector('.menu').classList.remove('menu-active')
+		document.querySelector(".menu").classList.remove("menu-active")
 		env.f.root.fade(env.e.root.backdrop[1], -300)
 	}
 
 	env.f.root.menu.folder = function(e) {
-		if (e.classList.contains('active')) {
-			e.removeAttribute('class')
-			e.nextElementSibling.setAttribute('style', 'opacity: 0; height: 0; overflow: hidden;')
+		if (e.classList.contains("active")) {
+			e.removeAttribute("class")
+			e.nextElementSibling.style = "opacity: 0; height: 0; overflow: hidden;"
 		} else {
-			e.classList.add('active')
+			e.classList.add("active")
 			if (e == env.e.root.menu[0]) {
 				// 配合检索栏
-				e.nextElementSibling.setAttribute('style', `opacity: 1; height: ${Math.min(8, (Number(env.e.root.menu[0].dataset.item) || 1)) * 22 + 55}px;`)
+				e.nextElementSibling.style = `opacity: 1; height: ${Math.min(8, (Number(env.e.root.menu[0].dataset.item) || 1)) * 22 + 55}px;`
 			} else {
-				e.nextElementSibling.removeAttribute('style')
+				e.nextElementSibling.removeAttribute("style")
 			}
 		}
 	}
@@ -328,13 +332,13 @@ env.f.root.menu = {}
 env.f.root.prompt = {}
 	env.f.root.prompt = function(str, t = -1) {
 		// 弹出信息窗口
-		var prompt = document.createElement('prompt')
+		var prompt = document.createElement("prompt")
 			prompt.innerHTML = str
 			prompt.id = Date.now()
-			prompt.setAttribute('onclick', 'env.f.root.prompt.close(this)')
+			prompt.setAttribute("onclick", "env.f.root.prompt.close(this)")
 			env.e.root.prompt.appendChild(prompt)
 
-		setTimeout(function (){prompt.setAttribute('class', 'active')}, 100)
+		setTimeout(function (){prompt.setAttribute("class", "active")}, 100)
 		if (t > 0) {
 			setTimeout(function (){
 				env.f.root.prompt.close(prompt)
@@ -344,7 +348,7 @@ env.f.root.prompt = {}
 	env.f.root.prompt.close = function(e) {
 		// 关闭信息窗口
 		if (e) {
-			e.removeAttribute('class')
+			e.removeAttribute("class")
 			setTimeout(function (){e.remove()}, 500)
 		} else {
 			var e = env.e.root.prompt.children
@@ -356,30 +360,29 @@ env.f.root.prompt = {}
 
 env.f.root.search = function() {
 	// 站内检索引擎
-	var s = document.querySelector('.search textarea').value
-	var f = document.querySelector('.search')
-	var o = [...document.querySelectorAll('.search list div')].slice(1)
+	var s = document.querySelector(".search textarea").value
+	var o = [...document.querySelectorAll(".search list div")].slice(1)
 
 	// 排除违禁词
 	if ([].some(item => s.includes(item))) {return}
 	for (var i = 0; i < o.length; i++) {
-		o[i].setAttribute('style', 'display: none')
+		o[i].style = "display: none"
 	}
 
-	// 创建新数组，格式为 {'name': 符合条件的 name 值, 'index': 项数}
+	// 创建新数组，格式为 {"name": 符合条件的 name 值, "index": 项数}
 	const r = env.d.list.blog
 		.map((item, index) => ({ name: item.name, index }))
 		.filter(item => item.name.toLowerCase().includes(s.toLowerCase()))
 
 	// 渲染结果
 	for (var i = 0; i < r.length; i++) {
-		o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'gi'), (match) => `<key>${match}</key>`)
-		o[r[i].index].setAttribute('style', 'display: block')
+		o[r[i].index].children[0].innerHTML = r[i].name.replace(new RegExp(s.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"), "gi"), (match) => `<key>${match}</key>`)
+		o[r[i].index].style = "display: block"
 	}
 
-	env.e.root.menu[0].setAttribute('data-item', r.length)
-	f.setAttribute('style', `transition: none; height: ${Math.max(Math.min(8, r.length), 1) * 22 + 55}px`)
-	document.querySelector('.search .none').setAttribute('style', `display: ${r.length ? 'none' : 'block'}`)
+	env.e.root.menu[0].setAttribute("data-item", r.length)
+	document.querySelector(".search").style = `transition: none; height: ${Math.max(Math.min(8, r.length), 1) * 22 + 55}px`
+	document.querySelector(".search .none").style = `display: ${r.length ? "none" : "block"}`
 }
 
 env.f.root.theme = function() {
@@ -388,17 +391,17 @@ env.f.root.theme = function() {
 }
 	env.f.root.theme.set = function(bool){
 		if (bool) {
-			env.e.root.dm_btn.innerHTML = ''
-			env.e.root.dm_btn.title = '浅色模式'
+			env.e.root.dm_btn.innerHTML = ""
+			env.e.root.dm_btn.title = "浅色模式"
 			env.d.isDark = true
 			env.f.root.cookie.set("theme", 0)
-			document.body.setAttribute('class', 'theme-0')
+			document.body.setAttribute("class", "theme-0")
 		} else {
-			env.e.root.dm_btn.innerHTML = ''
-			env.e.root.dm_btn.title = '深色模式'
+			env.e.root.dm_btn.innerHTML = ""
+			env.e.root.dm_btn.title = "深色模式"
 			env.d.isDark = false
 			env.f.root.cookie.set("theme", 1)
-			document.body.setAttribute('class', 'theme-1')
+			document.body.setAttribute("class", "theme-1")
 		}
 	}
 
@@ -413,26 +416,27 @@ env.f.root.theme = function() {
 
 
 
-// 初始化 Cookie
+// 初始化
 if (env.d.isNetwork) {
-	env.f.root.cookie.get() ? null : env.f.root.cookie("{}")
+	if (document.domain != env.d.domain) {window.location.href = `https://${env.d.domain}`}
+	(env.f.root.cookie.get()?.startsWith("{") ?? false) ? null : env.f.root.cookie("{}")
 }
 
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
-env.f.root.getText()
 env.f.root.url.read()
 env.f.root.theme.init()
+env.f.root.getText()
 
 
 
 // 接受博客页面的信号
-window.addEventListener('message', function(event) {
-	if (event.origin == 'null' || event.origin.includes(`https://${env.d.domain}`)) {eval(event.data)}
+window.addEventListener("message", function(event) {
+	if (event.origin == "null" || event.origin.includes(`https://${env.d.domain}`)) {eval(event.data)}
 })
 
 // 页面加载完成后执行
-window.addEventListener('load',function(){
+window.addEventListener("load",function(){
 	// 计算页面加载时间
 	env.d.load = env.f.root.conv.c0(((new Date() - new Date(env.tmp.root.d1)) / 1000).toFixed(3) * 1000)
 	delete env.tmp.root.d1
@@ -440,7 +444,7 @@ window.addEventListener('load',function(){
 	// 获取访问量
 	if (env.d.isNetwork) {
 		// 重复访问不计数
-		env.d.isNew = env.f.root.cookie.get("is_new") == "undefined" ? true : false
+		env.d.isNew = (env.f.root.cookie.get("is_new") == "undefined" ? true : false)
 		fetch(`https://${env.d.domain}/api/counter`, {
 			method: "POST",
 			headers: {
@@ -454,7 +458,7 @@ window.addEventListener('load',function(){
 			env.f.root.cookie.set("is_new", false)
 
 			env.e.root.counter[1].innerHTML = env.d.visitors
-			env.e.root.counter[1].parentNode.removeAttribute('style')
+			env.e.root.counter[1].parentNode.removeAttribute("style")
 		})
 	}
 })
@@ -464,10 +468,10 @@ window.addEventListener('load',function(){
 env.tmp.root.d2 = 1
 setTimeout(console.log.bind(
 	console, 
-	`\n%c %c snowyfox %c		${env.d.version.root}\n`,
-	'background-color: rgba(186, 138, 219, 0.9); color: white; font-weight: bolder;',
-	'background-color: rgba(186, 138, 219, 0.5); color: white;',
-	'color: rgba(192, 194, 194, 1);',
+	`\n%c %c  ${env.d.sys} %c		${env.d.version.root}\n`,
+	"background-color: rgba(40, 158, 214, 0.9); color: white; font-weight: bolder; line-height: 20px;",
+	"background-color: rgba(40, 158, 214, 0.5); color: white; line-height: 20px;",
+	"color: rgba(192, 194, 194, 1);",
 ));
 
 

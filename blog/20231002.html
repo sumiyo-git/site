@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins-Regular.woff2" />
 	<style>
 
 	a[class^='ibox'] {
@@ -37,6 +37,16 @@
 		width: 80%;
 	}
 
+	.ibox5 {
+		aspect-ratio: 11 / 7;
+		width: 80%;
+	}
+
+	.break-word {
+		word-break: keep-all;
+		word-wrap: break-word;
+	}
+
 	@media (orientation: portrait) {
 		a[class^='ibox'] {
 			width: 100%;
@@ -53,16 +63,16 @@
 	</para>
 
 	<para>
-		还是很喜欢画画的。无奈没有平板，没有老师，更没有基础，只能自己画来练练手。
-		<br class="f-2" />
-		水平有限，请多谅解！
+		还是很喜欢画画的。无奈没有平板，没有老师，更没有基础，只能自己画来玩玩。
 		<br />
 		<br class="f-1" />
-		如果想要使用咱的作品，这里是 <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=画室')`, document.domain ? '/' : '*')">使用协议</span> 。
+		<quote>
+		如果要使用 mio 的作品，这里是 <span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=画室')`, document.domain ? '/' : '*')">使用协议</span> 哦。
+		</quote>
 	</para>
 
 	<para>
-		<a class="ibox0"  target="_blank" href="../src/img/20231002.sen_to_chihiro_no_kamikakushi.png" >
+		<a class="ibox0" target="_blank" href="../src/img/20231002.sen_to_chihiro_no_kamikakushi.png" >
 			<img src="../src/img/20231002.sen_to_chihiro_no_kamikakushi.webp" onload="this.setAttribute('class', 'fade')" />
 		</a>
 		<mat></mat>
@@ -75,7 +85,7 @@
 	</para>
 
 	<para>
-		<a class="ibox1"  target="_blank" href="../src/img/20231002.naraku_no_nanachi.png" >
+		<a class="ibox1" target="_blank" href="../src/img/20231002.naraku_no_nanachi.png" >
 			<img src="../src/img/20231002.naraku_no_nanachi.webp" onload="this.setAttribute('class', 'fade')" />
 		</a>
 		<mat></mat>
@@ -97,7 +107,7 @@
 	</para>
 
 	<para>
-		<a class="ibox2"  target="_blank" href="../src/img/20231002.rekishi_no_mattanni_kizamu_hikouda.png" >
+		<a class="ibox2" target="_blank" href="../src/img/20231002.rekishi_no_mattanni_kizamu_hikouda.png" >
 			<img src="../src/img/20231002.rekishi_no_mattanni_kizamu_hikouda.webp" onload="this.setAttribute('class', 'fade')" />
 		</a>
 		<mat></mat>
@@ -117,7 +127,7 @@
 	</para>
 
 	<para>
-		<a class="ibox3"  target="_blank" href="../src/img/20231002.abyss_shinkou.png" >
+		<a class="ibox3" target="_blank" href="../src/img/20231002.abyss_shinkou.png" >
 			<img src="../src/img/20231002.abyss_shinkou.webp" onload="this.setAttribute('class', 'fade')" />
 		</a>
 		<mat></mat>
@@ -141,7 +151,7 @@
 	</para>
 
 	<para>
-		<a class="ibox4"  target="_blank" href="../src/img/20231002.apple.webp" >
+		<a class="ibox4" target="_blank" href="../src/img/20231002.apple.webp" >
 			<img src="../src/img/20231002.apple.webp" onload="this.setAttribute('class', 'fade')" />
 		</a>
 		<mat></mat>
@@ -150,29 +160,44 @@
 		<note>2025.10.26</note>
 		<mat></mat>
 		<mat></mat>
-		真不错呐，终于开始学习用软件画画了。这是第一幅像样的作品。
-		<br class="f-2" />
-		没老师带，只能自己慢慢摸索了。
+		真不错呐，终于能用软件画画了。这是第一幅像样的作品。
+	</para>
+
+	<para>
+		<a class="ibox5" target="_blank" href="../src/img/20231002.mio_1.webp" >
+			<img src="../src/img/20231002.mio_1.webp" onload="this.setAttribute('class', 'fade')" />
+		</a>
+		<mat></mat>
+		<mat></mat>
+		<h3>mio_1</h3>
+		<note>2025.12.20</note>
+		<mat></mat>
+		<mat></mat>
+		key words:
+		<list type="5-reset" >
+			<list type="5" class="break-word" >ears: hide them from being discovered.</list>
+			<list type="5" class="break-word" >clothing: greek style.</list>
+			<list type="5" class="break-word" >amulet: forged from an abyssal crystal received from a depth of 3700 ft, it's very powerful. <br class="f-2" />(This item is also recorded in the "oi haze i agademusu")</list>
+		</list>
 	</para>
 
 	<para>
 		<h2>未来</h2>
-		还没想好接下来要画啥嘞 ...
+		mio 还没想好接下来要画啥呐 ...
 	</para>
 
 </div>
 <script>
-	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
+	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})
-	var music = JSON.stringify({0: true, 1: false, 2: [
+	var music = JSON.stringify({0: true, 1: [
 		{
 			name: 'To the Moon - Piano (Ending Version)',
 			artist: 'Kan R. Gao',
 			src: '33415403',
 			img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
-			lrc: false,
 		}
 	]})
 

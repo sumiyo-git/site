@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../src/font/Poppins-Regular.woff2" />
 	<style>
 	.ibox0 {
 		aspect-ratio: 17 / 7;
@@ -28,12 +28,12 @@
 <div class="main" >
 
 	<para>
-		<h1>Chrome 假死现象</h1>
+		<h1>Chrome 使用小技巧</h1>
 		<note>发现一个使用谷歌浏览器的小技巧 ...</note>
 	</para>
 
 	<para>
-		经常逛 safebooru，检索了几十页图片后咱的 Chrome 都会变得越来越卡。多刷新几次后，连 index 都加载不出来了，整个页面直接白板。
+		经常逛 safebooru，每次检索了几十页图片后咱的 Chrome 都会变得越来越卡。多刷新几次后，连 index 都加载不出来了，整个页面直接白板。
 		<br />
 		<mat></mat>
 		<mat></mat>
@@ -42,8 +42,9 @@
 		</a>
 		<br class="f-1" />
 		<br class="f-1" />
-		这就是多数优化文章中都没有提到的 Chrome "假死" 现象。有兴趣的读者可以看看这位博主的文章:
+		这就是多数优化文章中都没有提到的 Chrome "假死" 现象。感兴趣的读者可以去读这位博主的文章:
 		<br />
+		<mat></mat>
 		<note>https://www.cnblogs.com/xzysaber/p/5264364.html</note>
 		<br />
 		<br class="f-1" />
@@ -56,7 +57,7 @@
 	<para>
 		那有没有不需要重开浏览器窗口的方法呢 ?
 		<br />
-		ヘヘ，就是这个:
+		ヘヘヘ，就是这个:
 		<br />
 		<attention>chrome://net-internals/#sockets</attention>
 		<br />
@@ -69,12 +70,9 @@
 	</para>
 
 	<para>
-		实际上，在 CRX 搜搜 上有个叫 <ins>Flush DNS & close sockets</ins> 的浏览器扩展。
+		实际上，浏览器扩展 <att3>Flush DNS & close sockets</att3> 可以很方便地实现这一功能。
 		<br />
 		<note>https://www.crxsoso.com/webstore/detail/mlmlfmdmhdplgecgmiihhfjodokajeel</note>
-		<br />
-		<br class="f-1" />
-		这是咱的魔改版本:
 		<br />
 		<mat></mat>
 		<mat></mat>
@@ -83,12 +81,12 @@
 		</a>
 		<br class="f-1" />
 		<br class="f-1" />
-		他在窗口右上角的扩展栏内添加了一个刷新 socket 连接池的按钮。<ins>使用该插件前需要给浏览器加上 --enable-net-benchmarking 的启动参数哦。</ins>
+		他在窗口右上角的扩展栏内添加了一个刷新 socket 连接池的按钮。<att3>使用该插件前需要给浏览器加上 --enable-net-benchmarking 的启动参数哦。</att3>
 	</para>
 
 </div>
 <script>
-	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
+	window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 	window.addEventListener('message', function(event) {
 		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 	})

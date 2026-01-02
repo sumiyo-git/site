@@ -14,6 +14,7 @@
 	--t-b3: 40, 40, 40;
 	--t-b4: 220, 220, 220;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -33,6 +34,7 @@
 	--t-b3: 244, 243, 241;
 	--t-b4: 40, 40, 40;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -69,8 +71,8 @@
 /* 预设样式 */
 
 @font-face{
-	font-family: Poppins Regular;
-	src: url('../src/font/Poppins Regular.woff2');
+	font-family: Poppins-Regular;
+	src: url('../src/font/Poppins-Regular.woff2');
 }
 
 body {
@@ -79,7 +81,7 @@ body {
 	line-height: 30px;
 	min-width: 380px;
 	background-color: rgba(var(--t-b1), 1);
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
+	font-family: 'Poppins-Regular', 'Microsoft YaHei'; 
 }
 
 .main {
@@ -93,11 +95,6 @@ a {
 	user-select: none;
 	text-decoration: none;
 	-webkit-user-drag: none;
-}
-
-ins {
-	text-decoration: none;
-	border-bottom: 2px rgba(var(--t-c1), 0.8) solid;
 }
 
 para {
@@ -123,21 +120,12 @@ hr {
 quote {
 	display: block;
 	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-c1), 0.15);
+	background-color: rgba(var(--t-b5), 0.1);
 	padding: 10px 15px 10px 10px;
 	border-left: rgba(var(--t-c1), 0.6) solid 5px;
 	border-radius: 0px 7px 7px 0px;
 	word-break: break-all;
 	line-height: 26px;
-}
-
-attention {
-	display: inline-block;
-	background-color: rgba(var(--t-c1), 0.15);
-	color: rgba(var(--t-c1), 1);
-	padding: 0px 8px 0px 8px;
-	line-height: 27px;
-	border-radius: 5px;
 }
 
 mat {
@@ -149,14 +137,62 @@ mat {
 
 
 
+/* 缩进文本 */
+
+i1 {
+	display: block;
+	word-break: break-all;
+	margin-left: 25px;
+}
+
+i2 {
+	display: block;
+	word-break: break-all;
+	margin-left: 50px;
+}
+
+i3 {
+	display: block;
+	word-break: break-all;
+	margin-left: 75px;
+}
+
+
+
+/* 强调 */
+
+att1 {
+	display: inline-block;
+	background-color: rgba(var(--t-c3), 0.2);
+	color: rgba(var(--t-c3), 1);
+	padding: 0px 8px 0px 8px;
+	line-height: 27px;
+	border-radius: 5px;
+}
+
+att2 {
+    display: inline-block;
+    background-color: rgba(var(--t-c3), 0.6);
+    color: rgba(var(--t-b1), 1);
+    line-height: 27px;
+    font-weight: bolder;
+}
+
+att3 {
+	text-decoration: none;
+	border-bottom: 2px rgba(var(--t-c1), 0.8) solid;
+}
+
+
+
 /* 代码框 */
 
 code {
 	display: block;
-	background-color: rgba(var(--t-c1), 0.1);
-	color: rgba(var(--t-c1), 0.6);
+	background-color: rgba(var(--t-b5), 0.1);
+	color: rgba(var(--t-c3), 0.5);
 	padding: 10px 12px 0px 12px;
-	font-family: 'Poppins Regular', 'Microsoft YaHei'; 
+	font-family: 'Poppins-Regular', 'Microsoft YaHei'; 
 	line-height: 26px;
 	font-size: 16px;
 	tab-size: 20;
@@ -166,17 +202,18 @@ code {
 }
 
 code note {
-	color: rgba(var(--t-c1), 1);
+	color: rgba(var(--t-c3), 1);
 }
 
-code attention {
-	background-color: rgba(var(--t-c1), 0.6);
+code att1 {
+	background-color: rgba(var(--t-c3), 0.6);
 	color: rgba(var(--t-b1), 0.8);
 }
 
 
 
 /* 标题 */
+
 h1, h2 {
 	color: rgba(var(--t-t1), 0.8);
 }
@@ -208,9 +245,9 @@ h3 {
 /* 链接 */
 
 .link {
-	color: rgba(var(--t-c1), 1);
+	color: rgba(var(--t-c3), 1);
 	text-decoration: underline;
-	text-decoration-color: rgba(var(--t-t1), 0.2);
+	text-decoration-color: rgba(var(--t-b4), 0.2);
 	cursor: pointer;
 	transition: 0.3s;
 	user-select: text !important;
@@ -295,11 +332,11 @@ list[type="5"]::before {
 /* 表格 */
 
 thead tr th {
-	background-color: rgba(var(--t-c1), 0.5);
+	background-color: rgba(var(--t-c3), 0.6);
 	color: rgba(var(--t-b1), 1);
 	min-width: 80px;
 	text-align: left;
-	font-weight: lighter;
+	font-weight: bolder;
 }
 table {
 	border-collapse: collapse;

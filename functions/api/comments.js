@@ -1,115 +1,171 @@
 export async function onRequest(context) {
-	var m = context.request.headers.get('Token')
-	var r = {success: false, meta: {}, results: [], msg: "Invalid Input"}
+	var token = context.request.headers.get('Token')
+	var result = {success: false, results: [], msg: "Invalid Input"}
 
-	if (!m) {return Response.json(r)}
+	if (!token) {return Response.json(result)}
 	var body = await context.request.json()
 
-	// 删除留言
-	if (m == "0") {
-		if (body.id.length != 19 || typeof body.at != 'number') {return Response.json(r)}
 
+
+	function getID() {
 		// 生成 id 时间戳
-		var f = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false})
-		var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-		var id = `${t.year}-${t.month}-${t.day} ${t.hour}:${t.minute}:${t.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
+		const {year, month, day, hour, minute, second} = 
+			new Intl.DateTimeFormat('en-US', {
+				timeZone: 'Asia/Shanghai',
+				year: 'numeric',
+				month: '2-digit',
+				day: '2-digit',
+				hour: '2-digit',
+				minute: '2-digit',
+				second: '2-digit',
+				hour12: false
+			})
+			.formatToParts(new Date())
+			.reduce((acc, part) => {
+				if (part.type !== 'literal')
+					acc[part.type] = part.value
+					return acc
+			}, {})
+
+		return `${year}${month}${day}${hour}${minute}${second}`
+	}
+
+	function removeAndReindex(obj, keyToRemove) {
+		// 删除并重排 json 键
+		const keys = Object.keys(obj).map(Number).sort((a, b) => a - b)
+		const filteredKeys = keys.filter(key => key !== keyToRemove)
+		const result = {}
+		filteredKeys.forEach((key, index) => {
+			result[index] = obj[key]
+		})
+		return result
+	}
+
+
+
+	// 删除
+	if (token === "0" && body.id.length == 14 && typeof body.at == "number") {
+		var id = getID()
 
 		if (body.at == -1) {
-			// 留言
-			if ((parseInt(body.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-				r = {success: false, meta: {}, results: [], msg: "out of the deadline"}
-				return Response.json(r)
+			// 删除留言
+			if ((parseInt(body.id) + 7000000) < parseInt(id)) {
+				result.msg = "no access"
+				return Response.json(result)
 			}
 
-			await context.env.MetaDB.prepare('DELETE FROM pool WHERE op = 0 and id = ?').bind(body.id).first()
-			await context.env.MetaDB.prepare('UPDATE root set data=data-1 where name="comment"').first()
+			await context.env.Xanadu
+				.prepare('DELETE FROM pool WHERE op = 0 AND id = ?')
+				.bind(body.id)
+				.run()
+			await context.env.Xanadu
+				.prepare('UPDATE root SET data=data-1 WHERE name="comment"')
+				.run()
 
-			r.success = true
-			r.msg = {delete: id}
+			result.success = true
+			result.msg = {delete: id}
+
 		} else {
-			// 回复
-			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-			r = r.reply
-			var l = r.split('​')
-			l.pop()
+			// 删除回复
+			var reply = await context.env.Xanadu
+				.prepare('SELECT reply FROM pool WHERE id=?')
+				.bind(body.id)
+				.first()
 
-			if ((parseInt(JSON.parse(l[body.at - 1]).id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000) < parseInt(id)) {
-				r = {success: false, meta: {}, results: [], msg: "out of the deadline"}
-				return Response.json(r)
+			if (!reply) {return Response.json(result)}
+			var reply = JSON.parse(reply.reply)
+
+			if ((reply[body.at - 1].id + 7000000) < parseInt(id) || reply[body.at - 1].op == '1') {
+				result.msg = "no access"
+				return Response.json(result)
 			}
 
-			if (JSON.parse(l[body.at - 1]).op == '1') {
-				r = {success: false, meta: {}, results: [], msg: "no access"}
-				return Response.json(r)
-			}
+			// 删除回复
+			var reply = removeAndReindex(reply, body.at - 1)
 
-			l.splice(body.at - 1, 1)
-			if (l[0] == undefined) {
-				var n = 'null'
-			} else {
-				var n = l.join('​') + '​'
-			}
+			await context.env.Xanadu
+				.prepare('UPDATE pool SET reply=? WHERE id=?')
+				.bind(JSON.stringify(reply), body.id)
+				.run()
 
-			r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(n, body.id).all()
-			r.success = true
-			r.msg = {delete_reply: body.id + '-' + body.at}
+			result.success = true
+			result.msg = {delete_reply: body.id + '-' + body.at}
 		}
 	}
 
-	// 添加留言
-	if (m == "1") {
-		// 生成 id 时间戳
-		var f = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false})
-		var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-		var id = `${t.year}-${t.month}-${t.day} ${t.hour}:${t.minute}:${t.second}`
+	// 发表
+	if (token === "1" && body.name.length <= 20) {
+		var id = getID()
 
 		if (body.id == null) {
 			// 留言
-			if (body.content.length > 200 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
+			if (body.content.length > 200) {return Response.json(result)}
 
-			await context.env.MetaDB.prepare('INSERT INTO pool (id, op, name, content, reply) VALUES (?, ?, ?, ?, ?)').bind(id, '0', body.name.replace(/\n/g, ''), body.content, 'null').first()
-			await context.env.MetaDB.prepare('UPDATE root set data=data+1 where name="comment"').first()
+			await context.env.Xanadu
+				.prepare('INSERT INTO pool (id, op, name, content, reply) VALUES (?, ?, ?, ?, ?)')
+				.bind(id, '0', body.name.replace(/\n/g, ''), body.content, '{}')
+				.run()
+			await context.env.Xanadu
+				.prepare('UPDATE root SET data=data+1 WHERE name="comment"')
+				.run()
 
-			r.success = true
-			r.msg = {add: id}
+			result.success = true
+			result.msg = {add: id}
+
 		} else {
 			// 回复
-			if (body.content.length > 100 || body.name.length > 20 || (body.name + body.content).includes('​')) {return Response.json(r)}
+			if (body.content.length > 100 || body.id.length != 14 || typeof body.at == "number") {return Response.json(result)}
 
-			r = await context.env.MetaDB.prepare('SELECT reply from pool where id=?').bind(body.id).first()
-			r = r.reply
-			var l = r.split('​')
-			l.pop()
-			if (l.length > 5) {
-				r = {success: false, meta: {}, results: [], msg: "out of the maximum"}
-				return Response.json(r)
+			var reply = await context.env.Xanadu
+				.prepare('SELECT reply FROM pool WHERE id=?')
+				.bind(body.id)
+				.first()
+
+			if (!reply) {return Response.json(result)}
+			var reply = JSON.parse(reply.reply)
+
+			if (Object.keys(reply).length > 5) {
+				result.msg = "out of the maximum"
+				return Response.json(result)
 			}
 
-			if (r == "null") {
-				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
-			} else {
-				r = await context.env.MetaDB.prepare('UPDATE pool set reply=? where id=?').bind(r + JSON.stringify({id: id, op: '0', name: body.name, content: body.content}) + '​', body.id).all()
-			}
-			r.success = true
-			r.msg = {add_reply: id}
+			// 添加回复
+			reply[Math.max(...Object.keys(reply).map(Number), -1) + 1] = {"id": id, "op": "0", "name": body.name, "content": body.content}
+
+			await context.env.Xanadu
+				.prepare('UPDATE pool SET reply=? WHERE id=?')
+				.bind(JSON.stringify(reply), body.id)
+				.run()
+
+			result.success = true
+			result.msg = {add_reply: id} 
+
 		}
 	}
 
 	// 读取留言数据
-	if (m == "2") {
-		r = await context.env.MetaDB.prepare('SELECT * FROM pool ORDER BY id DESC LIMIT ?, 5').bind(body.page).all()
-		r.msg = {page: body.page}
+	if (token === "2") {
+		result = await context.env.Xanadu
+			.prepare('SELECT * FROM pool ORDER BY id DESC LIMIT ?, 5')
+			.bind(body.page)
+			.all()
+
+		result.success = true
+		result.msg = {page: body.page}
 	}
 
 	// 获取留言总数
-	if (m == "3") {
-		r = await context.env.MetaDB.prepare('SELECT * from root where name="comment"').all()
-		r.msg = null
+	if (token === "3") {
+		result = await context.env.Xanadu
+			.prepare('SELECT * FROM root WHERE name="comment"')
+			.all()
+
+		result.success = true
+		result.msg = null
 	}
 
-
-
-	return Response.json(r)
+	delete result.meta
+	return Response.json(result)
 }
 
 

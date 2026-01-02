@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 	<link rel="stylesheet" type="text/css" href="../../css/default.css">
-	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/Poppins-Regular.woff2" />
 	<link rel="preload" as="font" crossorigin="anonymous" href="../../src/font/icomoon.woff2" />
 	<style>
 @font-face{
@@ -67,7 +67,7 @@ textarea,
 }
 
 .post .user {
-	background-color: rgba(var(--t-t1), 0.4);
+	background-color: rgba(var(--t-c2), 0.8);
 }
 .post .ui {
 	width: calc(100% - 160px);
@@ -95,10 +95,10 @@ footer a {
 	padding: 0px 2px;
 	margin-right: 5px;
 	color: rgba(var(--t-c1), 0.8);
-	border: 1px solid rgba(var(--t-c1), 0.2);
+	border: 2px solid rgba(var(--t-c1), 0.4);
 }
 footer a:hover {
-	border: 1px solid rgba(var(--t-c1), 0.6);
+	border: 2px solid rgba(var(--t-c1), 0.8);
 }
 footer .active {
 	color: rgba(var(--t-b1), 1);
@@ -127,7 +127,7 @@ footer .disabled,
 }
 .list .user {
 	margin-top: 5px;
-	background-color: rgba(var(--t-t1), 0.4);
+	background-color: rgba(var(--t-c2), 0.8);
 }
 
 comment {
@@ -175,7 +175,8 @@ comment .comment-reply .reply {
 	margin-bottom: 30px;
 }
 comment .op:after {
-	content: ' 博主';
+	content: 'Mio だよ';
+	margin-left: 20px;
 	color: rgba(var(--t-c2), 0.8);
 }
 
@@ -192,7 +193,7 @@ comment .op:after {
 	font-family: icomoon;
 	font-size: 32px;
 	line-height: 60px;
-	color: rgba(var(--t-b1), 0.8);
+	color: rgba(var(--t-b6), 0.6);
 }
 
 @media (orientation: portrait) {
@@ -258,7 +259,7 @@ comment .op:after {
 		<para class="post" >
 			<div class="user" data-icon="" ></div>
 			<div class="ui" >
-				<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.setAttribute('maxlength', (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(this.value.split('\n')[0])) ? 126 : 200)" ></textarea>
+				<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.maxLength = (/^REPLY: \d{14}$/.test(this.value.split('\n')[0])) ? 122 : 200" ></textarea>
 				<mat></mat>
 				<mat></mat>
 				<mat></mat>
@@ -284,20 +285,20 @@ comment .op:after {
 
 </div>
 <script>
-window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.page.ok('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
+window.parent.postMessage("env.f.root.post(`document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`); env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "')", document.domain ? '/' : '*')
 window.addEventListener('message', function(event) {
 	if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
 })
 
 const env = {
 	'd': {
-		'db': null,
+		'cache': {},
 		'p': 1,			// 当前页数
 		'cn': null,
 		'pn': 1,		// 总页数
 		'domain': 'sumiyo.link',
 		'isNetwork': (document.domain ? true :false),
-		'version': '1.0.102',
+		'version': '1.0.246',
 	},
 	'f': {},
 	'e': {
@@ -318,22 +319,37 @@ const env = {
 
 env.f.time = function() {
 	// 获取标准时间
-	var f = new Intl.DateTimeFormat('en-US', {timeZone: 'Asia/Shanghai', year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false})
-	var t = f.formatToParts(new Date()).reduce((acc, part) => ({ ...acc, [part.type]: part.value }), {})
-	return `${t.year}-${t.month}-${t.day} ${t.hour}:${t.minute}:${t.second}`.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')
+	const {year, month, day, hour, minute, second} = 
+		new Intl.DateTimeFormat('en-US', {
+			timeZone: 'Asia/Shanghai',
+			year: 'numeric',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			second: '2-digit',
+			hour12: false
+		})
+		.formatToParts(new Date())
+		.reduce((acc, part) => {
+			if (part.type !== 'literal')
+				acc[part.type] = part.value
+				return acc
+		}, {})
+
+	return parseInt(`${year}${month}${day}${hour}${minute}${second}`)
 }
 
 env.f.wait = function() {
 	// 防止触发速率限制
 	clearInterval(env.tmp.t1)
 	var e = [...document.querySelectorAll('footer a'), document.querySelector('.post a')]
-
 	for (var i = 0; i < e.length; i++) {e[i].classList.add('wait')}
 
 	env.tmp.t1 = setInterval(() => {
 		for (var i = 0; i < e.length; i++) {e[i].classList.remove('wait')}
 		clearInterval(env.tmp.t1)
-	}, 5000)
+	}, 2000)
 }
 
 env.f.err = function() {
@@ -344,7 +360,6 @@ env.f.err = function() {
 
 env.f.init = function() {
 	// 初始化
-	env.f.wait()
 	if (env.d.isNetwork) {
 		fetch(`https://${env.d.domain}/api/comments`, {
 			method: "POST",
@@ -363,7 +378,7 @@ env.f.init = function() {
 			env.d.pn = Math.ceil(env.d.cn / 5)
 			env.e.tag[0].innerHTML = env.d.cn
 
-			if (env.d.pn > 1) env.f.pagination(1)
+			env.f.pagination(1)
 			env.f.get(1)
 		})
 		.catch(err => {
@@ -378,52 +393,68 @@ env.f.get = function(n) {
 	env.d.p = n
 	env.f.pagination(n)
 
-	fetch(`https://${env.d.domain}/api/comments`, {
-		method: "POST",
-		headers: {
-			"Token": 2,
-		},
-		body: JSON.stringify({
-			"page": (n - 1) * 5,
-		})
-	})
-	.then(response => {return response.json()})
-	.then(json => {
-		env.d.db = json
+	// 检查有无可用缓存
+	if (env.d.cache[n]) {
 		env.f.load()
-	})
-	.catch(err => {
-		console.error(err)
-		env.f.err()
-	})
+	} else {
+		fetch(`https://${env.d.domain}/api/comments`, {
+			method: "POST",
+			headers: {
+				"Token": 2,
+			},
+			body: JSON.stringify({
+				"page": (n - 1) * 5,
+			})
+		})
+		.then(response => {return response.json()})
+		.then(json => {
+			env.d.cache[n] = json["results"]
+			env.f.load()
+			env.f.wait()
+		})
+		.catch(err => {
+			console.error(err)
+			env.f.err()
+		})
+	}
 }
 
 env.f.load = function() {
-	// 加载留言
-	var d = env.d.db.results
+	// 渲染留言 (循环体)
+	var d = env.d.cache[env.d.p]
 	var e = document.querySelector('.list')
 	e.innerHTML = ''
 
 	for (var i = 0; i < d.length; i++) {
+		// com 是留言主体元素，可以用在回复渲染中
 		var com = env.f.comment(0, e, d[i])
-		if (d[i].reply != "null") {
-			var l = d[i].reply.replace(/\n/g, "\\n").split('​')
-			l.pop()
-			for (var i2 = 0; i2 < l.length; i2++) {
-				env.f.comment(i2 + 1, com.querySelector('.comment-reply'), JSON.parse(l[i2]))
+		// 加载评论
+		if (d[i].reply != "{}") {
+			var l = JSON.parse(d[i].reply)
+			for (var i2 = 0; i2 < Object.keys(l).length; i2++) {
+				env.f.comment(i2 + 1, com.querySelector('.comment-reply'), l[i2])
 			}
 		}
 	}
 }
 
 env.f.comment = function(n, e, d) {
-	// 渲染留言
+	// 渲染留言 (执行体)
+
+	function getID(d) {
+		return d.substring(0, 4) + '-' 
+			   + d.substring(4, 6) + '-' 
+			   + d.substring(6, 8) + ' ' 
+			   + d.substring(8, 10) + ':' 
+			   + d.substring(10, 12)
+	}
+
 	var com = document.createElement('comment')
 		com.id = d.id
 		com.innerHTML = `
 <div class="user" data-icon="${env.f.user(null, d.name.replace(/\n/g, ''))}" ></div>
 <div class="content" >
-<div class="comment-header" >${d.name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '')} <span>${d.id.substring(0, 16)}</span></div>
+<div class="comment-header" >${d.name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '')} <span>${getID(d.id.substring(0, 12))}</span></div>
 <div class="comment-body" >${d.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')}</div>
 <div class="comment-footer" ><a onclick="env.f.reply(this, '${d.id}')" >回复</a> | <a title="删除这条留言" onclick="env.f.zoltraak('${d.id}', -1)" >删除</a></div>
 <div class="comment-reply" ></div>
@@ -440,10 +471,12 @@ env.f.comment = function(n, e, d) {
 		// 回复
 		var h = 75
 
+		// 移除不需要的元素
 		footer.remove()
 		com.children[0].remove()
 		com.querySelector('.comment-reply').remove()
-		if (d.op == 0 && parseInt(d.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 > parseInt(env.f.time())) {
+
+		if (d.op == 0 && parseInt(d.id) + 7000000 >= env.f.time()) {
 			header.innerHTML = `${header.innerHTML} <a title="删除这条回复" onclick="env.f.zoltraak('${com.parentNode.parentNode.parentNode.id}', ${n})" >删除</a>`
 		}
 
@@ -451,13 +484,17 @@ env.f.comment = function(n, e, d) {
 		// 留言
 		var h = 145
 
-		if (d.op == 1 || parseInt(d.id.replace(/:/g, '').replace(/-/g, '').replace(/ /g, '')) + 7000000 < parseInt(env.f.time())) {
-			footer.children[1].setAttribute('title', '嗯 ? 居然删不掉 ?!')
-			footer.children[1].setAttribute('style', 'cursor: not-allowed;')
+		if (d.op == 1 || parseInt(d.id) + 7000000 < env.f.time()) {
+			Object.assign(footer.children[1], {
+				title: "你无法删除这条留言，因为它的力量胜过了你",
+				style: "cursor: not-allowed",
+			})
+
 			footer.children[1].removeAttribute('onclick')
 		}
 	}
 
+	// 折叠过长的内容
 	if (body.offsetHeight > h) {
 		body.setAttribute('style', `height: ${h}px`)
 		body.insertAdjacentHTML('afterend', `<a class="link" onclick="this.previousElementSibling.removeAttribute('style'); this.remove()" >[展开]</a>`)
@@ -473,33 +510,29 @@ env.f.submit = function() {
 
 	var n = e1.value.replace(/\n/g, '')
 	var c = e2.value
-	var ban = ["​"]
+	var ban = []
 	var id = null
 
-	if (/^REPLY: \d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}$/.test(c.split('\n')[0])) {
-		var id = c.split('\n')[0].slice(7, 26)
-		var c = c.slice(27)
+	// 如果是回复，对内容进行截取
+	if (/^REPLY: \d{14}$/.test(c.split('\n')[0])) {
+		var id = c.split('\n')[0].slice(7, 21)
+		var c = c.slice(22)
 	}
 
 	if (!env.f.challenge.try()) {
 		env.f.connect("env.f.root.prompt('验证码输错了哦', 3000)")
 		return
 	}
-	if (ban.some(item => n.includes(item)) || ban.some(item => c.includes(item))) {
+	if (ban.some(item => (n + c).includes(item))) {
 		env.f.connect("env.f.root.prompt('检测到非法字符', 3000)")
 		return
 	}
-	if (n.length == 0) {
-		env.f.connect("env.f.root.prompt('昵称是必填项哦', 3000)")
-		return
-	}
-	if (c.length == 0) {
-		env.f.connect("env.f.root.prompt('至少也要写几个字吧', 3000)")
+	if (n.length == 0 || c.length == 0) {
+		env.f.connect("env.f.root.prompt('信息没有填完整哦', 3000)")
 		return
 	}
 
 	if (n.length > 16 || c.length > 200 || /^[ \t]+$/.test(n)) return
-	env.f.wait()
 
 	fetch(`https://${env.d.domain}/api/comments`, {
 		method: "POST",
@@ -520,15 +553,15 @@ env.f.submit = function() {
 			env.f.challenge.new()
 			env.f.get(env.d.p)
 
-			if (id) {
-				env.f.connect("env.f.root.prompt('回复 ! 又一条回复 !', 5000)")
-			} else {
+			if (!id) {
 				env.d.cn ++
 				env.d.pn = Math.ceil(env.d.cn / 5)
 				env.e.tag[0].innerHTML = env.d.cn
-				env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言 !', 5000)")
+				env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言哦', 5000)")
 			}
+			env.d.cache = {}
 			env.f.pagination(env.d.p)
+			env.f.get(env.d.p)
 		} else {
 			env.f.connect("env.f.root.prompt('操作失败 :(', 5000)")
 		}
@@ -541,7 +574,6 @@ env.f.submit = function() {
 
 env.f.zoltraak = function(id, at) {
 	// 删除留言
-	env.f.wait()
 	fetch(`https://${env.d.domain}/api/comments`, {
 		method: "POST",
 		headers: {
@@ -560,6 +592,7 @@ env.f.zoltraak = function(id, at) {
 				env.d.pn = Math.ceil(env.d.cn / 5)
 				env.e.tag[0].innerHTML = env.d.cn
 			}
+			env.d.cache = {}
 			env.f.get(env.d.p)
 			env.f.connect("env.f.root.prompt('看起来应该是删掉了吧 ...', 3000)")
 		} else {
@@ -573,30 +606,25 @@ env.f.zoltraak = function(id, at) {
 }
 
 env.f.page = function(n) {
-	// 翻页
+	// 翻页 (限制范围)
 	if (((env.d.p + n) > 0) && ((env.d.p + n) <= env.d.pn)) {
-		env.f.wait()
 		env.f.get(env.d.p + n)
 	}
 }
 
 env.f.debug = function() {
 	// 调试
-	env.d.db = {
-		"results": [
+	env.d.cache["1"] = [
 		{
-			"id": "2025-01-01 00:00:00",
+			"id": "20251231000000",
 			"op": "1",
 			"name": "user",
 			"content": "这是一条普通的留言，\nhttps://example.com/\n1\n2\n3\n4\n5\n6",
-			"reply": '{"id":"2025-01-01 00:00:00","op":"1","name":"debug","content":"测试\n1\n2\n3\n4"}​{"id":"2025-01-01 00:00:00","op":"0","name":"debug","content":"2"}​'
+			"reply": "{\"0\":{\"id\":\"20250102000000\",\"op\":\"0\",\"name\":\"debug\",\"content\":\"002\"},\"1\":{\"id\":\"20250103000000\",\"op\":\"0\",\"name\":\"debug\",\"content\":\"003\"}}"
 		}
-		],
-		"msg": {
-			"page": 0
-		}
-	}
+	]
 	env.f.load()
+	env.f.pagination(0)
 }
 
 env.f.random = function(min, max) {
@@ -612,23 +640,24 @@ env.f.connect = function(str) {
 env.f.challenge = {}
 	env.f.challenge.new = function() {
 		env.e.challenge.value = ''
-		var l = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'k', 'm', 'n', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-		var a = ''
+		var l = ["a", "b", "c", "d", "e", "f", "h", "i", "k", "m", "n", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+		var a = ""
 		var e = env.e.can
-		var c = getComputedStyle(document.body).getPropertyValue('--t-c1')
-		var ctx = e.getContext('2d')
-		ctx.font = '18px Poppins Regular'
+		var c = getComputedStyle(document.body).getPropertyValue("--t-c1")
+		var ctx = e.getContext("2d")
 		ctx.clearRect(0, 0, 100, 100)
 
 		for (var i = 0; i < 20; i++) {
 			if (i < 4) {
 				var r = env.f.random(0, l.length - 1)
 				var a = a + l[r]
-				ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(50, 80) / 100 + ')' 
+
+				ctx.font = `${env.f.random(14, 24)}px Poppins Regular`
+				ctx.fillStyle = `rgba(${c}, ${env.f.random(50, 80) / 100})`
 				ctx.fillText(l[r], 12 + 16 * i + env.f.random(-5, 5), 20 + env.f.random(-5, 5))
 			}
 			ctx.beginPath()
-			ctx.fillStyle = 'rgba(' + c + ', ' + env.f.random(10, 30) / 100 + ')' 
+			ctx.fillStyle = `rgba(${c}, ${env.f.random(10, 30) / 100})`
 			ctx.arc(env.f.random(0, e.width), env.f.random(0, e.height), env.f.random(1, 3) * 3, 0, Math.PI * 2)
 			ctx.fill()
 		}
@@ -645,48 +674,38 @@ env.f.challenge = {}
 
 env.f.user = function(e, str) {
 	// 计算评论头像
-	var l = ['', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '']
+	var l = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 	var r = (str.charCodeAt(0) * 77 || 0).toString().slice(-3, -1) / 100
 
 	if (e) {
-		e.setAttribute('data-icon', l[Math.floor(r * (l.length - 1))])
+		e.setAttribute("data-icon", l[Math.floor(r * (l.length - 1))])
 	} else {
 		return l[Math.floor(r * (l.length - 1))]
 	}
 }
 
 env.f.pagination = function(n) {
+	// 翻页系统
 	var e = env.e.footer
-	e.innerHTML = ''
-
-	var a = document.createElement('a')
-		a.innerHTML = ''
-		a.setAttribute('onclick', 'env.f.page(-1)')
-		e.appendChild(a)
-		if (n <= 1) a.setAttribute('style', 'color: rgba(var(--t-c1), 0.2); pointer-events: none;')
-
+	var bar = ""
 	var st = Math.max(0, n - 3)
 	var et = Math.min(n + 6, env.d.pn - 9)
 
+	// 页码按钮
 	for (var i = 1; i < 10; i++) {
 		var p = Math.min(et, st) + i
 		if (p > env.d.pn || 0 >= p) continue
 
-		var a = document.createElement('a')
-			a.innerHTML = p
-			a.setAttribute('onclick', 'env.f.page(' + (p - n) + ')')
-			e.appendChild(a)
-
-		if (p == n) a.setAttribute('class', 'active')
+		var bar = bar + `<a onclick="env.f.page(${p - n})" ${(p == n) ? 'class="active"' : ''} >${p}</a>`
 	}
 
-	var a = document.createElement('a')
-		a.innerHTML = ''
-		a.setAttribute('onclick', 'env.f.page(1)')
-		e.appendChild(a)
-		if (n >= env.d.pn) a.setAttribute('style', 'color: rgba(var(--t-c1), 0.2); pointer-events: none;')
-
-
+	// 翻页按钮
+	style = 'style="color: rgba(var(--t-c1), 0.2); pointer-events: none;"'
+	e.innerHTML = `
+		<a onclick="env.f.page(-1)" ${(n <= 1) ? style : ''} ></a>
+		${bar}
+		<a onclick="env.f.page(1)" ${(n >= env.d.pn) ? style : ''} ></a>
+	`
 }
 
 env.f.reply = function(e, id) {
@@ -695,18 +714,20 @@ env.f.reply = function(e, id) {
 		env.f.connect("env.f.root.prompt('最多只能有 6 个回复哦<br />写条新的留言吧', 6000)")
 		return
 	}
-	var t = env.e.content
-	t.value = 'REPLY: ' + id + '\n'
-	t.setAttribute('maxlength', 126)
 
+	Object.assign(env.e.content, {
+		value: `REPLY: ${id}\n`,
+		maxLength: 122
+	})
 	window.scrollTo({
- 		 top: t.offsetTop - 80,
- 		 behavior: 'smooth'
+		 top: env.e.content.offsetTop - 80,
+		 behavior: 'smooth'
 	})
 }
 
 env.f.init()
 setTimeout(function (){env.f.challenge.new()}, 1000)
+
 </script>
 </body>
 </html>

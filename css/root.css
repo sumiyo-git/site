@@ -14,6 +14,7 @@
 	--t-b3: 40, 40, 40;
 	--t-b4: 220, 220, 220;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
@@ -34,14 +35,15 @@
 	--t-b3: 244, 243, 241;
 	--t-b4: 40, 40, 40;
 	--t-b5: 180, 180, 180;
+	--t-b6: 255, 255, 255;
 
 	--t-r: 255, 0, 20;
 	--t-g: 0, 200, 100;
 }
 
 @font-face {
-	font-family: Poppins Regular;
-	src: url('../src/font/Poppins Regular.woff2');
+	font-family: Poppins-Regular;
+	src: url('../src/font/Poppins-Regular.woff2');
 }
 @font-face {
 	font-family: icomoon;
@@ -77,12 +79,13 @@
 
 
 html {
+	position: fixed;
 	height: 100%;
 	width: 100%;
 }
 
 body {
-	font-family: 'Poppins Regular', 'icomoon', 'Microsoft YaHei';
+	font-family: 'Poppins-Regular', 'icomoon', 'Microsoft YaHei';
 	overflow: overlay;
 	margin: 0;
 	line-height: 30px;
@@ -118,7 +121,7 @@ header btn {
 	border-radius: 100%;
 	padding: 8px 5px;
 	font-size: 34px;
-	line-height: 28px;
+	line-height: 30px;
 	cursor: pointer;
 	user-select: none;
 	backdrop-filter: blur(3px);
@@ -163,27 +166,25 @@ backdrop {
 }
 
 .main header btn {
-	color: rgba(var(--t-t1), 0.3);
+	color: rgba(var(--t-t1), 0.6);
+	background-color: rgba(var(--t-b1), 0.8);
 }
 
 .main header btn:hover {
-	color: rgba(var(--t-t1), 0.6);
+	color: rgba(var(--t-t1), 0.8);
 }
 
 
 
 .main .loading {
 	z-index: 50;
-	opacity: 0;
 	background-color: rgba(var(--t-b1), 1);
-	transition: 0.5s;
 }
 
-.main .loading::after {
+.main .loading i {
 	position: fixed;
 	bottom: 20px;
 	right: 30px;
-	content: attr(data-text);
 	font-size: 24px;
 	color: rgba(var(--t-t1), 0.8);
 }
@@ -264,12 +265,13 @@ backdrop {
 
 .main .avatar {
 	position: fixed;
-	top: 10%;
-	right: 100px;
+	top: 0;
+	right: 0;
 	z-index: 0;
-	height: 80%;
+	height: 100%;
 	aspect-ratio: 1 / 1;
 	pointer-events: none;
+	filter: opacity(0.8);
 }
 
 .main .des {
@@ -430,6 +432,22 @@ backdrop {
 	background-color: rgba(var(--t-b4), 0.1);
 }
 
+.menu .menu-footer {
+    position: sticky;
+    padding: 10px 40px;
+    height: 20px;
+    bottom: 0px;
+    top: calc(100% - 40px);
+	margin: 0 -30px 0 -30px;
+    line-height: 22px;
+    font-size: 14px;
+    text-align: center;
+    background-color: rgba(var(--t-b3), 0.6);
+    color: rgba(var(--t-t1), 0.8);
+    backdrop-filter: blur(5px);
+    transition: 0.3s ease-out;
+}
+
 
 
 /* 搜索栏 */
@@ -458,7 +476,7 @@ backdrop {
 	border-radius: 5px;
 	font-size: 16px;
 	line-height: 16px;
-	font-family: 'Poppins Regular', 'Microsoft YaHei';
+	font-family: 'Poppins-Regular', 'Microsoft YaHei';
 	color: rgba(var(--t-t1), 0.8);
 	background-color: rgba(var(--t-b1), 0.6);
 	border: 1px solid rgba(var(--t-t1), 0.2);
@@ -499,7 +517,7 @@ backdrop {
 	color: rgba(var(--t-c1), 0.6);
 }
 
-.menu .search list div::before {
+.menu .search list div:not(.none)::before {
 	content:attr(data-icon);
 	margin-right: 5px;
 }
@@ -557,7 +575,7 @@ backdrop {
 	background-color: rgba(var(--t-b1), 0.8);
 	backdrop-filter: blur(10px);
 	box-sizing: border-box;
-	border: 1px solid rgba(var(--t-t1), 0.1);
+	border: 1px solid rgba(var(--t-t1), 0.2);
 	border-radius: 10px;
 	box-shadow: rgba(var(--t-b2), 0.05) 10px 10px 20px -3px;
 	pointer-events: none;
@@ -619,22 +637,21 @@ backdrop {
 
 @media (orientation: landscape) and (max-width: 1200px) and (min-width: 900px) {
 	.main .des {
-		bottom: 100px;
-		left: 100px;
+		top: 20%;
+		left: 5%;
 	}
 }
 
 @media (orientation: landscape) and (max-width: 900px) and (min-width: 500px) {
 	.main .des {
-		bottom: 60px;
-		left: 100px;
-	}
-	.main .des span:nth-child(1) {
-		font-size: 50px;
+		font-size: 40px;
+		top: 20%;
+		left: 5%;
 	}
 	.main .des span:nth-child(2) {
-		font-size: 26px;
-		margin-top: 3px;
+		font-size: 16px;
+		line-height: 26px;
+		width: 300px;
 	}
 }
 
@@ -647,39 +664,36 @@ backdrop {
 	}
 	.main .des {
 		position: fixed;
-		top: unset;
+		top: 110px;
 		width: 80%;
-		bottom: 80px;
-		left: 10%;
+		left: 30px;
 		border-left: none;
-		font-size: 30px;
+		font-size: 20px;
 		line-height: 30px;
 	}
-	.main header a {
-		text-shadow: 
-			0 0 2px rgba(var(--t-b1), 1),
-			0 0 2px rgba(var(--t-b1), 1),
-			0 0 2px rgba(var(--t-b1), 1),
-			0 0 2px rgba(var(--t-b1), 1);
+	.main .des span:nth-child(1) {
+		display: block;
+		margin-top: -15px;
+		font-size: 55px;
 	}
-	.main .header-box {
-		width: calc(100% - 40px);
-		height: 42px;
-		left: 15px;
-		top: 0;
-		padding: 20px 5px 15px 5px;
-		background-color: rgba(var(--t-b1), 1);
-		border-bottom: 1px solid rgba(var(--t-t1), 0.08);
+	.main .des a {
+		margin-right: 10px;
+		margin-top: 20px;
+		font-size: 16px;
+		padding: 0px 5px;
 	}
 	.menu {
 		padding-right: 30px;
 	}
 	.main .avatar {
-		height: 60%;
-		right: -10%;
+		top: unset;
+		bottom: -50px;
+		right: -85%;
 	}
-	.main .loading::after {
-		content: 'ロード中';
+	.main .loading i {
+		writing-mode: vertical-rl;
+		transform: rotate(180deg);
+		right: 15px;
 	}
 }
 
@@ -698,7 +712,7 @@ backdrop {
 .theme-0 .menu .search list div a:hover,
 .theme-0 .menu .search list key,
 .theme-0 .main footer a {
-    color: rgba(var(--t-c2), 0.6);
+	color: rgba(var(--t-c2), 0.6);
 }
 
 

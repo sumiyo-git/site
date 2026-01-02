@@ -23,63 +23,15 @@
 <head>
 	<meta charset="UTF-8" >
 	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
-	<title>sumiyo ~</title>
-
-	<link rel="shortcut icon" href="src/icon.png?ver=10" />
+	<title>sumiyo だよ</title>
+	<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
 	<link rel="stylesheet" type="text/css" href="css/root.css" />
 	<link rel="stylesheet" type="text/css" href="css/player.css"  />
-	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins Regular.woff2" />
+	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins-Regular.woff2" />
 </head>
 <body>
-<script>
-	// 定义核心变量
-	const env = {
-		'd': {
-			'visitors': 0,
-			'domain': 'sumiyo.link',
-			'title': document.title,
-			'lang': navigator.language || navigator.userLanguage,
-			'isNew': null,
-			'isNetwork': (document.domain ? true : false),
-			'isMobile': (window.innerWidth < window.innerHeight ? true : false),
-			'isDark': window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches,
-			'version': {},
-			'list': {},
-			'init': {
-				'root': 0,
-			},
-		},
-		'f': {},
-		'e': {},
-		'tmp': {
-			'root': {
-				'd1': new Date(),
-				'd2': null,
-				'd3': null,
-
-				't1': null,
-				't2': null,
-			}
-		}
-	}
-
-	env.tmp.root.t1 = setInterval(() => {
-		if (!document.hidden && env.tmp.root.d2 && env.d.init.root == 2) {
-			env.d.init.root = 1
-			setTimeout(function (){
-				env.e.root.backdrop[0]?.remove()
-			}, 500)
-
-			env.e.root.backdrop[0]?.removeAttribute('style')
-			clearInterval(env.tmp.root.t1)
-		}
-	}, 1000)
-
-</script>
-
 <div class="main" >
-	<backdrop class="loading" style="opacity: 1" ></backdrop>
-	<img class="avatar" onload="env.d.init.root = 2" src="src/mio.webp" />
+	<backdrop class="loading" style="position: fixed; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; background-color: rgba(var(--t-b1), 1);" ><i></i></backdrop>
 
 	<header>
 		<btn onclick="env.f.root.menu.open()" ></btn>
@@ -88,16 +40,17 @@
 
 	<div class="des" >
 		Hello from <span>sumiyo</span>
-		<span class="f-2">这里是 <ins>sumiyo</ins> 的个人网站，主要分享有关生活、技术方面的文章。过去很是有趣，而我想把他们全部收集起来 ...</span>
+		<span class="f-2">这里是 mio 的个人网站，主要分享生活、技术和动漫方面的文章。回忆无比可贵，所以咱想把他们全部收集起来 ...</span>
 		<br class="f-1" />
 		<br class="f-1 f-2" />
 		<a onclick="env.f.root.blog.open('page/about')" >关于</a><a onclick="env.f.root.blog.open('page/square')" >网站广场</a>
+
+		<img class="avatar" src="api/mio.webp" onerror="this.src = 'src/img/mio.webp'" fetchpriority="high" loading="eager" />
 	</div>
 
 	<!-- 博客 -->
 	<div class="blog" style="display: none;" >
 		<header class="header-box" ><btn onclick="env.f.root.blog.close()" ></btn></header>
-		<div class="player-blog" onclick="env.f.player.lrc.ui()" >音乐播放器</div>
 		<backdrop style="display: none;" ></backdrop>
 	</div>
 
@@ -128,39 +81,22 @@
 			<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
 			<div class="menu-c3" >
 				<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
-				<a onclick="env.f.root.blog.open('page/policy')" title="隐私政策 & 使用协议" ></a>
+				<a onclick="env.f.root.blog.open('page/policy')" title="政策 & 授权" ></a>
 				<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
-				<a onclick="env.f.player.lrc.ui()" title="歌曲" ></a>
 				<a onclick="env.f.root.theme()" ></a>
 			</div>
+		</div>
+
+		<div class="menu-footer" >
+			© 2024 Mio. All Rights Reserved.
 		</div>
 	</div>
 
 	<!-- 播放器  -->
-	<div class="player-ui backdrop" style="display: none;" tabindex="0" >
-		<img class="wallpaper" onload="env.f.root.fade(env.e.player.img[0], 500); env.f.root.fade(env.e.player.img[1], 500)" />
-		<backdrop></backdrop>
-		<header><btn onclick="env.f.player.lrc.ui()" ></btn></header>
-		<div class="ui" >
-			<aside>
-				<div class="cover" ><img /></div>
-				<div class="ctrl" >
-					<bar><div><div></div></div></bar>
-					<div style="margin-top: 10px; user-select: none;" >
-						<a onclick="env.f.player.play()" title="播放 / 暂停 (Space)" >00:00</a>
-						<a onclick="env.f.player.list()" >歌单</a>
-						<a onclick="env.f.player.reset()" >重置</a>｜ 
-						<a onclick="env.f.player.mode()" title="列表循环" ></a>
-						<a onclick="env.f.player.kana()" title="假名注音" style="display: none;" >あ</a>
-						<a title="音量 ( ↑ / ↓ )" ><div></div></a>
-					</div>	
-				</div>		
-			</aside>
-			<aside>
-				<list class="no-kana" ><div></div></list>
-				<list style="display: none" ><div></div></list>
-			</aside>
-		</div>
+	<div class="player" tabindex="0" style="display: none;" >
+		<img onload="env.f.root.fade(this, 300)" />
+		<div style="margin: 8px 6px;" ><span onclick="env.f.player.play()" ></span><span></span></div>
+		<bar><div><div></div></div></bar>
 	</div>
 
 	<!-- 弹窗 -->
@@ -169,6 +105,7 @@
 	<!-- 页脚 -->
 	<footer>
 		<div class="f-2" >
+			<!-- 衷心感谢 Cloudflare 为我们提供给的帮助 -->
 			技术支持: <a onclick="window.open('https://www.cloudflare.com/')" >Cloudflare</a>
 		</div>
 		<div style="opacity: 0;">
@@ -182,17 +119,58 @@
 
 
 <!-- 脚本 -->
-<script src="blog/registry.db.js" ></script>
-<script src="js/root.js" ></script>
-<script src="js/player.js"></script>
-
 <script>
+
+	// 定义核心变量
+	const env = {
+		"d": {
+			"sys": "阿呆鳥",
+			"domain": "sumiyo.link",
+			"title": document.title,
+			"lang": navigator.language || navigator.userLanguage,
+			"isNew": null,
+			"isNetwork": (document.domain ? true : false),
+			"isHandyNAVI": (window.innerWidth < window.innerHeight ? true : false),
+			"isDark": window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+			"visitors": 0,
+			"version": {},
+			"list": {},
+			"init": {
+				"root": 0,
+			},
+		},
+		"f": {},
+		"e": {},
+		"tmp": {
+			"root": {
+				"d1": new Date(),
+				"d2": null,
+				"d3": null,
+
+				"t1": null,
+				"t2": null,
+				"t3": null,
+			}
+		}
+	}
+
+	env.tmp.root.t1 = setInterval(() => {
+		if (!document.hidden && env.tmp.root.d2 && document.querySelector(".avatar").complete && env.d.init.root == 1) {
+			setTimeout(function (){
+				env.e.root.backdrop[0]?.remove()
+			}, 500)
+
+			env.f.root.fade(env.e.root.backdrop[0], -500)
+			clearInterval(env.tmp.root.t1)
+		}
+	}, 1000)
+
 	// 检查页面加载情况
 	setTimeout(function (){
 		if (!env.tmp.root.d2) {
 			var e = document.querySelector('.prompt')
 			var prompt = document.createElement('prompt')
-				prompt.innerHTML = `网页加载异常！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.init.root = 2; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
+				prompt.innerHTML = `网页加载异常！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.init.root = 1; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
 				prompt.setAttribute('onclick', `this.removeAttribute('class'); setTimeout(function (){this.remove()}, 500)`)
 				e.appendChild(prompt)
 
@@ -201,6 +179,12 @@
 			}, 100)
 		}
 	}, 30000)
+
 </script>
+
+<script src="blog/list.db.js" ></script>
+<script src="js/root.js" ></script>
+<script src="js/player.js"></script>
+
 </body>
 </html>

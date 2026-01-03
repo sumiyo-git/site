@@ -31,6 +31,7 @@ def config():
 		c.read(f)
 
 		env["project"] = c.get("TOKEN", "project")
+		env["domain"] = c.get("TOKEN", "domain")
 		env["token"] = c.get("TOKEN", "api_token")
 		env["aid"] = c.get("TOKEN", "account_id")
 		env["zid"] = c.get("TOKEN", "zone_id")
@@ -43,6 +44,7 @@ def config():
 		# 添加节并设置键值对
 		c.add_section("TOKEN")
 		c.set("TOKEN", "project", "null")
+		c.set("TOKEN", "domain", "null")
 		c.set("TOKEN", "api_token", "null")
 		c.set("TOKEN", "account_id", "null")
 		c.set("TOKEN", "zone_id", "null")
@@ -121,8 +123,8 @@ def table1(a):
 
 	# 重排
 	r1 = [
-	    {key: d[key] for key in ["datetime", "clientCountryName", "securityAction", "clientIP", "clientRequestHTTPMethodName", "userAgent", "clientRequestPath"]}
-	    for d in r1
+		{key: d[key] for key in ["datetime", "clientCountryName", "securityAction", "clientIP", "clientRequestHTTPMethodName", "userAgent", "clientRequestPath"]}
+		for d in r1
 	]
 
 	print(Style.DIM + Fore.WHITE + tabulate.tabulate(r1, headers={"datetime": "时间", "clientCountryName": "地区", "securityAction": "行为", "clientIP": "IP", "clientRequestHTTPMethodName": "请求方式", "userAgent": "用户代理", "clientRequestPath": "请求路径"}, tablefmt="simple_outline"))
@@ -186,11 +188,13 @@ def command(string):
 \t\t\t\tgit
 上传并部署更新\t\t\t\t-push
 当前 commit 次数的减少值\t\t-reduce 0
-优化本地 Git 仓库\t\t\t-clean
 联网矫正 commit 次数\t\t\t-check
+优化本地 Git 仓库\t\t\t-clean
 执行原生 Git 命令\t\t\t-run "string" (Git command)
+查看已修改的文件\t\t\t-status
 \t\t\t\tcf
-清除 Cloudflare 边缘缓存\t\t-cache -clean
+清除已更改文件的边缘缓存\t\t-cache -clean
+清除全部边缘缓存\t\t\t-cache -clean -all
 启用开发模式 (绕过缓存)\t\t\t-cache 0 / 1
 ─────────────────────────────────────────────────────────────
 SQL 查询命令 (尽量小写，只能用双引号包裹)
@@ -341,9 +345,15 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 				print(Style.DIM + Fore.WHITE + '无需提交任何内容\n但您可以键入 "git -push -force" 以强制提交更新')
 				return "break"
 			else:
-				print(Style.NORMAL + Fore.WHITE + "准备连接到远程仓库")
+				# 清除缓存
+				print(Fore.CYAN + Style.BRIGHT + "$ " + Fore.WHITE + "cf -cache -clean")
+				command("cf -cache -clean")
+				print(Style.NORMAL + Fore.GREEN + "操作成功，文件已上传至 github 仓库 ({} commits)".format(str(env["cmt"])))
 
-				print(Style.DIM + Fore.WHITE + git("git add .").stdout[1:], end="")
+				# 上传
+				print(Style.NORMAL + Fore.WHITE + "准备连接到远程仓库")
+				print(Style.DIM + Fore.WHITE + git("git status --porcelain").stdout, end="")
+				git("git add .")
 				print(Style.DIM + Fore.WHITE + git("git commit -m " + env["des"]).stdout[1:], end="")
 				if (cmd1[2].lower() == "-force"):
 					a = git("git push -u origin main").stdout
@@ -351,7 +361,7 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 					a = git("git push -u origin main --force").stdout
 
 				if ("set up to track" in a):
-					print(Style.NORMAL + Fore.GREEN + "操作成功，文件已上传至 github 仓库")
+					print(Style.NORMAL + Fore.GREEN + "操作成功，文件已上传至 github 仓库 ({} commits)".format(str(env["cmt"])))
 					print(Style.NORMAL + Fore.WHITE + "开始部署更新")
 
 					env["cmt"] += 1
@@ -370,7 +380,8 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 			env["cmt"] = env["cmt"] - (int(cmd1[2]) - 1)
 
 			print(Style.DIM + Fore.WHITE + git("git reset --soft HEAD~" + cmd1[2]).stdout[1:], end="")
-			print(Style.DIM + Fore.WHITE + git("git add .").stdout[1:], end="")
+			print(Style.DIM + Fore.WHITE + git("git status --porcelain").stdout, end="")
+			git("git add .")
 			print(Style.DIM + Fore.WHITE + git("git commit -m " + env["des"]).stdout[1:], end="")
 			a = git("git push -u origin main --force").stdout
 
@@ -395,6 +406,11 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 			git("git gc --aggressive --prune=now").stdout
 			n_size = format_size(get_folder_size(".git"))
 			print(Style.NORMAL + Fore.GREEN + "操作成功 ({} => {})".format(o_size, n_size))
+			return "break"
+
+		# 查看已修改的文件
+		if (cmd1[1].lower() == "-status"):
+			print(Style.DIM + Fore.WHITE + git("git status --porcelain").stdout, end="")
 			return "break"
 
 		# 矫正 commit 值
@@ -510,13 +526,30 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 	# Cloudflare 互交
 	if (cmd1[0].lower() == "cf"):
 		# 缓存
-		if (cmd1[3] == "null") and (cmd1[1].lower() == "-cache"):
+		if (cmd1[4] == "null") and (cmd1[1].lower() == "-cache") and (cmd1[3] == "-all" or cmd1[3] == "null"):
 			# 清除边缘缓存
 			if (cmd1[2].lower() == "-clean"):
 				headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
-				body = {
-					"purge_everything": True
-				}
+
+				match cmd1[3]:
+					case "-all":
+						body = {
+							"purge_everything": True
+						}
+					case "null":
+						file = git("git status --porcelain").stdout
+						file = file.split("\n")
+						file.pop()
+						file = ["{}/{}".format(env["domain"], item[3:].replace('"', "")) for item in file]
+
+						print(Style.NORMAL + Fore.WHITE + "modified:")
+						for item in file:
+							print(Style.NORMAL + Style.DIM + Fore.WHITE + item)
+
+						body = {
+							"prefixes": file
+						}
+
 				response = requests.post("https://api.cloudflare.com/client/v4/zones/{}/purge_cache".format(env["zid"]), headers=headers, data=json.dumps(body))
 				print(Style.NORMAL + Fore.WHITE + "raw:")
 				print(Style.DIM + Fore.WHITE + str(response.json()))

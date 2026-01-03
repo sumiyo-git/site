@@ -164,6 +164,7 @@ env.f.root.getText = function() {
 
 		// 全在即神明。
 		"hazemoi sia  ihono      he   sorie.",
+
 	]
 
 	var t = l[env.f.root.getRandom(0, l.length - 1)].split("")

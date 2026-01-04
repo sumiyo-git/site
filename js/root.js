@@ -425,6 +425,7 @@ if (env.d.isNetwork) {
 
 // 初始化环境
 env.e.root.counter[0].innerHTML = env.d.uptime = env.f.root.getUptime()
+env.e.root.backdrop[0].removeAttribute("style")
 env.f.root.url.read()
 env.f.root.theme.init()
 env.f.root.getText()

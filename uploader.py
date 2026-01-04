@@ -9,7 +9,7 @@ import subprocess
 import tabulate
 
 from configparser import ConfigParser
-from datetime import datetime, timezone, timedelta
+from datetime import datetime, timezone, timedelta, date
 from colorama import init, Fore, Back, Style
 
 
@@ -190,8 +190,7 @@ def command(string):
 当前 commit 次数的减少值\t\t-reduce 0
 联网矫正 commit 次数\t\t\t-check
 优化本地 Git 仓库\t\t\t-clean
-执行原生 Git 命令\t\t\t-run "string" (Git command)
-查看已修改的文件\t\t\t-status
+执行原生 Git 命令 (CMD)\t\t\t-run "string" (Git command)
 \t\t\t\tcf
 清除已更改文件的边缘缓存\t\t-cache -clean
 清除全部边缘缓存\t\t\t-cache -clean -all
@@ -346,15 +345,15 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 				return "break"
 			else:
 				# 清除缓存
-				print(Fore.CYAN + Style.BRIGHT + "$ " + Fore.WHITE + "cf -cache -clean")
+				print(Style.NORMAL + Fore.WHITE + "清除 Cloudflare 边缘缓存")
 				command("cf -cache -clean")
-				print(Style.NORMAL + Fore.GREEN + "操作成功，文件已上传至 github 仓库 ({} commits)".format(str(env["cmt"])))
 
 				# 上传
-				print(Style.NORMAL + Fore.WHITE + "准备连接到远程仓库")
+				print(Style.NORMAL + Fore.WHITE + "扫描更新文件")
 				print(Style.DIM + Fore.WHITE + git("git status --porcelain").stdout, end="")
+				print(Style.NORMAL + Fore.WHITE + "准备连接到远程仓库")
 				git("git add .")
-				print(Style.DIM + Fore.WHITE + git("git commit -m " + env["des"]).stdout[1:], end="")
+				print(Style.DIM + Fore.WHITE + git("git commit -m " + env["des"]).stdout, end="")
 				if (cmd1[2].lower() == "-force"):
 					a = git("git push -u origin main").stdout
 				else:
@@ -379,14 +378,23 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 		if (cmd1[1].lower() == "-reduce") and (cmd1[2].lower() != "null"):
 			env["cmt"] = env["cmt"] - (int(cmd1[2]) - 1)
 
-			print(Style.DIM + Fore.WHITE + git("git reset --soft HEAD~" + cmd1[2]).stdout[1:], end="")
+			# 回滚
+			print(Style.DIM + Fore.WHITE + git("git reset --soft HEAD~" + cmd1[2]), end="")
+
+			# 清除缓存
+			print(Style.NORMAL + Fore.WHITE + "清除 Cloudflare 边缘缓存")
+			command("cf -cache -clean -all")
+
+			# 上传
+			print(Style.NORMAL + Fore.WHITE + "扫描更新文件")
 			print(Style.DIM + Fore.WHITE + git("git status --porcelain").stdout, end="")
+			print(Style.NORMAL + Fore.WHITE + "准备连接到远程仓库")
 			git("git add .")
-			print(Style.DIM + Fore.WHITE + git("git commit -m " + env["des"]).stdout[1:], end="")
+			print(Style.DIM + Fore.WHITE + git("git commit -m " + env["des"]).stdout, end="")
 			a = git("git push -u origin main --force").stdout
 
 			if ("set up to track" in a):
-				print(Style.NORMAL + Fore.GREEN + "操作成功，文件已上传至 github 仓库")
+				print(Style.NORMAL + Fore.GREEN + "操作成功，文件已上传至 github 仓库 ({} commits)".format(str(env["cmt"])))
 				print(Style.NORMAL + Fore.WHITE + "开始部署更新")
 
 				f = env["path"] + "config.ini"
@@ -406,11 +414,6 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 			git("git gc --aggressive --prune=now").stdout
 			n_size = format_size(get_folder_size(".git"))
 			print(Style.NORMAL + Fore.GREEN + "操作成功 ({} => {})".format(o_size, n_size))
-			return "break"
-
-		# 查看已修改的文件
-		if (cmd1[1].lower() == "-status"):
-			print(Style.DIM + Fore.WHITE + git("git status --porcelain").stdout, end="")
 			return "break"
 
 		# 矫正 commit 值
@@ -541,11 +544,6 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 						file = file.split("\n")
 						file.pop()
 						file = ["{}/{}".format(env["domain"], item[3:].replace('"', "")) for item in file]
-
-						print(Style.NORMAL + Fore.WHITE + "modified:")
-						for item in file:
-							print(Style.NORMAL + Style.DIM + Fore.WHITE + item)
-
 						body = {
 							"prefixes": file
 						}

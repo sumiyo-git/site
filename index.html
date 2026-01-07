@@ -20,171 +20,151 @@
 -->
 
 <html lang="zh-CN">
-<head>
-	<meta charset="UTF-8" >
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" >
-	<title>sumiyo だよ</title>
-	<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
-	<link rel="stylesheet" type="text/css" href="css/root.css" />
-	<link rel="stylesheet" type="text/css" href="css/player.css"  />
-	<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins-Regular.woff2" />
-</head>
-<body>
-<div class="main" >
-	<backdrop class="loading" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; background-color: rgba(255, 255, 255, 1);" ><i></i></backdrop>
+	<head>
+		<meta charset="UTF-8" >
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
+		<title>sumiyo だよ</title>
+		<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
+		<link rel="stylesheet" type="text/css" href="css/root.css" />
+		<link rel="stylesheet" type="text/css" href="css/player.css"  />
+		<link rel="preload" as="font" crossorigin="anonymous" href="src/font/Poppins-Regular.woff2" />
+	</head>
+	<body class="theme-0" >
+		<backdrop class="loading" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 50; background-color: rgba(255, 255, 255, 1);" ><i></i></backdrop>
 
-	<header>
-		<btn onclick="env.f.root.menu.open()" ></btn>
-		<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
-	</header>
+		<header>
+			<btn onclick="env.f.root.menu.open()" ></btn>
+			<backdrop onclick="env.f.root.menu.close()" style="display: none;" ></backdrop>
+		</header>
 
-	<div class="des" >
-		Hello from <span>sumiyo</span>
-		<span class="f-2">这里是 mio 的个人网站，主要分享生活、技术和动漫方面的文章。回忆无比可贵，所以咱想把他们全部收集起来 ...</span>
-		<br class="f-1" />
-		<br class="f-1 f-2" />
-		<a onclick="env.f.root.blog.open('page/about')" >关于</a><a onclick="env.f.root.blog.open('page/square')" >网站广场</a>
+		<div class="des" >
+			Hello from <span>sumiyo</span>
+			<span class="f-2" >这里是 mio 的个人网站，主要分享生活、技术和动漫方面的文章。 回忆无比可贵，所以咱想把他们全部收集起来 ...</span>
+			<br class="f-1" />
+			<br class="f-1 f-2" />
+			<a onclick="env.f.root.blog.open('page/about')" >关于</a><a onclick="env.f.root.blog.open('page/square')" >网站广场</a>
 
-		<img class="avatar" src="api/mio.webp" onerror="this.src = 'src/img/mio.webp'" fetchpriority="high" loading="eager" />
-	</div>
-
-	<!-- 博客 -->
-	<div class="blog" style="display: none;" >
-		<header class="header-box" ><btn onclick="env.f.root.blog.close()" ></btn></header>
-		<backdrop style="display: none;" ></backdrop>
-	</div>
-
-	<!-- 菜单 -->
-	<div class="menu" >
-		<h1>MENU</h1>
-		<hr />
+			<img class="avatar" src="api/mio.webp" onerror="this.src = 'src/img/mio.webp'" fetchpriority="high" loading="eager" />
+		</div>
 
 		<!-- 博客 -->
-		<div style="margin-top: 10px;" >
-			<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
-			<div class="search" >
-				<textarea type="text" oninput="this.value = this.value.replace(/\n/g, ''); env.f.root.search()" maxlength="20" autocomplete="off" ></textarea>
-				<list><div style="display: none;" class="none" >没有找到指定内容...</div></list>
+		<div class="blog" style="display: none;" >
+			<header class="header-box" ><btn onclick="env.f.root.blog.close()" ></btn></header>
+			<backdrop style="display: none;" ></backdrop>
+		</div>
+
+		<!-- 菜单 -->
+		<div class="menu" >
+			<h1>MENU</h1>
+			<hr />
+
+			<!-- 博客 -->
+			<div style="margin-top: 10px;" >
+				<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
+				<div class="search" >
+					<textarea type="text" oninput="this.value = this.value.replace(/\n/g, ''); env.f.root.search()" maxlength="20" autocomplete="off" ></textarea>
+					<list><div style="display: none;" class="none" >没有找到指定内容...</div></list>
+				</div>
+			</div>
+
+			<!-- 通知 -->
+			<div>
+				<btn onclick="env.f.root.menu.folder(this)" class="active" >通知</btn>
+				<div class="menu-c2" ></div>
+			</div>
+
+			<hr style="margin-top: 80px;" />
+
+			<!-- 其他 -->
+			<div style="margin-top: 10px;" >
+				<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
+				<div class="menu-c3" >
+					<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
+					<a onclick="env.f.root.blog.open('page/policy')" title="政策 & 授权" ></a>
+					<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
+					<a onclick="env.f.root.theme()" ></a>
+				</div>
+			</div>
+
+			<div class="menu-footer" >
+				© 2024 Mio. All Rights Reserved.
 			</div>
 		</div>
 
-		<!-- 通知 -->
-		<div>
-			<btn onclick="env.f.root.menu.folder(this)" class="active" >通知</btn>
-			<div class="menu-c2" ></div>
+		<!-- 播放器  -->
+		<div class="player" tabindex="0" style="display: none;" >
+			<img onload="env.f.root.fade(this, 300)" />
+			<div style="margin: 8px 6px;" ><span onclick="env.f.player.play()" ></span><span></span></div>
+			<bar><div><div></div></div></bar>
 		</div>
 
-		<hr style="margin-top: 80px;" />
+		<!-- 弹窗 -->
+		<div class="prompt" ></div>
 
-		<!-- 其他 -->
-		<div style="margin-top: 10px;" >
-			<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
-			<div class="menu-c3" >
-				<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
-				<a onclick="env.f.root.blog.open('page/policy')" title="政策 & 授权" ></a>
-				<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
-				<a onclick="env.f.root.theme()" ></a>
+		<!-- 页脚 -->
+		<footer>
+			<div class="f-2" >
+				技术支持: <a onclick="window.open('https://www.cloudflare.com/')" >Cloudflare</a>
 			</div>
-		</div>
-
-		<div class="menu-footer" >
-			© 2024 Mio. All Rights Reserved.
-		</div>
-	</div>
-
-	<!-- 播放器  -->
-	<div class="player" tabindex="0" style="display: none;" >
-		<img onload="env.f.root.fade(this, 300)" />
-		<div style="margin: 8px 6px;" ><span onclick="env.f.player.play()" ></span><span></span></div>
-		<bar><div><div></div></div></bar>
-	</div>
-
-	<!-- 弹窗 -->
-	<div class="prompt" ></div>
-
-	<!-- 页脚 -->
-	<footer>
-		<div class="f-2" >
-			<!-- 衷心感谢 Cloudflare 为我们提供给的帮助 -->
-			技术支持: <a onclick="window.open('https://www.cloudflare.com/')" >Cloudflare</a>
-		</div>
-		<div style="opacity: 0;">
-			<!-- 网站统计 -->
-			 | <tag>0</tag> 天 & <tag>0</tag> 访客
-		</div>
-	</footer>
-
-</div>
+			<div style="opacity: 0;">
+				 | <tag>0</tag> 天 & <tag>0</tag> 访客
+			</div>
+		</footer>
 
 
 
-<!-- 脚本 -->
-<script>
+		<!-- 脚本 -->
+		<script>
 
-	// 定义核心变量
-	const env = {
-		"d": {
-			"sys": "阿呆鳥",
-			"domain": "sumiyo.link",
-			"title": document.title,
-			"lang": navigator.language || navigator.userLanguage,
-			"isNew": null,
-			"isNetwork": (document.domain ? true : false),
-			"isHandyNAVI": (window.innerWidth < window.innerHeight ? true : false),
-			"isDark": window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
-			"visitors": 0,
-			"version": {},
-			"list": {},
-			"init": {
-				"root": 0,
-			},
-		},
-		"f": {},
-		"e": {},
-		"tmp": {
-			"root": {
-				"d1": new Date(),
-				"d2": null,
-				"d3": null,
+			// 定义核心变量
+			const env = {
+				"d": {
+					"sys": "阿呆鳥",
+					"domain": "sumiyo.link",
+					"title": document.title,
+					"lang": navigator.language || navigator.userLanguage,
+					"isNew": null,
+					"isNetwork": (document.domain ? true : false),
+					"isHandyNAVI": (window.innerWidth < window.innerHeight ? true : false),
+					"isDark": window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches,
+					"visitors": 0,
+					"version": {},
+					"list": {},
+					"init": {
+						"root": 0,
+					},
+				},
+				"f": {},
+				"e": {},
+				"tmp": {
+					"root": {
+						"d1": new Date(),
+						"d2": null,
+						"d3": null,
 
-				"t1": null,
-				"t2": null,
-				"t3": null,
+						"t1": null,
+						"t2": null,
+						"t3": null,
+					}
+				}
 			}
-		}
-	}
 
-	env.tmp.root.t1 = setInterval(() => {
-		if (!document.hidden && env.tmp.root.d2 && document.querySelector(".avatar").complete && env.d.init.root == 1) {
-			setTimeout(function (){
-				env.e.root.backdrop[0]?.remove()
-			}, 500)
+			// 激活页面
+			env.tmp.root.t1 = setInterval(() => {
+				if (!document.hidden && env.tmp.root.d2 && document.querySelector(".avatar").complete && env.d.init.root == 1) {
+					setTimeout(function (){
+						env.e.root.backdrop[0]?.remove()
+					}, 500)
 
-			env.f.root.fade(env.e.root.backdrop[0], -500)
-			clearInterval(env.tmp.root.t1)
-		}
-	}, 1000)
+					env.f.root.fade(env.e.root.backdrop[0], -500)
+					clearInterval(env.tmp.root.t1)
+				}
+			}, 1000)
 
-	// 检查页面加载情况
-	setTimeout(function (){
-		if (!env.tmp.root.d2) {
-			var e = document.querySelector('.prompt')
-			var prompt = document.createElement('prompt')
-				prompt.innerHTML = `网页加载异常！<br/><a onclick="location.reload();" ><ins>刷新网页</ins></a> & <a onclick="env.d.init.root = 1; env.tmp.root.d2 = 1;" ><ins>强制显示</ins>`
-				prompt.setAttribute('onclick', `this.removeAttribute('class'); setTimeout(function (){this.remove()}, 500)`)
-				e.appendChild(prompt)
+		</script>
+		<script src="blog/list.db.js" ></script>
+		<script src="js/root.js" ></script>
+		<script src="js/player.js"></script>
 
-			setTimeout(function (){
-				prompt.setAttribute('class', 'active')
-			}, 100)
-		}
-	}, 30000)
-
-</script>
-
-<script src="blog/list.db.js" ></script>
-<script src="js/root.js" ></script>
-<script src="js/player.js"></script>
-
-</body>
+	</body>
 </html>

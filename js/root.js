@@ -15,12 +15,12 @@ env.f.root = {}
 env.e = {...env.e, ...{
 	root: {
 		"prompt": document.querySelector(".prompt"),
-		"blog": document.querySelector(".main .blog"),
-		"btn": document.querySelector(".main header btn"),
+		"blog": document.querySelector(".blog"),
+		"btn": document.querySelector("header btn"),
 		"des": document.querySelector(".des"),
-		"backdrop": document.querySelectorAll(".main backdrop"),
+		"backdrop": document.querySelectorAll("backdrop"),
 		"menu": document.querySelectorAll(".menu btn"),
-		"counter": document.querySelectorAll(".main footer tag"),
+		"counter": document.querySelectorAll("footer tag"),
 		"dm_btn": document.querySelectorAll(".menu .menu-c3 a")[3],
 	}
 }}

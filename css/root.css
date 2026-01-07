@@ -52,34 +52,10 @@
 ::selection {
 	background: rgba(var(--t-c3), 0.2);
 }
-::-webkit-scrollbar {
-	width: 12px;
-	height: 12px;
-	background-color: transparent;
-}
-::-webkit-scrollbar-track {
-	background-color: transparent;
-	box-shadow: none;
-}
-::-webkit-scrollbar-thumb {
-	background-color: rgba(var(--t-b2), 0.1);
-	border-radius: 100px;
-	border: 4px solid transparent;
-	background-clip: content-box;
-	box-shadow: none;
-}
-::-webkit-scrollbar-thumb:hover {
-	background-color: rgba(var(--t-b2), 0.2);
-}
-::-webkit-scrollbar-corner {
-	background-color: transparent;
-	box-shadow: none;
-}
 
 
 
 html {
-	position: fixed;
 	height: 100%;
 	width: 100%;
 }
@@ -93,6 +69,7 @@ body {
 	height: 100%;
 	width: 100%;
 	min-width: 380px;
+	background-color: rgba(var(--t-b1), 1);
 }
 
 img,
@@ -144,49 +121,43 @@ backdrop {
 
 
 
-.main {
-	width: 100%;
-	height: 100%;
-	background-color: rgba(var(--t-b1), 1);
-}
-
-.main header a {
+header a {
 	padding: 0px 10px;
 	cursor: pointer;
 	transition: 0.3s;
 	color: rgba(var(--t-t1), 0.4);
 }
 
-.main header a:hover {
+header a:hover {
 	color: rgba(var(--t-c1), 1);
 }
 
-.main header backdrop {
+header backdrop {
 	background-color: rgba(var(--t-b2), 0.6);
 }
 
-.main header btn {
+header btn {
 	color: rgba(var(--t-t1), 0.6);
 	background-color: rgba(var(--t-b1), 0.8);
 }
 
-.main header btn:hover {
+header btn:hover {
 	color: rgba(var(--t-t1), 0.8);
 }
 
 
 
-.main .loading {
+.loading {
 	position: fixed;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	z-index: 50;
-	background-color: rgba(255, 255, 255, 1);
+	background-color: rgba(var(--t-b1), 1) !important;
 }
 
-.main .loading i {
+.loading i {
 	position: fixed;
 	bottom: 20px;
 	right: 30px;
@@ -196,7 +167,7 @@ backdrop {
 
 
 
-.main footer {
+footer {
 	position: fixed;
 	bottom: 0;
 	left: 0;
@@ -212,7 +183,7 @@ backdrop {
 	line-height: 22px;
 }
 
-.main footer div {
+footer div {
 	display: inline-block;
 	height: 20px;
 	padding: 10px 0px 10px 20px;
@@ -221,14 +192,14 @@ backdrop {
 	transition: 0.3s;
 }
 
-.main footer a {
+footer a {
 	color: rgba(var(--t-c1), 0.6);
 	text-decoration: underline;
 	cursor: help;
 	transition: 0.1s;
 }
 
-.main .blog {
+.blog {
 	position: fixed;
 	z-index: 20;
 	top: 0;
@@ -238,7 +209,7 @@ backdrop {
 	background-color: rgba(var(--t-b1), 1);
 }
 
-.main .blog iframe {
+.blog iframe {
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -248,11 +219,11 @@ backdrop {
 	user-select: none;
 }
 
-.main .blog backdrop {
+.blog backdrop {
 	background-color: rgba(var(--t-b1), 1);
 }
 
-.main .blog backdrop::before {
+.blog backdrop::before {
 	position: fixed;
 	bottom: 20px;
 	left: 10px;
@@ -268,7 +239,7 @@ backdrop {
 
 
 
-.main .avatar {
+.avatar {
 	position: fixed;
 	top: 0;
 	right: 0;
@@ -279,11 +250,11 @@ backdrop {
 	filter: opacity(0.8);
 }
 
-.main .des {
+.des {
 	position: absolute;
 	width: 550px;
 	top: calc(20% + 50px);
-	left: 260px;
+	left: 15%;
 	z-index: 5;
 	color: rgba(var(--t-t1), 0.8);
 	white-space: nowrap;
@@ -292,14 +263,14 @@ backdrop {
 	line-height: 36px;
 }
 
-.main .des span:nth-child(1) {
+.des span:nth-child(1) {
 	line-height: 70px;
 	background-image: linear-gradient(62deg, rgba(var(--t-c1), 0.9), rgba(var(--t-c2), 0.8));
 	color: transparent;
 	-webkit-background-clip: text;
 }
 
-.main .des span:nth-child(2) {
+.des span:nth-child(2) {
 	display: block;
 	margin-top: 25px;
 	width: 450px;
@@ -310,7 +281,7 @@ backdrop {
 	font-weight: normal;
 }
 
-.main .des a {
+.des a {
 	display: inline-block;
 	margin-right: 10px;
 	padding: 0px 10px;
@@ -326,7 +297,7 @@ backdrop {
 	transition: 0.3s;
 }
 
-.main .des a:hover {
+.des a:hover {
 	color: rgba(var(--t-b1), 0.8);
 	background-color: rgba(var(--t-b5), 1);
 }
@@ -438,19 +409,19 @@ backdrop {
 }
 
 .menu .menu-footer {
-    position: sticky;
-    padding: 10px 40px;
-    height: 20px;
-    bottom: 0px;
-    top: calc(100% - 40px);
+	position: sticky;
+	padding: 10px 40px;
+	height: 20px;
+	bottom: 0px;
+	top: calc(100% - 40px);
 	margin: 0 -30px 0 -30px;
-    line-height: 22px;
-    font-size: 14px;
-    text-align: center;
-    background-color: rgba(var(--t-b3), 0.6);
-    color: rgba(var(--t-t1), 0.8);
-    backdrop-filter: blur(5px);
-    transition: 0.3s ease-out;
+	line-height: 22px;
+	font-size: 14px;
+	text-align: center;
+	background-color: rgba(var(--t-b3), 0.6);
+	color: rgba(var(--t-t1), 0.8);
+	backdrop-filter: blur(5px);
+	transition: 0.3s ease-out;
 }
 
 
@@ -641,19 +612,24 @@ backdrop {
 }
 
 @media (orientation: landscape) and (max-width: 1200px) and (min-width: 900px) {
-	.main .des {
+	.des {
 		top: 20%;
-		left: 5%;
+		left: 12%;
+		font-size: 50px;
+	}
+	.des span:nth-child(2) {
+		width: 370px;
+		margin-top: 10px;
 	}
 }
 
 @media (orientation: landscape) and (max-width: 900px) and (min-width: 500px) {
-	.main .des {
+	.des {
 		font-size: 40px;
 		top: 20%;
-		left: 5%;
+		left: 12%;
 	}
-	.main .des span:nth-child(2) {
+	.des span:nth-child(2) {
 		font-size: 16px;
 		line-height: 26px;
 		width: 300px;
@@ -662,12 +638,10 @@ backdrop {
 
 /* phone */
 @media (orientation: portrait) {
-	.main .des span:nth-child(2),
-	.main .des span:nth-child(3),
 	.f-2 {
 		display: none !important;
 	}
-	.main .des {
+	.des {
 		position: fixed;
 		top: 110px;
 		width: 80%;
@@ -676,12 +650,12 @@ backdrop {
 		font-size: 20px;
 		line-height: 30px;
 	}
-	.main .des span:nth-child(1) {
+	.des span:nth-child(1) {
 		display: block;
 		margin-top: -15px;
 		font-size: 55px;
 	}
-	.main .des a {
+	.des a {
 		margin-right: 10px;
 		margin-top: 20px;
 		font-size: 16px;
@@ -690,12 +664,12 @@ backdrop {
 	.menu {
 		padding-right: 30px;
 	}
-	.main .avatar {
+	.avatar {
 		top: unset;
-		bottom: -50px;
-		right: -85%;
+		bottom: -40px;
+		right: -65%;
 	}
-	.main .loading i {
+	.loading i {
 		writing-mode: vertical-rl;
 		transform: rotate(180deg);
 		right: 15px;
@@ -714,13 +688,9 @@ backdrop {
 	color: rgba(var(--t-c1), 0.6);
 }
 
-.theme-0 .main .loading {
-	background-color: rgba(60, 60, 60, 1) !important;
-}
-
 .theme-0 .menu .search list div a:hover,
 .theme-0 .menu .search list key,
-.theme-0 .main footer a {
+.theme-0 footer a {
 	color: rgba(var(--t-c2), 0.6);
 }
 

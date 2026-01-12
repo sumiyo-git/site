@@ -231,22 +231,25 @@ comment .op:after {
 <body>
 <div class="main" >
 	<para>
-		<h1>广场</h1>
-		<note>寒风穿过空荡荡的街道。<br class="f-3" />广场上，还是一个人都没有 ...</note>
+		<h1>穹之厅</h1>
+		<note>显而易见，这里已经很久没有人来过了 ...</note>
 	</para>
 
 	<para>
-		已经很久没有人来过这里了。
+		狭窄甬道的尽头，是一个圆形的大厅
+		<br />
+		阳光从穹顶洒下
+		<br />
+		藤蔓缠绕着洁白的石柱
+		<br />
+		数不清的水晶悬在半空，微风扫过，清脆作响
 		<br />
 		<br class="f-1" />
-		漫步走过一排排锈迹斑斑的长椅，<br class="f-3" />昔日的荣光早已不再。
-		<br />
-		透过冬天的薄雾，夕阳依旧朦胧。
-		<br />
-		<br class="f-1" />
-		绿藤缠绕，野花装点着古老的留言板。
-		<br />
-		留下些什么吧！ 来自远方的朋友 ...
+		<i>
+			“Maoku —— 回忆所在之地”
+			<br />
+			“过去的探险家会在这样的水晶上雕刻，用文字留下记忆的碎片 ... ”
+		</i>
 	</para>
 
 	<para>
@@ -263,17 +266,17 @@ comment .op:after {
 				<mat></mat>
 				<mat></mat>
 				<mat></mat>
-				<textarea autocomplete="off" placeholder="昵称" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
-				<a onclick="env.f.submit()" style="float: right;" >留言</a>
+				<textarea autocomplete="off" placeholder="名字" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
+				<a onclick="env.f.submit()" style="float: right;" >确定</a>
 				<mat></mat>
 				<mat></mat>
 				<mat></mat>
-				<textarea autocomplete="off" placeholder="验证" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
+				<textarea autocomplete="off" placeholder="校验" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
 				<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=留言板')`, document.domain ? '/' : '*')">使用须知</span>
-				<canvas width="80px" height="28px" title="看不清 ? 换 !" onclick="env.f.challenge.new()" ></canvas>
+				<canvas width="80px" height="28px" title="看不清的话是可以换一个的哦" onclick="env.f.challenge.new()" ></canvas>
 			</div>
 		</para>
-		共 <tag>0</tag> 留言
+		共 <tag>0</tag> 片水晶
 		<mat></mat>
 		<hr />
 		<mat></mat>

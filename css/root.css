@@ -255,18 +255,11 @@ footer a {
 	top: calc(20% + 50px);
 	left: 15%;
 	z-index: 5;
-	width: 450px;
+	width: 500px;
 	color: rgba(var(--t-t1), 0.6);
-	word-break: break-all;
-	font-size: 20px;
-	line-height: 36px;
-}
-
-.des span {
-	font-weight: bolder;
-	background-image: linear-gradient(62deg, rgba(var(--t-c1), 0.9), rgba(var(--t-c2), 0.8));
-	color: transparent;
-	-webkit-background-clip: text;
+	white-space: nowrap;
+	font-size: 18px;
+	line-height: 30px;
 }
 
 .des hr {
@@ -279,28 +272,25 @@ footer a {
 
 
 .des a {
-	display: inline-block;
-	margin-right: 10px;
-	padding: 0px 10px;
+	display: table;
+	margin-top: 16px;
+	line-height: 30px;
 	color: rgba(var(--t-b5), 1);
-	background-color: rgba(var(--t-b1), 0.8);
-	box-sizing: border-box;
-	border: 2px dashed rgba(var(--t-b5), 1);
 	font-size: 20px;
-	font-weight: normal;
-	border-radius: 8px;
 	user-select: none;
 	cursor: pointer;
 	transition: 0.3s;
 }
 
-.des a:hover {
-	color: rgba(var(--t-b1), 0.8);
-	background-color: rgba(var(--t-b5), 1);
+.des a::before {
+	content: " ";
+	color: rgba(var(--t-c1), 0.8);
 }
 
-
-
+.des a:hover {
+	color: rgba(var(--t-c1), 0.8);
+	transform: translateX(10px);
+}
 
 
 
@@ -615,9 +605,6 @@ footer a {
 		line-height: 30px;
 		font-size: 20px;
 	}
-	.des a {
-		line-height: 30px;
-	}
 }
 
 @media (orientation: landscape) and (max-width: 900px) and (min-width: 500px) {
@@ -625,11 +612,8 @@ footer a {
 		top: 20%;
 		left: 12%;
 		width: 400px;
-		line-height: 20px;
-		font-size: 16px;
-	}
-	.des a {
-		line-height: 30px;
+		line-height: 24px;
+		font-size: 18px;
 	}
 }
 
@@ -648,10 +632,7 @@ footer a {
 		line-height: 24px;
 	}
 	.des a {
-		margin-right: 10px;
-		margin-top: 20px;
 		font-size: 16px;
-		padding: 0px 5px;
 	}
 	.menu {
 		padding-right: 30px;

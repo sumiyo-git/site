@@ -31,7 +31,7 @@ env.d.init = {...env.d.init, ...{
 }}
 
 // 通知
-env.d.list.news = `欢迎来到 mio 的个人网站！<br />这里仍在缓慢更新中 ...`
+env.d.list.news = `欢迎来到 mio 的连接桥！<br />这里仍在缓慢更新中 ...`
 
 
 

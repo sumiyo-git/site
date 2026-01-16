@@ -23,7 +23,7 @@
 	<head>
 		<meta charset="UTF-8" >
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" >
-		<title>sumiyo だよ</title>
+		<title>sumiyo のせかい</title>
 		<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
 		<link rel="stylesheet" type="text/css" href="css/root.css" />
 		<link rel="stylesheet" type="text/css" href="css/player.css"  />
@@ -40,17 +40,11 @@
 		<div class="des" >
 			<hr />
 			<i>
-				“<span class="f-2" >是这样的呢，</span>现存的 Maoku 基本都在人迹罕至的森林里”
-				<br />
-				<span class="f-2" >
-					“这边，这边呐 ... ”
-					<br />
-				</span>
-				“再坚持一会儿哦，马上就能看到了”
-				<br />
+				“<span class="f-2" >是这样的呢，</span>现存的 Maoku 基本都在人迹罕至的森林里”<br />
+				“这边，这边呐 ... ”<br />
+				“再坚持一会儿哦，马上就能看到了”<br />
 				<br class="f-1" />
-				“嗯？有什么想问我的吗？”
-				<br />
+				“嗯？有什么想问我的吗？”<br />
 			</i>
 			<br class="f-1" />
 			<br class="f-1" />
@@ -75,7 +69,7 @@
 
 			<!-- 博客 -->
 			<div style="margin-top: 10px;" >
-				<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >检索:</btn>
+				<btn onclick="env.f.root.menu.folder(this)" data-item="0" class="active" >记录:</btn>
 				<div class="search" >
 					<textarea type="text" oninput="this.value = this.value.replace(/\n/g, ''); env.f.root.search()" maxlength="20" autocomplete="off" ></textarea>
 					<list><div style="display: none;" class="none" >没有找到指定内容...</div></list>
@@ -94,9 +88,9 @@
 			<div style="margin-top: 10px;" >
 				<btn onclick="env.f.root.menu.folder(this)" class="active" >其他</btn>
 				<div class="menu-c3" >
-					<a href="mailto:me@sumiyo.link" target="_blank" title="我的邮箱" ></a>
+					<a href="mailto:me@sumiyo.link" target="_blank" title="MIO 的邮箱" ></a>
 					<a onclick="env.f.root.blog.open('page/policy')" title="政策 & 授权" ></a>
-					<a onclick="env.f.root.blog.open('page/history')" title="开发记录" ></a>
+					<a onclick="env.f.root.blog.open('page/changelog')" title="Changelog" ></a>
 					<a onclick="env.f.root.theme()" ></a>
 				</div>
 			</div>
@@ -119,7 +113,7 @@
 		<!-- 页脚 -->
 		<footer>
 			<div class="f-2" >
-				技术支持: <a onclick="window.open('https://www.cloudflare.com/')" >Cloudflare</a>
+				连接支持: <a onclick="window.open('https://www.cloudflare.com/')" >Cloudflare</a>
 			</div>
 			<div style="opacity: 0;">
 				 | <tag>0</tag> 天 & <tag>0</tag> 访客

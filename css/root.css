@@ -1,53 +1,36 @@
 
-.theme-0 {
+:root {
 	/* 主题颜色 */
 	--t-c1: 40, 158, 214;
 	--t-c2: 104, 237, 255;
 	--t-c3: 45, 189, 255;
+}
 
-	/* 文本颜色 */
-	--t-t1: 244, 243, 241;
-
-	/* 背景颜色 */
-	--t-b1: 60, 60, 60;
-	--t-b2: 0, 0, 0;
-	--t-b3: 40, 40, 40;
-	--t-b4: 220, 220, 220;
-	--t-b5: 180, 180, 180;
-	--t-b6: 255, 255, 255;
-
-	--t-r: 255, 0, 20;
-	--t-g: 0, 200, 100;
+.theme-0 {
+	/* 深色 */
+	--t-b1: 0, 0, 0;
+	--t-b2: 255, 255, 255;
+	--t-b3: 0, 0, 0;
+	--t-b4: 255, 255, 255;
+	--t-b5: 40, 40, 40;
 }
 
 .theme-1 {
-	/* 主题颜色 */
-	--t-c1: 40, 158, 214;
-	--t-c2: 104, 237, 255;
-	--t-c3: 45, 189, 255;
-
-	/* 文本颜色 */
-	--t-t1: 100, 102, 102;
-
-	/* 背景颜色 */
+	/* 浅色 */
 	--t-b1: 255, 255, 255;
 	--t-b2: 0, 0, 0;
-	--t-b3: 244, 243, 241;
-	--t-b4: 40, 40, 40;
-	--t-b5: 180, 180, 180;
-	--t-b6: 255, 255, 255;
-
-	--t-r: 255, 0, 20;
-	--t-g: 0, 200, 100;
+	--t-b3: 0, 0, 0;
+	--t-b4: 255, 255, 255;
+	--t-b5: 244, 243, 241;
 }
 
 @font-face {
 	font-family: Poppins-Regular;
-	src: url('../src/font/Poppins-Regular.woff2');
+	src: url("../src/font/Poppins-Regular.woff2");
 }
 @font-face {
 	font-family: icomoon;
-	src: url('../src/font/icomoon.woff2');
+	src: url("../src/font/icomoon.woff2");
 }
 ::selection {
 	background: rgba(var(--t-c3), 0.2);
@@ -61,7 +44,7 @@ html {
 }
 
 body {
-	font-family: 'Poppins-Regular', 'icomoon', 'Microsoft YaHei';
+	font-family: "Poppins-Regular", "icomoon", "Microsoft YaHei";
 	overflow: overlay;
 	margin: 0;
 	line-height: 30px;
@@ -69,7 +52,7 @@ body {
 	height: 100%;
 	width: 100%;
 	min-width: 380px;
-	background-color: rgba(var(--t-b1), 1);
+	background-color: rgba(var(--t-b1), 0.8);
 }
 
 img,
@@ -85,7 +68,7 @@ header {
 	left: 20px;
 	z-index: 10;
 	font-size: 22px;
-	color: rgba(var(--t-t1), 0.1);
+	color: rgba(var(--t-b2), 0.1);
 	transition: 0.3s;
 	user-select: none;
 }
@@ -101,7 +84,6 @@ header btn {
 	line-height: 30px;
 	cursor: pointer;
 	user-select: none;
-	backdrop-filter: blur(3px);
 	transition: 0.3s;
 }
 
@@ -125,7 +107,7 @@ header a {
 	padding: 0px 10px;
 	cursor: pointer;
 	transition: 0.3s;
-	color: rgba(var(--t-t1), 0.4);
+	color: rgba(var(--t-b2), 0.4);
 }
 
 header a:hover {
@@ -133,16 +115,16 @@ header a:hover {
 }
 
 header backdrop {
-	background-color: rgba(var(--t-b2), 0.6);
+	background-color: rgba(var(--t-b3), 0.6);
 }
 
 header btn {
-	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-b1), 0.8);
+	color: rgba(var(--t-b2), 0.6);
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 80%, white 20%);
 }
 
 header btn:hover {
-	color: rgba(var(--t-t1), 0.8);
+	color: rgba(var(--t-b2), 0.8);
 }
 
 
@@ -154,7 +136,7 @@ header btn:hover {
 	width: 100%;
 	height: 100%;
 	z-index: 50;
-	background-color: rgba(var(--t-b1), 1) !important;
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 80%, white 20%) !important;
 }
 
 .loading i {
@@ -162,7 +144,7 @@ header btn:hover {
 	bottom: 20px;
 	right: 30px;
 	font-size: 24px;
-	color: rgba(var(--t-t1), 0.8);
+	color: rgba(var(--t-b2), 0.8);
 }
 
 
@@ -174,11 +156,8 @@ footer {
 	z-index: 5;
 	height: 40px;
 	width: 100%;
-	background-color: rgba(var(--t-b3), 1);
-	background-image: linear-gradient(90deg, rgba(var(--t-b3), 1) 0%, rgba(var(--t-b1), 1) 70%);
-	mask-image: linear-gradient(90deg, rgba(var(--t-b3), 1) 0%, rgba(var(--t-b3), 0) 70%);
-	-webkit-mask-image: linear-gradient(90deg, rgba(var(--t-b3), 1) 0%, rgba(var(--t-b3), 0) 70%);
-	color: rgba(var(--t-t1), 0.4);
+	background-image: linear-gradient(90deg, rgba(var(--t-b3), 0.05) 0%, rgba(var(--t-b3), 0) 70%);
+	color: rgba(var(--t-b2), 0.4);
 	user-select: none;
 	line-height: 22px;
 }
@@ -188,7 +167,7 @@ footer div {
 	height: 20px;
 	padding: 10px 0px 10px 20px;
 	user-select: text;
-	color: rgba(var(--t-t1), 0.6);
+	color: rgba(var(--t-b2), 0.6);
 	transition: 0.3s;
 }
 
@@ -206,7 +185,6 @@ footer a {
 	left: 0;
 	bottom: 0;
 	right: 0;
-	background-color: rgba(var(--t-b1), 1);
 }
 
 .blog iframe {
@@ -219,8 +197,9 @@ footer a {
 	user-select: none;
 }
 
+.blog,
 .blog backdrop {
-	background-color: rgba(var(--t-b1), 1);
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 80%, white 20%);
 }
 
 .blog backdrop::before {
@@ -230,7 +209,7 @@ footer a {
 	content:attr(data-timer);
 	font-size: 120px;
 	line-height: 120px;
-	color: rgba(var(--t-t1), 0.1);
+	color: rgba(var(--t-b2), 0.1);
 
 	white-space: nowrap;
 	writing-mode: vertical-rl;
@@ -256,7 +235,7 @@ footer a {
 	left: 15%;
 	z-index: 5;
 	width: 500px;
-	color: rgba(var(--t-t1), 0.6);
+	color: rgba(var(--t-b2), 0.5);
 	white-space: nowrap;
 	font-size: 18px;
 	line-height: 30px;
@@ -267,7 +246,7 @@ footer a {
 	margin: 0;
 	margin-bottom: 20px;
 	border: none;
-	border-top: 1px solid rgba(var(--t-t1), 0.6);
+	border-top: 1px solid rgba(var(--t-b2), 0.6);
 }
 
 
@@ -275,7 +254,7 @@ footer a {
 	display: table;
 	margin-top: 16px;
 	line-height: 30px;
-	color: rgba(var(--t-b5), 1);
+	color: rgba(var(--t-b2), 0.8);
 	font-size: 20px;
 	user-select: none;
 	cursor: pointer;
@@ -284,11 +263,11 @@ footer a {
 
 .des a::before {
 	content: " ";
-	color: rgba(var(--t-c1), 0.8);
+	color: rgba(var(--t-c1), 0.6);
 }
 
 .des a:hover {
-	color: rgba(var(--t-c1), 0.8);
+	color: rgba(var(--t-c1), 0.6);
 	transform: translateX(10px);
 }
 
@@ -303,7 +282,7 @@ footer a {
 	height: 100%;
 	padding: 0px 40px;
 	z-index: 15;
-	background-color: rgba(var(--t-b3), 1);
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 85%, rgb(var(--t-b2)) 15%) !important;
 	overflow: scroll;
 	transition: 0.3s ease-out;
 }
@@ -320,27 +299,27 @@ footer a {
 	margin: 30px 0 15px 0;
 	font-size: 35px;
 	font-weight: normal;
-	color: rgba(var(--t-t1), 0.8);
+	color: rgba(var(--t-b2), 0.6);
 }
 
 .menu hr {
 	margin: 0;
 	width: 230px;
 	border: none;
-	border-top: 1px solid rgba(var(--t-t1), 0.2);
+	border-top: 1px solid rgba(var(--t-b2), 0.2);
 }
 
 .menu btn {
 	display: inline-block;
 	margin-left: -25px;
 	font-size: 18px;
-	color: rgba(var(--t-t1), 0.8);
+	color: rgba(var(--t-b2), 0.6);
 	user-select: none;
 	cursor: pointer;
 }
 
 .menu btn::before {
-	content: '';
+	content: "";
 	display: inline-block;
 	height: 14px;
 	width: 16px;
@@ -360,7 +339,7 @@ footer a {
 	width: 230px;
 	font-size: 16px;
 	line-height: 24px;
-	color: rgba(var(--t-t1), 0.4);
+	color: rgba(var(--t-b2), 0.4);
 	transition: all 0.3s ease-out 0s;
 }
 
@@ -382,8 +361,8 @@ footer a {
 	font-size: 30px;
 	line-height: 61px;
 	text-align: center;
-	color: rgba(var(--t-b4), 0.4);
-	background-color: rgba(var(--t-b4), 0.05);
+	color: rgba(var(--t-b2), 0.4);
+	background-color: rgba(var(--t-b2), 0.05);
 	border-radius: 5px;
 	user-select: none;
 	white-space: nowrap;
@@ -405,8 +384,8 @@ footer a {
 	line-height: 22px;
 	font-size: 14px;
 	text-align: center;
-	background-color: rgba(var(--t-b3), 0.6);
-	color: rgba(var(--t-t1), 0.8);
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 85%, rgb(var(--t-b2)) 15%) !important;
+	color: rgba(var(--t-b2), 0.6);
 	backdrop-filter: blur(5px);
 	transition: 0.3s ease-out;
 }
@@ -424,10 +403,10 @@ footer a {
 }
 
 .menu btn[data-item]::after {
-	content: attr(data-item) ' items';
+	content: attr(data-item) " 页";
 	font-size: 18px;
 	margin-left: 8px;
-	color: rgba(var(--t-t1), 0.3);
+	color: rgba(var(--t-b2), 0.3);
 }
 
 .menu .search textarea {
@@ -439,17 +418,17 @@ footer a {
 	border-radius: 5px;
 	font-size: 16px;
 	line-height: 16px;
-	font-family: 'Poppins-Regular', 'Microsoft YaHei';
-	color: rgba(var(--t-t1), 0.8);
-	background-color: rgba(var(--t-b1), 0.6);
-	border: 1px solid rgba(var(--t-t1), 0.2);
+	font-family: "Poppins-Regular", "Microsoft YaHei";
+	color: rgba(var(--t-b2), 0.8);
+	background-color: rgba(var(--t-b3), 0.01);
+	border: 1px solid rgba(var(--t-b2), 0.2);
 	transition: 0.3s ease;
 	overflow: hidden;
 }
 
 .menu .search textarea:hover,
 .menu .search textarea:focus {
-	border: 1px solid rgba(var(--t-t1), 0.6);
+	border: 1px solid rgba(var(--t-b2), 0.6);
 }
 
 .menu .search list {
@@ -461,7 +440,7 @@ footer a {
 }
 
 .menu .search list div {
-	color: rgba(var(--t-t1), 0.6);
+	color: rgba(var(--t-b2), 0.6);
 	height: 22px;
 	line-height: 22px;
 	overflow: hidden;
@@ -470,7 +449,7 @@ footer a {
 }
 
 .menu .search list div a {
-	color: rgba(var(--t-t1), 0.4);
+	color: rgba(var(--t-b2), 0.4);
 	font-size: 16px;
 	cursor: pointer;
 	transition: 0.3s ease;
@@ -488,8 +467,8 @@ footer a {
 .menu .search list .pin::after {
 	float: right;
 	margin-right: 5px;
-	content: '';
-	color: rgba(var(--t-t1), 0.2);
+	content: "";
+	color: rgba(var(--t-b2), 0.2);
 	font-size: 14px;
 }
 
@@ -534,13 +513,13 @@ footer a {
 	max-width: 320px;
 	font-size: 16px;
 	line-height: 24px;
-	color: rgba(var(--t-t1), 0.6);
-	background-color: rgba(var(--t-b1), 0.8);
+	color: rgba(var(--t-b2), 0.6);
+	background-color: rgba(var(--t-b1), 0.1);
 	backdrop-filter: blur(10px);
 	box-sizing: border-box;
-	border: 1px solid rgba(var(--t-t1), 0.2);
+	border: 1px solid rgba(var(--t-b2), 0.1);
 	border-radius: 10px;
-	box-shadow: rgba(var(--t-b2), 0.05) 10px 10px 20px -3px;
+	box-shadow: rgba(var(--t-b3), 0.05) 10px 10px 20px -3px;
 	pointer-events: none;
 	white-space: pre-wrap;
 	word-wrap: break-word;
@@ -559,14 +538,14 @@ footer a {
 
 .prompt prompt::after {
 	position: absolute;
-	content: '';
+	content: "";
 	height: 30px;
 	width: 30px;
 	top: calc(50% - 15px);
 	right: 10px;
 	text-align: center;
 	line-height: 30px;
-	color: rgba(var(--t-r), 0.4);
+	color: rgba(255, 0, 20, 0.4);
 	font-size: 24px;
 	pointer-events: auto !important;
 	cursor: pointer;
@@ -574,7 +553,7 @@ footer a {
 }
 
 .prompt prompt:hover::after {
-	color: rgba(var(--t-r), 0.6);
+	color: rgba(255, 0, 20, 0.6);
 }
 
 .prompt prompt a {
@@ -657,6 +636,11 @@ footer a {
 	filter: invert(1);
 }
 
+.theme-0 .theme-0,
+.theme-0 .menu btn {
+	color: rgba(var(--t-b2), 0.8);
+}
+
 .theme-0 .menu btn::before {
 	color: rgba(var(--t-c1), 0.6);
 }
@@ -665,6 +649,10 @@ footer a {
 .theme-0 .menu .search list key,
 .theme-0 footer a {
 	color: rgba(var(--t-c2), 0.6);
+}
+
+.theme-0 footer {
+	background-image: linear-gradient(90deg, rgba(var(--t-b3), 0.1) 0%, rgba(var(--t-b3), 0) 70%);
 }
 
 

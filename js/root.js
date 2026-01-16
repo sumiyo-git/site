@@ -31,7 +31,7 @@ env.d.init = {...env.d.init, ...{
 }}
 
 // 通知
-env.d.list.news = `欢迎来到 mio 的连接桥！<br />这里仍在缓慢更新中 ...`
+env.d.list.news = `欢迎连接到 sumiyo 的世界！<br />这里仍在缓慢更新中 ...`
 
 
 
@@ -182,9 +182,11 @@ env.f.root.getText = function() {
 	}, 100)
 }
 
-env.f.root.post = function(event) {
+
+
+env.f.root.post = function(state, data) {
 	// 页面通信
-	env.e.root.blog.children[0].contentWindow.postMessage(event, env.d.isNetwork ? "/" : "*")
+	env.e.root.blog.children[0].contentWindow.postMessage({"state": state, "data": data}, env.d.isNetwork ? "/" : "*")
 }
 
 env.f.root.linkto = function(id) {
@@ -359,6 +361,10 @@ env.f.root.prompt = {}
 		}
 	}
 
+env.f.root.getENV = function() {
+	env.f.root.post(env.d, env.d.isNetwork ? "/" : "*")
+}
+
 env.f.root.search = function() {
 	// 站内检索引擎
 	var s = document.querySelector(".search textarea").value
@@ -433,7 +439,8 @@ env.f.root.getText()
 
 // 接受博客页面的信号
 window.addEventListener("message", function(event) {
-	if (event.origin == "null" || event.origin.includes(`https://${env.d.domain}`)) {eval(event.data)}
+	if (event.origin != "null" && !event.origin.includes(`https://${env.d.domain}`)) return
+	eval(event.data)
 })
 
 // 页面加载完成后执行

@@ -35,6 +35,16 @@
 	display: none;
 }
 
+@font-face {
+	font-family: Poppins-Regular;
+	src: url("../src/font/Poppins-Regular.woff2");
+}
+
+@font-face {
+	font-family: icomoon;
+	src: url("../src/font/icomoon.woff2");
+}
+
 
 
 /* 预设样式 */

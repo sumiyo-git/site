@@ -178,7 +178,7 @@
 			]})`, document.domain ? "/" : "*")
 
 			window.addEventListener('message', function(event) {
-				if (event.origin != "null" && !event.origin.includes(`https://${env.d.domain}`)) return
+				if (event.origin != "null" && !event.origin.includes(`https://${document.domain}`)) return
 				switch(event.data.state) {
 					case 200:
 						document.body.classList.add(`theme-${event.data.data ? 0 : 1}`)

@@ -542,7 +542,6 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 					case "null":
 						file = git("git status --porcelain").stdout
 						file = file.split("\n")
-						file.pop()
 						file = ["{}/{}".format(env["domain"], item[3:].replace('"', "")) for item in file]
 						body = {
 							"prefixes": file

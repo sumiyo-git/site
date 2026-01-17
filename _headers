@@ -1,9 +1,0 @@
-# 修改请求头
-
-/*.js
-	content-type: text/javascript; charset=utf-8
-
-/*.css
-	content-type: text/css; charset=utf-8
-
-

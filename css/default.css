@@ -35,6 +35,11 @@
 	display: none;
 }
 
+:lang(en) {
+	text-align: justify;
+	word-break: keep-all;
+}
+
 @font-face {
 	font-family: Poppins-Regular;
 	src: url("../src/font/Poppins-Regular.woff2");
@@ -54,8 +59,7 @@ body {
 	margin: 0;
 	line-height: 28px;
 	min-width: 380px;
-	word-break: keep-all;
-	text-align: justify;
+	word-break: break-all;
 	font-family: "Poppins-Regular", "icomoon", "Microsoft YaHei";
 }
 

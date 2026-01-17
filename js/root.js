@@ -17,7 +17,6 @@ env.e = {...env.e, ...{
 		"prompt": document.querySelector(".prompt"),
 		"blog": document.querySelector(".blog"),
 		"btn": document.querySelector("header btn"),
-		"des": document.querySelector(".des"),
 		"backdrop": document.querySelectorAll("backdrop"),
 		"menu": document.querySelectorAll(".menu btn"),
 		"counter": document.querySelectorAll("footer tag"),

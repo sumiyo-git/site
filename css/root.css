@@ -119,12 +119,12 @@ header backdrop {
 }
 
 header btn {
-	color: rgba(var(--t-b2), 0.6);
+	color: rgba(var(--t-b2), 0.4);
 	background-color: color-mix(in srgb, rgb(var(--t-b1)) 80%, white 20%);
 }
 
 header btn:hover {
-	color: rgba(var(--t-b2), 0.8);
+	color: rgba(var(--t-b2), 0.6);
 }
 
 
@@ -167,7 +167,7 @@ footer div {
 	height: 20px;
 	padding: 10px 0px 10px 20px;
 	user-select: text;
-	color: rgba(var(--t-b2), 0.6);
+	color: rgba(var(--t-b2), 0.4);
 	transition: 0.3s;
 }
 
@@ -254,7 +254,7 @@ footer a {
 	display: table;
 	margin-top: 16px;
 	line-height: 30px;
-	color: rgba(var(--t-b2), 0.8);
+	color: rgba(var(--t-b2), 0.6);
 	font-size: 20px;
 	user-select: none;
 	cursor: pointer;
@@ -267,7 +267,7 @@ footer a {
 }
 
 .des a:hover {
-	color: rgba(var(--t-c1), 0.6);
+	color: rgba(var(--t-c1), 0.6) !important;
 	transform: translateX(10px);
 }
 
@@ -636,8 +636,12 @@ footer a {
 	filter: invert(1);
 }
 
-.theme-0 .theme-0,
+.theme-0 .menu h1,
 .theme-0 .menu btn {
+	color: rgba(var(--t-b2), 0.8);
+}
+
+.theme-0 .des a {
 	color: rgba(var(--t-b2), 0.8);
 }
 

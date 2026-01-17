@@ -19,8 +19,8 @@
 				line-height: 24px;
 				opacity: 0;
 				border-radius: 0px 0px 5px 5px;
-				background: rgba(var(--t-b2), 0.5);
-				color: rgba(var(--t-b6), 0.8);
+				background: rgba(var(--t-b3), 0.5);
+				color: rgba(var(--t-b4), 0.8);
 				backdrop-filter: blur(10px);
 				white-space: nowrap;
 				overflow: hidden;
@@ -29,7 +29,7 @@
 				transition: 0.3s;
 			}
 			.ibox0 span note {
-				color: rgba(var(--t-b6), 0.4);
+				color: rgba(var(--t-b4), 0.4);
 				user-select: none;
 			}
 			.ibox0:hover span {
@@ -166,8 +166,8 @@
 
 		</structure>
 		<script>
-			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, document.domain ? "/" : "*")
-			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, document.domain ? "/" : "*")
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
 			window.parent.postMessage(`env.f.player.add.ask({0: true, 1: [
 				{
 					name: 'I See Fire',
@@ -175,13 +175,13 @@
 					src: '28048693',
 					img: 'aZKoQyOIc1cXF4shZZmvWw==/2542070884564042',
 				}
-			]})`, document.domain ? "/" : "*")
+			]})`, location.origin.replace("file://", "*"))
 
 			window.addEventListener('message', function(event) {
-				if (event.origin != "null" && !event.origin.includes(`https://${document.domain}`)) return
+				if (!["null", location.origin].includes(event.origin)) return
 				switch(event.data.state) {
 					case 200:
-						document.body.classList.add(`theme-${event.data.data ? 0 : 1}`)
+						document.body.className = `theme-${event.data.data ? 0 : 1}`
 						break
 					default:
 						eval(event.data.data)

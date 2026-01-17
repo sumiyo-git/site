@@ -738,14 +738,14 @@ export async function onRequest(context) {
 
 		</structure>
 		<script>
-			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, document.domain ? "/" : "*")
-			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, document.domain ? "/" : "*")
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
 
 			window.addEventListener('message', function(event) {
-				if (event.origin != "null" && !event.origin.includes(`https://${document.domain}`)) return
+				if (!["null", location.origin].includes(event.origin)) return
 				switch(event.data.state) {
 					case 200:
-						document.body.classList.add(`theme-${event.data.data ? 0 : 1}`)
+						document.body.className = `theme-${event.data.data ? 0 : 1}`
 						break
 					default:
 						eval(event.data.data)

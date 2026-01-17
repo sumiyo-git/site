@@ -1,68 +1,80 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>世界的尽头</title>
-	<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
-	<style>
-.theme-0{--t-c1:40,158,214;--t-c2:104,237,255;--t-c3:45,189,255;--t-t1:244,243,241;--t-b1:60,60,60;--t-b2:0,0,0;--t-b3:40,40,40;--t-b4:220,220,220;--t-b5:180,180,180;--t-r:255,0,20;--t-g:0,200,100;}.theme-1{--t-c1:40,158,214;--t-c2:104,237,255;--t-c3:45,189,255;--t-t1:100,102,102;--t-b1:255,255,255;--t-b2:0,0,0;--t-b3:244,243,241;--t-b4:40,40,40;--t-b5:180,180,180;--t-r:255,0,20;--t-g:0,200,100;}body{overflow:overlay;margin:0;line-height:30px;min-width:380px;background-color:rgba(var(--t-b1),1);font-family:'Microsoft YaHei';}::selection{background:rgba(var(--t-c2),0.3);}::-webkit-scrollbar{width:12px !important;height:12px !important;background-color:transparent !important;}::-webkit-scrollbar-track{background-color:transparent !important;box-shadow:none !important;}::-webkit-scrollbar-thumb{background-color:rgba(100,102,102,0.1) !important;border-radius:100px !important;border:4px solid transparent !important;background-clip:content-box !important;box-shadow:none !important;}::-webkit-scrollbar-thumb:hover{background-color:rgba(100,102,102,0.2) !important;}::-webkit-scrollbar-corner{background-color:transparent !important;box-shadow:none !important;}tag{color:rgba(var(--t-t1),0.4);}i{color:rgba(var(--t-t1),0.6);}h1{color:rgba(var(--t-t1),0.8);font-size:40px}para{display:block;padding-bottom:100px;}.main{margin:0px auto;padding:360px 0px 200px 0px;width:800px;}.f-1{user-select:none;pointer-events:none}.f-3{display:none}mat{display:block;width:100%;height:10px;pointer-events:none;}@media (orientation:portrait){.f-2{display:none}.main{margin:0px auto;padding:200px 0px 80px 0px;width:90%;}}
-	</style>
-</head>
-<body>
-<div class="main" >
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>世界的尽头</title>
+		<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
+		<style>
+:root{--t-c2:104,237,255}.theme-0{--t-b1:0,0,0;--t-b2:255,255,255;--t-b3:0,0,0;--t-b4:255,255,255;--t-b5:40,40,40}.theme-1{--t-b1:255,255,255;--t-b2:0,0,0;--t-b3:0,0,0;--t-b4:255,255,255;--t-b5:244,243,241}::selection{background:rgba(var(--t-c2),0.3)}::-webkit-scrollbar{display:none}body{overflow:overlay;margin:0;line-height:28px;min-width:380px;word-break:keep-all;text-align:justify;font-family:"Poppins-Regular","icomoon","Microsoft YaHei";background-color:color-mix(in srgb,rgb(var(--t-b1)) 80%,white 20%)}body structure{display:block}body structure:nth-child(1){height:50vh;overflow:hidden}body structure:nth-child(1) img{opacity:0;width:100%}body structure:nth-child(2){margin:0px auto;padding-bottom:200px;width:800px}para{display:block;padding-bottom:100px;color:rgba(var(--t-b2),0.5);font-size:16px}note{color:rgba(var(--t-b2),0.3)}mat{display:block;width:100%;height:5px;pointer-events:none}h1{color:rgba(var(--t-b2),0.6)}h1{margin:20px 0 10px 0;font-size:40px;line-height:56px}.f-1{user-select:none;pointer-events:none}@media (orientation:landscape){.f-3{display:none}}@media (orientation:portrait){.f-2{display:none}body structure:nth-child(1){height:20vh}body structure:nth-child(2){margin:0px auto;padding:0px 0px 100px 0px;width:90%}}
 
-	<para>
-		<h1>世界的尽头</h1>
-		<tag id="url" style="word-break: break-all;" >window.url</tag>
-	</para>
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
 
-	<para>
-		<i>
-			haze i milecaze, miite mirano enkade suzerala.
-			<br />
-			世界的边缘，白花遍野。
-			<br />
-			<mat></mat>
+			<para>
+				<h1>世界的尽头</h1>
+				<note>window.url</note>
+			</para>
 
-			natomi nofu he suzerala i beo milecaze, milele he seoru-na.
-			<br />
-			这里已是大陆的最北端，前方无路可走。
-			<br />
-			<mat></mat>
-			<br class="f-1" />
+			<para>
+				<i>
+					haze i milecaze, miite mirano enkade suzerala.
+					<br />
+					<note>世界的边缘，白花遍野。</note>
+					<br />
+					<mat></mat>
 
-			hemiyo zesawa,
-			<br />
-			请调转方向，
-			<br />
-			<mat></mat>
+					natomi nofu he suzerala i beo milecaze, milele he seoru-na.
+					<br />
+					<note>这里已是大陆的最北端，前方无路可走。</note>
+					<br />
+					<mat></mat>
+					<br class="f-1" />
 
-			sia ea "sumiyo" i haze, semiru nanme semila omaku ...
-			<br />
-			在那名为 <ins>sumiyo</ins> 的世界，依然有奇迹正在发生 ...
-			<br />
-			<br class="f-1" />
-			<br class="f-1" />
-			<br class="f-2 f-1" />
-			—— oi haze i agademusu 15:4
-		</i>
-	</para>
+					hemiyo zesawa,
+					<br />
+					<note>请调转方向，</note>
+					<br />
+					<mat></mat>
 
-</div>
-<script>
+					sia ea "sumiyo" i haze, semiru nanme semila omaku ...
+					<br />
+					<note>在那名为 <ins>sumiyo</ins> 的世界，依然有奇迹正在发生 ...</note>
+					<br />
+					<br class="f-1" />
+					<br class="f-1" />
+					<br class="f-2 f-1" />
+					—— oi haze i agademusu 15:4
+				</i>
+			</para>
 
-	window.addEventListener('message', function(event) {
-		if (event.origin == 'null' || event.origin.includes(document.domain)) {eval(event.data)}
-	})
-	if (window.parent == window) {
-		document.querySelectorAll('tag')[0].innerHTML = window.location.href
-		document.body.classList.add(`theme-${window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 0 : 1}`)
+		</structure>
+		<script>
+			if (window.parent == window) {
+				document.querySelector("note").innerHTML = window.location.href
+				document.body.className = `theme-${window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? 0 : 1}`
+			} else {
+				window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+				window.parent.postMessage(`env.f.root.post(201, window.location.href)`, location.origin.replace("file://", "*"))
+				window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+			}
 
-
-	} else {
-		window.parent.postMessage("env.f.root.blog.show('" + document.querySelectorAll('h1')[0].innerText + "'); env.f.root.post(`document.querySelectorAll('tag')[0].innerHTML = '${document.location.href}'; document.body.classList.add('theme-' + ${env.d.isDark ? 0 : 1})`)", document.domain ? '/' : '*')
-	}
-</script>
-</body>
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.body.className = `theme-${event.data.data ? 0 : 1}`
+						break
+					case 201:
+						document.querySelector("note").innerHTML = event.data.data
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+		</script>
+	</body>
 </html>

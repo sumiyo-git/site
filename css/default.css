@@ -61,7 +61,6 @@ body {
 
 body structure {
 	display: block;
-	width: 100%;
 }
 
 	body structure:nth-child(1) {
@@ -71,6 +70,7 @@ body structure {
 
 	body structure:nth-child(1) img {
 		opacity: 0;
+		width: 100%;
 	}
 
 body structure:nth-child(2) {
@@ -240,7 +240,7 @@ h1, h2, h3 {
 }
 
 	h1 {
-		margin: 20px 0 0 0;
+		margin: 20px 0 10px 0;
 		font-size: 40px;
 		line-height: 56px;
 	}

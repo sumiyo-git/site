@@ -269,7 +269,7 @@
 						<canvas width="80px" height="28px" title="看不清的话是可以换一个的哦" onclick="env.f.challenge.new()" ></canvas>
 					</div>
 				</para>
-				共 <tag>0</tag> 片水晶
+				共 <tag>0</tag> 个记录
 				<mat></mat>
 				<hr />
 				<mat></mat>
@@ -281,11 +281,11 @@
 
 		</structure>
 		<script>
-			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, document.domain ? "/" : "*")
-			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, document.domain ? "/" : "*")
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
 
 			window.addEventListener('message', function(event) {
-				if (event.origin != "null" && !event.origin.includes(`https://${document.domain}`)) return
+				if (!["null", location.origin].includes(event.origin)) return
 				switch(event.data.state) {
 					case 200:
 						document.body.classList.add(`theme-${event.data.data ? 0 : 1}`)
@@ -461,7 +461,7 @@
 			<div class="content" >
 			<div class="comment-header" >${d.name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '')} <span>${getID(d.id.substring(0, 12))}</span></div>
 			<div class="comment-body" >${d.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')}</div>
-			<div class="comment-footer" ><a onclick="env.f.reply(this, '${d.id}')" >回复</a> | <a title="删除这条留言" onclick="env.f.zoltraak('${d.id}', -1)" >删除</a></div>
+			<div class="comment-footer" ><a onclick="env.f.reply(this, '${d.id}')" >回复</a> | <a onclick="env.f.zoltraak('${d.id}', -1)" >删除</a></div>
 			<div class="comment-reply" ></div>
 			</div>`
 
@@ -482,7 +482,7 @@
 					com.querySelector('.comment-reply').remove()
 
 					if (d.op == 0 && parseInt(d.id) + 7000000 >= env.f.time()) {
-						header.innerHTML = `${header.innerHTML} <a title="删除这条回复" onclick="env.f.zoltraak('${com.parentNode.parentNode.parentNode.id}', ${n})" >删除</a>`
+						header.innerHTML = `${header.innerHTML} <a onclick="env.f.zoltraak('${com.parentNode.parentNode.parentNode.id}', ${n})" >删除</a>`
 					}
 
 				} else {
@@ -491,7 +491,7 @@
 
 					if (d.op == 1 || parseInt(d.id) + 7000000 < env.f.time()) {
 						Object.assign(footer.children[1], {
-							title: "你无法删除这条留言，因为它的力量胜过了你",
+							title: "你无法删除这个，因为它的力量胜过了你",
 							style: "cursor: not-allowed",
 						})
 

@@ -58,26 +58,6 @@ env.f.root.fade = function(e, t, style = "display: none") {
 	requestAnimationFrame(anime)
 }
 
-env.f.root.scroll = function(e, y, t = 300, abs = true) {
-	// 滚动动画
-	var n = null
-	var s = e.scrollTop
-	var d = abs ? y : (s + y)
-
-	function anime(t1) {
-		if (n == null) {n = t1}
-		var t2 = t1 - n
-		var p = Math.min(t2 / t, 1)
-
-		// 使用缓动函数来实现平滑效果
-		e.scrollTop = s + (d - s) * (p < 0.5 ? (2 * p * p) : (-1 + (4 - 2 * p) * p))
-		if (t2 < t) {
-			requestAnimationFrame(anime)
-		}
-	}
-	requestAnimationFrame(anime)
-}
-
 
 
 env.f.root.cookie = function(value) {
@@ -360,10 +340,6 @@ env.f.root.prompt = {}
 			}
 		}
 	}
-
-env.f.root.getENV = function() {
-	env.f.root.post(env.d, env.d.isNetwork ? "/" : "*")
-}
 
 env.f.root.search = function() {
 	// 站内检索引擎

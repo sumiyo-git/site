@@ -182,8 +182,8 @@
 
 		</structure>
 		<script>
-			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, document.domain ? "/" : "*")
-			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, document.domain ? "/" : "*")
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
 			window.parent.postMessage(`env.f.player.add.ask({0: true, 1: [
 				{
 					name: 'To the Moon - Piano (Ending Version)',
@@ -191,13 +191,13 @@
 					src: '33415403',
 					img: 'mUz6N4Z01FgLDd-GJ8R7bw==/2909307767419718',
 				}
-			]})`, document.domain ? "/" : "*")
+			]})`, location.origin.replace("file://", "*"))
 
 			window.addEventListener('message', function(event) {
-				if (event.origin != "null" && !event.origin.includes(`https://${document.domain}`)) return
+				if (!["null", location.origin].includes(event.origin)) return
 				switch(event.data.state) {
 					case 200:
-						document.body.classList.add(`theme-${event.data.data ? 0 : 1}`)
+						document.body.className = `theme-${event.data.data ? 0 : 1}`
 						break
 					default:
 						eval(event.data.data)

@@ -35,6 +35,20 @@
 ::selection {
 	background: rgba(var(--t-c3), 0.2);
 }
+::-webkit-scrollbar {
+	width: 12px;
+	height: 12px;
+}
+::-webkit-scrollbar-corner,
+::-webkit-scrollbar-track {
+	background-color: transparent;
+}
+::-webkit-scrollbar-thumb {
+	background-color: rgba(var(--t-b2), 0.2);
+	border-radius: 100px;
+	border: 4px solid transparent;
+	background-clip: content-box;
+}
 
 
 
@@ -238,7 +252,6 @@ footer a {
 	color: rgba(var(--t-b2), 0.5);
 	white-space: nowrap;
 	font-size: 18px;
-	line-height: 30px;
 }
 
 .des hr {
@@ -249,26 +262,35 @@ footer a {
 	border-top: 1px solid rgba(var(--t-b2), 0.6);
 }
 
+.des div {
+	margin-top: 80px;
+}
 
-.des a {
-	display: table;
-	margin-top: 16px;
-	line-height: 30px;
-	color: rgba(var(--t-b2), 0.6);
-	font-size: 20px;
+.des div a {
+	display: block;
+	border: 2px rgba(var(--t-b2), 0.4) solid;
+	width: 100px;
+	padding: 5px 16px;
+	color: rgba(var(--t-b2), 0.4);
 	user-select: none;
 	cursor: pointer;
-	transition: 0.3s;
 }
 
-.des a::before {
-	content: " ";
-	color: rgba(var(--t-c1), 0.6);
+.des div a:nth-child(1) {
+	border-bottom: none;
 }
 
-.des a:hover {
-	color: rgba(var(--t-c1), 0.6) !important;
-	transform: translateX(10px);
+.des div a::after {
+	content: "";
+	float: right;
+	margin-right: -40px;
+	transform: rotateY(-180deg);
+	color: rgba(var(--t-c1), 0);
+}
+
+.des div a:hover::after,
+.des div a:hover {
+	color: rgba(var(--t-c1), 0.8) !important;
 }
 
 
@@ -482,17 +504,6 @@ footer a {
 	user-select: auto;
 }
 
-.menu .search list::-webkit-scrollbar {
-	width: 2px !important;
-	height: 0px !important;
-}
-
-.menu .search list::-webkit-scrollbar-thumb {
-	background-clip: unset !important;
-}
-
-
-
 
 
 /* 提示窗 */
@@ -582,7 +593,7 @@ footer a {
 		top: 20%;
 		left: 12%;
 		line-height: 30px;
-		font-size: 20px;
+		font-size: 18px;
 	}
 }
 

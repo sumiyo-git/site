@@ -74,6 +74,9 @@
 
 			<para>
 				<h3>2026-01-16</h3>
+				<event type="D" >
+					移除 _headers
+				</event>
 				<event type="F" >
 					修复当请求的 *.js / *.css 不存在时，404 页面因 MIME 错误而无法被浏览器正确解析的问题
 					<br />
@@ -81,8 +84,13 @@
 						在 2025-12-27 更新中，mio 修改了 *.js / *.css 的 Content-Type 响应头，结果当请求脚本不存在时，仍将 404.html 的响应头按脚本处理，导致浏览器以纯文本的形式渲染了 404 页面
 					</note>
 				</event>
-				<event type="O" >优化 root.css</event>
-				<event type="O" >优化 default.css</event>
+				<event type="O" >
+					优化 root.css 和 default.css
+					<br />
+					<note>
+						简化了 css 颜色变量，重写了 default.css 的博客预制样式
+					</note>
+				</event>
 				<event type="O" >
 					优化 iframe 页面通信桥
 					<br />

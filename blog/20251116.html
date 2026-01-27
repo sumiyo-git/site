@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<style>
+			.ibox0 {
+				aspect-ratio: 3 / 4;
+				width: 40%;
+			}
+			.ibox1 {
+				aspect-ratio: 4 / 3;
+				width: 80%;
+			}
+
+			@media (orientation: portrait) {
+				.ibox0 {
+					width: 48%;
+				}
+				.ibox1 {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>相册 01</h1>
+				<note>这篇文章是用 miran 写的，mio 就偷懒不翻译了呐 ...</note>
+			</para>
+
+			<para>
+				<a class="ibox0"  target="_blank" href="../src/img/20251116.1.png" >
+					<img src="../src/img/20251116.1.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<a class="ibox0"  target="_blank" href="../src/img/20251116.2.png" style="margin-left: 2%" >
+					<img src="../src/img/20251116.2.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<mat></mat>
+				<mat></mat>
+				<h3>reno lemo</h3>
+				<note>2025.10.15</note>
+				<mat></mat>
+				<mat></mat>
+				chiu i oi maga, oomo reno lemoz !
+			</para>
+
+			<para>
+				<a class="ibox1"  target="_blank" href="../src/img/20251116.3.png" >
+					<img src="../src/img/20251116.3.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<mat></mat>
+				<mat></mat>
+				<h3>chiu i kinoyato</h3>
+				<note>2025.10.15</note>
+				<mat></mat>
+				<mat></mat>
+				cazelele i loensu sele, meku chiu i kinoyato. ea he hoer-ten olemu i.
+			</para>
+
+			<para>
+				<a class="ibox1"  target="_blank" href="../src/img/20251116.4.png" >
+					<img src="../src/img/20251116.4.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<mat></mat>
+				<mat></mat>
+				<h3>semiroka</h3>
+				<note>2025.11.10</note>
+				<mat></mat>
+				<mat></mat>
+				sou i tomoz hozele hoer nukoto, soria-haze i machika miralo ulea.
+				<br class="f-2" />
+				oi sorie, olemu serio !
+			</para>
+
+			<para>
+				<a class="ibox1"  target="_blank" href="../src/img/20251116.5.png" >
+					<img src="../src/img/20251116.5.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<mat></mat>
+				<mat></mat>
+				<h3>hohu i enho</h3>
+				<note>2025.10.15</note>
+				<mat></mat>
+				<mat></mat>
+				nato miite guku ga hoer memoro serome. iyu-hau ten ga hoer cabarui, eya ea nofu he kinou i uramu.
+			</para>
+
+			<para>
+				<a class="ibox1"  target="_blank" href="../src/img/20251116.6.png" >
+					<img src="../src/img/20251116.6.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<mat></mat>
+				<mat></mat>
+				<h3>oranke i damali</h3>
+				<note>2025.10.15</note>
+				<mat></mat>
+				<mat></mat>
+				fura serio danmele horamu, serio ca omato miranka guku semila damali ...
+			</para>
+
+			<para>
+				muyo hoer fukura mula ?
+				<br class="f-2" />
+				danto musarioi wale, natomi miralo sia garu usarioi i yo !
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/default.css">
+		<style>
+			textarea {
+				display: inline-block;
+				vertical-align: top;
+				padding: 2px 4px;
+				height: 24px;
+				min-height: 24px;
+				width: 180px;
+				resize: none;
+				outline: none;
+				background-color: rgba(var(--t-b2), 0.1);
+				color: rgba(var(--t-b2), 0.6);
+				font-size: 16px;
+				line-height: 24px;
+			}
+			textarea::placeholder {
+				color: rgba(var(--t-b2), 0.6);
+				user-select: none;
+			}
+			textarea::placeholder,
+			textarea {
+				font-family: 'Poppins Regular', 'Microsoft YaHei'; 
+			}
+
+			textarea,
+			.post canvas {
+				border: 1px solid rgba(var(--t-b2), 0.2);
+				border-radius: 5px;
+			}
+
+			.tbox {
+				width: calc(100% - 18px);
+				height: 120px;
+				min-height: 120px;
+				max-height: 600px;
+				resize: vertical;
+			}
+
+			.post {
+				white-space: nowrap;
+				user-select: none;
+			}
+
+			.post .link {
+				position: absolute;
+				margin-left: -75px;
+				font-size: 14px;
+			}
+
+			.post canvas {
+				margin-left: 5px;
+				cursor: help;
+			}
+
+			.post .user {
+				background-color: rgba(var(--t-c2), 0.8);
+			}
+			.post .ui {
+				width: calc(100% - 160px);
+			}
+			.post div {
+				display: inline-block;
+				vertical-align: top;
+			}
+
+			.post a,
+			footer a {
+				height: 24px;
+				text-align: center;
+				font-size: 16px;
+				font-family: 'Poppins Regular', 'icomoon', 'Microsoft YaHei';
+				line-height: 25px;
+				display: inline-block;
+				border-radius: 3px;
+				user-select: none;
+				cursor: pointer;
+				transition: 0.3s;
+			}
+			footer a {
+				min-width: 24px;
+				padding: 0px 2px;
+				margin-right: 5px;
+				color: rgba(var(--t-c1), 0.8);
+				border: 2px solid rgba(var(--t-c1), 0.4);
+			}
+			footer a:hover {
+				border: 2px solid rgba(var(--t-c1), 0.8);
+			}
+			footer .active {
+				color: rgba(var(--t-b1), 1);
+				background-color: rgba(var(--t-c1), 0.8);
+			}
+			.post a {
+				width: 55px;
+				padding: 3px 5px;
+				margin-right: 8px;
+				color: rgba(var(--t-b4), 1);
+				background-color: rgba(var(--t-c1), 0.8);
+			}
+			.post a:hover {
+				background-color: rgba(var(--t-c1), 1);
+			}
+
+			footer .disabled,
+			.wait {
+				opacity: 0.6;
+				pointer-events: none;
+			}
+
+			.list {
+				font-size: 16px;
+				line-height: 24px;
+			}
+			.list .user {
+				margin-top: 5px;
+				background-color: rgba(var(--t-c2), 0.8);
+			}
+
+			comment {
+				display: block;
+				margin-bottom: 50px;
+				user-select: none;
+			}
+			comment .user,
+			comment .content {
+				display: inline-block;
+				vertical-align: top;
+			}
+			comment .comment-footer {
+				margin-top: 20px;
+			}
+			comment .comment-header {
+				display: block;
+				color: rgba(var(--t-b2), 0.8);
+				user-select: text;
+			}
+			comment .content {
+				width: calc(100% - 100px);
+			}
+			comment .comment-reply .content {
+				width: 100%;
+			}
+			comment .comment-header span {
+				color: rgba(var(--t-b2), 0.2);
+			}
+			comment .comment-body {
+				overflow: hidden;
+				white-space: pre-wrap;
+				user-select: text;
+			}
+			comment .comment-reply .comment-header a,
+			comment .comment-footer a {
+				color: rgba(var(--t-b2), 0.4);
+				cursor: pointer;
+			}
+			comment .comment-reply {
+				width: calc(100% - 45px);
+				margin: 30px 0 0 45px;
+			}
+			comment .comment-reply .reply {
+				margin-bottom: 30px;
+			}
+			comment .op:after {
+				content: 'Mio だよ';
+				margin-left: 20px;
+				color: rgba(var(--t-c2), 0.8);
+			}
+
+			.user {
+				height: 60px;
+				width: 60px;
+				margin-right: 20px;
+				border-radius: 50%;
+				overflow: hidden;
+				text-align: center;
+			}
+			.user::after {
+				content: attr(data-icon);
+				font-family: icomoon;
+				font-size: 32px;
+				line-height: 60px;
+				color: rgba(var(--t-b4), 0.6);
+			}
+
+			@media (orientation: portrait) {
+				comment .comment-header span,
+				.post .link,
+				footer span {
+					display: none;
+				}
+				textarea {
+					width: 30%;
+				}
+				.user {
+					margin-right: 10px;
+					width: 40px;
+					height: 40px;
+				}
+				.user::after {
+					font-size: 24px;
+					line-height: 40px;
+				}
+				.post .ui {
+					width: calc(100% - 50px);
+				}
+				comment .comment-reply {
+					margin-left: 0px;
+					width: 100%;
+				}
+				comment .content {
+					width: calc(100% - 60px);
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>穹之厅</h1>
+				<note>显而易见，这里已经很久没有人来过了 ...</note>
+			</para>
+
+			<para>
+				狭窄甬道的尽头，是一个圆形的大厅
+				<br />
+				阳光从穹顶洒下
+				<br />
+				藤蔓缠绕着洁白的石柱
+				<br />
+				数不清的水晶悬在半空，微风扫过，清脆作响
+				<br />
+				<br class="f-1" />
+				<i>
+					“Maoku —— 回忆所在之地”
+					<br />
+					“过去的探险家会在这样的水晶上雕刻，用文字留下记忆的碎片 ... ”
+				</i>
+			</para>
+
+			<para>
+				<h3>留言</h3>
+				<mat></mat>
+				<hr />
+				<mat></mat>
+				<mat></mat>
+				<mat></mat>
+				<para class="post" >
+					<div class="user" data-icon="" ></div>
+					<div class="ui" >
+						<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.maxLength = (/^REPLY: \d{14}$/.test(this.value.split('\n')[0])) ? 122 : 200" ></textarea>
+						<mat></mat>
+						<mat></mat>
+						<mat></mat>
+						<textarea autocomplete="off" placeholder="名字" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
+						<a onclick="env.f.submit()" style="float: right;" >确定</a>
+						<mat></mat>
+						<mat></mat>
+						<mat></mat>
+						<textarea autocomplete="off" placeholder="校验" maxlength="4" oninput="this.value = this.value.replace(/\n/g, '')" ></textarea>
+						<span class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/policy&to=留言板')`, document.domain ? '/' : '*')">使用须知</span>
+						<canvas width="80px" height="28px" title="看不清的话是可以换一个的哦" onclick="env.f.challenge.new()" ></canvas>
+					</div>
+				</para>
+				共 <tag>0</tag> 个记录
+				<mat></mat>
+				<hr />
+				<mat></mat>
+				<mat></mat>
+				<mat></mat>
+				<div class="list" ><span>hemiyo-na omuo, semiru semila omaku ...</span><br /><br class="f-1" /></div>
+				<footer></footer>
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+
+
+			const env = {
+				'd': {
+					'cache': {},
+					'p': 1,			// 当前页数
+					'cn': null,
+					'pn': 1,		// 总页数
+					'domain': 'sumiyo.link',
+					'isNetwork': (document.domain ? true :false),
+					'version': '1.0.246',
+				},
+				'f': {},
+				'e': {
+					'can': document.querySelector('canvas'),
+					'footer': document.querySelector('footer'),		
+					'content': document.querySelectorAll('textarea')[0],
+					'name': document.querySelectorAll('textarea')[1],
+					'challenge': document.querySelectorAll('textarea')[2],
+					'user': document.querySelectorAll('.user')[0],
+					'tag': document.querySelectorAll('tag'),
+				},
+				'tmp': {
+					't1': null
+				},
+			}
+
+			env.f.time = function() {
+				// 获取标准时间
+				const {year, month, day, hour, minute, second} = 
+					new Intl.DateTimeFormat('en-US', {
+						timeZone: 'Asia/Shanghai',
+						year: 'numeric',
+						month: '2-digit',
+						day: '2-digit',
+						hour: '2-digit',
+						minute: '2-digit',
+						second: '2-digit',
+						hour12: false
+					})
+					.formatToParts(new Date())
+					.reduce((acc, part) => {
+						if (part.type !== 'literal')
+							acc[part.type] = part.value
+							return acc
+					}, {})
+
+				return parseInt(`${year}${month}${day}${hour}${minute}${second}`)
+			}
+
+			env.f.wait = function() {
+				// 防止触发速率限制
+				clearInterval(env.tmp.t1)
+				var e = [...document.querySelectorAll('footer a'), document.querySelector('.post a')]
+				for (var i = 0; i < e.length; i++) {e[i].classList.add('wait')}
+
+				env.tmp.t1 = setInterval(() => {
+					for (var i = 0; i < e.length; i++) {e[i].classList.remove('wait')}
+					clearInterval(env.tmp.t1)
+				}, 2000)
+			}
+
+			env.f.err = function() {
+				// 抛出请求错误
+				document.querySelector('.list').innerHTML = '<span>unable to load comment pool.</span><br /><br class="f-1" />'
+				env.f.connect("env.f.root.prompt('意外的错误', -1)")
+			}
+
+			env.f.init = function() {
+				// 初始化
+				if (env.d.isNetwork) {
+					fetch(`https://${env.d.domain}/api/comments`, {
+						method: "POST",
+						headers: {
+							"Token": 3,
+						},
+						body: JSON.stringify({})
+					})
+					.then(response => {
+						if (response.ok) {
+							return response.json()
+						}
+					})
+					.then(json => {
+						env.d.cn = Number(json.results[0].data)
+						env.d.pn = Math.ceil(env.d.cn / 5)
+						env.e.tag[0].innerHTML = env.d.cn
+
+						env.f.pagination(1)
+						env.f.get(1)
+					})
+					.catch(err => {
+						console.error(err)
+						env.f.err()
+					})
+				}
+			}
+
+			env.f.get = function(n) {
+				// 获取留言数据
+				env.d.p = n
+				env.f.pagination(n)
+
+				// 检查有无可用缓存
+				if (env.d.cache[n]) {
+					env.f.load()
+				} else {
+					fetch(`https://${env.d.domain}/api/comments`, {
+						method: "POST",
+						headers: {
+							"Token": 2,
+						},
+						body: JSON.stringify({
+							"page": (n - 1) * 5,
+						})
+					})
+					.then(response => {return response.json()})
+					.then(json => {
+						env.d.cache[n] = json["results"]
+						env.f.load()
+						env.f.wait()
+					})
+					.catch(err => {
+						console.error(err)
+						env.f.err()
+					})
+				}
+			}
+
+			env.f.load = function() {
+				// 渲染留言 (循环体)
+				var d = env.d.cache[env.d.p]
+				var e = document.querySelector('.list')
+				e.innerHTML = ''
+
+				for (var i = 0; i < d.length; i++) {
+					// com 是留言主体元素，可以用在回复渲染中
+					var com = env.f.comment(0, e, d[i])
+					// 加载评论
+					if (d[i].reply != "{}") {
+						var l = JSON.parse(d[i].reply)
+						for (var i2 = 0; i2 < Object.keys(l).length; i2++) {
+							env.f.comment(i2 + 1, com.querySelector('.comment-reply'), l[i2])
+						}
+					}
+				}
+			}
+
+			env.f.comment = function(n, e, d) {
+				// 渲染留言 (执行体)
+
+				function getID(d) {
+					return d.substring(0, 4) + '-' 
+						   + d.substring(4, 6) + '-' 
+						   + d.substring(6, 8) + ' ' 
+						   + d.substring(8, 10) + ':' 
+						   + d.substring(10, 12)
+				}
+
+				var com = document.createElement('comment')
+					com.id = d.id
+					com.innerHTML = `
+			<div class="user" data-icon="${env.f.user(null, d.name.replace(/\n/g, ''))}" ></div>
+			<div class="content" >
+			<div class="comment-header" >${d.name.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, '')} <span>${getID(d.id.substring(0, 12))}</span></div>
+			<div class="comment-body" >${d.content.replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/(http[s]?:\/\/[^\s]+)/g, '<a target="_blank" class="link" href="$1">$1</a>')}</div>
+			<div class="comment-footer" ><a onclick="env.f.reply(this, '${d.id}')" >回复</a> | <a onclick="env.f.zoltraak('${d.id}', -1)" >删除</a></div>
+			<div class="comment-reply" ></div>
+			</div>`
+
+					e.appendChild(com)
+
+				var body = com.querySelector('.comment-body')
+				var header = com.querySelector('.comment-header')
+				var footer = com.querySelector('.comment-footer')
+
+				if (d.op == 1) header.classList.add('op')
+				if (n) {
+					// 回复
+					var h = 75
+
+					// 移除不需要的元素
+					footer.remove()
+					com.children[0].remove()
+					com.querySelector('.comment-reply').remove()
+
+					if (d.op == 0 && parseInt(d.id) + 7000000 >= env.f.time()) {
+						header.innerHTML = `${header.innerHTML} <a onclick="env.f.zoltraak('${com.parentNode.parentNode.parentNode.id}', ${n})" >删除</a>`
+					}
+
+				} else {
+					// 留言
+					var h = 145
+
+					if (d.op == 1 || parseInt(d.id) + 7000000 < env.f.time()) {
+						Object.assign(footer.children[1], {
+							title: "你无法删除这个，因为它的力量胜过了你",
+							style: "cursor: not-allowed",
+						})
+
+						footer.children[1].removeAttribute('onclick')
+					}
+				}
+
+				// 折叠过长的内容
+				if (body.offsetHeight > h) {
+					body.setAttribute('style', `height: ${h}px`)
+					body.insertAdjacentHTML('afterend', `<a class="link" onclick="this.previousElementSibling.removeAttribute('style'); this.remove()" >[展开]</a>`)
+				}
+
+				return com
+			}
+
+			env.f.submit = function() {
+				// 提交留言
+				var e1 = env.e.name
+				var e2 = env.e.content
+
+				var n = e1.value.replace(/\n/g, '')
+				var c = e2.value
+				var ban = []
+				var id = null
+
+				// 如果是回复，对内容进行截取
+				if (/^REPLY: \d{14}$/.test(c.split('\n')[0])) {
+					var id = c.split('\n')[0].slice(7, 21)
+					var c = c.slice(22)
+				}
+
+				if (!env.f.challenge.try()) {
+					env.f.connect("env.f.root.prompt('验证码输错了哦', 3000)")
+					return
+				}
+				if (ban.some(item => (n + c).includes(item))) {
+					env.f.connect("env.f.root.prompt('检测到非法字符', 3000)")
+					return
+				}
+				if (n.length == 0 || c.length == 0) {
+					env.f.connect("env.f.root.prompt('信息没有填完整哦', 3000)")
+					return
+				}
+
+				if (n.length > 16 || c.length > 200 || /^[ \t]+$/.test(n)) return
+
+				fetch(`https://${env.d.domain}/api/comments`, {
+					method: "POST",
+					headers: {
+						"Token": 1
+					},
+					body: JSON.stringify({
+						"id": id,
+						"name": n,
+						"content": c,
+					})
+				})
+				.then(response => {return response.json()})
+				.then(json => {
+					if (json.success) {
+						e2.value = ''
+						e2.setAttribute('maxlength', 200)
+						env.f.challenge.new()
+						env.f.get(env.d.p)
+
+						if (!id) {
+							env.d.cn ++
+							env.d.pn = Math.ceil(env.d.cn / 5)
+							env.e.tag[0].innerHTML = env.d.cn
+							env.f.connect("env.f.root.prompt('第 " + env.d.cn + " 条留言哦', 5000)")
+						}
+						env.d.cache = {}
+						env.f.pagination(env.d.p)
+						env.f.get(env.d.p)
+					} else {
+						env.f.connect("env.f.root.prompt('操作失败 :(', 5000)")
+					}
+				})
+				.catch(err => {
+					console.error(err)
+					env.f.err()
+				})
+			}
+
+			env.f.zoltraak = function(id, at) {
+				// 删除留言
+				fetch(`https://${env.d.domain}/api/comments`, {
+					method: "POST",
+					headers: {
+						"Token": 0,
+					},
+					body: JSON.stringify({
+						"id": id,
+						"at": at,
+					})
+				})
+				.then(response => {return response.json()})
+				.then(json => {
+					if (json.success) {
+						if (at == -1) {
+							env.d.cn --
+							env.d.pn = Math.ceil(env.d.cn / 5)
+							env.e.tag[0].innerHTML = env.d.cn
+						}
+						env.d.cache = {}
+						env.f.get(env.d.p)
+						env.f.connect("env.f.root.prompt('看起来应该是删掉了吧 ...', 3000)")
+					} else {
+						env.f.connect("env.f.root.prompt('操作失败 :(', 5000)")	
+					}
+				})
+				.catch(err => {
+					console.error(err)
+					env.f.err()
+				})
+			}
+
+			env.f.page = function(n) {
+				// 翻页 (限制范围)
+				if (((env.d.p + n) > 0) && ((env.d.p + n) <= env.d.pn)) {
+					env.f.get(env.d.p + n)
+				}
+			}
+
+			env.f.debug = function() {
+				// 调试
+				env.d.cache["1"] = [
+					{
+						"id": "20251231000000",
+						"op": "1",
+						"name": "user",
+						"content": "这是一条普通的留言，\nhttps://example.com/\n1\n2\n3\n4\n5\n6",
+						"reply": "{\"0\":{\"id\":\"20250102000000\",\"op\":\"0\",\"name\":\"debug\",\"content\":\"002\"},\"1\":{\"id\":\"20250103000000\",\"op\":\"0\",\"name\":\"debug\",\"content\":\"003\"}}"
+					}
+				]
+				env.f.load()
+				env.f.pagination(0)
+			}
+
+			env.f.random = function(min, max) {
+				// 生成随机整数
+				return Math.floor(Math.random() * (max - min + 1)) + min
+			}
+
+			env.f.connect = function(str) {
+				// 页面通讯
+				window.parent.postMessage(str, document.domain ? '/' : '*')
+			}
+
+			env.f.challenge = {}
+				env.f.challenge.new = function() {
+					env.e.challenge.value = ''
+					var l = ["a", "b", "c", "d", "e", "f", "h", "i", "k", "m", "n", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z", "1", "2", "3", "4", "5", "6", "7", "8", "9"]
+					var a = ""
+					var e = env.e.can
+					var c = getComputedStyle(document.body).getPropertyValue("--t-c1")
+					var ctx = e.getContext("2d")
+					ctx.clearRect(0, 0, 100, 100)
+
+					for (var i = 0; i < 20; i++) {
+						if (i < 4) {
+							var r = env.f.random(0, l.length - 1)
+							var a = a + l[r]
+
+							ctx.font = `${env.f.random(14, 24)}px Poppins Regular`
+							ctx.fillStyle = `rgba(${c}, ${env.f.random(50, 80) / 100})`
+							ctx.fillText(l[r], 12 + 16 * i + env.f.random(-5, 5), 20 + env.f.random(-5, 5))
+						}
+						ctx.beginPath()
+						ctx.fillStyle = `rgba(${c}, ${env.f.random(10, 30) / 100})`
+						ctx.arc(env.f.random(0, e.width), env.f.random(0, e.height), env.f.random(1, 3) * 3, 0, Math.PI * 2)
+						ctx.fill()
+					}
+
+					env.f.challenge.try = function() {
+						if (env.e.challenge.value.toLowerCase() == a.toLowerCase()) {
+							return true
+						} else {
+							env.f.challenge.new()
+							return false
+						}
+					}
+				}
+
+			env.f.user = function(e, str) {
+				// 计算评论头像
+				var l = ["", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+				var r = (str.charCodeAt(0) * 77 || 0).toString().slice(-3, -1) / 100
+
+				if (e) {
+					e.setAttribute("data-icon", l[Math.floor(r * (l.length - 1))])
+				} else {
+					return l[Math.floor(r * (l.length - 1))]
+				}
+			}
+
+			env.f.pagination = function(n) {
+				// 翻页系统
+				var e = env.e.footer
+				var bar = ""
+				var st = Math.max(0, n - 3)
+				var et = Math.min(n + 6, env.d.pn - 9)
+
+				// 页码按钮
+				for (var i = 1; i < 10; i++) {
+					var p = Math.min(et, st) + i
+					if (p > env.d.pn || 0 >= p) continue
+
+					var bar = bar + `<a onclick="env.f.page(${p - n})" ${(p == n) ? 'class="active"' : ''} >${p}</a>`
+				}
+
+				// 翻页按钮
+				style = 'style="color: rgba(var(--t-c1), 0.2); pointer-events: none;"'
+				e.innerHTML = `
+					<a onclick="env.f.page(-1)" ${(n <= 1) ? style : ''} ></a>
+					${bar}
+					<a onclick="env.f.page(1)" ${(n >= env.d.pn) ? style : ''} ></a>
+				`
+			}
+
+			env.f.reply = function(e, id) {
+				// 回复按钮
+				if (e.parentNode.parentNode.querySelectorAll('.reply').length > 5) {
+					env.f.connect("env.f.root.prompt('最多只能有 6 个回复哦<br />写条新的留言吧', 6000)")
+					return
+				}
+
+				Object.assign(env.e.content, {
+					value: `REPLY: ${id}\n`,
+					maxLength: 122
+				})
+				window.scrollTo({
+					 top: env.e.content.offsetTop - 80,
+					 behavior: 'smooth'
+				})
+			}
+
+			env.f.init()
+			setTimeout(function (){env.f.challenge.new()}, 1000)
+
+		</script>
+	</body>
+</html>

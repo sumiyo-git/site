@@ -1,0 +1,454 @@
+
+:root {
+	/* 主题颜色 */
+	--t-c1: 40, 158, 214;
+	--t-c2: 104, 237, 255;
+	--t-c3: 45, 189, 255;
+
+	--t-r: 255, 0, 0;
+	--t-y: 255, 255, 0;
+
+	scrollbar-color: rgba(var(--t-b2), 0.3) rgba(var(--t-b2), 0.05);
+}
+
+[theme="0"] {
+	/* 深色 */
+	--t-b1: 0, 0, 0;
+	--t-b2: 255, 255, 255;
+	--t-b3: 0, 0, 0;
+	--t-b4: 255, 255, 255;
+	--t-b5: 40, 40, 40;
+}
+
+[theme="1"] {
+	/* 浅色 */
+	--t-b1: 255, 255, 255;
+	--t-b2: 0, 0, 0;
+	--t-b3: 0, 0, 0;
+	--t-b4: 255, 255, 255;
+	--t-b5: 244, 243, 241;
+}
+
+::selection {
+	background: rgba(var(--t-c2), 0.3);
+}
+
+:lang(en) {
+	text-align: justify;
+	word-break: keep-all;
+}
+
+@font-face {
+	font-family: Poppins-Regular;
+	src: url("../src/font/Poppins-Regular.woff2");
+}
+
+@font-face {
+	font-family: icomoon;
+	src: url("../src/font/icomoon.woff2");
+}
+
+
+
+/* 预设样式 */
+
+body {
+	overflow: overlay;
+	margin: 0;
+	line-height: 28px;
+	min-width: 380px;
+	word-break: break-all;
+	font-family: "Poppins-Regular", "icomoon", "Microsoft YaHei";
+}
+
+body structure {
+	display: block;
+}
+
+	body structure:nth-child(1) {
+		height: 50vh;
+		overflow: hidden;
+	}
+
+	body structure:nth-child(1) img {
+		opacity: 0;
+		width: 100%;
+	}
+
+body structure:nth-child(2) {
+	margin: 0px auto;
+	padding-bottom: 200px;
+	width: 800px;
+}
+
+
+
+img,
+a {
+	user-select: none;
+	text-decoration: none;
+	-webkit-user-drag: none;
+}
+
+para {
+	display: block;
+	padding-bottom: 100px;
+	color: rgba(var(--t-b2), 0.5);
+	font-size: 16px;
+}
+
+note {
+	color: rgba(var(--t-b2), 0.3);
+}
+
+hr {
+	margin-block: 0;
+	width: 100%;
+	border: none;
+	border-top: 1px rgba(var(--t-b2), 0.3) solid;
+}
+
+mat {
+	display: block;
+	width: 100%;
+	height: 5px;
+	pointer-events: none;
+}
+
+att, secret {
+	display: inline-block;
+	padding: 0px 8px 0px 8px;
+	line-height: 27px;
+	border-radius: 5px;
+}
+
+att {
+	color: rgba(var(--t-c1), 1);
+	background-color: rgba(var(--t-c1), 0.2);
+}
+
+	.theme-0 att {
+		background-color: rgba(var(--t-c3), 0.2);
+		color: rgba(var(--t-c2), 1);
+	}
+
+secret {
+	background-color: rgba(var(--t-b3), 0.8);
+	color: rgba(var(--t-b3), 0);
+}
+
+	secret:hover {
+		color: rgba(var(--t-b4), 1);
+	}
+
+
+
+/* 提示框 */
+
+quote {
+	display: block;
+	background-color: rgba(var(--t-c3), 0.2);
+	padding: 10px 15px;
+	border-radius: 10px;
+}
+
+	quote[type="warn"]::before {
+		content: " WARNING";
+		position: absolute;
+		margin-top: -27px;
+		font-weight: bolder;
+		color: rgba(255, 200, 0, 0.6);
+	}
+
+	quote[type="warn"] {
+		background-color: rgba(var(--t-y), 0.2);
+		padding: 35px 15px 10px 15px;
+	}
+
+	quote[type="caution"]::before {
+		content: " CAUTION";
+		position: absolute;
+		margin-top: -27px;
+		font-weight: bolder;
+		color: rgba(var(--t-r), 0.6);
+	}
+
+	quote[type="caution"] {
+		background-color: rgba(var(--t-r), 0.1);
+		padding: 35px 15px 10px 15px;
+	}
+
+
+
+/* 缩进 */
+
+i1, i2, i3 {
+	display: block;
+}
+
+	i1 {
+		margin-left: 25px;
+	}
+
+	i2 {
+		margin-left: 50px;
+	}
+
+	i3 {
+		margin-left: 75px;
+	}
+
+
+
+/* 代码块 */
+
+code {
+	position: relative;
+	display: block;
+	counter-reset: counter-list;
+	background-color: color-mix(in srgb, rgb(var(--t-b3)) 82%, rgb(var(--t-b4)) 18%);
+	color: rgba(var(--t-b4), 0.6);
+	padding: 10px 12px;
+	font-family: "Microsoft YaHei";
+	line-height: 26px;
+	font-size: 16px;
+	border-radius: 10px;
+}
+
+	code div:nth-child(1) {
+		position: absolute;
+		right: 10px;
+		padding: 0px 10px;
+		font-size: 12px;
+		border-radius: 5px;
+		background-color: rgbA(var(--t-b4), 0.05);
+		color: rgba(var(--t-c2), 0.8);
+		user-select: none;
+		transition: 0.1s;
+	}
+
+	code:hover div:nth-child(1) {
+		opacity: 0;
+	}
+
+	code div:nth-child(2) {
+		white-space: pre;
+		tab-size: 8;
+		margin-left: 45px;
+		overflow-x: overlay;
+		overflow-y: hidden;
+		scrollbar-color: rgba(var(--t-b4), 0.3) transparent;
+		scrollbar-width: thin;
+	}
+
+	code div span::before {
+		content: counter(counter-list);
+		counter-increment: counter-list;
+		position: absolute;
+		left: 0;
+		width: 35px;
+		padding-right: 10px;
+		text-align: right;
+		color: rgba(var(--t-b4), 0.2);
+		border-right: 1px solid rgba(var(--t-b4), 0.1);
+		background-color: color-mix(in srgb, rgb(var(--t-b3)) 82%, rgb(var(--t-b4)) 18%);
+	}
+
+	code[type="simple"] div:nth-child(2) {
+		margin-left: 0;
+	}
+
+
+
+/* 标题 */
+
+h1, h2, h3 {
+	color: rgba(var(--t-b2), 0.6);
+}
+
+	h1 {
+		margin: 20px 0 10px 0;
+		font-size: 40px;
+		line-height: 56px;
+	}
+
+	h2 {
+		font-size: 25px;
+		height: 45px;
+		border-bottom: 3px rgba(var(--t-b2), 0.2) dashed;
+	}
+
+	h2:after {
+		content: " # ";
+		color: rgba(var(--t-c1), 0.8);
+	}
+
+	h3 {
+		font-size: 20px;
+		margin: 0;
+	}
+
+
+
+/* 链接 */
+
+.link {
+	color: rgba(var(--t-c3), 1);
+	text-decoration: underline;
+	text-decoration-color: rgba(var(--t-b4), 0.2);
+	cursor: pointer;
+	transition: 0.3s;
+	user-select: text !important;
+}
+
+	.link:hover {
+		text-decoration-color: rgba(var(--t-c1), 1);
+	}
+
+
+
+/* 图像 */
+
+a[class^="ibox"] {
+	display: inline-block;
+	background-color: rgba(var(--t-t1), 0.08);
+	border-radius: 10px;
+	box-sizing: border-box;
+	border: 1px solid rgba(var(--t-b2), 0.1);
+	overflow: hidden;
+}
+
+	a[class^="ibox"] img {
+		vertical-align: top;
+		width: 100%;
+		height: 100%;
+		opacity: 0;
+	}
+
+
+
+/* 列表 */
+
+list {
+	display: block;
+	color: rgba(var(--t-t1), 0.6);
+	font-size: 16px;
+	word-break: break-all;
+	margin-left: 25px;
+}
+
+	list[type="1"]::before {
+		content: "-";
+		margin-right: 11px;
+	}
+
+	list[type="2"]::before {
+		content: "•";
+		margin-right: 13px;
+	}
+
+	list[type="1"]::before,
+	list[type="2"]::before,
+	list[type="3"]::before {
+		margin-left: -20px;
+		color: rgba(var(--t-t1), 0.4);
+	}
+
+	list[type="3-reset"] {
+		margin-left: 0;
+		counter-reset: counter-list;
+	}
+
+	list[type="3"] {
+		counter-increment: counter-list;
+	}
+
+	list[type="3"]::before {
+		content: counter(counter-list) ".";
+		margin-right: 7px;
+	}
+
+
+
+/* 表格 */
+
+table {
+	border-collapse: collapse;
+	border-bottom: 2px rgba(var(--t-b2), 0.2) solid;
+	overflow: scroll;
+	max-width: 100vh;
+}
+
+	thead tr th {
+		min-width: 80px;
+		text-align: center;
+		border-top: 2px rgba(var(--t-b2), 0.2) solid;
+		border-bottom: 2px rgba(var(--t-b2), 0.2) solid;
+		color: rgba(var(--t-b2), 0.5);
+		font-weight: bolder;
+	}
+
+	td, th {
+		vertical-align: top;
+		padding: 5px 10px;
+		text-align: center;
+		color: rgba(var(--t-b2), 0.4);
+	}
+
+
+
+[theme="0"] para {
+	color: rgba(var(--t-b2), 0.7);
+}
+
+[theme="0"] h1,
+[theme="0"] h2,
+[theme="0"] h3 {
+	color: rgba(var(--t-b2), 1);
+}
+
+
+
+/* 动画 */
+
+@keyframes fade {
+	0% {opacity: 0;}
+	50% {opacity: 0;}
+	100% {opacity: 1;}
+}
+
+.fade {
+	animation: fade 1s ease-in;
+	animation-fill-mode:forwards;
+}
+
+
+
+/* 功能样式 */
+
+.f-1 {
+	user-select: none;
+	pointer-events: none;
+}
+
+@media (orientation: landscape) {
+	.f-3 {
+		display: none;
+	}
+}
+
+@media (orientation: portrait) {
+	.f-2 {
+		display: none;
+	}
+	body structure:nth-child(1) {
+		height: 20vh;
+	}
+	body structure:nth-child(2) {
+		margin: 0px auto;
+		padding: 0px 0px 100px 0px;
+		width: 90%;
+	}
+}
+
+

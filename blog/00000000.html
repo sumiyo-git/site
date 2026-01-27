@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<style>
+			.ibox0 {
+				aspect-ratio: 1 / 1;
+				width: 50%;
+			}
+			[theme="0"] .ibox0 img {
+				filter: invert(1);
+			}
+
+			@media (orientation: portrait) {
+				.ibox0 {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure><img src="../src/img/20231002.apple.webp" onload="this.setAttribute('class', 'fade')" /></structure>
+		<structure>
+
+			<para>
+				<h1>标题</h1>
+				<note>介绍</note>
+			</para>
+
+			<para>
+				<quote>
+					引述内容 / 提示信息
+					<br />
+					<note style="display: block; text-align: right;" >—— 未知出处</note>
+				</quote>
+				<br />
+				<quote type="warn" >
+					警告信息
+				</quote>
+				<br />
+				<quote type="caution" >
+					错误信息
+				</quote>
+				<br />
+			</para>
+
+			<para>
+				<h1>h1</h1>
+				<h2>h2</h2>
+				<h3>h3</h3>
+			</para>
+
+			<para>
+				<att>强调</att> <secret>秘语</secret>
+				<br />
+				<note>注释</note>
+				<br />
+				<tag>标签: js 控制</tag>
+				<br />
+				<mat></mat>标签: 垫子
+				<br />
+				<span class="f-1" >Class: 无效</span>
+				<br />
+				<span class="f-2" >Class: 仅 PC 显示</span>
+				<br />
+				<span class="f-3" >Class: 仅 HandyNAVI 显示 </span>
+				<br />
+				<a class="link" href="https://sumiyo.link/" target="_blank">sumiyo.link/</a>
+				<br />
+				<a class="link" onclick="window.parent.postMessage(`env.f.root.linkto('page/about')`, document.domain ? '/' : '*')" >20240917/</a>
+				<br />
+			</para>
+
+			<para>
+				<list type="1" >列表 1</list>
+				<list type="2" >列表 2</list>
+				<list type="3-reset" >
+					<list type="3" >列表 3</list>
+				</list>
+				<br />
+				<i1>缩进 1</i1>
+				<i2>缩进 2</i2>
+				<i3>缩进 3</i3>
+			</para>
+
+			<para>
+				<div style="overflow: scroll; scrollbar-width: none;">
+					<table>
+						<thead>
+							<tr>
+								<th>list 1</th>
+								<th>list 2</th>
+								<th>list 3</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>1</td>
+								<td>1</td>
+							</tr>
+							<tr>
+								<td>2</td>
+								<td>2</td>
+								<td>2</td>
+							</tr>
+							<tr>
+								<td>3</td>
+								<td>3</td>
+								<td>3</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</para>
+
+			<para>
+				<code type="normal" >
+					<div>TEXT</div>
+					<div></div>
+					<script>
+						document.currentScript.previousElementSibling.innerHTML = 
+`Hello NAVI`
+							.replace(/&#96/g, "`")
+							.replace(/&#36/g, "$")
+							.replace(/[&<>"']/g, char => ({
+								'&': '&amp;',
+								'<': '&lt;',
+								'>': '&gt;',
+								'"': '&quot;',
+								"'": '&#39;'
+							})[char])
+								.split(/\r\n|\n|\r/)
+								.map(line => `<span>${line}</span>\n`)
+								.join("")
+
+						document.currentScript.remove()
+					</script>
+				</code>
+
+				<br />
+
+				<code type="simple" >
+					<div>TEXT</div>
+					<div>Hello NAVI</div>
+				</code>
+			</para>
+
+			<para>
+				<hr />
+			</para>
+
+			<para>
+				<a class="ibox0" target="_blank" href="../src/img/mio.webp" >
+					<img src="../src/img/mio.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.player.add.ask({0: true, 1: [
+				{
+					name: 'Moon Child',
+					artist: '西原健一郎 & Nina Vidal',
+					src: '456041',
+					img: '6sITOoZ2LgK3YrB1xAnr_Q==/109951170067990253',
+				}
+			]})`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

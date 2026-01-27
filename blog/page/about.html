@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/default.css">
+		<style>
+			.ibox0 {
+				aspect-ratio: 5 / 7;
+				width: 20%;
+				margin: 0 10px 10px 0;
+			}
+			.ibox0 span {
+				position: sticky;
+				padding: 5px 10px;
+				height: 50px;
+				display: block;
+				margin-top: -60px;
+				line-height: 24px;
+				opacity: 0;
+				border-radius: 0px 0px 5px 5px;
+				background: rgba(var(--t-b3), 0.5);
+				color: rgba(var(--t-b4), 0.8);
+				backdrop-filter: blur(10px);
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				user-select: all;
+				transition: 0.3s;
+			}
+			.ibox0 span note {
+				color: rgba(var(--t-b4), 0.4);
+				user-select: none;
+			}
+			.ibox0:hover span {
+				opacity: 1;
+			}
+			.ibox0 img {
+				border: none !important;
+			}
+			.ibox1 {
+				aspect-ratio: 5 / 6;
+				width: 35%;
+				vertical-align: top;
+			}
+			.ibox1 img {
+				filter: opacity(0.8);
+			}
+			[theme="0"] .ibox1 img {
+				filter: invert(1);
+			}
+			.anime {
+				display: flex;
+				flex-wrap: wrap;
+				align-content: flex-start;
+			}
+			@media (orientation: portrait) {
+				.ibox0 {
+					width: 45%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>关于我</h1>
+				<note>为了抑制连线世界对现实的干涉效应，mio 移除了本文的部分关键信息 ...</note>
+			</para>
+
+			<para style="user-select: none;" >
+				<a class="ibox1" target="_blank" href="../../src/img/page.about.character_setting.webp" >
+					<img src="../../src/img/page.about.character_setting.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<div style="display: inline-block; width: 50%; margin-left: 5%; user-select: text;" >
+					<h3>个人信息</h3>
+					<mat></mat>
+					<hr />
+					<mat></mat>
+					mio /ˈmiː.o/　<note class="f-2" >(Japanese: ミオ, Chinese: 米欧)</note>
+					<br />
+					<mat></mat>			
+					<list type="1" >性别: female</list>
+					<list type="1" >年龄: ???</list>
+					<list type="1" >爱好: 动漫, 画画, 学日语, 偶尔也会写点代码</list>
+					<list type="1" >PGP: <a target="_blank" class="link" href="../../src/download/about.public_key.asc" download="19968A759DDE05F2B92E9A95ABED51FDDA3AA8FA.asc" >下载 public_key.asc</a></list>
+					<br class="f-1" />
+					<list type="1" class="f-2" >语言:
+						<note>
+							<br />
+							miran
+							<br />
+							简体中文 (相对流利)
+							<br />
+							English
+							<br />
+							日本語 (下手)
+							<br />
+						</note>
+					</list>
+				</div>
+			</para>
+
+			<para>
+				<h3>喜欢的动漫</h3>
+				<mat></mat>
+				<mat></mat>
+				<div class="anime" >
+
+					<a class="ibox0" >
+						<img src="../../src/img/page.about.lain.webp" onload="this.setAttribute('class', 'fade')" />
+						<span>Serial Experiments: Lain<br /><note>1998</note></span>
+					</a>
+
+					<a class="ibox0" >
+						<img src="../../src/img/page.about.made_in_abyss.webp" onload="this.setAttribute('class', 'fade')" />
+						<span>メイドインアビス<br /><note>2017</note></span>
+					</a>
+
+					<a class="ibox0" >
+						<img src="../../src/img/page.about.shoujo_shuumatsu_ryokou.webp" onload="this.setAttribute('class', 'fade')" />
+						<span>少女終末旅行<br /><note>2017</note></span>
+					</a>
+
+					<a class="ibox0" >
+						<img src="../../src/img/page.about.sousou_no_frieren.webp" onload="this.setAttribute('class', 'fade')" />
+						<span>葬送のフリーレン<br /><note>2020</note></span>
+					</a>
+
+				</div>
+				<mat></mat>
+				<mat></mat>
+				<note>P.S. 宮崎駿 的作品基本上都看过，不过这里好像写不下了 ...</note>
+				<br />
+				<br class="f-1" />
+				<br class="f-1" />
+				<br class="f-1" />
+			</para>
+
+			<para>
+				<h2>关于 sumiyo</h2>
+				<note>
+					<i>haze ano haze he meyolakai, ga oomo nato, tera "meyolaka tayo".</i>
+					<br />
+					<i>世界和世界之间是有联系的，为了实现这个，你需要 “连接桥”。</i>
+					<br />
+				</note>
+				<br class="f-1" />
+				2022 年 (sumiyo: 第 42706 个冬天)，跨界连接被证明是可行的，有意识体成功将 sumiyo 连接到其他世界。这种连接最初被明令禁止，但相关的技术却流传了出来。2023 年 2 月，mio 利用 Cloudflare 提供的技术支持，搭建了这座小型连接桥。
+				<br />
+				<mat></mat>
+				<mat></mat>
+				<mat></mat>
+				<quote>代码仓库: <a class="link" href="https://github.com/sumiyo-git/site" target="_blank" >#sumiyo-git/site</a> </quote>
+				<br class="f-1" />
+				<br class="f-1" />
+				<br class="f-1" />
+				2024 年 11 月，mio 注册了域名 <ins>sumiyo.link</ins> ( ".link" 比较低调 )
+				<br />
+				<br class="f-1" />
+				2025 年初，首轮优化结束，调整全部脚本的函数声明方式，彻底放弃了对 jQuery 库的依赖。4 月，这里遭受了一场小规模的后台爆破攻击 ...
+				<br />
+				<br class="f-1" />
+				11 月，mio 偷偷跑去学画画了（其实是被逼的），于是就有了这次大更新。
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.player.add.ask({0: true, 1: [
+				{
+					name: 'I See Fire',
+					artist: 'Ed Sheeran',
+					src: '28048693',
+					img: 'aZKoQyOIc1cXF4shZZmvWw==/2542070884564042',
+				}
+			]})`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>世界的尽头</title>
+		<link rel="icon" href="src/img/favicon.png?version=1.0" type="image/png">
+		<style>
+:root{--t-c2:104,237,255;scrollbar-color:rgba(var(--t-b2),0.3) rgba(var(--t-b2),0.05);}[theme="0"]{--t-b1:0,0,0;--t-b2:255,255,255;--t-b3:0,0,0;--t-b4:255,255,255;--t-b5:40,40,40;}[theme="1"]{--t-b1:255,255,255;--t-b2:0,0,0;--t-b3:0,0,0;--t-b4:255,255,255;--t-b5:244,243,241;}::selection{background:rgba(var(--t-c2),0.3)}body{overflow:overlay;margin:0;line-height:28px;min-width:380px;word-break:keep-all;text-align:justify;font-family:"Poppins-Regular","icomoon","Microsoft YaHei";background-color:color-mix(in srgb,rgb(var(--t-b1)) 80%,white 20%)}body structure{display:block}body structure:nth-child(1){height:50vh;overflow:hidden}body structure:nth-child(1) img{opacity:0;width:100%}body structure:nth-child(2){margin:0px auto;padding-bottom:200px;width:800px}para{display:block;padding-bottom:100px;color:rgba(var(--t-b2),0.5);font-size:16px}note{color:rgba(var(--t-b2),0.3)}mat{display:block;width:100%;height:5px;pointer-events:none}h1{color:rgba(var(--t-b2),0.6)}h1{margin:20px 0 10px 0;font-size:40px;line-height:56px}.f-1{user-select:none;pointer-events:none}@media (orientation:landscape){.f-3{display:none}}@media (orientation:portrait){.f-2{display:none}body structure:nth-child(1){height:20vh}body structure:nth-child(2){margin:0px auto;padding:0px 0px 100px 0px;width:90%}}.theme-0 para{color:rgba(var(--t-b2),0.7);}.theme-0 h1{color:rgba(var(--t-b2),1);}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>世界的尽头</h1>
+				<note>window.url</note>
+			</para>
+
+			<para>
+				<i>
+					<note>
+						haze i milecaze, miite mirano enkade suzerala.
+						<br />
+						世界的边缘，白花遍野。
+						<br />
+						<mat></mat>
+
+						natomi nofu he suzerala i beo milecaze, milele he seoru-na.
+						<br />
+						这里已是大陆的最北端，前方无路可走。
+						<br />
+						<mat></mat>
+						<br class="f-1" />
+
+						hemiyo zesawa,
+						<br />
+						请调转方向，
+						<br />
+						<mat></mat>
+
+						sia ea "sumiyo" i haze, semiru nanme semila omaku ...
+						<br />
+						在那名为 <ins>sumiyo</ins> 的世界，依然有奇迹正在发生 ...
+						<br />
+						<br class="f-1" />
+						<br class="f-1" />
+						<br class="f-2 f-1" />
+					</note>
+					—— oi haze i agademusu 15:4
+				</i>
+			</para>
+
+		</structure>
+		<script>
+			if (window.parent == window) {
+				document.querySelector("note").innerHTML = window.location.href
+				document.documentElement.setAttribute("theme", window.matchMedia?.("(prefers-color-scheme: dark)")?.matches ? 0 : 1)
+			} else {
+				window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+				window.parent.postMessage(`env.f.root.post(201, window.location.href)`, location.origin.replace("file://", "*"))
+				window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+			}
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					case 201:
+						document.querySelector("note").innerHTML = event.data.data
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+		</script>
+	</body>
+</html>

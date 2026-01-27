@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../../css/default.css">
+		<style>
+			event {
+				display: block;
+				width: calc(100% - 40px);
+				margin-left: 40px;
+				margin-bottom: 10px;
+				border-bottom: rgba(var(--t-b2), 0.1) 1px solid;
+			}
+			event::before {
+				position: absolute;
+				display: inline-block;
+				margin-top: 5px;
+				margin-left: -40px;
+				width: 30px;
+				height: 20px;
+				font-size: 16px;
+				font-weight: bolder;
+				line-height: 21px;
+				color: rgba(var(--t-b4), 0.8);
+				text-align: center;
+				border-radius: 5px;
+			}
+			event[type="A"]::before {
+				content: 'Ａ';
+				background-color: rgba(0, 200, 100, 0.6);
+			}
+			event[type="D"]::before {
+				content: 'Ｄ';
+				background-color: rgba(255, 0, 20, 0.6);
+			}
+			event[type="F"]::before {
+				content: 'Ｆ';
+				background-color: rgba(255, 216, 0, 0.6);
+			}
+			event[type="O"]::before {
+				content: 'Ｏ';
+				background-color: rgba(0, 148, 255, 0.6);
+			}
+			.ibox0 {
+				aspect-ratio: 16 / 9;
+			}
+			.ibox1 {
+				aspect-ratio: 207 / 101;
+			}
+			.ibox2 {
+				aspect-ratio: 40 / 23;
+			}
+			.ibox0,
+			.ibox1 {
+				width: 50%;
+			}
+			@media (orientation: portrait) {
+				.ibox1,
+				.ibox0 {
+					width: 100%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>Changelog</h1>
+				<note>记录开发历史 ＆ 技术细节</note>
+			</para>
+
+			<para>
+				<h3>2026-01-24</h3>
+				<event type="O" >优化 default.css 中代码块元素的样式</event>
+				<event type="O" >
+					优化网站的滚动条样式
+					<br />
+					<note>
+						彻底放弃了 ::-webkit-scrollbar。同时，mio 把判定昼夜模式的属性标识提升到了 :root {} 高度。
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2026-01-16</h3>
+				<event type="D" >
+					移除 _headers
+				</event>
+				<event type="F" >
+					修复当请求的 *.js / *.css 不存在时，404 页面因 MIME 错误而无法被浏览器正确解析的问题
+					<br />
+					<note>
+						在 2025-12-27 更新中，mio 修改了 *.js / *.css 的 Content-Type 响应头，结果当请求脚本不存在时，仍将 404.html 的响应头按脚本处理，导致浏览器以纯文本的形式渲染了 404 页面
+					</note>
+				</event>
+				<event type="O" >
+					优化 root.css 和 default.css
+					<br />
+					<note>
+						简化了 css 颜色变量，重写了 default.css 的博客预制样式
+					</note>
+				</event>
+				<event type="O" >
+					优化 iframe 页面通信桥
+					<br />
+					<note>
+						mio 在通信协议中加入了状态码，并在子页面的 message 事件监听器中引入了 switch-case 语法，现在可以更高效地处理事件了！
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2026-01-07</h3>
+				<event type="D" >移除 beacon.min.js</event>
+				<event type="D" >移除 email-decode.min.js</event>
+				<event type="O" >优化网站主页 UI</event>
+				<br class="f-1" />
+				<note>
+					<ins>https://github.com/GJKen/gjken.github.io/issues/9</ins>
+					<br />
+					<ins>https://cloud.tencent.com/developer/news/683088</ins>
+				</note>
+			</para>
+
+			<para>
+				<h3>2026-01-01</h3>
+				<event type="A" >启用 Cloudflare 边缘缓存</event>
+				<event type="A" >添加彩蛋</event>
+				<event type="O" >优化网站的部分代码</event>
+				<event type="O" >
+					优化彩蛋
+					<br />
+					<note>
+						fetch() -> context.env.ASSETS.fetch()
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-12-27</h3>
+				<event type="A" >添加网站图标</event>
+				<event type="D" >
+					移除位于 <ins>https://sumiyo.link/admin</ins> 的后台管理系统
+					<br />
+					<note>
+						mio 认为，优化后的 uploader.py 已经足以实现后台管理系统的全部功能。
+					</note>
+				</event>
+				<event type="F" >
+					修复无 BOM 文件的中文乱码问题
+					<br />
+					<note>
+						又蠢又坏的 Cloudflare 居然把 *.css 的默认 Content-Type 设成 application/css
+					</note>
+				</event>
+				<event type="O" >优化 uploader.py 的表格显示功能 (1.0.243 => 1.0.244)</event>
+				<event type="O" >
+					优化数据库查询
+					<br />
+					<note>
+						通过新建数据库索引，极大地提升了查询效率。以访问量统计 API 的查询为例：
+						<br />
+						读取: 2r, 0w, 1a -> 1r, 0w, 1a
+						<br />
+						读取并增加: 4r, 1w, 2a -> 2r, 1w, 2a
+					</note>
+				</event>
+				<event type="O" >优化网站 API 代码</event>
+				<event type="O" >优化留言板数据缓存机制</event>
+				<event type="O" >重命名主程序: Soba => 阿呆鳥 Ahoudori</event>	
+				<br class="f-1" />
+				<note>
+						<ins>https://developers.cloudflare.com/pages/configuration/headers/</ins>
+				</note>
+			</para>
+			</para>
+
+			<para>
+				<h3>2025-12-23</h3>
+				<event type="A" >
+					添加博客页面重定向规则
+					<br />
+					<note>/blog/* -> /?id=*</note>
+				</event>
+				<br class="f-1" />
+				<note>
+					<ins>https://developers.cloudflare.com/rules/transform/url-rewrite/reference/fields-functions/</ins>
+					<br />
+					<ins>https://developers.cloudflare.com/ruleset-engine/rules-language/fields/reference/</ins>
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-12-14</h3>
+				<event type="D" >
+					移除播放器次要功能
+					<br />
+					<note>
+						歌词显示、播放模式切换什么的都太花里胡哨了，干脆全部删掉吧！
+					</note>
+				</event>
+				<event type="O" >优化手机版网站主页样式</event>
+				<event type="O" >
+					优化播放器样式
+					<br />
+					<note>
+						最后感觉还是简洁一点比较好 ...
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-11-16</h3>
+				<event type="A" >
+					ミオ !
+					<br />
+					<note>
+						用了一上午时间才画完 ...
+					</note>
+				</event>
+				<event type="A" >添加 "夜间模式"</event>
+				<event type="D" >移除网站图标</event>
+				<event type="O" >修改主页 UI 样式</event>
+				<event type="O" >重命名主程序: snowyfox => Soba</event>
+				<event type="O" >
+					优化网站 Cookie 功能
+					<br />
+					<note>
+						现在，Cookie 将以 json 的形式存储更多数据。
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-11-01</h3>
+				<event type="A" >
+					Googlebots are banned for good.
+					<br />
+					<note>
+						被谷歌的反人类设计彻底惹恼了 ...
+					</note>
+				</event>
+				<event type="O" >
+					更新了 uploader.py (1.0.241 => 1.0.243)
+					<br />
+					<note>
+						在这一版本中，我们放弃了 thinker 界面，转而使用 window 原版命令行 + colorama 的方案。
+						<br class="f-2" />
+						此外，还添加了一些新的命令。
+					</note>
+				</event>
+				<br class="f-1" />
+				<a class="ibox2"  target="_blank" href="../../src/img/page.history.4.webp" style="border: rgba(var(--t-t1), 0.1) 1px solid;" >
+					<img src="../../src/img/page.history.4.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+			</para>
+
+			<para>
+				<h3>2025-10-18</h3>
+				<event type="F" >
+					修复了播放器进度条宽度为负值的问题
+					<br />
+					<note>
+						在计算过程中引入了 Math.abs()
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-08-25</h3>
+				<event type="O" >
+					优化播放器错误处理逻辑
+					<br />
+					<note>
+						无法播放时，播放器会弹窗提醒，并在 5000 ms 后自动切到下一曲目。
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-08-05</h3>
+				<event type="O" >
+					优化手机版播放器界面
+					<br />
+					<note>
+						简单调了下页面排版，现在手机上也可以看到歌曲的封面啦！
+						<br />
+						env.d.version.player 1.0.243 => 1.0.244
+					</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-07-20</h3>
+				<event type="F" >
+					修复播放器因曲目快速切换导致歌词匹配错误的问题
+					<br />
+					<note>
+						添加歌词 id 校验机制，检验异步的歌词下载任务。
+					</note>
+				</event>
+				<event type="O" >重命名主程序: しろい花 => snowyfox</event>
+				<event type="O" >优化留言板代码</event>
+			</para>
+
+			<para>
+				<h3>2025-07-17</h3>
+				<event type="A" >添加了主页头像的动画效果</event>
+				<event type="F" >修复了播放器 env.f.player.lrc.load() 函数内变量 info content 造成的全局域污染问题</event>
+				<event type="O" >降低 icomoon.woff2 加载的优先级</event>
+				<event type="O" >优化播放器初始化逻辑</event>
+				<br class="f-1" />
+				全局域污染检查
+				<br />
+				<note>
+					检查函数运行前后 Object.keys(window) 的变化。
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-07-15</h3>
+				<event type="A" >Hoo ! 居然可以在一个仓库上同时绑定 Cloudflare Pages 和 Workers 集成</event>
+				<event type="O" >将博客中的图像全部转移至 <ins>https://sumiyo.link/src/img/</ins> 目录</event>
+				<event type="O" >删除服务器上所有 utf-8 编码文件的 BOM 标记</event>
+				<event type="O" >优化主页元素 z-index 参数</event>
+				<br class="f-1" />
+				手动编写 wrangler.toml
+				<br />
+				<note>
+					简单来说，wrangler.toml 就是 worker 的配置文件。
+					<br />
+					没有 Wrangler，咱得自己写 wrangler.toml，另存为 utf-8。部署时报错:
+					<mat></mat>
+					<code type="simple" >
+						<div>TEXT</div>
+						<div>✘ [ERROR] Unknown character "65279"</div>
+					</code>
+					<mat></mat>
+					<mat></mat>
+					翻遍了网上的资料后，才发现罪魁祸首是 utf-8 编码的 BOM 标记。用十六进制编辑器删去文件开头的 "EF BB BF" 字节即可解决问题。
+					<mat></mat>
+					<code type="simple" >
+						<div>TEXT</div>
+						<div>✨ Success! Build completed.</div>
+					</code>
+					<br class="f-1" />
+					<ins>https://developers.cloudflare.com/workers/get-started/guide/</ins>
+					<br />
+					<ins>https://developers.cloudflare.com/workers/wrangler/configuration/</ins>
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-07-14</h3>
+				<event type="A" >
+					添加阻止页面
+					<br />
+					<note>
+						访客因网站维护、使用上古时期的浏览器等原因会被重定向至这些页面。
+						<br class="f-2" />
+						你可以在 <ins>https://sumiyo.link/src/file/warn/</ins> 中打开它们。
+					</note>
+				</event>
+				<event type="F" >修复 CSS 中 .menu footer {} 导致主页菜单出现横向滚动条的问题</event>
+				<event type="O" >优化全部 html 页面 &lthead&gt 标签</event>
+				<event type="O" >优化播放器 env.f.player.add() 函数</event>
+				<br class="f-1" />
+				歌曲添加
+				<br />
+				<note>
+					咱的播放器允许从博客页面中加载歌单。以下是一个栗子:
+				<br />
+				<mat></mat>
+				<code type="normal" >
+					<div>JAVASCRIPT</div>
+					<div></div>
+					<script>
+						document.currentScript.previousElementSibling.innerHTML = 
+`// 0 = "是否使用 env.f.root.prompt() 弹窗";
+// 1 = "是否替换原始歌单";
+var music = JSON.stringify({0: true, 1: false, 2: [
+	{
+		name: 'Welcome to my World',
+		artist: 'Kevin Penkin',
+		src: '509098790',
+		img: 'yZndmoC6UEsRZeyonfjahg==/109951163031981246',
+		lrc: false,
+	}
+]})
+
+window.parent.postMessage(&#96env.f.player.add.ask(&#36{music})&#96, document.domain ? '/' : '*')`
+							.replace(/&#96/g, "`")
+							.replace(/&#36/g, "$")
+							.replace(/[&<>"']/g, char => ({
+								'&': '&amp;',
+								'<': '&lt;',
+								'>': '&gt;',
+								'"': '&quot;',
+								"'": '&#39;'
+							})[char])
+								.split(/\r\n|\n|\r/)
+								.map(line => `<span>${line}</span>\n`)
+								.join("")
+
+						document.currentScript.remove()
+					</script>
+				</code>
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-07-10</h3>
+				<event type="A" >
+					添加你现在看得到这个页面！
+					<br />
+					<note>之前的记录是在备份里考古挖出来的 ...</note>
+				</event>
+				<event type="O" >统一网站 404 页面</event>
+				<br class="f-1" />
+				引用判断
+				<br />
+				<note>
+					通过 window.parent == window 判断 root/404.html 是否被 iframe 引用。
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-07-09</h3>
+				<event type="D" >
+					移除 url 中的 blog/ 路径
+					<br />
+					<note>https://sumiyo.link/blog?id=00000000 => https://sumiyo.link/?id=00000000</note>
+				</event>
+				<event type="O" >优化 url 参数读写逻辑。现支持读写、传递多个参数！</event>
+				<br class="f-1" />
+				blog/ 路径
+				<br />
+				<note>
+					当未找到资源时，Cloudflare 会试图发送 index.html 或 404.html（并非简单的重定向）。本项目中，不存在 root/blog.html、root/blog/index.html 和 root/404.html文件，对于所有 <ins>https://sumiyo.link/blog</ins> 请求，服务器实则发送 root/index.html，这就是 blog/ 路径的工作原理。
+					<br />
+					<br class="f-1" />
+					<ins>https://developers.cloudflare.com/pages/configuration/serving-pages/</ins>
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-06-29</h3>
+				<event type="A" >添加属性访问链 env.d.init，注册部件初始化状态，便于统一管理</event>
+				<event type="A" >添加播放器错误抛出逻辑</event>
+				<event type="A" >添加播放器对浏览器 Media Session API 的支持</event>
+				<event type="F" >
+					修复浏览器历史记录中本站 title 与 url 不匹配的问题
+					<br />
+					<note>原因: 关闭博客页面时，env.f.root.blog.close() 先修改 title，再进行 url 重写。</note>
+				</event>
+				<event type="F" >
+					修复播放器界面未初始化时，Media Session API 曲目切换导致音乐暂停的问题
+					<br />
+					<note>原因: env.f.player.load() 中 init 逻辑有误。</note>
+				</event>
+				<event type="O" >audio preload 参数由 none 改为 metadata</event>
+				<event type="O" >优化 root/js/root.js 和 root/js/player.js，大概砍掉了 1 KB 代码</event>
+				<br class="f-1" />
+				Media Session API
+				<br />
+					<note>
+					问了 AI 才知道，原来叫这个名字。怪不得这么多在线播放器都没调用这个 ...
+					<mat></mat>
+					<mat></mat>
+					<a class="ibox1"  target="_blank" href="../../src/img/page.history.3.webp" >
+						<img src="../../src/img/page.history.3.webp" onload="this.setAttribute('class', 'fade')" />
+					</a>
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-06-17</h3>
+				<event type="F" >修复留言板回复无法被删除的问题</event>
+				<event type="O" >
+					优化 CSS 移动端响应式页面布局触发代码
+					<br />
+					<note>
+						@media screen and (max-width: 850px) { ... => @media (orientation: portrait) { ... 
+						<br />
+						偶然发现有的手机屏幕还挺宽的 ...
+					</note>
+				</event>
+				<event type="O" >优化播放器歌词显示逻辑</event>
+				<br class="f-1" />
+				歌词显示逻辑
+				<br />
+				<note>
+					env.d.player.lrc.raw 储存原始歌词
+					<br />
+					env.d.player.lrc.timeline 储存时间轴数组
+					<br />
+					env.d.player.lrc.now 当前歌词所在行数
+					<br />
+					<mat></mat>
+					<mat></mat>
+					歌曲播放时，timeupdate 事件高频触发，若 env.d.player.lrc.timeline[env.d.player.lrc.now] > env.e.player.audio.currentTime 则认为须滚动至下一行歌词，同时 env.d.player.lrc.now ++ 。若用户拖动进度条，则调用 env.f.player.lrc.find() 寻找新的当前行数。
+				</note>
+				<br />
+				<br class="f-1" />
+				歌词文件 BLRC 标准
+				<br />
+				<note>
+				BLRC 即 "Better Lyric"，增强版的前端 lrc 格式（目前不被广泛支持）。
+				<br />
+				下面是一个栗子:
+				<br />
+				<mat></mat>
+				<code type="normal" >
+					<div>TEXT</div>
+					<div></div>
+					<script>
+						document.currentScript.previousElementSibling.innerHTML = 
+`作词: 咱
+作曲: 还是咱
+------------------------------
+[00:01.000] なつの&ltruby&gt物語&ltrt&gtものがたり&lt/rt&gt&lt/ruby&gt#夏天的故事
+
+备注:
+分割线以上的内容（歌词头）为歌词信息。分割线以下的内容才是歌词正文。"#" 后为译文，原生支持日语假名注音。`
+							.replace(/&#96/g, "`")
+							.replace(/&#36/g, "$")
+							.replace(/[&<>"']/g, char => ({
+								'&': '&amp;',
+								'<': '&lt;',
+								'>': '&gt;',
+								'"': '&quot;',
+								"'": '&#39;'
+							})[char])
+								.split(/\r\n|\n|\r/)
+								.map(line => `<span>${line}</span>\n`)
+								.join("")
+
+						document.currentScript.remove()
+					</script>
+				</code>
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-05-23</h3>
+				<event type="A" >添加留言板回复功能</event>
+				<event type="O" >
+					字体分离
+					<br />
+					<note>将原字体分割为 icomoon.woff2 (34.3 KB) 和 Poppins Regular.woff2 (6.9 KB)。通过在博客页面只调用后者的方法，加快访问速度。</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2025-04-03</h3>
+				<event type="A" >添加 sitemap.xml 和 robots.txt</event>
+				<event type="A" >添加 root/src/404.html 和 root/blog/404.html，用于处理资源目录和博客的 404 问题</event>
+				<event type="A" >添加留言板自动将匹配 http(s)://*/ 格式的内容替换为可点击链接的功能！</event>
+				<event type="O" >重写播放器代码</event>
+				<event type="O" >
+					调整 env 框架结构
+					<br />
+					<note>在属性访问链 env.f、env.e 和 env.tmp 下使用模块分离，如: env.f.root 等。</note>
+				</event>
+				<br class="f-1" />
+				博客 404
+				<br />
+				<note>
+					之前的版本中，博客页面 404 通过以下逻辑实现: 页面打开时，启动 1 个计时器。60s 内，若 iframe 子页面未通过通信桥执行 env.f.root.blog.show() 函数，则判定为 404，展示 root/blog/error.html 。
+				</note>
+			</para>
+
+			<para>
+				<h3>2025-01-28</h3>
+				<event type="D" >
+					彻底移除 jQuery 库
+					<br />
+					<note>减少不必要的 CDN 加速，不再使用任何第三方库。</note>
+				</event>
+				<event type="D" >移除 root/blog.html</event>
+				<br class="f-1" />
+				root/blog.html
+				<br />
+				<note>
+					是的，尽管有更新 2025-07-09 中提到的机制，第 3 代界面自诞生 2024-04-05 至 2025-01-28 的版本都带有 root/blog.html，一个精简版的 index.html（主要砍掉了一些图片），用于加快博客页面的访问速度。后因怀疑不利于缓存而移除。
+				</note>
+			</para>
+
+			<para>
+				<h3>2024-11-21</h3>
+				<event type="O" >注册新的域名 <ins>sumiyo.link/</ins> ！</event>
+			</para>
+
+			<para>
+				<h3>2024-08-30</h3>
+				<event type="O" >开始使用 env 框架，万物皆对象！</event>
+				<br class="f-1" />
+				env 框架
+				<br />
+				<note>
+					用最 かんたん 的方法避免全局作用域污染，同时让网站核心结构更加清晰。
+					<br />
+				</note>
+				<mat></mat>
+				<mat></mat>
+				<code type="normal" >
+					<div>JAVASCRIPT</div>
+					<div></div>
+					<script>
+						document.currentScript.previousElementSibling.innerHTML = 
+`// 所有函数、变量全部挂载在核心对象 env 上
+env = {
+	"d": {},	// 变量
+	"f": {},	// 函数
+	"e": {},	// 高频访问的 html 元素
+	"tmp": {}	// 临时变量 和 计时器
+}`
+							.replace(/&#96/g, "`")
+							.replace(/&#36/g, "$")
+							.replace(/[&<>"']/g, char => ({
+								'&': '&amp;',
+								'<': '&lt;',
+								'>': '&gt;',
+								'"': '&quot;',
+								"'": '&#39;'
+							})[char])
+								.split(/\r\n|\n|\r/)
+								.map(line => `<span>${line}</span>\n`)
+								.join("")
+
+						document.currentScript.remove()
+					</script>
+				</code>
+			</para>
+
+			<para>
+				<h3>2024-08-29</h3>
+				<event type="O" >
+					添加留言时，改用请求体传递留言的昵称和内容
+					<br />
+					<note>
+						试了不下 50 次，才发现读取请求体的写法是 context.request.json() ... 原先要把数据 Base64 编码后（header 仅支持英文、数字和部分字符），挂到请求头上发送，再用 Cloudflare 的官方文档里的 context.request.headers.get() 方法读取参数。
+					</note>
+				</event>
+				<br class="f-1" />
+				Cloudflare Functions
+				<br />
+				<note>
+					可以把他简单理解为随 Pages 一起部署的 Worker（实际上代码写法有所不同），这个主要用来实现静态 Pages 页面和后端的互交，比如读写 D1 数据库、KV 等等。这里主要讲讲传参的问题。
+					<br />
+				</note>
+				<mat></mat>
+				<mat></mat>
+				<code type="normal" >
+					<div>JAVASCRIPT</div>
+					<div></div>
+					<script>
+						document.currentScript.previousElementSibling.innerHTML = 
+`// 假如有一个带有 header 和 body 的请求，用以下 Functions 获取请求中的参数
+// 文件: root/functions/debug.js
+
+export async function onRequest(context) {
+	// 严格模式下，禁止隐式创建全局变量，也就是说直接写 token = 1 会报错
+
+	// 获取 header 中的 'Token' 值
+	var token = context.request.headers.get('Token')
+	// 获取整个 body（结果直接是 json 对象）
+	var body = context.request.json()
+	// 获取 body 中以 ArrayBuffer 形式传递的单个文件
+	var file = context.request.arrayBuffer()
+}`
+							.replace(/&#96/g, "`")
+							.replace(/&#36/g, "$")
+							.replace(/[&<>"']/g, char => ({
+								'&': '&amp;',
+								'<': '&lt;',
+								'>': '&gt;',
+								'"': '&quot;',
+								"'": '&#39;'
+							})[char])
+								.split(/\r\n|\n|\r/)
+								.map(line => `<span>${line}</span>\n`)
+								.join("")
+
+						document.currentScript.remove()
+					</script>
+				</code>
+			</para>
+
+			<para>
+				<h3>2024-06-08</h3>
+				<event type="A" >
+					添加 网站广场 - 留言板 功能
+					<br />
+					<note>
+						mio 觉得这方面的技术细节不可以透露，不然会被黑客拍扁 ...
+					</note>
+				</event>
+				<event type="O" >
+					开始使用模块化博客元素
+					<br />
+					<note>
+						使用 root/css/default.css 中的模块化样式，简化博客页面制作。
+					</note>
+				</event>
+				<event type="O" >重写音乐播放器样式</event>
+			</para>
+
+			<para>
+				<h3>2024-04-05</h3>
+				<event type="A" >添加站内检索、侧边栏等功能</event>
+				<event type="D" >移除 SweetAlert 插件</event>
+				<event type="O" >
+					第 3 代界面！
+					<br />
+					<note>
+						这一版本很大程度上参考了 https://kotobank.jp/（总觉得日本的网站有种简单粗暴的美感？？）
+					</note>
+				</event>
+				<br class="f-1" />
+				当前版本的截图:
+				<br />
+				<mat></mat>
+				<mat></mat>
+				<a class="ibox0" target="_blank" href="../../src/img/page.history.2.webp" >
+					<img src="../../src/img/page.history.2.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+			</para>
+
+			<para>
+				<h3>2024-02-25</h3>
+				<event type="A" >添加访问量统计功能！</event>
+				<br class="f-1" />
+				动态更新
+				<br />
+				<note>
+					第一次成功使用 Cloudflare Functions 控制 D1 数据库！最终咱把开发范围控制在: 访问量统计、留言系统、文件上传和下载功能（这个会藏得比较深）。
+					<br />
+					<br class="f-1" />
+					<ins>https://developers.cloudflare.com/pages/functions/bindings/#d1-databases</ins>
+				</note>
+			</para>
+
+			<para>
+				<h3>2024-01-19</h3>
+				<event type="D" >
+					停止使用图床加速
+					<br />
+					<note>以 .webp 格式压缩图片，无需图床也能快速加载。这次更新直接推动了后来 “少图片，多文本” 的创作理念的形成。</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2023-11-16</h3>
+				<event type="A" >添加 iframe 页面通信桥</event>
+				<br class="f-1" />
+				通信桥
+				<br />
+				<note>
+					在 iframe 的嵌套系统中，使用 postMessage 方法和 message 事件监听器即可完成父子页面间的通信，配合 eval() 函数甚至可以实现页面操控，即 “通信桥”。这一技术将会成为后面博客系统的关键。
+				</note>
+			</para>
+
+			<para>
+				<h3>2023-10-28</h3>
+				<event type="A" >添加 url 参数读写功能！</event>
+				<br class="f-1" />
+				url 参数
+				<br />
+				<note>
+					还不知道有 new URL() 这种东西，就直接拿了大佬的代码。
+					<br />
+					<br class="f-1" />
+					<ins>https://blog.csdn.net/weixin_42403306/article/details/105861346</ins>
+				</note>
+			</para>
+
+			<para>
+				<h3>2023-07-13</h3>
+				<event type="O" >换用 GT 图床提供图片托管服务</event>
+			</para>
+
+			<para>
+				<h3>2023-06-07</h3>
+				<event type="A" >
+					添加博客系统
+					<br />
+					<note>这东西就是现在仍在使用的基于 iframe 的框架雏形。</note>
+				</event>
+			</para>
+
+			<para>
+				<h3>2023-05-21</h3>
+				<event type="A" >
+					添加 SweetAlert 插件
+					<br />
+					<note>
+						一款前端弹窗插件，这是他的官网: <ins>https://sweetalert.js.org/</ins>
+					</note>
+				</event>
+				<event type="D" >
+					移除图片库
+					<br />
+					<note>
+						是的，这里有过一个图片库，但很快就被证明那是个糟糕的决定。
+					</note>
+				</event>
+				<event type="D" >
+					移除重写后的右键菜单
+					<br />
+					<note>
+						还是系统自带的那个更好看 ...
+					</note>
+				</event>
+				<event type="O" >
+					第 2 代界面！
+				</event>
+			</para>
+
+			<para>
+				<h3>2023-04-28</h3>
+				<event type="A" >
+					开始使用 路过图床 托管本站图片资源
+				</event>
+				<br class="f-1" />
+				图床
+				<br />
+				<note>
+					简而言之，图床就是用来托管图片的，比如 github、网易云音乐（手动滑稽）。优点是可以加快图片访问速度；缺点有不安全、随时可能会罢工、地区限制等等（这就是后面为啥停止使用图床加速的原因）。
+				</note>
+			</para>
+
+			<para>
+				<h3>2023-02-01</h3>
+				<event type="A" >
+					In the beginning, there was nothing.
+					<br />
+					Then God said, "Let there be light," and there was light.
+				</event>
+				<br class="f-1" />
+				The first screenshot:
+				<br />
+				<mat></mat>
+				<mat></mat>
+				<a class="ibox0"  target="_blank" href="../../src/img/page.history.1.webp" style="border: rgba(var(--t-t1), 0.1) 1px solid;" >
+					<img src="../../src/img/page.history.1.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

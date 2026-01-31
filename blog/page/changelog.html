@@ -391,7 +391,8 @@ var music = JSON.stringify({0: true, 1: false, 2: [
 	}
 ]})
 
-window.parent.postMessage(&#96env.f.player.add.ask(&#36{music})&#96, document.domain ? '/' : '*')`
+window.parent.postMessage(&#96env.f.player.add.ask(&#36{music})&#96, document.domain ? '/' : '*')
+`
 							.replace(/&#96/g, "`")
 							.replace(/&#36/g, "$")
 							.replace(/[&<>"']/g, char => ({
@@ -524,7 +525,8 @@ window.parent.postMessage(&#96env.f.player.add.ask(&#36{music})&#96, document.do
 [00:01.000] なつの&ltruby&gt物語&ltrt&gtものがたり&lt/rt&gt&lt/ruby&gt#夏天的故事
 
 备注:
-分割线以上的内容（歌词头）为歌词信息。分割线以下的内容才是歌词正文。"#" 后为译文，原生支持日语假名注音。`
+分割线以上的内容（歌词头）为歌词信息。分割线以下的内容才是歌词正文。"#" 后为译文，原生支持日语假名注音。
+`
 							.replace(/&#96/g, "`")
 							.replace(/&#36/g, "$")
 							.replace(/[&<>"']/g, char => ({
@@ -617,7 +619,8 @@ env = {
 	"f": {},	// 函数
 	"e": {},	// 高频访问的 html 元素
 	"tmp": {}	// 临时变量 和 计时器
-}`
+}
+`
 							.replace(/&#96/g, "`")
 							.replace(/&#36/g, "$")
 							.replace(/[&<>"']/g, char => ({
@@ -671,7 +674,8 @@ export async function onRequest(context) {
 	var body = context.request.json()
 	// 获取 body 中以 ArrayBuffer 形式传递的单个文件
 	var file = context.request.arrayBuffer()
-}`
+}
+`
 							.replace(/&#96/g, "`")
 							.replace(/&#36/g, "$")
 							.replace(/[&<>"']/g, char => ({

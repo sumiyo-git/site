@@ -165,8 +165,7 @@ def command(string):
 
 	# 帮助
 	if (cmd1[0] == "?") or (cmd1[0].lower() == "help"):
-		print(Fore.WHITE + Style.DIM + '''hello from sumiyo. this program is the backend console of the website sumiyo.link/
-─────────────────────────────────────────────────────────────
+		print(Fore.WHITE + Style.DIM + '''─────────────────────────────────────────────────────────────
 控制台命令
 ─────────────────────────────────────────────────────────────
 显示帮助信息\t\t\t? / help
@@ -196,9 +195,9 @@ def command(string):
 \t\t\t\tgpg
 签名 .\\src\\build\\ 中的文件\t\t-sig
 获取公钥列表\t\t\t\t-list
+验证签名\t\t\t\t-verify
 \t\t\t\tcf
-清除已更改文件的边缘缓存\t\t-cache -clean
-清除全部边缘缓存\t\t\t-cache -clean -all
+清除已更改文件的边缘缓存\t\t-cache -clean [-all]
 启用开发模式 (绕过缓存)\t\t\t-cache 0 / 1
 暂停运行\t\t\t\t-offline 0 / 1
 ─────────────────────────────────────────────────────────────
@@ -558,6 +557,15 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 			print(Style.DIM + Fore.WHITE + git("gpg --list-keys").stdout)
 			return "break"
 
+		# 验证签名
+		if (cmd1[2] == "null") and (cmd1[1].lower() == "-verify"):
+			p = os.path.dirname(os.path.abspath(__file__)) + "\\src\\build\\sig\\" + input(Style.DIM + Fore.WHITE + "original_file_name: ")
+			if os.path.exists(p):
+				print(Style.DIM + Fore.WHITE + "\n" + git('gpg --verify "{}.asc" "{}"'.format(p, p)).stderr)
+			else:
+				print(Style.NORMAL + Fore.RED + "文件 {} 无法找到".format(p))
+			return "break"
+
 	# Cloudflare 互交
 	if (cmd1[0].lower() == "cf"):
 		# 缓存
@@ -632,7 +640,7 @@ init(autoreset=True)
 # 读取配置文件
 config()
 
-print(Fore.WHITE + Style.NORMAL + "uploader.py 1.0.244")
+print(Fore.WHITE + Style.NORMAL + "uploader.py 1.0.246")
 print(Fore.WHITE + Style.DIM + '键入 "?" 或 "help" 以查看帮助信息')
 
 

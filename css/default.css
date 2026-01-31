@@ -152,28 +152,28 @@ quote {
 	border-radius: 10px;
 }
 
-	quote[type="warn"]::before {
-		content: " WARNING";
+	quote[type="caution"]::before {
+		content: " CAUTION";
 		position: absolute;
 		margin-top: -27px;
 		font-weight: bolder;
 		color: rgba(255, 200, 0, 0.6);
 	}
 
-	quote[type="warn"] {
+	quote[type="caution"] {
 		background-color: rgba(var(--t-y), 0.2);
 		padding: 35px 15px 10px 15px;
 	}
 
-	quote[type="caution"]::before {
-		content: " CAUTION";
+	quote[type="warn"]::before {
+		content: " WARNING";
 		position: absolute;
 		margin-top: -27px;
 		font-weight: bolder;
 		color: rgba(var(--t-r), 0.6);
 	}
 
-	quote[type="caution"] {
+	quote[type="warn"] {
 		background-color: rgba(var(--t-r), 0.1);
 		padding: 35px 15px 10px 15px;
 	}

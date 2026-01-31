@@ -512,7 +512,7 @@ footer a {
 	font-size: 16px;
 	line-height: 24px;
 	color: rgba(var(--t-b2), 0.6);
-	background-color: rgba(var(--t-b1), 0.1);
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 95%, rgb(var(--t-b2)) 5%);
 	backdrop-filter: blur(10px);
 	box-sizing: border-box;
 	border: 1px solid rgba(var(--t-b2), 0.1);
@@ -655,6 +655,10 @@ footer a {
 
 [theme="0"] footer {
 	background-image: linear-gradient(90deg, rgba(var(--t-b3), 0.1) 0%, rgba(var(--t-b3), 0) 70%);
+}
+
+[theme="0"] .prompt prompt {
+	background-color: color-mix(in srgb, rgb(var(--t-b1)) 82%, rgb(var(--t-b2)) 18%);
 }
 
 

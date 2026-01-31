@@ -36,7 +36,6 @@ def config():
 		env["aid"] = c.get("TOKEN", "account_id")
 		env["zid"] = c.get("TOKEN", "zone_id")
 		env["bid"] = c.get("TOKEN", "database_id")
-		env["rid"] = c.get("TOKEN", "ruleset_id")
 		env["des"] = c.get("GIT", "description")
 		env["cmt"] = int(c.get("GIT", "commit"))
 		env["offset"] = int(c.get("LOG", "offset"))
@@ -50,7 +49,6 @@ def config():
 		c.set("TOKEN", "account_id", "null")
 		c.set("TOKEN", "zone_id", "null")
 		c.set("TOKEN", "database_id", "null")
-		c.set("TOKEN", "ruleset_id", "null")
 		
 		c.add_section("GIT")
 		c.set("GIT", "commit", "0")
@@ -195,12 +193,11 @@ def command(string):
 执行原生 Git 命令 (CMD)\t\t\t-run "string" (Git command)
 \t\t\t\tgpg
 签名 .\\src\\build\\ 中的文件\t\t-sig
-获取公钥列表\t\t\t\t-list
+获取公钥 ID\t\t\t\t-id
 \t\t\t\tcf
 清除已更改文件的边缘缓存\t\t-cache -clean
 清除全部边缘缓存\t\t\t-cache -clean -all
 启用开发模式 (绕过缓存)\t\t\t-cache 0 / 1
-暂停运行\t\t\t\t-offline 0 / 1
 ─────────────────────────────────────────────────────────────
 SQL 查询命令 (尽量小写，只能用双引号包裹)
 ─────────────────────────────────────────────────────────────
@@ -326,7 +323,7 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 		# 打开日志文件夹
 		if (cmd1[1].lower() == "-open"):
 			print(Style.DIM + Fore.WHITE + '打开日志目录: "' + env["path"] + "logs\\" + '"')
-			os.startfile(env["path"] + "logs")
+			os.startfile(env["path"] + "logs\\")
 			return "break"
 
 		# 获取本地日志列表
@@ -532,31 +529,22 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 			print(Style.DIM + Fore.WHITE + str(response.json()))
 			return "break"
 
+
 	# GPG
 	if (cmd1[0].lower() == "gpg"):
 		# 签名文件
 		if (cmd1[2] == "null") and (cmd1[1].lower() == "-sig"):
-			p = os.path.dirname(os.path.abspath(__file__)) + "\\src\\build\\sig"
-			git("del " + p + "\\*.asc")
-			f = os.listdir(p)
-			print(Style.NORMAL + Fore.WHITE + "检测到有 {} 个可以签名的文件".format(len(f)))
 
-			if (len(f) != 0):
-				for item in f:
-					print(Style.NORMAL + Style.DIM + Fore.WHITE + "sig: " + item)
-					git('gpg --armor --detach-sign "' + p + "\\" + item + '"')
+			e = os.listdir("\\src\\build\\sig")
+			files = [f for f in e if not os.path.isdir(os.path.join(p, f))]
 
-				print(Style.NORMAL + Fore.GREEN + "签名成功")
-				os.startfile(p)
-			else:
-				print(Style.NORMAL + Fore.RED + "没有需要签名的文件")
 
+			print(files)
 			return "break"
 
-		# 查看公钥列表
-		if (cmd1[2] == "null") and (cmd1[1].lower() == "-list"):
-			print(Style.DIM + Fore.WHITE + git("gpg --list-keys").stdout)
-			return "break"
+
+
+
 
 	# Cloudflare 互交
 	if (cmd1[0].lower() == "cf"):
@@ -595,32 +583,7 @@ SQL 查询命令 (尽量小写，只能用双引号包裹)
 				print(Style.DIM + Fore.WHITE + str(response.json()))
 				return "break"
 
-		# 暂停网站运行
-		if (cmd1[3] == "null") and (cmd1[1].lower() == "-offline") and (cmd1[2] == "0" or cmd1[2] == "1"):
-			headers = {"Content-Type": "application/json", "Authorization": "Bearer {}".format(env["token"])}
-			response = requests.get("https://api.cloudflare.com/client/v4/zones/{}/rulesets/{}".format(env["zid"], env["rid"]), headers=headers)
-			result = [item for item in response.json()["result"]["rules"] if item.get("description") == "OFFLINE"][0]
-			print(Style.NORMAL + Fore.WHITE + "raw:")
-			print(Style.DIM + Fore.WHITE + str(result))
 
-			result["enabled"] = True if cmd1[2] == "1" else False
-			response = requests.patch("https://api.cloudflare.com/client/v4/zones/{}/rulesets/{}/rules/{}".format(env["zid"], env["rid"], result["id"]), data=json.dumps(result), headers=headers)
-			print(Style.NORMAL + Fore.WHITE + "raw:")
-			print(Style.DIM + Fore.WHITE + str(response.json()))
-
-			if (response.json()["success"] == True):
-				print(Style.NORMAL + Fore.GREEN + "操作成功，规则 {} 的变动已生效".format(result["id"]))
-				if (result["enabled"] == True):
-					print(Style.NORMAL + Fore.WHITE + "网站已脱机")
-				else:
-					print(Style.NORMAL + Fore.WHITE + "网站已上线")
-
-			return "break"
-
-
-
-	if (cmd1[0] == "null"):
-			return "break"
 
 	print(Style.NORMAL + Fore.RED + "无法识别的命令语句")
 	return "break"
@@ -638,6 +601,6 @@ print(Fore.WHITE + Style.DIM + '键入 "?" 或 "help" 以查看帮助信息')
 
 
 while env != 0:
-	command(input(Fore.CYAN + Style.BRIGHT + "# " + Fore.WHITE))
+	command(input(Fore.CYAN + Style.BRIGHT + "$ " + Fore.WHITE))
 
 

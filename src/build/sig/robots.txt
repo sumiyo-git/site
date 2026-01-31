@@ -1,8 +1,0 @@
-User-agent: *
-Crawl-delay: 5
-Disallow: /blog/
-Disallow: /src/
-Allow: /*.png$
-Allow: /*.webp$
-
-Sitemap: https://sumiyo.link/sitemap.xml

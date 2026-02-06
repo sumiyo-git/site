@@ -21,7 +21,7 @@ env["path"] = os.path.dirname(os.getcwd()) + "\\config\\"
 
 
 
-# 读取配置文件
+# 读取配置
 def config():
 	global env
 	f = env["path"] + "config.ini"

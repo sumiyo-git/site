@@ -128,7 +128,7 @@ env.f.root.conv = {}
 
 env.f.root.getUptime = function() {
 	// 计算网站上线时间
-	return Math.floor((new Date() -  new Date("2023-02-01")) / (1000 * 60 * 60 * 24))
+	return Math.floor((new Date() -  new Date("2023-02-02")) / (1000 * 60 * 60 * 24))
 }
 
 env.f.root.getText = function() {

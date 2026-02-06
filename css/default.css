@@ -221,7 +221,7 @@ code {
 		padding: 0px 10px;
 		font-size: 12px;
 		border-radius: 5px;
-		background-color: rgbA(var(--t-b4), 0.05);
+		background-color: color-mix(in srgb, rgb(var(--t-b3)) 85%, rgb(var(--t-b4)) 15%);
 		color: rgba(var(--t-c2), 0.8);
 		user-select: none;
 		transition: 0.1s;

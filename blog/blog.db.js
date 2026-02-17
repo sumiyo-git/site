@@ -10,6 +10,12 @@ env.d.list.blog = [
 
 
 	{
+		name: 'Chromium',
+		src: '20260217',
+		des: '分享 mio 在研究 Chromium 时踩过的坑',
+		type: ['', null],
+	},
+	{
 		name: '相册 01',
 		src: '20251116',
 		des: '随手拍的一些照片',

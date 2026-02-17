@@ -135,6 +135,7 @@ att {
 secret {
 	background-color: rgba(var(--t-b3), 0.8);
 	color: rgba(var(--t-b3), 0);
+	transition: 0.2s;
 }
 
 	secret:hover {

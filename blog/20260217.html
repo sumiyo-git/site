@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>Chromium</h1>
+				<note>分享 mio 在研究 Chromium 时踩过的坑 ...</note>
+			</para>
+
+			<para>
+				<quote type="caution" >
+					本文讨论的是纯正的 Chromium-browser，而不是 “基于 Chromium 开发的浏览器” 哦。
+				</quote>
+			</para>
+
+			<para>
+				Chrome 自动更新、鼠标左键默认在当前标签页打开书签、不支持鼠标手势和双击关闭标签页等功能，确实有点让人失望。既然保证不了方便快捷，那至少得保证安全隐私吧？
+				<br />
+				<br class="f-1" />
+				所以 mio 把目光转向了 Chromium 浏览器。与 Chrome 不同，Chromium 是开源的，没有集成谷歌服务，自然更注重隐私。结果一番测试下来，发现这玩意儿根本不适合在日常生活中使用。呜呜，mio 还是去找找其他浏览器吧 ...
+				<br />
+				<br class="f-1" />
+				实机测试结果，放这里供大家参考哦。
+				<br />
+				<br class="f-1" />
+
+				<mat></mat>
+				<mat></mat>
+				<div style="overflow: scroll; scrollbar-width: none;">
+					<table>
+						<thead>
+							<tr>
+								<th></th>
+								<th>Chrome</th>
+								<th>Chromium</th>
+								<th>Ungoogled-Chromium</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>自动更新</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>播放视频</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>扩展程序</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<br class="f-1" />
+				<br class="f-1" />
+			</para>
+
+			<para>
+				<h2>附录</h2>
+				<list type="3-reset" >
+					<list type="3" >Chromium 官方自动构建版本
+						<br />
+						<note><ins>https://commondatastorage.googleapis.com/chromium-browser-snapshots/index.html</ins></note>
+						<br />
+						<mat></mat>
+						<mat></mat>
+
+						Ungoogled-Chromium (仅源码)
+						<br />
+						<note><ins>https://github.com/ungoogled-software/ungoogled-chromium</ins></note>
+						<br />
+						<mat></mat>
+						<mat></mat>
+
+						Ungoogled-Chromium (已编译)
+						<br />
+						<note><ins>https://github.com/ungoogled-software/ungoogled-chromium-windows</ins></note>
+						<br />
+						<note><ins>https://github.com/ungoogled-software/ungoogled-chromium-macos</ins></note>
+						<br />
+						<note><ins>https://github.com/ungoogled-software/ungoogled-chromium-android</ins></note>
+						<br />
+						<mat></mat>
+						<mat></mat>
+					</list>
+
+
+					<br class="f-1" />
+					<br class="f-1" />
+					<list type="3" >mio 不建议使用 ungoogled-chromium 或其他由第三方编译的 chromium 浏览器，谁知道他们在编译之前加了些什么进去呢。</list>
+
+
+					<br class="f-1" />
+					<br class="f-1" />
+					<list type="3" >通过 <ins>chrome://gpu/</ins> 可以看到，Chromium 缺少 h264 等专利编解码器，因此无法播放大多数视频。 <secret>这已经远超 mio 的能力范围了呐</secret></list>
+
+
+					<br class="f-1" />
+					<br class="f-1" />
+					<list type="3" >每次启动弹出的 “缺少 Google API 密钥，因此 Chromium 的部分功能无法使用。” 提示，可以通过添加以下加以下的环境变量来隐藏掉哦。
+						<br />
+						<mat></mat>
+						<mat></mat>
+						<note>
+							<div style="overflow: scroll; scrollbar-width: none;">
+								<table>
+									<thead>
+										<tr>
+											<th>变量名</th>
+											<th>变量值</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
+											<td>GOOGLE_API_KEY</td>
+											<td>no</td>
+										</tr>
+										<tr>
+											<td>GOOGLE_DEFAULT_CLIENT_ID</td>
+											<td>no</td>
+										</tr>
+										<tr>
+											<td>GOOGLE_DEFAULT_CLIENT_SECRET</td>
+											<td>no</td>
+										</tr>
+									</tbody>
+								</table>
+							</div>
+						</note>
+					</list>
+
+
+					<br class="f-1" />
+					<br class="f-1" />
+					<list type="3" >某个基于 SNI 伪造的神奇小工具在 Chrome 141.0.7356.0 及以上版本无法使用。</list>
+
+				</list>
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

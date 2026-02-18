@@ -12,7 +12,7 @@ env.d.list.blog = [
 	{
 		name: 'Chromium',
 		src: '20260217',
-		des: '分享 mio 在研究 Chromium 时踩过的坑',
+		des: '记录 mio 在研究 Chromium 时遇到的坑',
 		type: ['', null],
 	},
 	{

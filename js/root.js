@@ -449,12 +449,14 @@ window.addEventListener("load",function(){
 
 
 env.tmp.root.d2 = 1
+
+document.querySelector(".menu .menu-footer tag").innerHTML = new Date().getFullYear()
 setTimeout(console.log.bind(
 	console, 
 	`\n%c %c  ${env.d.sys} %c		${env.d.version.root}\n`,
 	"background-color: rgba(40, 158, 214, 0.9); color: white; font-weight: bolder; line-height: 20px;",
 	"background-color: rgba(40, 158, 214, 0.5); color: white; line-height: 20px;",
 	"color: rgba(192, 194, 194, 1);",
-));
+))
 
 

@@ -259,7 +259,7 @@ env.f.root.init = function() {
 		var div = document.createElement("div")
 			div.setAttribute("data-icon", d[i].type[0])
 			div.style = "display: block"
-			div.innerHTML = `<a onclick="env.f.root.blog.open('${d[i].src}')" title="${d[i].des}" >${d[i].name}</a>`
+			div.innerHTML = `<a onclick="env.f.root.blog.open('${d[i].src}')" title="${d[i].src.replace(/^(\d{4})(\d{2})(\d{2})$/, '$1.$2.$3')}\n${d[i].des}" >${d[i].name}</a>`
 			document.querySelector(".search list").appendChild(div)
 
 		if (d[i].type[1] == "pin") {div.className = "pin"}

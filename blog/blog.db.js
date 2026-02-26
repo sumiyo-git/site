@@ -3,7 +3,7 @@ env.d.list.blog = [
 	{
 		name: '画室',
 		src: '20231002',
-		des: '以前的作品',
+		des: '这里是 mio 的作品集哦',
 		type: ['', 'pin'],
 	},
 

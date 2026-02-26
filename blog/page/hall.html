@@ -188,6 +188,15 @@
 				color: rgba(var(--t-b4), 0.6);
 			}
 
+			.ibox0 {
+				aspect-ratio: 10 / 13;
+				width: 40%;
+				border: none !important;
+			}
+			[theme="0"] .ibox0 img {
+				filter: invert(1);
+			}
+
 			@media (orientation: portrait) {
 				comment .comment-header span,
 				.post .link,
@@ -216,6 +225,9 @@
 				comment .content {
 					width: calc(100% - 60px);
 				}
+				.ibox0 {
+					margin: 0 !important;
+				}
 			}
 		</style>
 	</head>
@@ -228,25 +240,40 @@
 				<note>显而易见，这里已经很久没有人来过了 ...</note>
 			</para>
 
-			<para>
-				狭窄甬道的尽头，是一个圆形的大厅
-				<br />
-				阳光从穹顶洒下
-				<br />
-				藤蔓缠绕着洁白的石柱
-				<br />
-				数不清的水晶悬在半空，微风扫过，清脆作响
-				<br />
-				<br class="f-1" />
-				<i>
-					“Maoku —— 回忆所在之地”
+			<para style="user-select: none; white-space: nowrap;" >
+				<div style="display: inline-block; vertical-align: top; user-select: text;" >
+					跟随着她的步伐，穿过狭窄的甬道
 					<br />
-					“过去的探险家会在这样的水晶上雕刻，用文字留下记忆的碎片 ... ”
-				</i>
+					一个圆形的大厅映入眼帘
+					<br />
+					阳光从坍塌的穹顶洒下
+					<br />
+					藤蔓缠绕着洁白的石柱
+					<br />
+					数不清的水晶飘在空中，微风扫过，清脆作响
+					<br />
+					<br class="f-1" />
+					<i>
+						“Maoku”
+						<br />
+						“即「回忆所在之地」”
+						<br />
+						“过去的探险家们会在这样的水晶上雕刻”
+						<br />
+						“让记忆长眠于此”
+						<br />
+						<mat></mat>
+						... ...
+					</i>
+				</div>
+				<a class="ibox0" target="_blank" style="margin: -20px 0 0 80px;" >
+					<img src="../../src/img/page.hall.pillars.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
 			</para>
 
 			<para>
-				<h3>留言</h3>
+				<h3>Crystal prism</h3>
+				<mat></mat>
 				<mat></mat>
 				<hr />
 				<mat></mat>
@@ -255,11 +282,11 @@
 				<para class="post" >
 					<div class="user" data-icon="" ></div>
 					<div class="ui" >
-						<textarea autocomplete="off" maxlength="200" class="tbox" oninput="this.maxLength = (/^REPLY: \d{14}$/.test(this.value.split('\n')[0])) ? 122 : 200" ></textarea>
+						<textarea autocomplete="off" placeholder="内容" maxlength="200" class="tbox" oninput="this.maxLength = (/^REPLY: \d{14}$/.test(this.value.split('\n')[0])) ? 122 : 200" ></textarea>
 						<mat></mat>
 						<mat></mat>
 						<mat></mat>
-						<textarea autocomplete="off" placeholder="名字" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
+						<textarea autocomplete="off" placeholder="昵称" maxlength="16" oninput="this.value = this.value.replace(/\n/g, ''); env.f.user(env.e.user, this.value)" ></textarea>
 						<a onclick="env.f.submit()" style="float: right;" >确定</a>
 						<mat></mat>
 						<mat></mat>

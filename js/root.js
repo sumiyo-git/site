@@ -400,7 +400,6 @@ env.f.root.theme = function() {
 
 // 初始化
 if (env.d.isNetwork) {
-	if (document.domain != env.d.domain) {window.location.href = `https://${env.d.domain}`}
 	(env.f.root.cookie.get()?.startsWith("{") ?? false) ? null : env.f.root.cookie("{}")
 }
 

@@ -434,13 +434,13 @@ table {
 
 @media (orientation: landscape) {
 	.f-3 {
-		display: none;
+		display: none !important;
 	}
 }
 
 @media (orientation: portrait) {
 	.f-2 {
-		display: none;
+		display: none !important;
 	}
 	body structure:nth-child(1) {
 		height: 20vh;

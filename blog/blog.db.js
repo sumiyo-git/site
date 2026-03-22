@@ -3,12 +3,18 @@ env.d.list.blog = [
 	{
 		name: '画室',
 		src: '20231002',
-		des: '以前的作品',
+		des: '这里是 mio 的作品集哦',
 		type: ['', 'pin'],
 	},
 
 
 
+	{
+		name: 'Win11 修改用户名',
+		src: '20260316',
+		des: '尝试彻底修改 Win11 用户名',
+		type: ['', null],
+	},
 	{
 		name: 'Chromium',
 		src: '20260217',

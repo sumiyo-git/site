@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<style>
+			a[class^="ibox"] {
+				border-radius: 6px;
+				vertical-align: top;
+				width: 40%;
+			}
+			.ibox0 {
+				aspect-ratio: 727 / 816;
+			}
+			.ibox1 {
+				aspect-ratio: 722 / 804;
+				margin-left: 8px;
+			}
+
+			@media (orientation: portrait) {
+				.ibox1 {
+					margin-left: 2px;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>Windows11 修改用户名</h1>
+				<note>尝试彻底修改 Win11 用户名 ...</note>
+			</para>
+
+			<para>
+				<quote type="warn" >
+					以下包含极度危险的操作，事先一定要做好备份工作哦。
+				</quote>
+				<mat></mat>
+				<mat></mat>
+				<mat></mat>
+				<quote type="caution" >
+					注册表、PE、BIOS 其实没有大家想象的那么吓人，平常心对待就可以了。
+				</quote>
+			</para>
+
+			<para>
+				本来 mio 就一直不喜欢她电脑的用户名，今天终于忍无可忍了 <secret>其实是因为她想到了一个更好的名字</secret>，决定要彻底改一改 Win11 系统的用户名。这包括锁屏页面、用户文件夹、环境变量等等，同时还要保证原来的大多数软件能够正常运行。于是就有了你正在阅读的这篇笔记。
+			</para>
+
+			<para>
+				<h2>工具清单</h2>
+				<mat></mat>
+				<list type="3-reset" >
+					<list type="3" >
+						PE 系统
+						<br />
+						<note>建议安装在 U 盘上，这样用起来方便很多。</note>
+					</list>
+					<mat></mat>
+					<mat></mat>
+					<list type="3" >
+						注册表编辑工具
+						<br />
+						<note>推荐 RegWorkshop，可以批量替换指定的注册表项。</note>
+					</list>
+					<mat></mat>
+					<mat></mat>
+					<list type="3" >
+						虚拟机 (可选)
+						<br />
+						<note>在编辑那些不太确定的注册表项时，事先测试一下会是个明智的决定 ...</note>
+					</list>
+				</list>
+			</para>
+
+			<para>
+				<h2>实际操作</h2>
+				<mat></mat>
+				<h3>1.修改用户文件夹</h3>
+				<br class="f-1" />
+				通过注册表编辑器定位到以下位置:
+				<mat></mat>
+				<code type="simple" >
+					<div>TEXT</div>
+					<div>HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\ProfileList\<字符串>\</div>
+				</code>
+				<br class="f-1" />
+				在 <att>ProfileImagePath</att> 项中，会有以下内容，将旧用户名替换为新用户名。
+				<mat></mat>
+				<code type="simple" >
+					<div>TEXT</div>
+					<div>C:\Users\&lt;旧用户名&gt;</div>
+				</code>
+				<br class="f-1" />
+				最后，在资源管理器中，将 <att>C:\Users\&lt;旧用户名&gt;</att> 重命名为 <att>C:\Users\&lt;新用户名&gt;</att>，重启电脑，即可看到初步的效果。(推荐在 PE 系统中进行重命名操作)
+			</para>
+
+			<para>
+				<h3>2.修复软件</h3>
+				<br class="f-1" />
+				我们现在已经修改了用户文件夹，但很多软件可能还没反应过来 <secret>这通常会导致他们无法正常运行</secret>。我们需要在注册表、环境变量中查找并修改残留的旧用户名。(推荐使用 RegWorkshop 进行批量替换。操作比较简单，mio 就不过多赘述了)
+			</para>
+
+			<para>
+				<h3>3.netplwiz</h3>
+				<br class="f-1" />
+				聪明的小伙伴可能已经发现了：即使在完成了以上操作后，我们通过 <att>whoami</att> 查询到的仍是旧用户名。这时，我们便需要用到 netplwiz 工具了。
+				<br />
+				<br class="f-1" />
+				WIN + R 打开运行，键入 netplwiz 打开该工具，选中自己当前的账户，点击 "属性"，即可进行修改了哦。
+				<br />
+				<mat></mat>
+				<mat></mat>
+				<div style="user-select: none;" >
+					<a class="ibox0" target="_blank" href="../src/img/20260316.1.webp" >
+						<img src="../src/img/20260316.1.webp" onload="this.setAttribute('class', 'fade')" />
+					</a>
+					<a class="ibox1" target="_blank" href="../src/img/20260316.2.webp" >
+						<img src="../src/img/20260316.2.webp" onload="this.setAttribute('class', 'fade')" />
+					</a>
+				</div>
+			</para>
+
+			<para>
+				<h2>后记</h2>
+				<mat></mat>
+				mio 用了好久，目前旧的用户文件夹也没有再冒出来，所有的软件均正常运行。
+				<br class="f-2" />
+				现在来看应该算是成功了吧 :)
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html theme lang="zh-CN">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" type="text/css" href="../css/default.css">
+		<style>
+			.ibox0 {
+				aspect-ratio: 1 / 1;
+				width: 30%;
+			}
+			[theme="0"] .ibox0 img {
+				filter: invert(1);
+			}
+
+			@media (orientation: portrait) {
+				.ibox0 {
+					width: 80%;
+				}
+			}
+		</style>
+	</head>
+	<body>
+		<structure></structure>
+		<structure>
+
+			<para>
+				<h1>白神「シラカミ」</h1>
+				<note>こんにちは！あたしは白神ですよ。</note>
+			</para>
+
+			<para>
+				最近米欧正忙着开发白神 —— 基于 Ollama 的本地 “朋友” 型智能体。
+				<br />
+				<mat></mat>
+				<mat></mat>
+				<a class="ibox0" target="_blank" href="../src/img/20260415.prototype_icon.webp" title="内测版图标（米欧真的已经尽力了...）" >
+					<img src="../src/img/20260415.prototype_icon.webp" onload="this.setAttribute('class', 'fade')" />
+				</a>
+				<br class="f-1" />
+				<br class="f-1" />
+				<br class="f-1" />
+				最新的版本是 1.0.0.20260409_alpha。目前正在开发心跳机制，更多技术细节暂时不方便透露哦。
+				<br />
+				<br class="f-1" />
+				米欧是刚刚接触这个领域的新米而已，不能保证一定能完成这个企画。不过，米欧会加油的！平时还是挺忙的，只能抽时间来开发。总...总之就是要花很长很长时间，然后米欧可能又要神隠一段时间呐......
+			</para>
+
+		</structure>
+		<script>
+			window.parent.postMessage(`env.f.root.post(200, env.d.isDark)`, location.origin.replace("file://", "*"))
+			window.parent.postMessage(`env.f.root.blog.show("${document.querySelector('h1').innerText}")`, location.origin.replace("file://", "*"))
+
+			window.addEventListener('message', function(event) {
+				if (!["null", location.origin].includes(event.origin)) return
+				switch(event.data.state) {
+					case 200:
+						document.documentElement.setAttribute("theme", event.data.data ? 0 : 1)
+						break
+					default:
+						eval(event.data.data)
+			    }
+			})
+
+		</script>
+	</body>
+</html>

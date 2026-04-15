@@ -10,13 +10,19 @@ env.d.list.blog = [
 
 
 	{
+		name: '企画: 白神「シラカミ」',
+		src: '20260415',
+		des: 'こんにちは！あたしは白神ですよ。',
+		type: ['', null],
+	},
+	{
 		name: 'Win11 修改用户名',
 		src: '20260316',
 		des: '尝试彻底修改 Win11 用户名',
 		type: ['', null],
 	},
 	{
-		name: 'Chromium',
+		name: 'Chromium 初探',
 		src: '20260217',
 		des: '记录 mio 在研究 Chromium 时遇到的坑',
 		type: ['', null],
